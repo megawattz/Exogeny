@@ -1,0 +1,72 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use POSIX qw(strftime);
+
+$| = 1;
+
+sub progdir {
+  my @elements = split(qr(/), $_[0] || "$0");
+  my ($dir, $file) = (join('/', @elements[0..-1]), $elements[-1]);
+  return $dir if substr($dir, 0, 1) eq '/';
+  my @paths = split(/[:;]/, $ENV{PATH}.":."); # append current directory
+  for my $path (@paths) {
+    if (-x "$path/$file") {
+      return $path;
+    }
+  }
+  return $dir;
+}
+
+require (progdir()."/args.pm");
+
+# best guess, "is this a unix time?" = 10 decimal digits, and only 10.
+# check that the 10 digits are not embedded within other decimal digits)
+
+my $TIMESTAMP_PATTERN = qr/(?<![0-9])([0-9]{10})(?![0-9])/;
+
+my $Options = new Args({
+  "help" => {
+    "help" => "annotates unix timestamp values with human readable time strings"
+  },
+    "format" => {
+      "help" => "strftime formatting (see man strftime)",
+	"value" => "%Y-%m-%d %H:%M:%S"
+  },
+    "replace" => {
+      "help" => "replace (overwrite) the timestamp instead of annotating",
+	"value" => "0"
+  },
+    "timezone" => {
+      "help" => "Use alternate timezone instead of local timezone ( use -t alone for list of time zones)",
+	"value" => strftime("%Z", localtime())
+  }	
+});
+
+my $Format = $Options->{format};
+
+if ($Options->{timezone} eq "1") {
+  print do{local(@ARGV,$/) = "/usr/share/zoneinfo/zone1970.tab"; <>};
+  exit 0;
+}
+
+sub showtime
+{
+  my ($timestamp) = @_;
+  $ENV{TZ} = $Options->{timezone};
+  return strftime($Options->{format}, localtime);
+}
+
+print STDERR "$0 -h for help, waiting for input on standard in...\n";
+
+while(my $line=<STDIN>) {
+  if ($Options->{replace}) {
+    $line =~ s/($TIMESTAMP_PATTERN)/&showtime($2)/gxe;
+  } else {
+    $line =~ s/($TIMESTAMP_PATTERN)/"$2(".&showtime($2).")"/gxe;
+  }
+    
+  print $line;
+}
+

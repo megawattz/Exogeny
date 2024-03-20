@@ -1,0 +1,16 @@
+{
+	"limits":[],
+    "affected": {
+    	"art":"2%"
+    },
+    "level": 5,
+    "amplifiers": {"engineering":1},
+    "mitigators": {},
+    "influence": "How much of this discovery do you wish to exploit?",
+    "cost":0.1,
+    "image_url": "https://deadline.com/wp-content/uploads/2020/07/great-white-e1594606346105.jpg",
+    "video_url": "",
+    "color": "green",
+    "apparent" :"New discoveries in sound technology enable electrically amplified instruments."
+}
+

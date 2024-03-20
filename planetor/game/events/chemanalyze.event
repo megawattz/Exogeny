@@ -1,0 +1,23 @@
+{
+    "limits": [
+    	"['Fungoid','Gaseous','Liquid'].includes(planet.lifeform)"
+    ],
+    "affected": {
+        "science":"2",
+	"engineering":"2",
+	"bio":"2",
+	"warfare":"2",
+	"population":"1000%"
+    },
+    "level": 0,
+    "amplifiers": {},
+    "mitigators": {},
+    "cost": 0.1,
+    "influence":"Invest in this knowledge to increase your planet tech level",
+    "image_url":"https://aktiv.com/wp-content/uploads/2021/07/organicchem.svg",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Your civilization has obtained the skill to analyze almost any chemical element by direct sensation only",
+    "actual":""
+}
+

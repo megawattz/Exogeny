@@ -1,0 +1,16 @@
+{
+	"limits":[],
+    "affected":{
+	"culture":"Military"
+    },
+    "level": 0,
+    "amplifiers": {},
+    "mitigators": {"social": 1},
+    "influence": "How much do you want to alter the probability of his failure?",
+    "cost":0.1,
+    "image_url":"https://media-1.carnegiecouncil.org/import/studio/_1200x675_crop_center-center_none/feature_SovietUnion-coup.jpg",
+    "video_url":"",
+    "color":"orange",
+    "apparent":"An ambitious soldier is attempting to become the planetary leader."
+}
+

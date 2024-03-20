@@ -1,0 +1,4 @@
+git_project: git@gitlab.com:allupons/planet-god.git
+git_branch: stable
+git_hash: 70a4b26
+git_tag

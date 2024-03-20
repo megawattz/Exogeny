@@ -1,0 +1,245 @@
+<html>
+  <head>
+    <title>Exogeny Screen Saver</title>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
+
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/planetor.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/vid.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/moralis-v1/dist/moralis.js"></script>
+    <script src="../../static/js/credentials.js"></script>
+    
+  </head>
+  <body style="background-color: black; font: monaco; color: white; width:95%; height:95%;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarsExample10">
+	  <ul class="navbar-nav">
+	    <li class="nav-item">
+	      <a class="nav-link active" title="create planets" aria-current="page" href="/editplanet">Create Planets</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link active" title="display details planets" href="/myplanets">Browse Planets</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link active" title="display upcoming exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/allgallery">All Planets Screen Saver</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link active" title="what is Exogeny?" href="javascript:alert('Exogeny\ngit_tag: 1.0.0\ngit_revision: 5116985')">About</a>
+	    </li>
+	  </ul>
+        </div>
+      </div>
+    </nav>
+    <div style="padding-right: 1em; height: 95%; valign: top;">
+      <style>
+	th {
+	    font-size: 14pt;
+	    border-bottom: solid;
+	}
+	tr {
+	    font-size: 12pt
+	}
+      </style>
+      <br>
+      <table style="height: 100%; width:100%">
+	<tr>
+	  <td valign="top" width="65%">
+	    <video id="planetVideo" style="width: 100%; align: center;" autoplay loop preload="none"></video>
+	  </td>
+	  <td valign="top" colspan="4">
+	    <form>
+	      <table style="width: 95%; font-size: 10pt; ">
+		<colgroup style="font-decoration: italic;">
+		  <tr>
+		    <td>&nbsp;</td>
+		  </tr>
+		  <tr>
+		    <td>&nbsp;</td>
+		  </tr>
+		  <tr>
+		    <th width="3em" colspan="2">
+		      Update:<input type="number" value="20" maxlength="2" id="update" style="width: 3em; color: white; background-color: inherit;">
+		      <button onclick=randomplanet style="background-color: black; color: white">Next</button>
+		    </th>
+		    <th colspan="1">Planet Fundamentals</th>
+		  </tr>
+ 		  <tr>
+		    <th colspan="3">
+		      <span id="name" style="font-size: 20pt"></span>  <span id="evaluation"></span>  <span id="evaluation2"></span><br>
+		    </th>
+		  <tr>
+		  <tr>
+		    <td>Official Designation:</td><td><span id="star_index"></span> <span id="star_system"></span> <span id="planet_index"></span></td>
+		  </tr>
+		  <tr>
+		    <td>Catalog#:</td><td><span id="identity"><span></td>
+		  </tr>
+		  <tr>
+		    <td>Planet Type</td><td class="text"><span id="planet_type">0</span></td>
+		  </tr>
+		  <tr>
+		    <td>Atmosphere</td><td class="text"><span id="atmosphere_composition"></span></td>
+		  </tr>
+		  <tr>
+		    <td>Tritanium-66 Production</td><td class="number"><span id="tritanium66"></span></td>
+		  </tr>
+		  <tr>
+		    <td>Dominant Life Form</td><td><span class="text" id="lifeform"></span></td>
+		  </tr>	
+		  <tr>
+		    <td>Species Self Name</td><td class="text"><span id="species"></span></td>
+		  </tr>	
+		  <tr>
+		    <td>Life Chemistry</td><td class="text"><span id="chemistry"></span></td>
+		  </tr>
+		  <tr>
+		    <td>Culture</td><td class="text"><span id="culture"></span></td>
+		  </tr>
+		  <tr>
+		    <td>Population</td><td class="number"><span id="population">0</span> Million</td>
+		  </tr>
+	  	  <tr>
+		    <td><br></td>
+		  </tr>
+		  <tr>
+		    <td colspan="5">Motto: <span class="text" name="motto" id="motto"></span><td>
+		  </tr>
+	  	  <tr>
+		    <td><br></td>
+		  </tr>
+		  <tr>
+		    <th colspan="5">Natural Resources</th>
+		  </tr>
+		  <tr>
+		    <td>Industrial Minerals</td><td class="number"><span id="industrials">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		    <td>Rare Minerals</td><td class="number"><span id="rare">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		  <td>Biological Materials</td><td class="number"><span id="biologicals">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		    <td>Refractory Metals</td><td class="number"><span id="refractories">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		    <td>Radioactive Minerals</td><td class="number"><span id="radioactives">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		    <td>Specialized Materials</td><td class="number"><span id="specialized">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		    <td>Exotic Materials</td><td class="number"><span id="exotics">0.0</span> EME</td>
+		  </tr>
+		  <tr>
+		    <td>Relics</td><td class="number"><span id="relics">0.0</span></td>
+		  </tr>
+	      </table>
+	    </form>
+	    <div style="font-size: 10pt;">
+	      Definitions:
+	      <br>EME: Earth Mass Equivalent, quantity compared to Earth quantity of that material
+	      <br>Exotic Materials: Materials only available on this planet
+	      <br>Relics: Artificial objects left by previous civilizations or visitors
+	      <br>Industrial Minerals: Essential materials in large abundance, copper, iron, aluminum, oxygen, water, methane, hydrogen, titanium
+	      <br>Radioactive Minerals: Essential for initiating nuclear processes, uranium, thorium, radium and radon
+	      <br>Specialized Minerals: Essential, unique and non-substitutable materials like phosphorus, mercury, neodymium, germanium, 
+	      <br>Refractory Metals: Essential high temperature withstanding materials like tungsten, molybdenum and tantalum
+	      <br>Rare Minerals: Essential materials that are rare, iridium, diamond, gold, silver, helium, platinum, palladium, rhodium and rare-earths
+	    <div>
+	  </td>
+	</tr>
+      </table>
+      </div>
+      
+      <script>
+	var GalleryDir = "/app/planetor/out/gallery";
+	function details(element, visible) {
+	    if (visible == false)
+		element.style.opacity = 0
+	    if (visible == true)
+		element.style.opacity = 1
+	}
+	
+	function showplanet(planetid) {
+	    var planet_video = `/gallery/planet_${planetid}.mp4`;
+	    var planetVideo = document.getElementById("planetVideo");
+            planetVideo.src = planet_video;
+	    
+	    $.ajax({
+		url: `/dbread?table=specs&row=${planetid}`,
+		success: function(stuff) {
+		    var data = stuff.read;
+		    console.log(data);
+		    for (var id in data) {
+			var e = document.getElementById(id);
+			if (!e)
+			    continue;
+			var value = data[id];
+			if (e.value)
+			    e.value = value;
+			else
+			    e.innerText = value;
+		    }		
+		}
+	    });
+
+	    $.ajax({
+		url: `/dbread?table=civilization&row=${planetid}`,
+		success: function(stuff) {
+		    var data = stuff.read;
+		    console.log(data);
+		    for (var id in data) {
+			var e = document.getElementById(id);
+			if (!e)
+			    continue;
+			var value = data[id];
+			if (e.value)
+			    e.value = value;
+			else
+			    e.innerText = value;
+		    }		
+		}
+	    });
+	}
+	
+	function extract_id(name) {
+	    var matches = name.match(/[0-9a-f-]{36}/);
+	    if (!matches)
+		return null
+	    return matches[0];
+	}
+	
+	function randomplanet() {
+      	    $.ajax({
+		url: `/randomfile?directory=${GalleryDir}&mask=.*.mp4&count=1`,
+		success: function(data) {
+		    showplanet(extract_id(data.data[0]));
+		}	
+	    });
+	}
+	function Update() {
+	    // fake update of numbers on screen
+	    randomplanet();
+	    var interval = parseInt(document.getElementById("update").value)*1000;	
+	    setTimeout(Update, interval);
+	};
+	Update();
+      </script>	
+  </body>
+</html>

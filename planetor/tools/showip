@@ -1,0 +1,58 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Socket;
+
+$| = 1;
+
+sub progdir {
+  my @elements = split(qr(/), $_[0] || "$0");
+  my ($dir, $file) = (join('/', @elements[0..-1]), $elements[-1]);
+  return $dir if substr($dir, 0, 1) eq '/';
+  my @paths = split(/[:;]/, $ENV{PATH}.":."); # append current directory
+  for my $path (@paths) {
+    if (-x "$path/$file") {
+      return $path;
+    }
+  }
+  return $dir;
+}
+
+require (progdir()."/args.pm");
+
+my $DnsCache = {};
+
+my $IPADDRESS_PATTERN = qr/([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})/;
+
+my $Options = new Args({
+  "help" => {
+    "value" => "",
+      "help" => "annotate ip addresses with the DNS reverse lookup, example 74.6.231.21 becomes 74.6.231.21(media-router-fp74.prod.media.vip.ne1.yahoo.com)"
+  },
+    "replace" => {
+      "value" => "0",
+	"help" => "Replace the ip address instead of simply annotating it"
+  }
+});
+
+sub showdns
+{
+  my ($ipaddress) = @_;
+  my $dns = $DnsCache->{$ipaddress} || gethostbyaddr(inet_aton($ipaddress), AF_INET) || "unknown";
+  $DnsCache->{$ipaddress} = $dns;
+  return $dns;
+}
+
+my $replace = $Options->{replace};
+
+print STDERR "$0 -h for help, waiting for input on standard in...\n";
+
+while(my $line=<STDIN>) {
+  if ($replace) {
+    $line =~ s|($IPADDRESS_PATTERN)|&showdns($1)|gxe;
+  } else {
+    $line =~ s|($IPADDRESS_PATTERN)|"$1(".&showdns($1).')'|gxe;
+  }
+  print $line;
+}

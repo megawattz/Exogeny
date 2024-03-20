@@ -1,0 +1,3 @@
+# put your values for these things in here and rename it "env.txt"
+TZ=EDT
+REPLICATE_API_TOKEN=

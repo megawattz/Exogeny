@@ -1,0 +1,4 @@
+tunnel: 6b0f0c06-c8f1-40ce-8ec6-389c0c029a42
+credentials-files: 6b0f0c06-c8f1-40ce-8ec6-389c0c029a42.json
+ingress:
+  - service: http://127.0.0.1

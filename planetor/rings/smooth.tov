@@ -1,0 +1,32 @@
+// Ring Smooth
+#declare ring_color = <%s>;
+#declare ring_radius = %s;
+#declare hole_radius = %s;
+#declare variety_seed = %s;
+#declare ring_index = %s;
+#declare planet_size = %s;
+#declare ring_brightness = v_ring_brightness;
+disc
+{
+   <0, 0, 0>,
+   <0, 90, 0>,
+   ring_radius, hole_radius
+   no_reflection
+   texture {
+      pigment {
+         waves
+         //turbulence 0.0
+         //frequency 3
+         scale v_ring_brightness * 0.5
+         color_map {
+            [0 rgb <0,0,0> filter variety_seed]
+	    [1 rgb ring_color filter variety_seed]
+         }
+      }
+      finish {
+         diffuse albedo ring_brightness
+         ambient ring_color
+      }
+    }
+    rotate <0,(-clock*90000/pow(ring_radius, 2.4)),0>
+}

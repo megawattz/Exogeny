@@ -1,0 +1,17 @@
+{
+	"limits":[],
+    "affected": {
+        "transport":"0.2"
+    },
+    "level": 0,
+    "amplifiers":{},
+    "mitigators":{},
+    "cost": 0.05,
+    "influence":"How much do you want to invest in this new technology?",
+    "image_url":"https://www.ancientportsantiques.com/wp-content/uploads/2011/07/Kyrenia2-300BC.jpg",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Someone has created the first ship, giving your culture ability to travel over liquid terrain.",
+    "actual":"What is actually happening, only revealed if science or spirituality reveals it"
+}
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
+	<div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarsExample10">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+		<a class="nav-link active" title="create planets" aria-current="page" href="/editplanet">Create Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display details planets" href="/myplanets">Browse Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display upcoming exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/allgallery">All Planets Screen Saver</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="what is Exogeny?" href="/about">About</a>
+	      </li>
+	    </ul>
+          </div>
+	</div>
+      </nav>
+    <div class="jumbotron">
+      <table>
+	<tr valign="top">
+	  <td width="30%">
+	    Files: <input type="file" name="files" id="files" multiple="multiple" onchange="loadMedia(this.files)"><br>
+	    <button onclick=pushNFT()>Upload</button><br>
+	    <textarea rows="30" cols="60" id="progress"></textarea>
+	  </td>
+	</	tr>
+      </table>	
+    </div>
+    <script>
+      // upload: image
+      NFTs = {
+	  "0": {
+	      "video":"",
+	      "still":"",
+	      "meta":""
+	  }
+      };
+      /*
+      function fileToIPFS(file_data, id, which) {
+          // Save file input to IPFS
+          const file = new Moralis.File(file_data.name, file_data);
+          await file.saveIPFS();
+          console.log(file.ipfs(), file.hash());
+	  NFTs[i] 
+          return file.ipfs();
+      }
+      */
+
+      async function processNFT(id) {
+	  var nft = NFTs[id];
+          const video = new Moralis.File(`planet_${id}.mp4`, nft['video']);
+          await video.saveIPFS();
+	  nft['meta']['animation'] = video.hash;
+          const image = new Moralis.File(`planet_${id}.gif`, nft['still']);
+          await image.saveIPFS();
+	  nft['meta']['image'] = image.hash
+          const meta = new Moralis.File(`planet_${id}.json`, nft['meta']);
+          await meta.saveIPFS();
+      }
+      
+      function updateNFT(id, file_data, which) {
+	  if (NFTs[id] == null)
+	      NFTs[id] = {};
+	  var nft = NFTs[id]
+	  nft[which] = file_data;
+	  // NFT has all components loaded into uploader, process it
+	  if (nft['video'] && nft['still'] && nft['meta']) {
+	      processNFT(id)
+	      delete NFTs[id];
+	  }
+	  return NFTs[id]; // will return null if the NFT was "processed"
+      }
+      
+      var loadMedia = function(files) {
+      	  for (var i in files) {
+	      var file = files[i];
+	      var fname = files[i].name;
+	      var id = fname.match("[0-9]+"); // get the identity of the NFT (all corresponding files have the same id)
+	      if (!id)
+		  continue;
+	      if (fname.match("\.gif$"))
+		  updateNFT(id, file, "still")
+	      else if (fname.match("\.mp4$"))	
+		  updateNFT(id, file, "video")
+	      else if (fname.match("civ.+?json$"))
+		  updateNFT(id, file, "meta")
+	      else if (fname.match("planet.+?json$"))
+		  updateNFT(id, file, "meta")
+	  }
+      }
+
+      // upload: metadata object (name, desc txt & image)
+      uploadMetadata = async (videoURL, imageURL, MetaData) => {
+          const name = document.getElementById('metadataName').value;
+          const description = document.getElementById('metadataDescription').value;
+
+          const metadata = {
+              "name": name,
+              "description": description,
+              "image": imageURL
+          };
+
+          const file = new Moralis.File("file.json", {
+              base64: btoa(JSON.stringify(metadata)),
+          });
+          await file.saveIPFS();
+
+          console.log('✅', file.ipfs());
+      }
+
+      // function to pushNFT
+      pushNFT = async () => {
+          const image = await fileToIPFS();
+          await uploadMetadata(image);
+      }
+
+      
+    </script>
+
+    
+  </body>
+</html>

@@ -1,0 +1,140 @@
+// Scene OddAngle
+#version 3.7;
+#include "colors.inc"
+#include "textures.inc"
+#include "shapes.inc"
+#include "metals.inc"
+#include "glass.inc"
+#include "woods.inc"
+#include "transforms.inc"
+#include "math.inc"
+#include "strings.inc"
+
+#declare name = "addangle.tov";
+
+global_settings{
+    noise_generator 3
+    max_trace_level 4
+    assumed_gamma   1.0
+}
+
+#declare camloc = <v_camera_location>;
+
+// Camera
+camera {
+    location camloc
+    look_at <v_camera_look_at>
+    //rotate <0, v_random_float * 90, 0>
+    transform {
+        Axis_Rotate_Trans(camloc, abs(v_camera_angle))
+    }
+}
+
+#declare sunloc = camloc * <-100, -100, -100>;
+//#warning concat("camloc is: ", Vstr(camloc, 10, 2), " sunloc is:", Vstr(sunloc, 10, 2))
+
+// Sun
+light_source {
+    sunloc
+    color 0.6 *  <v_sun_brightness>
+    parallel
+    transform {
+      Axis_Rotate_Trans(VPerp_To_Vector(sunloc), -clock*360)
+    }
+}
+
+// Planet
+#declare p_planet_size = v_planet_size;
+sphere {
+    <0,0,0> p_planet_size
+    no_reflection
+    texture {
+        pigment{
+            image_map {
+                v_planet_spec
+                map_type 1  // Esfera
+            }
+       }
+       normal {
+           bump_map {
+	        v_planet_spec
+		map_type 1  // Esfera
+                bump_size 4
+           }
+       }
+   }
+   finish {
+     diffuse 0.5
+     ambient rgb 0   // to avoid pear shaped planets
+   }
+   scale<1,1,1>
+   rotate <0, (v_random_float+clock)*-180, 0>
+}
+
+// Clouds
+sphere {
+    <0,0,0> v_clouds_size * p_planet_size
+    no_reflection
+    texture {
+        pigment{
+            image_map {
+                v_clouds_spec
+                map_type 1  // Esfera
+                once
+                transmit all v_clouds_density
+            }
+       }
+       normal {
+           bump_map {
+	        v_clouds_spec
+		map_type 1  // Esfera
+                bump_size 4
+           }
+       }
+   }
+   finish {
+      ambient 0.0
+      roughness 10
+      diffuse albedo 1
+   }
+   rotate <0,-clock*120,0>
+}
+
+#macro Glow(GlowColor, Scale)
+sphere
+{ 0, 1 hollow no_shadow
+  pigment { rgbt 1 }
+  interior
+  { media
+    { emission 1/Scale
+      density
+      { spherical density_map
+        { [0 rgb 0][.5 rgb GlowColor*.5][1 rgb 1]
+        }
+      }
+      samples 1,1 intervals 1 confidence .1 // quite fast settings
+      method 2
+    }
+  }
+  scale Scale
+}
+#end
+
+// Atmosphere (tinted sphere)
+#declare atmosphere = <v_atmosphere>;
+#declare gas = "v_atmosphere_composition";
+sphere {
+   0, v_atmosphere_size * p_planet_size
+   no_reflection
+   pigment {
+      color rgbt<v_atmosphere, v_atmosphere_density>
+   }
+   finish {
+      ambient 0.0
+      roughness 10
+   }
+   rotate <0,clock*180,0>
+}
+
+Glow( <v_atmosphere>,  v_atmosphere_size * p_planet_size * 1.15)
+

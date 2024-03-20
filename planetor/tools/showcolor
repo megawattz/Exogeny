@@ -1,0 +1,168 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use POSIX;
+use Data::Dumper;
+
+$|= 1;
+
+sub progdir {
+  my @elements = split(qr(/), $_[0] || "$0");
+  my ($dir, $file) = (join('/', @elements[0..-1]), $elements[-1]);
+  return $dir if substr($dir, 0, 1) eq '/';
+  my @paths = split(/[:;]/, $ENV{PATH}.":."); # append current directory
+  for my $path (@paths) {
+    if (-x "$path/$file") {
+      return $path;
+    }
+  }
+  return $dir;
+}
+
+require (progdir()."/args.pm");
+
+my $Ansi = {
+    black => "\e[0;30m",
+    blue => "\e[0;34m",
+    cyan => "\e[0;36m",
+    gray => "\e[1;30m",
+    green => "\e[0;32m",
+    purple => "\e[0;35m",
+    red => "\e[0;31m",
+    white => "\e[1;37m",
+    yellow => "\e[1;33m",
+    
+    lightblue => "\e[1;34m",
+    lightcyan => "\e[1;36m",
+    lightgray => "\e[0;37m",
+    lightgreen => "\e[1;32m",
+    lightpurple => "\e[1;35m",
+    lightred => "\e[1;31m",
+
+    Black => "\e[0;90m",
+    Blue => "\e[0;94m",
+    Cyan => "\e[0;96m",
+    Green => "\e[0;92m", 
+    Purple => "\e[0;95m",
+    Red => "\e[0;91m",
+    White => "\e[0;97m",
+    Yellow => "\e[0;93m",
+
+    BLACK => "\e[1;90m",
+    BLUE => "\e[1;94m",
+    CYAN => "\e[1;96m",
+    GREEN => "\e[1;92m",
+    PURPLE => "\e[1;95m",
+    RED => "\e[1;91m",
+    WHITE => "\e[1;97m",
+    YELLOW => "\e[1;93m",
+
+    bblack => "\e[1;40m",
+    bred => "\e[1;41m",
+    bgreen => "\e[1;42m",
+    byellow => "\e[1;43m",
+    bblue => "\e[1;44m",
+    bpurple => "\e[1;45m",
+    bcyan => "\e[1;46m",
+    bwhite => "\e[1;47m",
+      
+    bold => "\e[1m",
+    blink => "\e[5m",
+    reverse => "\e[7m",
+    standout => "\e[3m",
+
+    reset => "\e0m"
+};
+
+my $off = "\e[0m";
+
+sub colors {
+  my $colordisplay;
+  my @colors = sort keys %$Ansi;
+  for my $name (@colors) {
+    my $code = $Ansi->{$name};
+    $colordisplay .= " ${code}${name}${off}";
+  }	
+  return $colordisplay.$off;
+}	
+
+my $Verbose = 3;
+
+sub message {
+    my $priority = shift;
+    return if $priority > $Verbose;
+    print "\n" if $priority < 5;
+    my ($pack, $file, $line) = caller;
+    print $priority > 4 ? "   " x ($priority - 4) : "", "-- $pack:$line:", @_, "\n";
+}
+
+my $Options = new Args(
+    {
+	help => {
+	    value => "0",
+	    help => "$execfile showcolor: recognize certain word patterns (regular expressions) and colorize them
+Usage: cat filename | showcolor colorspec colorspec colorspec ...
+where colorspec is a colorname followed by regular expressions, like 
+cat shopping_list.txt | showcolors 'lightred:apples:ripe ([a-z]+):strawberries' to make $Ansi->{lightred}apples, strawberries and ripe (anything)$off colored red
+Good for highlighting things in large volumes of complex text so they do not get overlooked
+colors are:\n".colors()."\nexample: cat document | showcolor 'red:[,.:;?]:' # to accent all punctuation marks"
+	},
+	verbose => {
+	    help => "Print extra data (1=errors, 2=warnings, 3=normal, 4=more, 5=unexpected, 6=all), example: --verbose 4 prints all messages of priority 4,3,2 and 1",
+	    action => sub { $Verbose = int($_[0]); },
+	    value => "3"
+	},
+	space => {
+	    help => "Colorize empty space",
+	    value => "0"
+	},
+	Version => {
+	  help => "git_info: 1.1 effd2b7 master 02/02/22-23:28:50-EST-0500",
+	  value => "git_info: 1.1 effd2b7 master 02/02/22-23:28:50-EST-0500",
+	  action => sub { print "$execfile git_info: 1.1 effd2b7 master 02/02/22-23:28:50-EST-0500\n" ; exit 0 }
+	},
+	'' => {
+	  values => [],
+	  help => "color specs of form 'color:regex:regex:regex', like 'green,celery,unripe.*? ,apples,pinetree' any non-alphanumeric character can be used to separate colors and regexes"
+	}
+    });
+
+my $Colorators = {};
+
+my $colorizers = $Options->{''};
+
+for my $colorspec (@$colorizers) {
+	message(8, "colorspec $colorspec");
+	my ($color, $DEL) = $colorspec =~ /([a-zA-Z_]+)([^a-zA-Z_])/; # grab the color and delimiter
+	die "Must have at least one regex pattern to match, example: showcolor red:apples" unless $color && $DEL;
+	message(8, "color:$color delimiter $DEL");
+	my @regexes = split(/$DEL/, $colorspec);  # grab all the regexes to be colored
+	message(8, "regexes @regexes");
+	shift(@regexes); # remove first element, the color
+	@regexes = map {qr/$_/} @regexes;
+	message(6, "colorizer: $color:[@regexes]");
+	$Colorators->{$color} = \@regexes;
+}	
+
+sub colorize {
+  my ($item, $color) = @_;
+  my $code = $Ansi->{$color} || die "$0: unknown color code: $color, use showcolor -h for help\n";
+    return $code.$item.$off;
+}
+
+print STDERR "-h for help, waiting for input on standard in...\n";
+
+for my $line (<STDIN>) {
+	message(7, "line: $line");
+	for my $color (keys %$Colorators) {
+		message(7, "color: $color");
+		my $regexes = $Colorators->{$color};
+		for my $regex (@$regexes) {
+			message(7, "regex: ", $regex);
+			$line =~ s/($regex)/colorize($1,$color)/ge;
+		}		
+	}	
+	print $line;
+}
+

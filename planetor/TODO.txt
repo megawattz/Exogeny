@@ -1,0 +1,205 @@
+Website
+
+* Main page would be nice to show one of the best planets but the time to load would be annoying. Maybe just a still or
+  an MP4. I'd rather have a high resolution still than a low resolution animation.
+
+* As the planet is spinning, type out text.
+
+  * Want to run your own planet from primitive up to space civilization?
+
+  * Be a Planeteer and evolve civilizations and destroy them if they displease you
+
+  * Influence the evolution of species and discoveries of technologies to bring your civilization from the stone age, to
+  the space age.
+
+  * Planets are NFTs and earn the crypto currency Titanium-44 (show current exchange price) currency based on their
+    technology level and resource availability
+
+  * Your civilization can be gentle or savage, which one is better for earning
+
+  * You own your planet forever, or you can sell it to another Planeteer.
+
+  
+
+* Available Domain names:
+  planetdeity.*
+  planetshepherd.*
+  demigodz
+    
+* Website for users to purchase, upgrade, and interact with their planets. Must be mobile friendly also or have a
+  mobile version. Screw native, just make it a website.
+
+* Initial NFT Planet Creation will generate a planet. Then the user picks the things he wants to change and the planet
+  is re-generated with the features the user wanted to change randomly something new, but the features he did not want
+  changed, stay the same. This is a lot easier than letting the user select from huge menus of surfaces and clouds and
+  atmospheres etc.
+
+* Bidding war over planets
+
+* Let users generate all the stills they want. They have to pay for the animated NFT.
+
+* Have a page that shows still thumbnails of all the recent planets. When they click they get the animated version. We
+  can let them choose one as the starting point for their NFT. I'll have to save the settings to a directory.
+
+* Text explaining the NFTs and why they are valuable (not OUR thrill with them, but what normal users would care
+about). I find it annoying when companies brag about "new version coming out". They are excited about that. I couldn't
+give a rat's ass as it's usually more of a hassle than it's worth. You can announce new version, just don't make it
+sound like it's a "feature".
+
+Planetor
+
+This project is crypto NFTs, with functionality.
+
+The functionality is a game where the owner nurtures his planet to evolve life and a civilization.
+
+For doing that he is rewarded with crypto tokens called Titanium-44
+
+That's the very fundamental core of the idea.
+
+I got the idea because I think it's very silly for people to be paying millions of dollars for JPEGs of bored ape
+"colletibles" that can be replicated a million times a second by anyone. The only thing that you own by buying an NFT
+like this is a unique ID for your copy of the picture that can be verified on the blockchain. Your copy is no different
+than any of a million copies in its content. All you own is the right to say "I own the random number xyz123" (or
+whatever the asset address is of the NFT). Frankly, it's one of the stupidest ideas I've ever heard of. However, the
+concept of NFTs, if applied to unique assets like property, contracts, personal information etc. is the future of
+commerce. So you've got one of the most ingenious ideas ever, balanced against one of the stupidest, held on a razor
+edge by the ignorance of crypto-rich people who have too much money, easy come, easy go as they say. NFTs are God's way
+of saying you have too much money for your IQ level.
+
+Planetor is a convergence of multiple concepts
+
+Crypto Tokens
+NFTs
+Digital Property
+Digital Artwork (perty pichers)
+Digital Pets
+Space Games
+Games for people who can't spend 80% of their time playing computer games.
+Friendly, cooperative interaction with other planet owners
+
+Working name Planeteer but this can't be the final name probably (trademark).
+
+We need a permanent name before starting any marketing efforts
+
+Here are some things that need doing
+
+Animation
+
+* Find lots of surfaces and clouds
+
+* Fix up surfaces that don't blend well in 360 degree rotations
+
+* Free-to use clouds and surface images. I just grabbed stuff off Google Images and many of these are copyright and we
+  can't use them for a commercial game
+
+* Tilted revolution of moons. Don't have the necessarily orbiting the ecliptic or equator of the planet
+
+* The atmosphere needs to be hazier and trail off more gradually into space.
+
+* Irregular chunk-of-rock moons using bump maps (captured asteroids)
+
+* Better optimization of animated gifs because unless the moons can complete their orbits over one cycle of the gif, the
+animation jerks when it starts over
+
+* I'd be spending all my time tweaking planets if I could but this is just a prototype for now. 
+
+* Let people upload their own image maps for surfaces and clouds
+
+* Life form images, landscape images.
+
+* Each feature of course costs a little bit more $$$. Like each moon costs something. Changing the Sun brightness or
+  angle $$$ etc.
+
+* Save the pov file (the text file which controls image generation) because we want to let the user modify his planet,
+upgrade it and if he engages in PVP and loses, regenerate theplanet as a cracked up pile of rubble floating in
+space. LOL!!! But of course, let the user add features like rings, or space stations or anything else we come up with
+later when the planet tech level increases and user pays $$$
+
+Crypto
+
+* Smart contract for NFTs
+
+* IPFS storage of NFTs
+
+* Smart contract for Titanium-44, the reward crypto of advancing your planet
+
+* Go client which mines Kaon while displaying your planets on your screen as a screen saver
+
+NFTs
+
+* Each planet should be numbered starting from 1 on up as the "collectors" index.
+
+* Each planet name is unique and nobody else can own the same planet name
+
+* Each planet is numbered from 1 and incrementing. The lower numbers have more value to collectors
+
+* have a screen that shows the most recently generated planets (animated when user mouses over) that users can use to
+  choose their initial template
+
+Marketing
+
+* Set up Twitter, Telegram, Twitch, Facebook, Discord channels
+
+* See if we can weasel some Mediamath free advertising!!!!
+
+Game Engine
+
+* I want to market this game, as a game for people who don't have time to sit in front of a screen all day long. It's
+something where they tweak parameters but the game continues to run without their involvement. There are enough games
+for hard core gamers already. I am hoping this taps a demographic of people who have jobs and obligations but still like
+to play games.
+
+* Game engine that manipulates the planets metadata every hour, simulating a logarithmic time scale, that is, when the
+planet is first created time moves fast and life evolves quickly but the closer it gets to high-tech (the highest tech
+is whatever we haven't rendered game material for yet!)
+
+* Generate idea planet owner, The Planeteer, is the God of that planet and has a lot of control over how fast it evolves
+in tech level.
+
+* Not all tech is material tech, psychic and spiritual tech can be evolved also. I have no concrete idea how any of this
+will work during game play
+
+* Generate idea is planet evolves higher tech etc but much slower as it approaches top tech level
+
+* User spends funds to upgrade planet, tweak life forms, be a god that controls populations and rulers to hasten the
+  tech level but too much pressure on the population results in revolutions which cause a regression in tech level.
+
+* Natural disasters occur randomly and Planeteer must have population build defenses or counter-measures before they
+  happen or else the civilization could be wiped down several tech levels.
+
+* Tables of all sorts of parameters can be created and their interactions affect the evolution.
+
+* Life form chemistry and form, solar system environment, natural resources available,
+
+* PVP is optional. I'd like to favor more of a cooperative approach (trade) where natural resources are exchanged betwen
+  planets to build more valuable finished goods etc.
+
+* I'd hope the game mechanics foster alliances and other interaction amongst the players. Make it easy to "make deals"
+  and set up automated trade routes.
+
+* I don't want to be a crusader for games. This is a money making venture and needs to appeal to the largest audience
+  possible. That is isn't a 1st person shooter, or other wood de woop game is only because of the resources available to
+  create it. We don't have millions of dollars to pay a crew.
+
+GAME
+
+* stats
+  material tech level
+  non material tech level - some cultures may develop mind control to make other planets bend to their will, not just through physical force
+  population
+  happiness
+  types of culture - anarchy, oligarchy, hive mind, AI etc.
+  infrastructure
+  resources
+  trade
+  manufacturing
+
+* Deities can only communicate with their intelligent species through prophets, individual beings, they cannot actively
+modify the material universe. They can impart knowledge to them but they will not be able to assimilate knowledge above
+their next tech level. You must nurture them through each tech level with decimal points (electricity 3.0, fire 1.2,
+metallurgy 3.6, industrial age 1.1, space age 4.3 etc) you can only feed them knowlege one decimal point higher. If you
+feed too much knowledge to a prophet, the society will kill them. Prophets arrive randomly. You cannot create them. You
+must take advantage of them when they arrive.
+
+* Like digital pets? You have to keep your planet alive with active participation, or it will die.
+

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>KaonPlanet</title>
+    
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
+    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
+    
+    <!-- <link href="navbar.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis-v1/dist/moralis.js"></script>
+    <script src="../../static/js/credentials.js"></script>
+    
+  </head>
+  <body class="p-3 mb-2 bg-dark text-white">
+    <script>
+      const serverUrl = "https://5zl5fqtuk6jb.usemoralis.com:2053/server";
+const appId = "qdUtkLkNRoZZLVyPYNABPjO09Xj2364FjLa0qStV";
+
+Moralis.start({ serverUrl, appId });
+
+User = Moralis.User.current();
+
+/** Add from here down */
+function Login() {
+    //User = Moralis.User.current();
+    if (!User) {
+	try {
+	    User = Moralis.authenticate({ signingMessage: "Signed In" });
+	    if (User) {
+		console.log(User);
+		console.log(User.get("ethAddress"));
+	    }
+	} catch (error) {
+	    alert("Install Metamask: https://metamask.io/");
+	}
+    }
+    UpdateButton()
+}
+
+async function Logout() {
+    await Moralis.User.logOut();
+    console.log("logged out");
+    User = null
+    UpdateButton()
+}
+
+var button_metamask = document.getElementById('btn-metamask');
+
+async function UpdateButton() {
+    if (!User) {
+	button_metamask.innerHTML = "Connect Metamask";
+	button_metamask.onclick = Login;
+    }
+    else
+    {
+	button_metamask.innerHTML = "Disconnect Metamask";
+	button_metamask.onclick = Logout;
+    }
+}
+
+UpdateButton();
+
+function getCookie(User) {
+    if (document.cookie == null)
+	return null;
+    const fetch_cookie = RegExp(name+"=([^;]+)");
+    if (fetch_cookie == null)
+        return null;
+    const values = document.cookie.match(fetch_cookie);
+    if (values == null)
+	return null;
+    return values[1];
+}
+
+function setCookie(name, value) {
+    var cookie = `${name}=${value}; path=/; max-age=31622400; SameSite=Lax`;
+    document.cookie = cookie;
+}
+
+
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="../../static/js/jquery.typedtext.js"></script>
+    <main>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
+	<div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarsExample10">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="/">KaonPlanet</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="claim exoplanets for your collection" aria-current="page" href="/editplanet">Acquire Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display details of your exoplanets" href="/myplanets">My Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="browse all the available of upcoming planets" href="/browseplanets">Browse All Planets</a>
+	      </li> 
+	      <li class="nav-item">
+		<a class="nav-link active" title="display your exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/mygallery">My Planets Screen Saver</a>
+	      </li> 
+	      <li class="nav-item">
+		<a class="nav-link active" title="display upcoming exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/allgallery">All Planets Screen Saver</a>
+	      </li> 
+	      <li class="nav-item">
+		<a class="nav-link active" title="what is KaonPlanet?" href="/about">About</a>
+	      </li>
+	      <li class="nav-item">
+	      </li>
+	      <li class="nav-item">
+		<button id="btn-metamask"></button>
+		<script type="text/javascript" src="../../static/js/moralis.js"></script>
+	      </li>
+	    </ul>
+          </div>
+	</div>
+      </nav>
+      <br>
+      <link rel="stylesheet" type="text/css" href="../../static/css/vid.css"/>
+      <video id="cover-vid" class="video-bg" autoplay muted loop>
+	<script src="../../static/js/vid-switch.js" defer></script>
+      </video>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="video-overlay-exo-text">
+	      <div class="glow" id="exo-text"></div>              
+            </div>
+            <div class="video-overlay-exo-text-2">
+	      <div class="glow" id="exo-text-1"></div>              
+            </div>
+            <div class="video-overlay-exo-text-3">
+	      <div class="glow" id="exo-text-2"></div>              
+            </div>
+            <div id="gen-planet-btn">
+	      <p class="lead"></p>
+	      <p class="lead">
+                <form action="editplanet" method="GET">
+                  <button class="btn btn-md btn-primary">Shut up and start the game !</button>
+                </form>
+	      </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="video-overlay" id="planet-text"></div>
+          <div class="video-overlay-2" id="planet-text-2"></div>
+          <div class="video-overlay-3" id="planet-text-3"></div>
+          <div class="video-overlay-5 glow" id="planet-text-5"></div>
+          <div class="video-overlay-6 "id="planet-text-6"></div>
+          <div class="video-overlay-7" id="planet-text-7"></div>
+          <div class="video-overlay-8" id="planet-text-8"></div>
+          <div class="video-overlay-9" id="planet-text-9"></div>
+	  <div class="submit-overlay"></div>
+          <div class="col">
+            <div id="gen-planet-btn2" style="opacity: 0;">
+              <form action="editplanet" method="GET">
+                <input type="submit" class="btn btn-md btn-primary" value="I accept. Give me my Exo Planetz !!" />
+              </form>
+            </div>
+	  </div>
+	</div>
+      </div>
+    </main>
+    <!-- custom js for font printing -->
+    <script src='../../static/js/auto-typing.js'></script>
+    <!-- custom js for video switching -->
+    <script src="../../static/js/vid-switch.js" defer></script>
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>

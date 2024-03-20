@@ -1,0 +1,16 @@
+{
+	"limits":[],
+    "affected": {
+	"population":"-20%"
+    },
+    "level": 0,
+    "mitigators":{"bio":1,"spiritual":1},
+    "amplifiers":{},
+    "influence": "What percentage of those in peril do you want to help?",
+    "cost": 1,
+    "image_url":"https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTYxNzg3MTA4NTc3NTE4ODk0/gettyimages-2642041.webp",
+    "video_url":"",
+    "color":"red",
+    "apparent":"You have our sympathies. A terrible plague infects your planet."
+}
+

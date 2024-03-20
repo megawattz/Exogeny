@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Exogeny</title>
+    
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
+    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
+    
+    <!-- <link href="navbar.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    
+    <script src="../../static/js/credentials.js"></script>
+
+    <style>
+      .video-bg {
+	  /* Span the full grid */
+	  grid-area: var(--fullGrid);
+
+	  /* Re-size video to cover full screen while maintaining aspect ratio */
+	  min-width: 100%;
+	  min-height: 100%;
+	  object-fit: cover;
+	  position: fixed;
+	  /* Display video below overlay */
+	  z-index: -1;
+      }
+
+      .video-bg::-webkit-media-controls {
+	  display: none !important;
+      }
+      
+      .video-overlay-exo-text {
+	  position: absolute;
+	  top: 100
+	  bottom: 0;
+	  left: 2%;
+	  right: 0;
+	  #display: flex;
+	  #justify-content: left;
+	  #align-items: center;
+	  padding-top: 3%;
+      }
+
+    </style>
+  </head>
+  <body class="p-3 mb-2 bg-dark text-white">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="../../static/js/jquery.typedtext.js"></script>
+    <main>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
+	<div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarsExample10">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+		<a class="nav-link active" title="create planets" aria-current="page" href="/editplanet">Create Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display details planets" href="/myplanets">Browse Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display upcoming exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/allgallery">All Planets Screen Saver</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="what is Exogeny?" href="/about">About</a>
+	      </li>
+	    </ul>
+          </div>
+	</div>
+      </nav>
+      <video id="cover-vid" class="video-bg" autoplay muted loop>
+	<script src="../../static/js/vid-switch.js" defer></script>
+      </video>
+      <div class="video-overlay-exo-text">
+	<H1>Frequently Asked Questions</H1>
+	<p>Exogeny
+	  git_tag: 1.0.0
+	  git_revision: 5116985
+	</p>
+	<p>Q: What is Exogeny?
+
+	  <br>A: Exogeny is the game where you get to own and manage entire planets, virtually of course. The planets
+	  you own and manage are NFTs which you outright own. The mp4 and images of the planet are yours. You can buy
+	  and sell entire planets if you want. However, the metatdata about the civilization on that planet is
+	  controlled by the Exogeny game engine.
+	  
+	<p>Q: Why should I care about the civilization on the planet?
+	  <br>A: Because the civilization is what produces Tritanium-44. The better the civilization, the more
+	  Tritanium-44 you get deposited into your wallet. No civilization = No Tritanium-44
+	  
+	<p>Q: What is Tritanium-44 (T44)
+	  <br>A: Tritanium-44 is the reward of a well managed planet. Tritanium-44 is a typical ERC-20 token tradeable on
+	  DEXes, exchangeable for any other supported blockchain crypto (Ethererum, Binance, Polygon, AVAX)
+
+	<p>Q: What does manage entire planets mean?
+
+	  <br>A: It means you acquire planets with resources and initial life forms which you must actively manage to
+	  evolve intelligent life to gain tech levels. The higher the tech level (and other factors like population,
+	  culture, resources etc) the more Tritanium-44 each planet earns for you. You can envision yourself as the
+	  "guiding spirit" of the planet. An entity with the power to influence individuals and groups indirectly, by
+	  putting ideas and suggestions and motivations into their minds. Directly manifesting godlike powers to a
+	  population has been found to give them an inferiority complex where they stop being self motivated, so direct
+	  involvement is forbidden by the Galactic Confederation.
+	  
+	<p>Q: What is a well managed planet?
+	  <br>A: For the purposes of the game, it's a planet that produces lots of Tritanium-44. Tritanium-44 production
+	  is best done by an energetic, enthusiastic population using high-tech methods. Forced labor and low-tech tools
+	  don't create much Tritanium-44. The game engine takes all the attributes of your planet and each hour (100
+	  years of planet history) calculates what the Tritanium-44 production level is and credits your wallet with that
+	  much. Your job is to stimulate the population growth, tech level and morale of the civilization of the
+	  dominant, indigenous species. Different species need different types of cultures to be happy. There is no
+	  one-size fits all. Changing any of the mutable aspects of the planet requires investment at the time a chance
+	  appearance of a visionary appears.
+	  
+	<p>Q: How is Tritanium-44 generated?
+	  <br>A: Tritanium-44 uses Proof-Of-Attention. You must actively manage your planets to grow or even sustain
+	  their Tritanium-44 production levels. If you do not, the civilizations will collapse and your planet will
+	  return to its untamed, natural state.
+
+	<p>Q: If Exogeny controls my civilization, can it take all my Tritanium-44 back?
+	  <br>A: No. Tritanium-44 is a typical crypto game token governed by a smart contract which does not allow the
+	  contract owner to alter the balances of the token owners. However, the game engine is in charge of creating more supply
+	  of T44 as rewards for planets well managed.
+
+	<p>Q: Why aren't the planets astronomicaly accurate?? Why are they are rotating so fast, and why are the moons
+	too close to have stable orbits due to the three+ body problem?
+	  <br>A: It's a game. It's entertainment. We experimented wth being more accurate but a more slowly rotating
+	  planet was too uninteresting to watch. Moons spaced realistically were so far from the planet that the camera
+	  also had to be far from the entire system to fit everything into the scene, making the planet and moons tiny,
+	  and uninteresting to watch.
+
+	<p>Q: Why do many of the planets have Indian, Egyptian, Chinese, Arabic, Nordic, Russian, whimsical and some
+	even silly names?
+	  <br>A: It's imagined that the discoverer of the planet or star system gets to name it so a general lack of
+	  formality has prevailed during this era. Something like that.
+	  
+	<p>Q: How is the game played?
+	  <br>A: Every hour the Exogeny game engine evaluates each planet. Each hour of game time is one era of planet
+	  time, roughly 100 years of Earth time.  During each era, several things happen
+	  <ol>
+	    <li>Random events will occur
+	      <ul>
+		<li>Natural disasters or similar problems may occur. How well your planet weathers those is based upon
+		  the tech levels, population and culture. For example,
+		<li>A plague may befall your civilization. if you have invested T44 in Bio technology, a plague will
+		  have little downside. If you do not, you could lose half your population.
+		<li>Finding an artifact from a more advanced civilization can give your culture an instant tech level
+		jump.
+		<li>Often, if you have invested in technology, you may get a warning about disasters
+		  pending. Metaphysics and Science techs will greatly increase your warning time. Authoritarian cultures
+		  that limit free speech and information will decrease your warning time. The interaction of these
+		  factors is complex. These are just examples.
+		<li>Rarely, an artifact might have a destructive effect on a civilization
+		<li>An unhappy population has increased probability of revolution and civil war
+		<li>If hard science understanding advances faster than social science understanding, a runaway
+		  technology situation can occur where the civilization destroys itself
+	      </ul>
+	    </li>
+	    <li>Random visionaries may appear
+	      <ul>
+		<li>The opportunity to advance your civilization can only be done when a visionary individual appears. You
+		  must invest T44 in that visionary immediately. The type of visionary will determine which area of tech
+		  your civilization advances in.
+		  <li>IMPORTANT: The frequency of visionaries appearing is proportional to the population of a
+		  planet. The higher the population, the more frequently a visionary appears. Half the population, half
+		  the Einsteins.
+	      </ul>
+	    </li>
+	    <li>Tritanium-44 bounty is dispensed. This is where the combined advances of your planet yield Tritanium-44 reward
+	    <li>Players Invest T44 back into the planet's development
+	      <ul>
+		<li>Raw materials can be converted into manufactured materials
+		<li>Moons have natural resources but until the tech level achieves space travel, those resources are
+		unknown. Exploiting them requires an even higher tech level and orbital infrastructure.
+		<li>Trades can be initiated with other planets.
+		<li>Acquiring predefined sets of planets and materials can yield Tritanium-44 production bonuses
+		<li>Visionaries can be backed with T44 to give them the power and following to cause tech level, or
+		    cultural change
+		<li>Improvements can be made to a planet such as adding a space elevator or other orbital infrastructure
+		which will allow access to the resources on the moons of the planet.
+	      </ul>
+	  </ol>
+  </body>
+<html>
+	

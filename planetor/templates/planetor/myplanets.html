@@ -1,0 +1,363 @@
+<html>
+  <head>
+    <title>Exogeny My Planets</title>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
+
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/planetor.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+  </head>
+  <body style="background-color: black; font: monaco; color: white; width:95%; height:95%;">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
+	<div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarsExample10">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+		<a class="nav-link active" title="create planets" aria-current="page" href="/editplanet">Create Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display details planets" href="/myplanets">Browse Planets</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="display upcoming exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/allgallery">All Planets Screen Saver</a>
+	      </li>
+	      <li class="nav-item">
+		<a class="nav-link active" title="what is Exogeny?" href="/about">About</a>
+	      </li>
+	    </ul>
+          </div>
+	</div>
+      </nav>
+    <br><br>
+    
+    <div class="container-fluid">
+      <div class="row g-0" style="background-color: black; width: 106%; height: 100%">
+        <div class="col-8">
+	  <div id="planetDisplay" style="background-color: black; padding: 5px; background-repeat: no-repeat; width: 100%; height: 90%;">
+	    <video onclick="this.paused ? play() : pause();" id="planetVideo" loop onplay="this.currentTime=6;" preload="none" width="100%"></video>
+	    <style>
+	      .header {
+		  font-size: 12pt;
+		  border-bottom: groove white;
+		  border-top: groove white;
+	      }
+	      input,select {
+		  background-color: transparent;
+		  border: 0;
+		  color: white;
+		  background: inherit;
+		  text-align: right;
+		  /* font-family: 'Courier Prime', monospace; */
+	      }
+	      td {
+		  animation: glow 2s ease-in-out infinite alternate;
+		  background: inherit;
+		  padding-right: 1em;
+		  padding-left: 1em;
+		  #border: solid 1px;
+	      }
+	      .videoOverlay {
+		   position:absolute;
+		   top:10%;
+		   left:1%;
+		   z-index:1;
+	      }
+	      .icon {
+		  height: 48px; width: 48px;
+	      }
+	      .number {
+		  width: 2em;
+		  text-align: right;
+		  border-right: groove white;
+	      }
+	      .resource {
+		  font-size: 10pt;
+		  width: 20em;
+	      }
+	      .text {
+		  padding-right: 5px;
+		  text-align: left;
+	      }
+	      input[type="text"] {
+		  text-align: left;
+	      }
+	    </style>
+	    <script>
+	      function details(element, visible) {
+		  if (visible == false)
+		      element.style.opacity = 0
+		  if (visible == true)
+		      element.style.opacity = 1
+	      }
+	    </script>
+	    <form class="videoOverlay" style="opacity: 0;" onmouseover="details(this, true);" onmouseout="details(this, false);">
+	      <table style="width: 95%; font-size: 10pt;">
+		<tr class="header" style="font-size: 12pt;">
+		<tr class="header">
+		  <td colspan="3">Exogeny <span id="id"></span></td>
+		  <td colspan="5">Federation Evaluation: <span id="evaluation"></span> <span id="evaluation2"></span></td>
+		</tr>
+		<td colspan="3">Catalog# <span id="identity"></span></td>
+		<td colspan="3">
+		  <span id="star_index"></span>
+		  <span id="star_system"></span>
+		  <span id="planet_index"></span>
+		</td>
+		<td>
+		  Common Name:
+		</td>
+		<td colspan="3">
+		  <input class="text" size="16" label="Name" name="name" id="name" value="User Specified">
+		</td>
+		</tr>
+		<colgroup>
+		  <col class="icon">
+		  <col class="text">
+		  <col class="number">
+		  <col class="icon">
+		  <col class="text">
+		  <col class="number">
+		  <col class="text">
+		  <col class="text">
+		</colgroup>
+		<tr class="header">
+		  <td colspan="3" title="All planets start at 0.0 tech levels. These must be earned.">Tech Levels</td><td colspan="3">Natural Resources</td><td colspan="3">Dominant Life Form</td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/bio.png"></td><td title="biology, medicine and agriculture">Bio</td><td class="number"><span id="bio">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td colspan="2">Industrial&nbsp;Minerals</td><td><span id="industrials">0.0</span></td></tr>
+		      <tr><td colspan="2">Rare&nbsp;Minerals</td><td><span id="rare">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td>Form</td>
+		  <td class="text">
+		    <span id="lifeform"></span>
+		  </td>
+		  <td>	
+		    <img id="lifeFormImage" height="64">
+		  </td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/energy.png"></td><td>Energy</td><td class="number"><span id="energy">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td colspan="2">Radioactive&nbsp;Minerals</td><td><span id="radioactives">0.0</span></td></tr>
+		      <tr><td colspan="2">Refractory&nbsp;Minerals</td><td><span id="refractories">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td>Chemistry</td>
+		  <td class="text"><span id="chemistry"></span></td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/information.png"><td title="the technologies of storage and transmission of data and knowledge">Information</td><td class="number"><span id="information">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td>Specialized&nbsp;Minerals</td><td><span id="specialized">0.0</span></td></tr>
+		      <tr><td>Biologicals</td><td><span id="biologicals">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td>Culture</td>
+		  <td class="text"><span id="culture"></span></td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/engineering.png"></td><td title="science applied to building things">Engineering</td><td class="number"><span id="engineering">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td class="resource">Exotics</td><td><span id="exotics">0.0</span></td></tr>
+		      <tr><td>Relics</td><td><span id="relics">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td title="How many past civilizations have risen and disappeared on this planet.">Generation</td>
+		  <td class="text"><span id="generation">0</span></td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/transportation.png"></td><td title="The speed, distance and volume of moving things around">Transport</td><td class="number"><span id="transport">0.0</span></td>
+		  <td colspan="3" class="header">Artificial Resources</td>
+		  <td>Species</td><td class="text" title="These are generated and accumulate as the population and tech levels grow"><span id="species"></span></td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/chemistry.png"></td><td title="The nature of the physical world, physics, chemistry, mathematics, etc.">Science</td><td class="number"><span id="science">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td>Knowledge (exportable)</td><td><span id="knowledge">0.0</span></td></tr>
+		      <tr><td>Infrastructure</td><td><span id="infrastructure">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td class="header">Misc</td><td class="header"><span id=""></span></td>
+		</tr>
+		<tr>
+ 		  <td><img class="icon" src="/media/images/social.png"></td><td title="The nature of intelligent species, sociology, psychology, political science">Social</td><td class="number"><span id="social">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td>Manufactured</td><td><span id="manufactured">0.0</span></td></tr>
+		      <tr><td>Services</td><td><span id="services">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td>Atmosphere</td><td class="text"><span id="atmosphere_composition"></span></td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/metaphysics.png"></td><td title="capabilities of life beyond the physical world">Metaphysics</td><td class="number"><span id="metaphysics">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td>Entertainment</td><td><span id="entertainment">0.0</span></td></tr>
+		      <tr><td>Population</td><td><span id="population">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td>Moons</td><td class="text"><span id="moons"></span></td>
+		</tr>
+		<tr>
+		  <td><img class="icon" src="/media/images/arts.png"></td><td title="art, music, creativity, entertainment">Arts</td><td class="number"><span id="arts">0.0</span></td>
+		  <td colspan="3">
+		    <table class="resource">
+		      <tr><td>Woo</td><td><span id="woo">0.0</span></td></tr>
+		      <tr><td>Tritanium-44</td><td><span id="tritanium44">0.0</span></td></tr>
+		    </table>
+		  </td>
+		  <td>Planet Type</td><td class="text"><span id="planet_type"></span></td>
+		</tr>
+		<tr>
+		  <td>
+		    Motto:
+		  </td>
+		  <br>
+		  <td colspan="8">
+		    <input class="text" size="70" label="Motto" name="motto" id="motto" value="User Specified">
+		  </td>
+		</tr>
+	      </table>
+	    </form>
+	  </div>
+	</div>
+	
+	<div class="col" id="planetList" style="height: 100%; overflow-y:auto;">
+	  <script>
+	    var GalleryDir = "/app/planetor/out/gallery";
+	    var StillDir = "/app/planetor/out/stills";
+	    var LifeformDir = "/lifeforms/";
+	    
+	    async function showPlanet(id) {
+		var planetVideo = document.getElementById('planetVideo');
+		planetVideo.src=`/gallery/planet_${id}.mp4#t=6`;
+		planetVideo.poster=`/stills/planet_${id}.gif`;
+		
+      		$.ajax({
+		    url: `/dbread?table=civilization&row=${id}`,
+		    success: async function(result) {
+			var data = result.read
+			console.log(data);
+			for (var name in data) {
+			    var m = []
+			    m.push(...document.getElementsByName(name));
+			    m.push(document.getElementById(name));
+			    var value = data[name];
+			    for (let e of m) {
+				if (!e)
+				    continue;
+				if (e.value) {
+				    e.value = value;
+				}
+				else {
+				    e.innerText = value;
+				}
+			    }
+			}
+		    }
+		});
+		
+      		$.ajax({
+		    url: `/dbread?table=specs&row=${id}`,
+		    success: async function(result) {
+			var data = result.read
+			console.log(data);
+			for (var name in data) {
+			    var m = []
+			    m.push(...document.getElementsByName(name));
+			    m.push(document.getElementById(name));
+			    var value = data[name];
+			    for (let e of m) {
+				if (!e)
+				    continue;
+				if (name == "lifeform_image") {
+				    e.src = `${LifeformDir}/lifeform_${id}.png?${Math.random()}`;
+				}	
+				else if (e.value) {
+				    e.value = value;
+				} else {
+				    e.innerText = value;
+				}
+			    }
+			}	
+		    }
+		});
+	    }
+	    
+	    async function refreshPlanets() {
+		$(document).ready(function() {
+		    var html = '';
+      		    $.ajax({
+			url: `/gallery?directory=${GalleryDir}&mask=mp4$&count=20`,
+			success: async function(data) {
+			    var position = document.getElementById('planetList')
+			    var tags = data.tags
+      			    $.ajax({
+				url: `/randomgallery?directory=${GalleryDir}&mask=mp4$&count=900`,
+				success: async function(rdata) {
+				    var alltags = [...tags, ...rdata.tags];
+				    var count = 0;
+				    var delay = 100;
+				    function draw() {
+					setTimeout(function () {
+					    var tag = alltags[count++];
+					    if (!tag)
+						return;
+					    var planetDiv = document.createElement("div");
+					    planetDiv.innerHTML = `\n<hr /><p style="margin-top: 2vh;">${count}) <a target="_blank" href="/editplanet/#${tag.id}">${tag.id}</a></p>\n<video id="${tag.id}" style="width: 40%;" title="Catalog#:${tag.id}" onplay="this.currentTime=6;" onclick='showPlanet(\"${tag.id}\")' onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" preload="none" poster="/stills/planet_${tag.id}.gif"></video><img style="vertical-align: top; width: 58%;" src="/lifeforms/lifeform_${tag.id}.png?${Math.random()}">`;
+					    position.appendChild(planetDiv);
+					    draw();
+					}, delay += 5);
+				    }
+				    showPlanet(alltags[0].id);
+				    draw();
+				},
+				error: function(x, text, err) {
+				    alert(text);
+				}
+			    });	
+			}
+		    });	
+		});
+	    }
+
+	    // first refresh
+	    refreshPlanets();
+	    </script>
+	</div>
+	  <div class="row" style="width: 100%;">
+	    <img id="lifeform_image">
+	    <p/>
+	    <h2>Federation Survey: <span name="planet_type"></span> planet: <span name="star_index"></span> <span name="star_system"></span> <span name="planet_index"></span></h2>
+	    <p id="history" />
+	    	Unsurveyed
+	    </p>
+	  </div>
+      </div>
+    </div>
+  </body>
+</html>

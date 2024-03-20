@@ -1,0 +1,8 @@
+{
+    "command":"Which command type to resolve, influence, setfield, message etc",
+    "targets":"Restrict operation to only this list of target civilizations or events",
+    "targetId":"The database row being targeted",
+    "targetCollection":"The collection being targeted such as Civilization, Events, Planet etc",
+    "sourceCivilization":"Which civilization (planet, NFT) was this command sent by",
+    "sourceUser":"Which Moralis user id was this command issued from"
+}

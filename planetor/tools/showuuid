@@ -1,0 +1,87 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use POSIX;
+
+$| = 1;
+
+use Data::Dumper;
+
+sub progdir {
+  my ($dir, $file) = ($_[0] || $0) =~ m!(.+?)([^/]+)$!;
+  return $dir if $dir =~ m!^/!; # already absolute path? return
+  my @paths = split(/[:;]/, $ENV{PATH});
+  for my $path (@paths) {
+    if (-x "$path/$file") {
+      return "$path/";
+    }
+  }
+  return $dir;
+}
+
+require &progdir()."/args.pm";
+
+my $guid = '[a-f0-9]{4}([a-f0-9]{4})-([a-f0-9]{4})-[a-f0-9]{2}([a-f0-9]{2})-[a-f0-9]{4}-[a-f0-9]{12}';
+
+my $Options = new Args({
+  help => {
+    help => "showuuid git_info: 1.1 dc49d5e master 02/01/22-22:10:00-EST-0500\nAnnotate any MathTag UUID embedded in text, that passes through this filter with creation time and source\nusage: cat filename | showuuid"
+  },
+  format => {
+    help => "How to output the results. see man strftime (%K is original UUID, %J is source, %f is decimal timestamp",
+    value => "(%Y-%m-%d %H:%M:%S %Z) %K (%J)"
+  },
+  recognize => {
+    help => "How to recognize a UUID (USE \@UUID\@ to indicate standard guid pattern, or $guid)",
+    value => '@UUID@'
+  },
+  timezone => {
+    help => "Use alternate timezone instead of local timezone ( use -t alone for list of time zones)",
+    value => strftime("%Z", localtime())
+  }		
+		       });	
+
+if ($Options->{timezone} eq "1") {
+  print do{local(@ARGV,$/) = "/usr/share/zoneinfo/zone1970.tab"; <>};
+  exit 0;
+}
+
+my $sources = {"01" => "bidder", "00" => "mathtag"};
+
+$ENV{TZ} = $Options->{timezone};
+
+sub cookie_source
+{
+  my $code = shift;
+  return "unknown" if !$sources->{$code};
+  return $sources->{$code} || "unknown";
+}
+
+sub uuidtime
+{
+  my ($all, $high, $low, $source_marker) = @_;
+  my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst);
+  my $source = cookie_source($source_marker || "unknown");
+
+  my $ts = hex("${high}${low}");
+  my $info = strftime($Options->{format}, localtime($ts));
+  if ($source eq "unknown") {
+    $info =~ s/[0-9]+/0/g;
+  }
+  $info =~ s/%J/$source/eg;
+  $info =~ s/%f/$ts/eg;
+  $info =~ s/%K/$all/eg;
+  return $info;
+}
+
+print STDERR "$0 -h for help, waiting for input on standard in...\n";
+
+my $uuid_pattern = $Options->{recognize};
+
+$uuid_pattern =~ s/\@UUID\@/$guid/;
+
+while(my $line=<STDIN>) {
+  $line =~ s/($uuid_pattern)/&uuidtime($1,$2,$3,$4)/gixe;
+  print $line;
+}

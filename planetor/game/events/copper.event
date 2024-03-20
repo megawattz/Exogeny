@@ -1,0 +1,21 @@
+{
+	"limits":[],
+    "affected": {
+        "engineering":"0.2",
+	"warfare":"0.1",
+	"economic": "0.2"
+    },
+    "level": 0,
+    "amplifiers": {
+        "energy": 1
+    },
+    "mitigators":{},
+    "cost": 0.05,
+    "influence":"do you want to help them develop this technology",
+    "image_url":"https://www.zmescience.com/mrf4u/statics/i/ps/cdn.zmescience.com/wp-content/uploads/2015/11/copper-2.jpg?width=1200&enable=upscale",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Someone has discovered how to smelt copper from ore and form it into usable tools",
+    "actual":""
+}
+

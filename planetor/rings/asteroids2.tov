@@ -1,0 +1,40 @@
+// Ring Asteroids
+#declare ring_color = <%s>;
+#declare ring_radius = %s;
+#declare hole_radius = %s;
+#declare variety_seed = %s;
+#declare ring_index = %s;
+#declare planet_size = %s;
+#declare ring_brightness = v_ring_brightness;
+
+difference {
+   sphere {
+      <0, 0, 0>, ring_radius * 2   //planet_size * 2.5 + planet_size * v_random_float
+      scale <1, .1/ring_index, 1> 
+      texture {
+         pigment {
+            image_map {
+	       png "asteroids_clusters.png"
+               map_type 1 interpolate 4 // Esfera
+	       //transmit all ring_brightness
+	       repeat <8,8>
+            }
+	    scale <1, 0.2, 1>
+         }
+	 normal {
+	    bump_map {
+	        png "asteroids_clusters.png"
+		map_type 1  // Esfera
+                bump_size 100
+            }
+         }
+      }
+   }
+   cylinder {
+      <0, -10, 0>, <0, 10, 0>, planet_size * (1.2 + v_random_float)
+      texture {
+      	      pigment { color rgbt <1,1,1,1> }
+      }
+   }
+   rotate <0,ring_index * 10 + -clock*60*ring_index, 0>
+}

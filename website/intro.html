@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <title>ExoPlaneteer Intro</title>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta charset="utf-8">
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
+    <meta name="description" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/general.css">
+
+    <!-- Bespoke Stuff -->
+    <script src="js/functions.js"></script>
+
+    <style type="text/css">
+    </style>
+    
+  </head>
+  <body>
+    <video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="width: 100%;"></video>
+    
+    <div class="container-fluid bg-image" style="font-color: white; align: bottom;">
+      
+      <div class="row">
+	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
+	</nav>
+	<script src="./js/headermenu.js" type="module">
+	</script>
+      </div>
+      
+      <div class="row" style="border-bottom: solid red;">
+	<!--img style="width: 80%;" src="image/ExoPlaneteer.png"-->
+	<script>
+	  function loadPlanet() {
+	      fadeout(videoBackground, 1.0);
+	      videoBackground.style.opacity = 0;
+    	      videoBackground.src = randomPlanet();
+	      fadein(videoBackground, 5.0);
+	      setTimeout(loadPlanet, 20000);
+	  }
+	  loadPlanet();
+	</script>
+      </div>
+      <div class="row" style="width:100%; align-items: center; margin: 0;">
+	<p/>
+	<h2>What is ExoPlaneteer?</h2>
+	<p class="section"><i>ExoPlaneteer is the <b>casual</b> game of acquiring and developing planets in the galaxy,
+	and gaining Tritanium-44 crypto tokens in the process.</i>
+	</p>
+	<p class="section">
+	  If you like computer games, but do not have time to sit in front of a computer screen playing all day long,
+	  maybe ExoPlaneteer is the game for you: An idle pastime, and crypto token generator that will entertain you
+	  and give you the sense of managing an entire planet (or multiple planets, there is no limit on how many you
+	  can own)
+	</p>
+	<p class="section">
+	  <i><b>Exo</b></i> - Outside our Solar System
+	</p>
+	<p class="section">
+	  <i><b>Planet</b></i> - a celestial body larger than an asteroid or comet, illuminated by
+	  light from a star, such as the sun, around which it revolves.</b></i>
+	</p>
+	<p class="section"><i><b>-eer</b></i> - A person or thing performing or capable of a particular action.</b></i>
+	</p>
+	<p class="section">
+	  Planets are GNFTS (Game NFTs) that players own completely in their crypto token wallets. They can buy and
+	  sell them on any compatible NFT marketplace.
+	</p>
+	<p class="section">
+	  Planets generate Tritanium-44 crypto tokens based upon their populations and tech levels. The higher each is,
+	  the more Tritanium-44 that planet acquires for its owner. Your job is to manage the planet and increase the
+	  tech level and population.
+	</p>
+	<p class="section">
+	  Gameplay consists of responding to events and opportunities presented on your smartphone (or computer) for
+	  each planet, every hour. How you respond to those events will shape the evolution of your planet, and its
+	  Tritanium-44 production. The goal is to raise your planet's tech level and population as high as possible. The
+	  higher each are, the more Tritanium-44 you get. In essence you become the curator of the planet, the guiding
+	  intelligence, the hidden hand that nudges technological development.
+	</p>
+	<p class="section">
+	  Every hour opportunities, challenges and trade negotiations with other players will be resolved. If a player
+	  does not participate, the planet's tech level and population will decay bit by bit each hour, until the planet
+	  reverts to its natural state of no Tritanium-44 production. Active participation is required to get Tritanium-44
+	</p>
+	<p class="section">
+	  This introduces a new paradigm in crypto token creation called <b><span style="color: dark-green;">Proof of
+          Attention</span></b>, designed to defeat the uneven distribution of crypto tokens caused by whales buying up
+          creating rigs to do industrial level creating of Bitcoin (for example). Tritanium-44 creating requires active
+          participation by a person.
+	</p>
+	<p class="section">
+	  Tritanium-44 is the game currency required to respond to some events and add enhancements to your planet. It's
+	  like the platinum, gold, copper etc. of MMORG games. <b><i>There is no expection or implied promise that the
+	  planet or Tritanium-44 will gain value.</i></b>
+	</p>
+      </div>
+  </body>
+</html>

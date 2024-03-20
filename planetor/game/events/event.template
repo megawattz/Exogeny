@@ -1,0 +1,19 @@
+{
+    "affected": {
+        "aspect1":"max effect possible or string to indicate a change to that different string value",
+	"comment:"bio,energy,information,engineering,science,transport,social,warfare,economic,spiritual,art,knowledge,infrastructure,manufactured,services,entertainment,woo,population",
+	"aspect2":"max effect possible",
+	"aspect3": "..."
+    },
+    "level":"The average tech level required to effect or countereffect (0 = the current tech average tech level of the planet)",
+    "amplifiers": {}, //"what could make this event more impactful", % above or below the level will amplify or mitigate",
+    "mitigators": {}, //"only necessary if a different aspect than the amplifier",
+    "cost": 0.1, //cost per percentage point of probability or damage mitigation -, to lower, + to increase
+    "influence":"describe what spending T44 will accomplish",
+    "image_url":"",
+    "video_url":"",
+    "color":"green",
+    "apparent":"A description of what appears to be happening",
+    "actual":"What is actually happening, only revealed if science or spirituality reveals it"
+}
+

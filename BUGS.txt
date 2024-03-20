@@ -1,0 +1,18 @@
+Bugs that are not severe but annoying
+
+
+1. Though there are 256,000 combinations of planet names, i.e. Star_Index Star_Name Planet_Index, like Pi Ganesha VI,
+   there are still collisions. That's not good. Each planet in the end must have a unique name just for pride of
+   ownership
+
+2. Sometimes when generating or modifying a planet, the new version doesn't appear. You have to refresh again, or even
+   again. This is because creating the planet doesn't happend instantly, even a single frame, so the UI waits for a few
+   seconds before trying to fetch. Sometimes it's not long enough. Doing it multiple times is annoying because it ends
+   up flashing the screen if the planet has already been fetched.
+
+3. Can't get convert or povray to do more than 100 frames. It just creates empty images if you go above 100. This
+   prevents clean orbits that don't restart suddenly. Every revolving part of the planet needs to revolve on a multiple
+   of the other things so that when they restart their circuit, they restart exactly where they left off for a clean in
+   infinite loop.
+
+4. 

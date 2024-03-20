@@ -1,0 +1,18 @@
+{
+	"limits":[],
+    "affected": {
+        "engineering":"0.3",
+	"energy":"0.1"
+    },
+    "level": 1,
+    "amplifiers": { "energy": 1, "engineering": 1},
+    "mitigators":{},
+    "cost": 0.1,
+    "influence":"take advantage of this new technology to its fullest",
+    "image_url":"https://www.archaeology.wiki/wp-content/uploads/2018/10/Alexandria-Troas-farming-tools-7.gif",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Your civilization has been able to create hot enough furnaces to smelt and use iron for tools",
+    "actual":""
+}
+

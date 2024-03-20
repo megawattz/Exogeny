@@ -1,0 +1,63 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+use POSIX;
+
+use Time::HiRes qw(gettimeofday tv_interval);
+
+sub progdir {
+  my @elements = split(qr(/), $_[0] || "$0");
+  my ($dir, $file) = (join('/', @elements[0..-1]), $elements[-1]);
+  return $dir if substr($dir, 0, 1) eq '/';
+  my @paths = split(/[:;]/, $ENV{PATH}.":."); # append current directory
+  for my $path (@paths) {
+    if (-x "$path/$file") {
+      return $path;
+    }
+  }
+  return $dir;
+}
+
+require &progdir()."/args.pm";
+  
+$| = 1;
+
+my $Options = new Args ({
+  format => {
+    value => "%Y/%m/%d %H:%M:%S ",
+    help => "strftime style argument string (man strftime), additionally %q=elapsed seconds, %Q elapsed microseconds"
+  },
+  timezone => {
+    help => "Use alternate timezone instead of local timezone ( use -t alone for list of time zones)",
+    value => strftime("%Z", localtime()),
+    action => sub { $ENV{TZ} = $_[0] }
+  },	
+  help => {
+    help => "prepends timestamps to lines of text passed through it\nusage: tail -f logs | ts [options] where options are:\n",
+    value => "0"
+  }
+});
+
+if ($Options->{timezone} ne strftime("%Z", localtime()) && $Options->{timezone} !~ m|/| ) {
+  eval {
+    open(TZONES, "</usr/share/zoneinfo/zone1970.tab") || die "Unknown Time Zone, using default";
+    print grep{/$Options->{timezone}/} <TZONES>;
+    exit 0;
+  };
+}
+
+my $last;
+
+print STDERR "$0 -h for help, waiting for input on standard in...\n";
+
+while(my $line = <STDIN>)
+{
+  my $now = [gettimeofday()];
+  my $elapsed = sprintf("%1.6f", tv_interval($last, $now));
+  $last = $now;
+  my $ts = strftime($Options->{"format"}, localtime($now->[0]));
+  $ts =~ s/%q/$elapsed/e;
+  $ts =~ s/%Q/$elapsed * 1000000/e;
+  print "$ts$line";
+}

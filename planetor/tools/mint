@@ -1,0 +1,203 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const axios = require("axios");
+const path = require("path");
+
+// change these for your specific application
+API_KEY = "INNMibkxLXWuHzXOmylj5375ovAJx8ygByGjr0EkYGDxKl28FbmbrN7haO6sqkG5";
+CONTRACT = "0x0227b5218cb14657ce901ffce39346c680a89fab"; // Polygon Mumbai Test Network
+IPFS = "https://deep-index.moralis.io/api/v2/ipfs/uploadFolder";
+FOLDER = "planeteer_collection_0";
+
+var Args = {"":[]};
+
+// structure of NFT object
+var NFT = {
+    "video": {},
+    "image": {},
+    "meta": {},
+    "attributes": {}
+};
+
+// collect up components of NFTs until each is ready to push
+var NFTs = {
+};
+
+var BulkNFTs = [
+];
+
+
+/*
+  function fileToIPFS(file_data, id, which) {
+  // Save file input to IPFS
+  const file = new Moralis.File(file_data.name, file_data);
+  await file.saveIPFS();
+  console.log(file.ipfs(), file.hash());
+  NFTs[i] 
+  return file.ipfs();
+  }
+*/
+
+// upload: metadata object (name, desc txt & image)
+function uploadMetadata(videoURL, imageURL, meta) {
+    const name = document.getElementById('metadataName').value;
+    const description = document.getElementById('metadataDescription').value;
+
+    const metadata = {
+        "name": name,
+        "description": description,
+        "image": imageURL,
+	"animation": videoURL
+    };
+
+    const file = new Moralis.File("file.json", {
+        base64: btoa(JSON.stringify(metadata)),
+    });
+    
+    file.saveIPFS();
+
+    console.log('✅', file.ipfs());
+}
+
+// function to pushNFT
+function pushNFT() {
+    const image = fileToIPFS();
+    uploadMetadata(image);
+}
+
+var idpad = "0".repeat(56)
+var versionpad = "0".repeat(8)
+
+function erc1155id(id, version) {
+    return (idpad+id).slice(-56)+(versionpad+version).slice(-8);
+}
+
+function openSeaMeta(id, ipfs_data) {
+    const attribs = NFTs[id].attributes;
+    var meta = {};
+    
+    for (var i in ipfs_data) {
+	console.log(i, ipfs_data[i]);
+	var entry = ipfs_data[i];
+	var path = entry['path']
+	if (path.match("\.gif$"))	
+	    meta['image'] = path;
+	else if (path.match("\.mp4$"))	
+	    meta['animation_url'] = path;
+    }
+    
+    var opensea = {
+	...meta,
+	...{
+            "name": attribs.description,
+	    "attributes": {
+	    "official designation": attribs.designation,
+	    "known as": attribs.name,
+	    "dominant indigenous life form": attribs.lifeform,
+	    "dominant species self name": attribs.species,
+	    "culture": attribs.culture,
+	    "planet motto": attribs.motto
+	}		
+    }};
+    console.log("OpenSea:", opensea);
+    delete NFTs[id];
+}
+
+function processNFT(id) {
+    var nft = NFTs[id];
+    nft['send'] = [];
+    for (var key in nft) {
+	var entry = nft[key];
+	if (entry['path'])
+	    nft.send.push({"path": entry.path, "content": entry.content});
+    }
+    
+    axios.post(IPFS,
+	       nft.send,
+	       {
+		   headers: {
+		       "X-API-KEY":`${API_KEY}`,
+		       "Content-Type":"application/json",
+		       "accept":"application/json"
+		   }
+	       }).then((res) => {
+		   //console.log(res.data);
+		   openSeaMeta(id, res.data);
+	       }).catch((error)=> {
+		   throw new Error(error);
+	       });
+    //console.log(`pushed NFT ${id} ${nft[0].path} size=${nft[0].content.length}, ${nft[1].path} size=${nft[1].content.length}, ${nft[2].path} size=${nft[2].content.length}`);
+}
+
+// fill out the local array of the 3 separate files required for each NFT, mp4, gif and JSON
+function updateNFT(fname, category) {
+    const id = fname.match("[0-9]+"); // get the identity of the NFT (all corresponding files have the same id)
+    if (!id)
+	return; // not a planeteer file
+    if (NFTs[id] == null) { // initialize a new NFT object if necessary
+	NFTs[id] = Object.assign({}, NFT); // clone a new NFT object
+    }
+    var nft = NFTs[id]; // for convenient referencing the nft object of this id later in this function
+    const content = fs.readFileSync(fname);
+    if (content.length < 10) {
+	console.error(`Problem reading ${fname}`);
+	return;
+    }
+    if (fname.match(/.json$/)) { // this is used for descriptions, not pushed as an NFT
+	nft['attributes'] = JSON.parse(content); // make it into an object for referencing data
+    }
+    nft[category]['content'] = content.toString("base64");
+    nft[category]['path'] = `${FOLDER}/${erc1155id(id, 0)+path.extname(fname)}`; // create an erc1155 id file
+
+    // NFT has all required components in NFT struct? Process it.
+    if (nft.video['path'] && nft.image['path'] && nft.meta['path']) {
+	processNFT(id);
+    }
+    return NFTs[id]; // will return null if the NFT was "processed"
+}
+
+var loadMedia = function(files) {
+    for (var i in files) {
+	try {
+	    var fname = files[i];
+	    if (fname.match("\.gif$"))	
+		updateNFT(fname, 'image');
+	    else if (fname.match("\.mp4$"))	
+		updateNFT(fname, 'video');
+	    else if (fname.match("civilization.+?json$"))
+		updateNFT(fname, 'meta');
+	    else if (fname.match("specs.+?json$"))
+		updateNFT(fname, 'meta');
+	} catch (error) {
+	    console.error(`${error} processing file ${fname} at ${error.stack}, no NFT will result`);
+	}	
+    }
+}
+
+function main() {
+
+    if (process.argv.length < 3) {
+	console.log("mint nfts to opensea, first by uploading to IPFS, then posting their metadata and URLs to opensea");
+	console.log("usage mint option=value option=value filespec filespec filespec ...")
+	console.log("example: mint max=100 gallery/*.mp4 stills/*.gif civilization/civ*.json specs/specs_*.json")
+	console.log("mint loads all those files and associates them by the id embedded in the filename to create and load mp4, associated still picture (gif), planet metadata and civilization data")
+	process.exit(0);
+    }
+    
+    for (var i in process.argv) {
+	var [name, value] = process.argv[i].split("=");
+	if (!value)	    
+	    Args[""].push(name);
+    }
+
+    loadMedia(Args[""]);
+
+    //console.log("Unprocessed due to incompleteness");
+    //console.log(NFTs);
+    
+    return 0;
+}
+
+
+return main();

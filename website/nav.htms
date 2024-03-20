@@ -1,0 +1,33 @@
+	<nav class="navbar navbar-expand-sm navbar-dark">
+	  <a href="home.html" class="navbar-brand mb-0 h1">
+	    <img style="height: 6vh;" src="image/ExoPlaneteer.png">
+	  </a>
+	  
+	  <div class="collapse navbar-collapse" id="exoNavbar">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+		<a class="nav-link" href="intro.html">Intro</a>
+	      </li>
+	      <li class="nav-item active">
+		<a class="nav-link" href="planets.html">Planets</a>
+	      </li>
+	      <li class="nav-item active">
+		<a class="nav-link" href="lifeforms.html">Life Forms</a>
+	      </li>
+	      <li class="nav-item active">
+		<a class="nav-link" href="cultures.html">Cultures</a>
+	      </li>
+	      <li class="nav-item active">
+		<a class="nav-link" href="galaxy.html">Galaxy</a>
+	      </li>
+	      <li class="nav-item active">
+		<a class="nav-link" href="gallery.html">Gallery</a>
+	      </li>
+	    </ul>
+	  </div>
+	  
+	  <button type="button" data-bs-toogle="collapse" data-bs-target="#exoNavbar" aria-controls="exoNavbar" aria-expanded="false" aria-label="Show Navbar" class="navbar-toggler">
+	    <span class="navbar-toggler-icon"/>
+	  </button>
+	  
+	</nav>

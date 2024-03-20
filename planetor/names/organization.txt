@@ -1,0 +1,16 @@
+Anarchy
+Hive
+Military
+Monarchy
+Oligarchy
+Technocracy
+Theocracy
+Computocracy
+Autocracy
+Egalitarian
+Mercantile
+Democracy
+Bureaucracy
+Aristocracy
+Feudal
+

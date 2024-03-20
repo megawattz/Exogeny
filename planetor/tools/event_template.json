@@ -1,0 +1,12 @@
+{
+    "affected":"What parameter of the planet will be affected (population, tritanium44, manufactured, a tech level etc?", 
+    "greatest":"The greatest possible magnitude or quality of the effect, such as 2.3, or 10% or a culture change, example: 2.3, 12%, Military etc. Mitigation opportunity can be offerred the player to offset this.",
+    "power":"number: how powerful is this effect, what tech level or quality will mitigate it, for example, a plague of power 4 will be stopped 100% by a biotech level of 4 and above", 
+    "mitigator":"what planet quality can mitigate can counteract the power of this effect, like social tech, or knowledge", 
+    "image_url":"to add some visual aspect to the event, add a URL to some image to illustrate the event) (what does a dolphin revolution look like???)",
+    "video_url":"to add some visual aspect to the event, add a URL to some video somewhere to illustrate the event",
+    "color":"text color of event announcement",
+
+    "migitation":"(not sent, this is the users response) how much T44 did the user want to spend to influence the outcome (+ to support it, - to oppose it)",
+    "effect":"(not sent, this is the final result of the event which goes into the history of the planet)"
+}

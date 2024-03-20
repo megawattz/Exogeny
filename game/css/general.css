@@ -1,0 +1,130 @@
+body {
+    font-family: 'Arial, san-serif';
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 20%;
+  overflow: auto;
+  background-color: rgba(255,255,255,0.4);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 10;
+  margin: auto;
+  padding: 20px;
+  width: 50%;
+  background-color: #fff;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup, .poptable {
+    pointer-events: auto;
+    background: black;
+    opacity: 1;
+    draggable: true;
+    z-index: 10;
+    padding: 0.1vw;
+    color: white;
+    font-family: Arial, san-serif;
+}
+
+.planetPopup {
+    pointer-events: auto;
+    background: black;
+    position: relative;
+    opacity: 1;
+    font-size: 2vw;
+    width: 50%;
+    z-index: 20;
+    color: white;
+    border: 1px solid white;
+    font-family: Arial, san-serif;
+}
+
+.lifeformPopup {
+    pointer-events: auto;
+    background: black;
+    position: relative;
+    opacity: 1;
+    font-size: 1vw;
+    width: 50%;
+    z-index: 20;
+    color: white;
+    border: 1px solid white;
+    font-family: Arial, san-serif;
+}
+
+.lifeformImage {
+ }
+
+.planetVideo {
+    background: black;
+    width: 100%;
+    opacity: 1;
+}
+
+.rounded {
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    padding: 0.4vw;
+    text-align: left;
+    background: grey;
+    vertical-align: bottom;
+    white-space: nowrap;
+    border: 1px solid  white;
+    font-family: Arial, san-serif;
+}
+
+td {
+    padding-left: 0.4vw;
+    padding-bottom: 0.2vw;
+    text-align: left;
+    vertical-align: bottom;
+    border-left: 1px solid  white;
+    border-bottom: 1px solid  white;
+    font-family: Arial, san-serif;
+}
+
+h2,h3 {
+    text-align: center;
+}
+
+.icon {
+    height: 1.6vw;
+    float: right;
+}
+
+.starpop {
+}
+
+.name {
+    font-family: Arial, san-serif;
+}
+
+.label {
+    z-index: -1;
+}
+
+.wheelzoom {
+    pointer-events: auto; 
+    transition: width 0.2s, height 0.2s;
+}

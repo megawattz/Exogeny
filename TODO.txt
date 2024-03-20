@@ -1,0 +1,125 @@
+In order of importance * ease of implemenation
+
+--------------------------------------------------
+Need these before demo (ideally)
+-------------------------------------------------
+
+Keep data in local storage on browser for scrubber planets.
+
+Video of how to play
+
+"arrival of event" alarm system
+
+-----------------------------------------------
+Nice to have
+-------------------------------------------------
+
+Finish web pages explaining
+
+Use chat GPT to resolve issues.
+
+Have chatGPT API generate planet histories.
+
+Standalone Moralis Server (Moralis Repo)
+
+3D star chart
+
+Grid showing the various weights and probabilities involved with gameplay (how does life form influence popluation, how does atmosphere influence tech levels, etc etc.)
+
+As tech levels rise particular skills are gained, represented by little icons like "coinage" "fire" "air travel" "nuclear power" "democracy"
+
+As skills exceed or lag the average, negative events become more likely, like, if engineering starts to exceed science,
+building collapse, if biology exceeds social sciences, biological warfare erupts.
+
+Collections. Release the planets in batches called collections.
+
+Alien alphabet for some things???? :)
+
+Push the COLLECTIBLES aspect: sets
+
+GNFTs Game NFTs
+
+Also generated is something to actually push.
+
+Think in phases.
+
+OpenSea or other sites may already have a collection display area.
+
+Need a way to send messages to a user (into their database record). It needs to display them, use them for chat and email
+some to the user or SMS announcements about their planets.  "Civil War on Excalibur! Scientist invents electricity! etc
+etc." A popup window with a link in the navbar that blinks if they have pending messages would be great but there may be
+a better way.
+
+Video of how planets are created.
+
+Sets. Sell initial sets of planets, Alpha Centauri and it's sister stars.
+
+-------------------------------------------------
+User Website
+------------------------------------------------
+
+planetdetail.html page
+
+Gallery by lifeform
+
+screensaver for my planets only
+
+parameters for screensaver
+
+Put contract name in description of planet (Markab Confederacy etc)
+
+Put contract name in sectors list
+
+How to browse unowned planets? Use opensea.
+
+Unowned planets, link to webpage which give information about planet.
+
+Screen saver and browser for "my planets" with options like "only show non-labelled images, 
+
+Put site on IPFS (except for main page which controls redirection to new or modified website version)
+
+--------------------------------------------------
+Game Play
+--------------------------------------------------
+
+Resolver
+
+Alarm when an event comes into (any planet)
+
+Information scrolls across screen based on tech level. Decision points come up with owner having to make a choice. i.e. "Civil War, which side do you support?"
+
+Planet culture has a "stability" value, which is the probability of collapse every turn. Various factors influence the stability
+
+Click another menu option and a page comes up with selections on how to interact with the planet.
+
+Click another menu option and 'history' of the planet comes up (significant events and production totals)
+
+Use real stars and galactic coordinates (where applicable) so trade routes can have value
+
+Factor matrix: N-dimensional array showing how each factor of culture, various techs, and lifeforms interact to trigger events and produce Tritanium-44
+
+Auction House
+
+Establish trade routes
+
+Value of non-Tritanium assets for planets with exotic lifeforms, for example, entertainment can be used to keep a
+population from revolting so you can important entertainment from another planet to keep a slave planet from
+revolting. Or knowledge can be imported from somewhere to speed up tech level rise.
+
+Click another menu and there is a place you can sell your planet.
+
+Auction House
+
+To add value to the NFTs, make them collectible in sets. The more you have, the higher your Titanium-44 paying. For example
+1) One planet of each and every life form
+2) One planet of each and every life chemistry
+3) All planets in a star system
+etc etc.
+Want analogs to simple games people are accustomed to so they quickly understand and don't get overwhelmed by complexity
+
+--------------------------------------------------
+Cool Features
+--------------------------------------------------
+
+Encrypted communication between planets (really between wallets).
+

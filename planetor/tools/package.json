@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "axios": "^0.27.2",
+    "mongodb": "^4.9.1",
+    "moralis": "^2.2.0",
+    "moralis-admin-cli": "^2.1.16",
+    "moralis-v1": "^1.11.0",
+    "promise": "^8.2.0"
+  }
+}

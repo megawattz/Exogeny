@@ -1,0 +1,25 @@
+{
+    "limits": [
+    	 "['Biped','Tetrapod'].includes(planet.lifeform)",
+	 "planet.level < 1"
+    ],
+    "affected": {
+        "bio":"0.3",
+	"energy":"0.2",
+	"science":"0.1",
+	"warfare":"0.2",
+	"economic":"0.1",
+	"spiritual":"0.1"
+    },
+    "level": 0,
+    "amplifiers": {},
+    "mitigators": {},
+    "cost": 0.08,
+    "influence":"help your population take advantage of this knowledge",
+    "image_url":"https://landioustravel.com/wp-content/uploads/2022/09/Ancient-Egyptian-Agriculture.jpg",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Your people have learned to cooperate with and utilize the other creatures in their surroundings",
+    "actual":""
+}
+

@@ -1,0 +1,17 @@
+{
+	"limits":[],
+    "affected": {	
+	"science":"2%"
+    },
+    "level": 0,
+    "amplifiers": {"engineering": 1},
+    "mitigators": {},
+    "influence": "How much of this discovery do you wish to exploit?",
+    "cost":0.2,
+    "image_url": "https://www.gizmodo.com.au/wp-content/uploads/sites/2/2015/12/25/v1czdxdgsnnu0njbz8vr.jpg",
+    "video_url": "",
+    "color":"green",
+    "apparent":"Most Fortunate. An ancient technical relic has been discovered that has allowed your scientists to advance your scientific tech.",
+    "actual":null
+}
+

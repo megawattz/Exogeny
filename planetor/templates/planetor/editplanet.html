@@ -1,0 +1,475 @@
+<html lang="en">
+  <head>
+    <title>Exogeny Design Planet</title>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
+
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/planetor.css"/>
+    <style>
+      body {
+	  font-size: 1.70vh;
+      }
+      .planetparam {
+	  color: cyan;
+	  font-style: italic;
+      }
+      .stickyparam {
+	  color: red;
+	  font-style: italic;
+      }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+  </head>
+  <body style="background-color: black; font: monaco; color: white; width:95%;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarsExample10">
+	  <ul class="navbar-nav">
+	    <li class="nav-item">
+	      <a class="nav-link active" title="create planets" aria-current="page" href="/editplanet">Create Planets</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link active" title="display details planets" href="/myplanets">Browse Planets</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link active" title="display upcoming exoplanets randomly for 1 minute at a time (hint: Chromecast to a wall mounted LCD/Television)" href="/allgallery">All Planets Screen Saver</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link active" title="what is Exogeny?" href="/about">About</a>
+	    </li>
+	  </ul>
+        </div>
+      </div>
+    </nav>
+    <br><br>
+    <div class="container-fluid">
+      <div class="row g-0" style="background-color: black; width: 106%; height: 100%;">
+        <div class="col-8">
+	  <p><p>
+	    <div id="planetDisplay" style="background-color: black; background-size: contain; background-repeat: no-repeat; width:100%; height: 100%;">
+	      <form id="edit" method="GET">
+		<script>
+		  var GalleryDir = "/app/planetor/out/gallery";
+		  var StillDir = "/app/planetor/out/stills";
+		  var randomTimeout = null;
+		  var editWait = 60000;
+		  var buttonTimeout = null;
+		  var startTimeout = new Date();
+		  
+		  var Explanations = {
+		      "sun_brightness":"The color of the sun, and the brightness (the three numbers are Red, Green and Blue strengths)",
+		      "planet_size":"Radius in thousand kilometers",
+		      "planet":"The surface appearance of the planet, probably the most critical element of its appearance",
+		      "clouds":"The pattern of the clouds",
+		      "clouds_density":"How thick the clouds are, the higher the number the less dense so 1 is totally transparent, and 0 is opaque",
+		      "atmosphere":"What the atmosphere is composed of, the most important factor in the planets color",
+		      "atmosphere_density":"How thick the atmosphere is, like clouds, the higher the number the less thick with 1 being totally transparent",
+		      "camera_location":"Where is the camera shooting the scene positioned on an x, y, z cooordinate system. Only distance shots will give planets rings.",
+		      "rings":"How many rings the planet will have (only available on longer distanced camera shots)",
+		      "ring_brightness":"How bright the rings are",
+		      "star_system":"The base name of the planet",
+		      "star_index":"Star constellations have multiple stars, labeled with greek letters to differentiate them.",
+		      "planet_index":"Which planet position from the star using Roman numerals, lowest numbers are closest, Prime is the closest.",
+		      "background":"The background image",
+		      "moons":"How many moons does this planet have? Regretably the appearance of the moons is random and can't be specified individually.",
+		      "unexplored":"If not 0, will not add text or icons to the image (resources, lifeform, name, start etc) as to make it displayable as art instead of game card.",
+		      "artist":"This will embed the name you put here into the metadata of the planet animation file"
+		  }
+
+		  var Options = {};
+		  var ShowPlanets = [];
+		  var called = 0;
+
+		  function setbackground(element, imageurl) {
+		      // this is used to retry a failed background image load. JS caches the failure to fetch the file
+		      // so must add a cache buster random number to the image url
+		      element.style.backgroundImage = `url(${imageurl}?${Math.random()})`;
+		      element.style.backgroundSize = '100%';
+		  }
+
+		  function s2b(str) { // if the string represents a bool, return a boolean type, otherwise just return the string
+		      const lookup = `${str}`.toUpperCase();
+		      const b = {"TRUE":true,"YES":true,"FALSE":false,"NO":false}[lookup];
+		      if (b != null) return b;
+		      return str;
+		  }
+
+		  function animplanetfunc() {
+      		      $.ajax({
+			  url: `/regenerate_planet?id=${Options['identity']}`,
+			  success: function(data) {
+			      refreshPlanets();
+			      randomplanetfunc();
+			  }
+		      });
+		  }
+
+		  function editplanet(planetid) {
+		      $.ajax({
+			  url: `/editspecs?id=${planetid}`, 
+			  success: function(data) {
+			      console.log(data)
+			      catchOptions(data);  // sendint this, returns javascript code that executes ...
+			      preview(data);
+			  },
+			  fail: function(data) { console.error(data) }
+		      });
+		  }
+
+		  function randomplanetfunc() {
+		      var form = document.getElementById("edit");
+		      var inputs = form.getElementsByTagName("input");
+		      var query = "";
+		      for (i in inputs) {
+			  var element = inputs[i];
+			  if (element.type != 'checkbox')
+			      continue;
+			  if (element.sticky != true)  // don't send values if not sticky
+			      continue;
+
+			  if (element.checked) // true means "I want to change this, so send empty string to regenerate randomly"
+			      element.value = "";
+
+			  query += `&${element.name}=${element.value}`;
+		      }
+		      console.log("attempting to execute preview_planet ")
+
+		      if (called++) // don't allow another request until previous one has finished
+			  return;
+
+		      $(document).ready(function() {
+			  $.ajax({
+			      url: `/preview_planet?${query}`, //The URL you defined in urls.py
+			      success: function(data) {
+				  console.log(data)
+				  catchOptions(data);  // sendint this, returns javascript code that executes ...
+				  setbackground(loadplanet, planetimage);
+			      }
+			  });
+		      });
+		  }
+		  
+		  function preview() {
+		      var form = document.getElementById("edit");
+		      var inputs = form.getElementsByTagName("input");
+		      var query = "";
+		      for (i in inputs) {
+			  var element = inputs[i];
+			  if (element.type != 'checkbox')
+			      continue;
+
+			  if (element.checked) // true means "I want to change this, so send empty string to regenerate randomly"
+			      element.value = "";
+
+			  query += `&${element.name}=${element.value}`;
+		      }
+		      console.log("attempting to execute preview_planet ")
+
+		      if (called++) // don't allow another request until previous one has finished
+			  return;
+
+		      $(document).ready(function() {
+			  $.ajax({
+			      url: `/preview_planet?${query}`, //The URL you defined in urls.py
+			      success: function(data) {
+				  console.log(data)
+				  catchOptions(data);  // sendint this, returns javascript code that executes ...
+				  setbackground(loadplanet, planetimage);
+			      }
+			  });
+		      });
+		  }
+
+		  window.addEventListener('keydown', function(event) {
+		      if (event.keyCode == 13)
+			  preview();
+		      if (event.keyCode == 09)
+			  preview();
+		  });
+		  
+		  function promptOverride() {
+		      var doit = prompt(this.name, this.value);
+		      if (!doit)
+			  return
+		      this.value = s2b(doit);
+		      this.checked = false;
+		      this.sticky = true;  // make this element not change for "random planet"
+		      var label = `${this.name}_label`;
+		      var text = document.getElementById(label);
+		      text.innerHTML = ` ${this.name} <span class="stickyparam">${this.value}</span>`;
+		  }
+
+		  function catchOptions(incoming_options) {
+		      called--;
+		      var form = document.getElementById("edit");
+		      var checkboxes = incoming_options['checkboxes'];
+		      for (var key in checkboxes) {
+			  var value = s2b(checkboxes[key]);
+			  var check = document.getElementById(key)
+
+			  if (!check) {
+			      check = document.createElement('input')
+			      check.type = "checkbox";
+			      check.name = key;
+			      check.id = key;
+			      check.label = key;
+			      form.appendChild(check);
+			      check.ondblclick = promptOverride;
+			  }
+
+			  if (check.checked) {
+			      check.checked = false;
+			      delete check.sticky;
+			  }
+
+			  //check.checked = false;  // retain checkbox? makes multiple tries easier
+			  if (check.sticky && !check.checked) {
+			      value = check.value; //retain the previous value
+			  }
+
+			  check.value = value;
+			  check.title = Explanations[key]
+
+			  var label = `${key}_label`;
+			  var text = document.getElementById(label);
+			  if (!text) {
+			      text = document.createElement('text');
+			      text.title = Explanations[key]
+			      text.id = label;
+			      form.appendChild(text);
+			      form.appendChild(document.createElement("br"))
+			  }
+			  
+			  if (check.sticky)
+			      text.innerHTML = ` ${key} <span class="stickyparam">${value}</span>`;
+			  else
+			      text.innerHTML = ` ${key} <span class="planetparam">${value}</span>`;
+		      }
+		      
+		      var pause = document.getElementById('pause')
+		      if (!pause) {
+			  pause = document.createElement('input');
+			  pause.type = "checkbox";
+			  pause.checked = true;
+			  pause.name = "pause";
+			  pause.id = "pause";
+			  pause.label = "pause";
+			  pause.value = "pause";
+			  form.appendChild(pause);
+			  var text = document.createElement('text');
+			  text.title = "pause";
+			  text.id = "pause";
+			  text.innerHTML = " stop countdown";
+			  form.appendChild(text);
+			  form.appendChild(document.createElement("br"))
+			  pause.onclick = function() {
+			      if (pause.checked) {
+				  clearInterval(buttonTimeout);
+			      }
+			      else {
+				  countDown(editWait);
+				  randomplanet.click();
+			      }
+			  }
+		      }
+
+		      var retry_lifeform = document.getElementById('retry_lifeform')
+		      if (!retry_lifeform) {
+			  retry_lifeform = document.createElement('input');
+			  retry_lifeform.type = "checkbox";
+			  retry_lifeform.name = "retry_lifeform";
+			  retry_lifeform.id = "retry_lifeform";
+			  retry_lifeform.label = "retry_lifeform";
+			  retry_lifeform.value = "keep";
+			  form.appendChild(retry_lifeform);
+			  var text = document.createElement('text');
+			  text.title = "retry_lifeform";
+			  text.id = "retry_lifeform";
+			  text.innerHTML = " retry lifeform";
+			  form.appendChild(text);
+		      }
+		      
+		      retry_lifeform.value = "keep";
+		      retry_lifeform.checked = false;
+		      
+		      form.appendChild(document.createElement("br"))
+		      form.appendChild(document.createElement("br"))
+
+		      var butt = document.getElementById("preview");
+		      if (!butt) {
+			  butt = document.createElement('input');
+			  butt.type = "button";
+			  butt.onclick = preview;
+			  butt.value = "Apply Changes";
+			  butt.style = "background-color: black; color: white;";
+			  butt.id = "preview";
+			  form.appendChild(butt)
+		      }
+
+		      var animplanet = document.getElementById("animplanet");
+		      if (!animplanet) {
+			  form.appendChild(document.createElement("br"))
+			  form.appendChild(document.createElement("br"))
+			  animplanet = document.createElement('input');
+			  animplanet.type = "button";
+			  animplanet.onclick = animplanetfunc;
+			  animplanet.value = "Save Planet";
+			  animplanet.title = "takes a few minutes to process and will appear in My Planets when finished";
+			  animplanet.style = "background-color: black; color: white;";
+			  animplanet.id = "animplanet";
+			  form.appendChild(animplanet)
+		      }
+
+		      var randomplanet = document.getElementById("randomplanet");
+		      if (!randomplanet) {
+			  form.appendChild(document.createElement("br"))
+			  form.appendChild(document.createElement("br"))
+			  randomplanet = document.createElement('input');
+			  randomplanet.type = "button";
+			  randomplanet.onclick = randomplanetfunc;
+			  randomplanet.value = "Random Planet";
+			  randomplanet.style = "background-color: black; color: white;";
+			  randomplanet.id = "randomplanet";
+			  form.appendChild(randomplanet)
+		      }
+
+		      if (buttonTimeout) {
+		          clearInterval(buttonTimeout);
+		      }	
+
+		      function countDown(secs) {
+			  if (secs == 0)  {
+			      clearInterval(buttonTimeout);
+			      return;
+			  }
+			  startTimeout = new Date();
+			  buttonTimeout = setInterval(function() {
+			      const diff = (secs - (new Date() - startTimeout)) / 1000
+			      if (diff < 1 )
+				  randomplanet.click();
+			      randomplanet.value = `Random Planet ${Math.round(diff)}`;
+			  }, 1000)
+		      }
+
+		      if (!pause.checked)
+			  countDown(editWait);
+		      else
+			  countDown(0)
+		      
+		      ShowPlanets.forEach(clearTimeout);
+		      ShowPlanets = []
+		      
+		      var identity = incoming_options['identity']
+		      window.location.hash = identity;
+		      
+		      var planet = document.getElementById("planetDisplay");
+		      if (planet) {
+			  loadplanet = planet;
+			  planetimage = `/stills/planet_${identity}.gif?${Math.random()}`;
+			  setbackground(loadplanet, planetimage);
+
+			  ShowPlanets.push(setTimeout(function() {
+			      setbackground(loadplanet, planetimage);
+			  }, 2000));
+
+			  ShowPlanets.push(setTimeout(function() {
+			      setbackground(loadplanet, planetimage);
+			  }, 10000));
+
+			  ShowPlanets.push(setTimeout(function() {
+			      setbackground(loadplanet, planetimage);
+			  }, 15000));
+		      }
+
+		      Options = incoming_options;
+		      var waiting = 0
+		      
+		      document.checkLifeFormImage = function(identity_string, loaded) {
+			  var lifeform_image = document.getElementById("lifeform_image");
+			  if (loaded || lifeform_image.style.visibility == 'visible') {
+			      lifeform_image.style.visibility='visible';
+			      return;
+			  }
+			  lifeform_image.style.visibility = 'hidden';
+			  lifeform_image.src = `/lifeforms/lifeform_${identity_string}.png?${Math.random()}`;
+			  lifeform_image.onload = function() { document.checkLifeFormImage(identity_string, true) };
+			  lifeform_image.alt = `Waiting for image to load`;
+			  setTimeout(function() { document.checkLifeFormImage(identity_string, false) }, 5000);
+		      }
+
+		      lifeform_image.style.visibility = 'hidden';
+		      lifeform_image.src = `/lifeforms/lifeform_${identity}.png?${Math.random()}`;
+		      lifeform_image.onerror = document.checkLifeFormImage(identity, false);
+
+		  }
+
+		  if (Object.keys(Options).length == 0)
+		      console.log("attempting to execute preview(Options) for the first time")
+
+		  // in case the user keeps swapping options, wait 2 seconds before firing off the preview
+		  // and if he changes options within 2 seconds, cancel to previous pending preview
+		  
+		  var preview_delay = null;
+		  
+		  if (preview_delay)
+		      clearTimeout(preview_delay);
+		  
+		  preview_delay = setTimeout(function() {
+		      preview(Options);
+		  }, 2000);
+
+		</script> <!-- if ?id=123443 was passed to script, it needs to call regenerate_planet(id) -->
+	      </form>
+	    </div>
+	</div>
+	<div class="col" id="planetList" style="height: 100%; height: 100%; overflow-y:auto; padding: none;">
+	  <script>
+	    function refreshPlanets() {
+		$(document).ready(function() {
+		    var html = '';
+      		    $.ajax({
+			url: `/gallery?directory=${GalleryDir}&mask=mp4$&count=20`,
+			success: function(data) {
+			    var tags = data.tags
+      			    $.ajax({
+				url: `/randomgallery?directory=${GalleryDir}&mask=mp4$&count=100`,
+				success: function(rdata) {
+				    var alltags = [...tags, ...rdata.tags];
+				    for (var i in alltags) {
+					var tag = alltags[i];
+					html += `<video id="${tag.id}" style="width: 33%;" title="Catalog#:${tag.id}" onclick='called++; catchOptions(${tag.editspec})' onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" preload="none" poster="/stills/planet_${tag.id}.gif" onmouseout="pause()" onmouseover="play()"></video>`;
+				    }
+				    var position = document.getElementById('planetList')
+				    position.innerHTML = html;
+				}
+			    });
+			}
+		    });
+		});
+	    }
+	    refreshPlanets();
+	    if (window.location.hash)
+		editplanet(window.location.hash.substring(1));
+	    </script>
+	</div>
+	      <div class="row">
+		<img id="lifeform_image" style="visibility: hidden;" title="" onload="this.style.visibility='visible'">
+	      </div>
+      </div>
+    </div>
+  </body>
+</html>

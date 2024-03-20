@@ -1,0 +1,106 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use POSIX;
+use HTTP::BrowserDetect ();
+use Data::Dumper;
+
+$|= 1;
+
+sub progdir {
+  my @elements = split(qr(/), $_[0] || "$0");
+  my ($dir, $file) = (join('/', @elements[0..-1]), $elements[-1]);
+  return $dir if substr($dir, 0, 1) eq '/';
+  my @paths = split(/[:;]/, $ENV{PATH}.":."); # append current directory
+  for my $path (@paths) {
+    if (-x "$path/$file") {
+      return $path;
+    }
+  }
+  return $dir;
+}
+
+require (progdir()."/args.pm");
+
+my $Verbose = 3;
+
+my $Options = new Args({
+  help => {
+    value => "0",
+    help => "$execfile showbrowser. Annotate browser strings found in text with detailed information about the browser 
+Usage: cat filename | showbrowser"
+  },
+  format => {
+    help => "Format of browser info, variables: \@os\@ \@browser_major\@ see https://github.com/oalders/http-browserdetect",
+    value => '@browser_string@ @browser_version@ @browser_properties@ (@user_agent@)'
+  },
+  recognize => {
+    help => "How to recognize the user-agent string in text",
+    value => 'Mozilla[^\r\n\t@"\']+'  # (.+) will capture the User-Agent: (?^i) turns on case insensitivity
+  },
+  verbose => {
+    help => "Print extra data (1=errors, 2=warnings, 3=normal, 4=more, 5=unexpected, 6=all), example: --verbose 4 prints all messages of priority 4,3,2 and 1",
+    action => sub { $Verbose = int($_[0]); },
+    value => "3"
+  },
+  Version => {
+    help => "git_info: 1.1 dc49d5e master 02/01/22-22:10:00-EST-0500",
+    value => "git_info: 1.1 dc49d5e master 02/01/22-22:10:00-EST-0500",
+    action => sub { print "$execfile git_info: 1.1 dc49d5e master 02/01/22-22:10:00-EST-0500\n" ; exit 0 }
+  }
+});	
+
+message(4, "format: $Options->{format}");
+
+sub message {
+  my $priority = shift;
+  return if ($priority > $Options->{verbose});
+  my @lines = grep {$_} @_;
+  print "\n" if $priority < 5;
+  my ($pack, $file, $line) = caller;
+  print $priority > 4 ? "   " x ($priority - 4) : "", "-- $pack:$line:", @lines, "\n";
+}
+
+my %Inserts = map { /([^=]+)=?(.*)/ } $Options->{format} =~ /@(.+?)@/g;
+message(5, "Inserts:", Dumper(\%Inserts));
+	
+print STDERR "$0 -h for help, waiting for input on standard in...\n";
+
+sub bp {
+  my ($ao, $prop) = @_;
+  message(6, "\$ua->$prop()");
+
+  my @properties = eval {$ao->$prop};
+  if ($@ || !$properties[0]) {
+    my $property = $Inserts{$prop} || "0";
+    @properties = ($property);
+  }
+  
+  message(5, "properties: @properties");
+  return "@properties";
+}
+
+sub label {
+  my ($agent) = @_;
+  my $ua = HTTP::BrowserDetect->new($agent);
+  message(6, Data::Dumper->Dump([$ua],['browser data']));
+
+  my $rval = $Options->{format};
+  for my $func (keys %Inserts) {
+    message(6, "Func:$func");
+    my $info = bp($ua, $func);
+    message(5, "Replace \@$func\@ with $info");
+    $rval =~ s/\@$func[^@]*\@/$info/g;
+  }
+  message(5, "replaceor: $rval");
+  return $rval;
+}	
+
+my $recog = $Options->{recognize};
+
+while(my $line = <STDIN>) {
+  message(4, $line);
+  my ($browser) = $line =~ s/($recog)/label($1)/ge;
+  print $line;
+}

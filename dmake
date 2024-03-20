@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# change directory to where the script lives
+cd $(dirname $0)
+
+VERSION="-$(git describe --abbrev=0 --tags)"
+PROJECT=exogeny-server${VERSION}
+IMAGE=${PROJECT}
+CONTAINER=${PROJECT}
+PORTS=${PORTS:--p 80:80/tcp}
+VOLUMES="-v$(pwd):/app"
+NETWORK="--network host"
+#PORTS=${PORTS:-"-p 8090:80/tcp"}
+ENVFILE="./env.txt"
+VOLUMES="-v$(pwd):/app"
+
+echo "TZ=$(date +%Z)" >> ${ENVFILE}
+ENV=--env-file=${ENVFILE}
+
+# This is like a makefile but make was designed in an era of conditions that no longer apply and offers nothing that
+# shell doesn't and forces you to learn a new language for what? Just a bunch of excessive details 90% of which nobody
+# will ever use.
+
+function show {
+    echo $@;
+    $@;
+}
+
+case "$1" in
+    "help")
+	echo "The commands and what they do, example:  ./dmake run bash"
+	grep -P '\)\s*#' dmake | sed 's|)\s*#||'
+	;;
+
+    init) #	set up some initial context
+	show mkdir -p planetor/out/gallery  # make sure directories are there
+	;;
+    
+    image) #	build the container, only where Dockerfile has changed
+	show docker build -t ${IMAGE} .
+	./dmake tag
+	;;
+
+    tag) #
+	show docker tag ${IMAGE} ${PROJECT}
+	;;
+    
+    rebuild) #	rebuild the container from scratch
+	show docker build --no-cache -t ${IMAGE} .
+	;;
+
+    serve) #	production serve (don't mount host directories)
+	./dmake init
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} -d --name ${CONTAINER} ${IMAGE} /app/start.sh
+	;;
+    
+    dev) #		start the container with a bash shell and mount the entire dev environment host directory under /app
+	./dmake init
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /bin/bash
+	;;
+    
+    run) #		start container with command of your choosing, example: ./dmake run find / -iname '*.js'
+	shift  # remove first command line argument (run) so that $@ becomes commands to run in the container
+	./dmake init
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} --name ${CONTAINER} ${IMAGE} $@
+	;;
+    
+    shell) #	start a second command of your choice in an already running container example, ./dmake exec /bin/bash
+	show docker exec -it ${CONTAINER} /bin/bash
+	 ;;
+
+    "test") #	run tests (has to be in parens because tests is a shell keyword)
+	shift 
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /app/test.sh
+	;;
+
+    "exec") #	start a second command of your choice in an already running container example, ./dmake exec /bin/bash
+	shift 
+	show docker exec -it ${CONTAINER} $@
+	 ;;
+
+    clean) #	clean up junk
+	find . -iname __pycache__ -execdir rm -rf {} \;
+	;;
+    
+    stop) #	stop the container
+	show docker stop ${CONTAINER}
+	;;
+    
+    cert) #	create certificate pair for SSL web servers
+    	show openssl genrsa -out key.pem 2048
+	show openssl req -new -x509 -key key.pem -out cert.pem -days 3650
+	;;
+	
+    *)
+	./dmake help
+
+esac
+
+      

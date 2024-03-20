@@ -1,0 +1,21 @@
+{
+	"limits":[],
+    "affected": {
+        "social": "0.2",
+	"population": "1000%",
+	"economic":"0.1",
+	"transport":"0.1",
+	"warfare":"0.1"
+    },
+    "level": 1,
+    "amplifiers": {"engineering":1},
+    "mitigators": {},
+    "cost": 0.05,
+    "influence":"Spend to equip your population with the tools necessary to exploit this technology?",
+    "image_url":"https://cdn.zmescience.com/wp-content/uploads/2015/11/neolithic-life.webp",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Your people have learned to cultivate plants to have a stable food supply",
+    "actual":""
+}
+

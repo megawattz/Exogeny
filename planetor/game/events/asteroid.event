@@ -1,0 +1,17 @@
+{
+	"limits":[],
+    "affected": {
+       	"population": "-80%"
+    },	
+    "level": 6,
+    "amplifiers": {},
+    "mitigators": {"engineering":1},
+    "influence": "What percentage of damage do you wish to repair",
+    "cost": 2,
+    "color": "red",
+    "image_url": "https://www.sciencenews.org/wp-content/uploads/2017/05/041817_TS_asteroid_main_FREE.jpg",
+    "video_url": null,
+    "apparent": "Most Unfortunate. A large asteroid has impacted in your most populated area.",
+    "actual": null
+}
+

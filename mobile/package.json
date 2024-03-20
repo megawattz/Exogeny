@@ -1,0 +1,25 @@
+{
+    "name": "mobile",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "build:css": "npx tailwind build styles/tail.css -o ./styles/site.css"
+    },
+    "dependencies": {
+        "@walletconnect/modal-auth-html": "^2.6.2",
+        "next": "latest",
+        "react": "latest",
+        "react-dom": "latest",
+        "tailwindcss": "^2.0.3"
+    },
+    "devDependencies": {
+        "autoprefixer": "latest",
+        "daisyui": "^3.8.1",
+        "postcss": "latest",
+        "tailwindcss": "^3.3.3"
+    }
+}

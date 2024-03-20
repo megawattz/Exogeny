@@ -1,0 +1,31 @@
+// Moon Slow
+#declare index = %s;
+#declare speed = %s;
+#declare p_distance = p_planet_size + %s;
+#declare moon_size = v_moon_size * index;
+#declare start_angle = %s;
+#declare bump_factor = 1;
+#declare atmosphere = <%s>;
+#declare tilt = %s;
+#declare revolutions = 5 - index;
+
+sphere {
+    <p_distance, 0, p_distance> moon_size
+    no_reflection
+    texture {
+        pigment{
+            image_map {
+                v_moon_spec
+                map_type 1 interpolate 4 // Esfera
+            }
+      }
+      normal {
+          bumps v_random_float*bump_factor/moon_size
+          scale v_random_float*bump_factor/moon_size
+      }
+      finish {
+         ambient rgb 0
+      }
+   }
+   rotate <0, (clock * revolutions * -120) + start_angle, 0>
+}

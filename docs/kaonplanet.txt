@@ -1,0 +1,35 @@
+* Kaon Planet
+
+* The virtual trillionaire idle pastime of  discovering, evolving and selling planets and their products.
+
+* Kaon Planet is a game for people who don't have time to sit in front of a computer screen all day long, but like to
+  engage in strategic games or pastimes.
+
+* The game is actually 4 separate activities rolling into one:
+
+** NFTs - Each planet in the game is an actual NFT on either Polygon, Ethereum, Avalanche, Fantom, Cronos or Solana blockchain.
+
+** Animations - The Kaon Planets are not just static images that sit there. They are animations that are NFTs, but they
+   can also be evolved and modified into additional NFTs as the owner add resources or plays the Kaon Planet game well
+
+** Crytpo Tokens - Kaon Planets earn an actual Crypto Token called Tritanium44 which can be traded for any other ERC20
+   token on the above blockchains. The amount of tokens each Kaon Planet collects each day is determined by:
+
+*** The base earning of any Kaon Planet is 1 Kaon per hour.
+
+*** The Tech Level of the planet which the player can raise by making the right moves in the game play
+
+*** Collecting Kaon Planets that are all of a particular set. For example, if ALL of the planets of a solar system are
+      collected, 1 thru 12, this doubles the Tritanium44 rewards for each of the planets over any other rewards
+      multipliers. Collecting somewhat fewer than all the planets also increases reward
+
+*** Having an entire set of each of the lifeforms doubles the rewards of the planets in that set.
+
+*** Having an entire set of each of the life chemistries doubles the rewards of planets in that set.
+
+*** Trading
+
+   **** Recipes can be used to make refined or manufactured goods, which in turn can be used to make further refined or
+        manufactured goods
+	
+   **** Goods can be traded with other players for Tritanium44

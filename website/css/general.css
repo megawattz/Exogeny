@@ -1,0 +1,403 @@
+html {
+    margin: 0 auto;
+    //overflow: hidden;
+}
+
+h1 {
+    font-size: 4vw;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin-left: 0.5vw;
+    font-size: 2vw;
+    font-family: Nixie One, sans-serif;
+    letter-spacing: 0.1vw;
+    color: white;
+    background-image: url("../image/stars.jpg");
+    transition: background-image 2s ease-in-out;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.galleryWindow {
+    width: 20%;
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+    border: 1px grey solid;
+    font-size: 0.8vw;
+}
+
+.item {
+    padding-left: 1.0vw;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+}
+
+.floatingLabel {
+    align-items: center;
+    justify-content: center;
+}
+
+.galleryVideo {
+    width: 20vw;
+    margin: 0;
+    padding: 0;
+}
+
+.close {
+    position: absolute;
+    pointer-events: auto;
+    right: 1vw;
+    top: 1vh;
+    z-index: 100;
+}
+
+.navbar {
+    background-color: transparent;
+    border-bottom: 2px solid red;
+}
+
+a:link {
+    color: white;
+}
+
+.nav-link {
+    background: transparent;
+    color: white;
+    margin-left: 1vw;
+    border-radius: 0.4 vw;
+}
+
+ul {
+    margin-left: 4vw;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+input {
+    color: white;
+    border-radius: 2vw;
+    border-width: 0.5vw;
+    margin: 0.5vw;
+    padding: 1vw;
+    letter-spacing: 0.1vw;
+}
+
+.icon {
+    width: 5vw;
+    float: left;
+    margin-right: 1vw;
+}
+
+.under {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -2;
+}
+
+.over {
+    position: relative;
+    left: 40px;
+    top: 10px;
+    z-index: -1;
+}
+
+.top {
+    z-index: 1;
+}
+
+.centered {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section {
+    z-index: 10;
+    padding: 1vw;
+    padding-bottom: 2vw;
+    background-color: rgba(255,255,255,0.5);
+    color: black;
+    border-radius: 0.5vw;
+    font-size: 1.4vw;
+}
+
+.itemlist {
+    padding: 1vw;
+    padding-bottom: 2vw;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    color: black;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 20%;
+  overflow: auto;
+  background-color: rgba(255,255,255,0.4);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 10;
+  margin: auto;
+  padding: 20px;
+  width: 50%;
+  background-color: #fff;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup {
+    pointer-events: auto;
+    background-color: white;
+    opacity: 1;
+    draggable: true;
+    z-index: 10;
+    padding: 0.1vw;
+    color: white;
+    font-size: 1vw;
+    font-family: Arial, san-serif;
+}
+
+@keyframes fadeIn {
+    from {
+	opacity: 0;
+    }
+    to {
+	opacity: 1;
+    }
+}
+
+.planetPopup {
+    pointer-events: auto;
+    background: transparent;
+    opacity: 1;
+    font-size: 2vw;
+    color: white;
+    font-family: Arial, san-serif;
+}
+
+.planetVideo {
+    position: absolute;
+    animation: fadeIn 4s forwards;
+    top 50%;
+    left 50%;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    margin: none;
+    padding: none;
+    //transition: opacity 4s;
+}
+
+.lifeformPopup {
+    pointer-events: auto;
+    background: transparent;
+    opacity: 1;
+    font-size: 1vw;
+    z-index: 50;
+    color: white;
+    font-family: Arial, san-serif;
+}
+
+.legend {
+    display: block;
+    visibility: visible;
+    z-index: 50
+    margin: 0;
+    padding: 0.4vw;
+    font-size: 0.2vw;
+    color: white;
+    background: transparent;
+}
+
+.messages {
+    border: 1px white solid;
+    border-radius: 0.5vw;
+    padding: 1vh;
+    display: block;
+    visibility: visible;
+    z-index: 50
+    margin: 0;
+    padding: 0;
+    font-size: 1vw;
+    font-color: white;
+    background: transparent;
+}
+
+.rounded {
+    border-radius: 1vw;
+}
+
+.lifeformImage {
+    animation: fadeIn 2s forwards;
+    position: absolute;
+    top 0%;
+    right: 0%;
+    height: 100%;
+    pointer-events: none;
+    object-fit: contain;
+    margin: none;
+    padding: none;
+    border-radius: 1vw;
+ }
+
+.rounded {
+    border-radius: 1vw;
+}
+
+table {
+    border: 1px solid  white;
+    border-radius: 1vw;
+    background-color: transparent;
+    padding-left: 0.2vw;
+    padding-right: 1vw;
+    padding-top: 0.4vw;
+    padding-bottom: 0.4vw;
+}
+
+th {
+    text-align: left;
+    background: transparent;
+    vertical-align: bottom;
+    white-space: nowrap;
+    font-family: Arial, san-serif;
+    font-size: 1vw;
+    border-bottom: 1px white solid;
+    padding-right: 1vw;
+    padding-bottom: 0.2vw;
+}
+
+td {
+    font-family: Arial, san-serif;
+    background: transparent;
+    padding-right: 1vw;
+    font-size: 1vw;
+    text-align: left;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+
+h2,h3 {
+    text-align: center;
+}
+
+.starpop {
+}
+
+.clickable {
+    color: rgb(247,136,79);
+}
+
+a {
+    color: rgb(247,136,79);
+}
+
+a:visited {
+    color: white;
+}
+
+a:hover {
+    color: rgb(76,103,134);
+}
+
+.name {
+    font-family: Arial, san-serif;
+}
+
+.label {
+    z-index: -1;
+    font-size: 1vw;
+}
+
+.wheelzoom {
+    pointer-events: auto; 
+    transition: width 0.2s, height 0.2s;
+}
+
+.number {
+    text-align: right;
+    font-size: 2vh;
+}
+
+.solarSystem {
+    border-collapse: unset;
+    background: transparent;
+    border-radius: 1vw;
+    border: 1px solid  white;
+    color: white;
+    font-family: Arial, san-serif;
+    font-size: 1vw;
+    opacity: 1;
+    padding: 0.4vw;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.planetDetail {
+    border-collapse: unset;
+    background: transparent;
+    border-radius: 1vw;
+    border: 1px solid  white;
+    color: white;
+    draggable: true;
+    font-family: Arial, san-serif;
+    font-size: 1vw;
+    margin-top: 1vh;
+    opacity: 1;
+    padding: 0.4vw;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+#planetDetail {
+    margin-top: 1vh;
+}
+
+.tableName {
+    font-size: 4vh;
+    margin-top: 0;
+    margin-bottom: 1.2vh;
+    padding-top: 0;
+    padding-botton: 0.2vh;
+}
+
+.overlayPlanetDetail {
+    font-size: 0.8em;
+}
+
+.attrName {
+    font-style: italic;
+}
+
+.centered-div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

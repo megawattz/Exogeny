@@ -1,0 +1,43 @@
+	<nav class="navbar navbar-expand-lg navbar-dark bg-transparent" style="background: transparent;">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="home.html">
+	      <img style="height: 10vh;" src="image/ExoPlaneteer.png">
+	    </a>
+	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+	      <ul class="navbar-nav bg-transparent">
+		<li class="nav-item dropdown">
+		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		    Intro
+		  </a>
+		  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+		    <li><a class="dropdown-item bg-transparent" href="intro.html">Introduction</a></li>
+		    <li><a class="dropdown-item" href="planets.html">Planets</a></li>
+		    <li><a class="dropdown-item" href="lifeforms.html">Lifeforms</a></li>
+		    <li><a class="dropdown-item" href="cultures.html">Cultures</a></li>
+		  </ul>
+		</li>
+		<li class="nav-item dropdown">
+		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		    Planets
+		  </a>
+		  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+		    <li><a class="dropdown-item" href="galaxy.html">Galaxy</a></li>
+		    <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+		    <li><a class="dropdown-item" href="screensaver.html">Screen Saver</a></li>
+		  </ul>
+		</li>
+		<li class="nav-item dropdown">
+		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		    About
+		  </a>
+		  <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+		    <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+		  </ul>
+		</li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>

@@ -1,0 +1,27 @@
+{
+    "identity": "Galactic Catalog identity",
+    "name": "What the player named this planet",
+    "motto": "What the player set as the motto for this planet",
+    "species": "What the player named the dominant, indigenous, life form",
+    "culture": "Type of culture: Hive,Selfless,Cooperative,Religious,Adventurous,Military,Egalitarian,Predatory,Practical",
+    "knowledge": "How much knowledge this civilization has accumulated",
+    "infrastructure": "How much infrastructure has this planet built up",
+    "manufactured": "What is the amount of manufactured goods in use, and stockpiled",
+    "services": "How many services does this culture have",
+    "entertainment": "How many entertainement assets does this culture have",
+    "woo": "How much spiritual woo woo does this planet control",
+    "population": "What is the population of this planet",
+    "tritanium44": "How much tritanium44 is in the planetary treasury",
+    
+    "bio":"Level of biotech",
+    "energy":"Level of energy tech",
+    "information":"Level of information technology",
+    "engineering":"Level of engineering skill",
+    "science":"Level of scientific prowess",
+    "transport":"Tech level of transporation assets",
+    "social":"Level of social skills and technology",
+    "warfare":"Level of competitive and warfare know how",
+    "economic":"Level of economic skill",
+    "spiritual":"Level of spiritual prowess",
+    "art":"Level of artistic and entertainment abilty"
+}

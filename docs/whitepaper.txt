@@ -1,0 +1,66 @@
+White Paper: Proof of Attention - Solving the Low Entropy Problem in Crypto Token Mining
+
+1. Introduction
+
+Cryptocurrency mining has revolutionized the financial landscape, allowing individuals to digitally create and earn crypto tokens through various mechanisms. However, the low entropy problem has plagued most crypto tokens, leading to large inequalities in ownership. This inequality is harmful to the eventual adoption and utility of a token. In this white paper, we introduce a new form of crypto token mining called "Proof of Attention" (PoA), which aims to address the low entropy problem by requiring active human participation. By necessitating user attention and decision-making, PoA prevents automation and promotes a more equitable distribution of tokens.
+
+1.1 Cryptocurrency Mischaracterization
+
+It is crucial to address the mischaracterization of cryptocurrencies. They are not currencies, commodities, or securities, but rather tokens. The industry and its software should be accurately recognized to avoid misinterpretation and misconceptions.
+
+2. Flawed Mining Proofs
+
+Before diving into PoA, let's briefly examine the flaws in current mining proofs:
+
+2.1 Proof of Work (PoW)
+
+PoW requires miners to solve complex mathematical puzzles to validate transactions and add blocks to the blockchain. However, PoW suffers from high energy consumption, centralization of mining power, and scalability limitations.
+
+2.2 Proof of Stake (PoS)
+
+PoS selects validators based on their token ownership, allowing them to create new blocks. However, PoS also suffers from centralization as those with significant token holdings exert greater control and accumulate more tokens without active participation.
+
+2.3 Proof of Capacity (PoC)
+
+PoC relies on storage space rather than computational power to mine coins. While it is energy-efficient and decentralized, PoC encourages miners to accumulate significant storage space, leading to potential centralization and hardware monopolies.
+
+2.4 Proof of Elapsed Time (PoET)
+
+PoET depends on a trusted execution environment (TEE) where participants randomly wait for a specific duration before mining. However, PoET is vulnerable to collusion among TEE participants, compromising the fairness and security of the mining process.
+
+3. Introducing Proof of Attention (PoA)
+
+PoA requires human participants to actively pay attention to an application, making decisions that influence their crypto token mining rewards. This form of mining prevents automation and ensures that no single individual can accumulate disproportionate token wealth.
+
+3.1 Mechanism of Proof of Attention
+
+Participants in PoA own virtual planets and make decisions to advance their planet's technology level. Each hour, a question is presented that the player must respond to correctly. Failure to respond within the allocated time will result in a tech level regression and reduced token mining rewards.
+
+3.2 Decision-Making Game
+
+The game element of PoA encourages users to actively engage with the decision-making process. Questions range from simple to nuanced, requiring an understanding of the scenario presented. For example, players might be asked whether to allow their planet's people to use fire or discover new technologies. The correctness of the response determines the advancement of the planet's tech level and the amount of tokens mined.
+
+4. Advantages of Proof of Attention
+
+4.1 Prevention of Automation
+
+By requiring human attention and decision-making, PoA effectively prevents automation of the mining process. Wealth alone cannot substitute for active human participation, ensuring a fair distribution of tokens.
+
+4.2 Protection Against Theft
+
+PoA further protects participants' wallets by displaying the private key and requiring personal confirmation. This prevents anyone, including hired individuals, from performing the mining tasks on behalf of the rightful owner.
+
+4.3 Equitable Token Distribution
+
+PoA's focus on active human participation promotes a more equitable distribution of tokens. Participants are rewarded based on their understanding and decision-making capabilities, reducing the concentration of token ownership and fostering wider adoption and usage.
+
+5. Conclusion
+
+Proof of Attention (PoA) presents a novel solution to the low entropy problem in crypto token mining. By requiring active human attention and decision-making, PoA prevents automation and promotes the equitable distribution of tokens. The game-like nature of PoA ensures engagement and understanding of the questions presented, fostering a more inclusive and accessible mining process. As cryptocurrency continues to evolve, innovations like PoA will shape the landscape and drive wider adoption, ultimately increasing the utility and value of tokens.
+
+Footnotes:
+
+1. [Article: Inequality of Ownership and its Impact on Currency Usage]
+2. [Article: Why Cryptocurrency is Not Currency]
+3. [Article: Why Cryptocurrency is Not Security]
+4. [Article: Why Cryptocurrency is Not Commodity]

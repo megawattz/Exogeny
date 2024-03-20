@@ -1,0 +1,19 @@
+{
+	"limits":[],
+    "affected": {
+        "engineering":"0.2",
+	"social":"0.1",
+	"art":"0.1"
+    },
+    "level": 0,
+    "amplifier": {},
+    "mitigator": {},
+    "cost": 0.05,
+    "influence":"assist your population to utilize these new tools",
+    "image_url":"https://cdn1.epicgames.com/ue/product/Screenshot/00Main-1920x1080-8e65f67137bf42ca1ea406e23fdcc90e.jpg",
+    "video_url":"",
+    "color":"green",
+    "apparent":"Your society has learning to fashion and use stone implements",
+    "actual":""
+}
+
