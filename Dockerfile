@@ -40,7 +40,8 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install -g npm@9.6.6 replicate readline-sync @remix-project/remixd parcel three
+#RUN npm install npm@9.6.6 replicate readline-sync @remix-project/remixd parcel three
+RUN npm install npm@9.6.6 replicate readline-sync @remix-project/remixd parcel
 
 RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i cloudflared-linux-amd64.deb
 

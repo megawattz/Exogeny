@@ -4,7 +4,7 @@
 cd $(dirname $0)
 
 VERSION="-$(git describe --abbrev=0 --tags)"
-PROJECT=exogeny-server${VERSION}
+PROJECT=exogeny-server-small
 IMAGE=${PROJECT}
 CONTAINER=${PROJECT}
 PORTS=${PORTS:--p 80:80/tcp}
