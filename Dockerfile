@@ -27,6 +27,7 @@ ENV PATH="${PATH}:/app/planetor/tools"
 # graphics tools
 RUN apt install -y povray povray-doc povray-examples povray-includes imagemagick ffmpeg
 
+
 # django
 RUN apt install -y python3-django python3-pip
 
