@@ -88,7 +88,7 @@ def resolve_parameter(name, value, options):
             "hydrogen_bromide",
             "argon",
             "TFNM",
-            "hexamethyltungsten",
+            "acetylene",
             "nitrosyl_bromide",
             "neon",
             "water_vapor",
@@ -309,7 +309,6 @@ Atmospheres = {
     "water_vapor":"0.9, 1.2, 1.7", # baby blue
     "oxygen":"0, 0.96, 1.88", # dark blue
     "TFNM":"0.23, 0.49, 1.21", # dark blue
-    "hexamethyltungsten":"0.99, 2.18, 2.40", # light blue
     "nitrosyl_bromide":"1.74, 0.11, 0.01" # deep red
 }
 
