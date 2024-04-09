@@ -36,9 +36,10 @@ sounding planet name which they know. Extrapolate fictional narrative of how the
 lacks technology. Describe their diet, from predatory meat eating to ingesting sunlight. Freely make up {lifeform}
 sounding words to describe things about them. Do not describe why you are doing this or anything about yourself. Do not
 use any reference to Earth or terrestrial, or Earth dating systems and do not mention their planet name. Add wild,
-creative, significant storytelling. Do not include "sunlight" in this description. Include notes on their language, religion,
-money, family structure and tech level. Make the history sound factual not fictional. Make us a {lifeform} sounding name
-they know their own species by. They have no knowledge of metal working but do not specifically mention that fact.
+creative, significant storytelling. Do not include "sunlight" in this description. Include notes on their language,
+religion, money, family structure and tech level. Make the history sound factual not fictional. Make us a {lifeform}
+sounding name they know their own species by. They have no knowledge of metal working but do not specifically mention
+that fact. Do not mention anything about the physical characteristics of the species besides the general lifeform.
 
     ''' .format(*args, **args)
 

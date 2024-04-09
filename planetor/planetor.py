@@ -675,13 +675,7 @@ def DefaultOptions():
         "chemistry": None,
         "lifeform": None,
         "rare": randomfloat(0,2),
-        "radioactives": 0,
-        "refractories": 0,
-        "industrials": 0,
-        "specialized": 0,
-        "biologicals": 0,
-        "exotics": 0,
-        "relics": 0,
+        "resource": "industrials",
         "unexplored": "1",
         "artist":"anonymous.png",
         "audio": "None.mp3"
@@ -769,11 +763,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     Options = {}
     Options = copy.deepcopy(DefaultOptions())
 
-    Options['resources_value'] = 0.0
-    for k, v in {"rare":6,"radioactives":12,"refractories":25,"industrials":100,"specialized":8,"biologicals":50,"exotics":2,"relics":1}.items():
-        Options[k] = randomfloat(0, v)
-        Options['resources_value'] += float(Options[k]) * (100/v)    # weight adjusted
-    Options['resources_value'] = round(Options['resources_value'], 0)
+    Options['resource'] = randomlist(["rare","essentials","industrials","specialized","biologicals","exotics"])
     
     for k, v in selections.items():
        Options[k] = v
