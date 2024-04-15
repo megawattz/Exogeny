@@ -610,28 +610,19 @@ def civilization(identity, options):
         "culture": options.get("culture") or randomline("names/culture.txt"),
         "generation": options.get("generation") or 0,
 
-        # generated assets
+        # assets
         "infrastructure": options.get("infrastructure") or 0,
         "manufactured": options.get("manufactured") or 0,
         "services": options.get("services") or 0,
         "entertainment": options.get("entertainment") or 0,
         "woo": options.get("woo") or 0,
+        
+        # essentials
+        "techlevel": options.get("techlevel") or 0,
         "happiness": options.get("happiness") or 0,
         "population": options.get("population") or 0,
         "tritanium44": options.get("tritanium44") or 0,
 
-        # tech levels
-        "bio":options.get("bio") or 0,
-        "energy":options.get("energy") or 0,
-        "information":options.get("information") or 0,
-        "engineering":options.get("engineering") or 0,
-        "science":options.get("science") or 0,
-        "transport":options.get("transport") or 0,
-        "social":options.get("social") or 0,
-        "warfare":options.get("warfare") or 0,
-        "economic":options.get("econonomic") or 0,
-        "spiritual":options.get("spiritual") or 0,
-        "art":options.get("art") or 0,
     }
     return civilization
 
