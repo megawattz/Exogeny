@@ -733,8 +733,8 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
         temp = ring_radius + randomfloat(step*m/3, step*m/2) # need to use this to calculate hole radius
         hole_radius = ring_radius + randomfloat( -2, 1) # let rings overlap for more variety
         ring_radius = temp
-        color = ltot(atmos)
-        color = blendcolors(color, randomcolor(1.3))
+        basecolor = ltot(atmos)
+        color = blendcolors(basecolor, randomcolor(1.3))
         # don't put a ring where a moon is orbiting
         ismoon = False
         for moon_orbit, moon_size in moons.items():
@@ -747,7 +747,7 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
                 break
         if ismoon:
             continue
-        ring_scene += ring(color,     ring_radius, hole_radius, ring_brightness, m, options, ring_template)
+        ring_scene += ring(basecolor,     ring_radius, hole_radius, ring_brightness, m, options, ring_template)
     return ring_scene
 
 def help():
