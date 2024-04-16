@@ -119,15 +119,15 @@ const Descriptions = {
 	"exotic hairy, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))"
     ],
     "Human":[
-	"human-like exotically beautiful female and male, fully clothed in ancient, alien designs, based on any and all of the races on Earth ((well formed supermodel faces)) ((supermodel physique)) ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful female and male, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males anachronistic hairstyles, in wild clothes with ancient, alien design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
-	"((closeup)) of human-like exotically beautiful females and males from ancient northern european nations anachronistic hairstyles, in clothes of mixed ancient, alien design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males from ancient asian nations fully clothed anachronistic hairstyles, in clothes of mixed ancient, unusual design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males from ancient african nations fully clothed anachronistic hairstyles, in mixed ancient clothes,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males from ancient latin nations fully clothed anachronistic hairstyles, in pre-historic clothes,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males of the same stock but mixed from various human races from every continent, fully clothed in ancient traditional clothes,  ((identical, well formed eyes))"
+	"human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful female and male, clothed in incongruent clothing, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, anachronistic hairstyles, in wild clothes with ancient, alien design,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient northern european nations anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient asian nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient african nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient latin nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incongruent, traditional clothes,  ((identical, well formed eyes))"
     ]
 }
 
@@ -358,10 +358,10 @@ function Run() {
 	else
 	{
 	   prompt = `
-	   one to three photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera))))
+	   three to five photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera))))
 	   ${getAtmosphere(params['atmosphere'])} sky, clouds
 	   background dramatic, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} and ${getExtra()}
- 	   ${getAction()} ((Safe for Work)) head and body same skin type and color ((perfectly formed faces))
+ 	   ${getAction()} ((Safe for Work)) head and body same skin type and color
 	   ((variety between each creature))
 	   as if photographed by nikon SLR camera f/8
 	   `;
