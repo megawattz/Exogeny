@@ -62,23 +62,20 @@ const Descriptions = {
 	"alien pterodactyls reading books"
     ],
     "Cephalapoid":[
-	"large, alien multilegged steampunk octopus wearing devices halfway submerged",
-	"large, alien multilegged octopus wearing devices halfway submerged",
-	"large, alien steampunk jellyfish with many tentacles halfway submerged",
+	"large, alien multilegged octopus using tools devices halfway submerged",
+	"large, alien steampunk jellyfish with many tentacles halfway submerged using tools",
 	"large, alien multilegged squid with primitive tools in arms halfway submerged",
-	"large, alien multilegged cephalopod halfway submerged",
-	"large, alien multilegged steampunk cephalopod halfway submerged"
+	"large, alien multilegged cephalopod halfway submerged using tools",
+	"large, alien multilegged hexapod wearing a promitive helmet and/or gloves"
     ],
     "Insectoid":[
-	"exotic random selection from every insect alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials"
-	/*
-	"bizarre bugs standing upright using primitive tools",
-	"bugs from the starship troopers movies but modified to carry weapons",
-	"alien looking insects standing upright using primitive, artificial tools",
-	"alien looking insects standing upright studying reading materials",
+	"exotic random selection from every insect alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
+	"alien looking insects standing upright using primitive, artificial tools, wearing adornment",
+	"alien looking insects standing upright studying reading materials, wearing adornment",
+	"alien crusaceans like exotically formed crabs, lobsters and crawfish using primitive tools made from underwater materials, wearing adornment",
+	"alien spiders using tools, wearing adornment befitting spiders",
 	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
-	"adult male and female alien predator-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
-	*/
+	"adult male and female alien sangheili-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))"
     ],
     "Reptilian":[
 	"exotic random selection from every reptilian alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
