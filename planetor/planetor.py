@@ -22,13 +22,12 @@ Options = {}
 false = False
 true = True
 
-def moon(index, start_angle, atmosphere, template, factor, tilt = 0 ): # which moon
+def moon(index, start_angle, atmosphere, template, factor, moon_size, planet_size, mdistance, tilt = 0 ): # which moon
     speed = pow(2, index)
-    distance = pow(factor, index)
     moon_data = readfile("/app/planetor/moons/"+template).decode()
-    #print("MOON_DATA:\n%s" % moon_data)
-    moon_template = moon_data % (index, speed, distance, start_angle, atmosphere, tilt)
-    return (expand_vars(moon_template, Options), distance)
+    print("MOON:%s) %s %s" % (index, mdistance, moon_size))
+    moon_template = moon_data % (index, speed, start_angle, atmosphere, moon_size, planet_size, mdistance, tilt)
+    return (expand_vars(moon_template, Options), mdistance)
 
 def ring(ring_color, radius, hole, variety_seed, index, options, template):
     planet_size = options['planet_size']
@@ -823,20 +822,20 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     max_moons = 4
     # used by both planet, and moons
     atmosphere = resolve_parameter("atmosphere", Options["atmosphere"], Options)
-
     moon_scene = ""
     color = atmosphere
     moons = {}
     factor = randomfloat(1.8, 2.6)
-    print("MOON FACTOR:%s" % factor)
+    mass = randomfloat(1, 4)
+    #print("MOON FACTOR:%s" % factor)
     for m in range(1, actual_moons+1):
-        moon_size = pow(float(Options["moon_size"]), m)
+        moon_size = randomfloat(1, mass)
+        mass = mass + moon_size
         color = blendcolors(color, randomcolor(1)) # remodify color so it can progressively drift from the planet color scheme
-        scene, distance = moon(m, randomfloat(0,360), color, moon_template, factor, 0)  # start_moon + 1 is because moons start at 1, but modulo causes moon 0
+        mdistance = planet_size + (2 * moon_size) + (m * 3)
+        scene, distance = moon(m, randomfloat(0,360), color, moon_template, factor, moon_size, planet_size, mdistance, 0)  # start_moon + 1 is because moons start at 1, but modulo causes moon 0
         moon_scene += scene
-        moon_coord = int(distance)+planet_size
-        moons[pythag([moon_coord, 0, moon_coord])] = moon_size * (m+1)
-        print("MOON:%d %f:%f" % (m, int(distance)+planet_size, moon_size * (m+1)))
+        moons[distance] = moon_size
     pov += moon_scene
 
     print("OPTIONS:%s" % Options)

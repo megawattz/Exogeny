@@ -207,4 +207,4 @@ extras;
 
 time generate $@;
 
-cat ${POVPATH}
+cat -n ${POVPATH}
