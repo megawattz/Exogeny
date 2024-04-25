@@ -25,7 +25,7 @@ true = True
 def moon(index, start_angle, atmosphere, template, factor, moon_size, planet_size, mdistance, tilt = 0 ): # which moon
     speed = pow(2, index)
     moon_data = readfile("/app/planetor/moons/"+template).decode()
-    print("MOON:%s) %s %s" % (index, mdistance, moon_size))
+    #print("MOON:%s) %s %s" % (index, mdistance, moon_size))
     moon_template = moon_data % (index, speed, start_angle, atmosphere, moon_size, planet_size, mdistance, tilt)
     return (expand_vars(moon_template, Options), mdistance)
 
@@ -718,6 +718,7 @@ def addEvaluation(options):
     
 def addrings(camera_location, ring_count, planet_size, atmosphere, options, moons):
     ring_brightness = options['ring_brightness']
+    print("MOONS: %s" % moons);
     #random.seed(float(ring_brightness))
     ring_template = options["ring_template"]
     ring_scene = ""
