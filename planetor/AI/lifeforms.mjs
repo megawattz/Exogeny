@@ -359,6 +359,7 @@ function Run() {
 	   ${getAtmosphere(params['atmosphere'])} sky, clouds
 	   background dramatic, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} and ${getExtra()}
  	   ${getAction()} ((Safe for Work)) head and body same skin type and color
+	   perfectly round eye iris
 	   ((variety between each creature))
 	   as if photographed by nikon SLR camera f/8
 	   `;
