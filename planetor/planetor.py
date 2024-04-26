@@ -31,7 +31,7 @@ def moon(index, start_angle, atmosphere, template, factor, moon_size, planet_siz
 
 def ring(ring_color, radius, hole, variety_seed, index, options, template):
     planet_size = options['planet_size']
-    print("RING: color:%s variety:%s\thole:%s\tradius:%s" % (ring_color, variety_seed, hole, radius))
+    print("RING: hole:%s radius:%s" % (hole, radius))
     ring_data = readfile("/app/planetor/rings/"+template).decode()
     #print("RING_DATA:"+ring_data)
     ring_template = ring_data % (ring_color, radius, hole, variety_seed, index, planet_size)
@@ -726,6 +726,7 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
     hole_radius = 0
     step = randomfloat(1, 4)
     atmos = ttol(atmosphere)
+    padding = 2
     for index in range(1, ring_count+1):  # randomly alter colors 
         atmos = fuzz(atmos, 5) # split atmosphere number string into list of 3 floats
         #if len(atmos) < 4:  # make the rings taper off by getting more transparent
@@ -740,7 +741,7 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
         for moon_orbit, moon_size in moons.items():
             #if ring_radius > (moon_orbit-moon_size-1) and (moon_orbit+moon_size+1) >= hole_radius:
             #if (ring_radius > moon_orbit-1) and (moon_orbit+1) >= hole_radius:
-            if (moon_orbit) > hole_radius and (moon_orbit) < ring_radius:
+            if (moon_orbit - moon_size - 2) > hole_radius and (moon_orbit + moon_size + 2) < ring_radius:
                 ring_radius += moon_size
                 hole_radius += moon_size
                 ismoon = True;
@@ -835,7 +836,8 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
         mdistance = planet_size + (pow(2.2, m))
         scene, distance = moon(m, randomfloat(0,360), color, moon_template, factor, moon_size, planet_size, mdistance, 0)  # start_moon + 1 is because moons start at 1, but modulo causes moon 0
         moon_scene += scene
-        moons[distance] = moon_size
+        orbit = pythag([distance,distance])
+        moons[orbit] = moon_size # make a table of moons and their size
         #print("MOON:%s %s %s" % (m, distance, moon_size))
     pov += moon_scene
 
