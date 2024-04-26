@@ -360,7 +360,7 @@ function Run() {
 	   background dramatic, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} and ${getExtra()}
  	   ${getAction()} ((Safe for Work)) head and body same skin type and color
 	   perfectly round eye iris
-	   ((variety between each creature))
+	   ((each individual should be slightly unique from each other))
 	   as if photographed by nikon SLR camera f/8
 	   `;
 
