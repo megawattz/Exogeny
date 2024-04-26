@@ -726,11 +726,11 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
     hole_radius = 0
     step = randomfloat(1, 4)
     atmos = ttol(atmosphere)
-    for m in range(1, ring_count+1):  # randomly alter colors 
+    for index in range(1, ring_count+1):  # randomly alter colors 
         atmos = fuzz(atmos, 5) # split atmosphere number string into list of 3 floats
         #if len(atmos) < 4:  # make the rings taper off by getting more transparent
             #atmos.append(m * .15)
-        temp = ring_radius + randomfloat(step*m/3, step*m/2) # need to use this to calculate hole radius
+        temp = ring_radius + randomfloat(step*index/3, step*index/2) # need to use this to calculate hole radius
         hole_radius = ring_radius + randomfloat( -2, 1) # let rings overlap for more variety
         ring_radius = temp
         basecolor = ltot(atmos)
@@ -747,7 +747,7 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
                 break
         if ismoon:
             continue
-        ring_scene += ring(basecolor,     ring_radius, hole_radius, ring_brightness, m, options, ring_template)
+        ring_scene += ring(basecolor, ring_radius, hole_radius, ring_brightness, index, options, ring_template)
     return ring_scene
 
 def help():
@@ -827,16 +827,16 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     color = atmosphere
     moons = {}
     factor = randomfloat(1.8, 2.6)
-    mass = randomfloat(1, 3)
-    #print("MOON FACTOR:%s" % factor)
-    for m in range(1, actual_moons+1):
+    mass = randomfloat(1, 2.5)
+    for m in range(1, actual_moons + 1):
         moon_size = randomfloat(1, mass)
         mass = mass + moon_size
         color = blendcolors(color, randomcolor(1)) # remodify color so it can progressively drift from the planet color scheme
-        mdistance = planet_size + (2 * moon_size) + (pow(2, m))
+        mdistance = planet_size + (2 * moon_size) + (pow(3, m))
         scene, distance = moon(m, randomfloat(0,360), color, moon_template, factor, moon_size, planet_size, mdistance, 0)  # start_moon + 1 is because moons start at 1, but modulo causes moon 0
         moon_scene += scene
         moons[distance] = moon_size
+        print("MOON:%s %s %s" % (m, distance, moon_size))
     pov += moon_scene
 
     print("OPTIONS:%s" % Options)
