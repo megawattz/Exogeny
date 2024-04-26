@@ -8,7 +8,7 @@
 #declare planet_size = %s;
 #declare mdistance = %s;
 #declare tilt = %s;
-#declare revolutions = 5 - index;
+#declare revolutions = 6 - index;
 
 sphere {
     <mdistance, 0, mdistance> moon_size

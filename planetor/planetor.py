@@ -827,7 +827,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     color = atmosphere
     moons = {}
     factor = randomfloat(1.8, 2.6)
-    mass = randomfloat(0.2, 2)
+    mass = randomfloat(0.2, 3)
     for m in range(2, actual_moons + 2):
         moon_size = randomfloat(1, mass)
         mass = mass + moon_size
