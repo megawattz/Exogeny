@@ -741,7 +741,7 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
         for moon_orbit, moon_size in moons.items():
             #if ring_radius > (moon_orbit-moon_size-1) and (moon_orbit+moon_size+1) >= hole_radius:
             #if (ring_radius > moon_orbit-1) and (moon_orbit+1) >= hole_radius:
-            if (moon_orbit - moon_size - 2) > hole_radius and (moon_orbit + moon_size + 2) < ring_radius:
+            if (moon_orbit + moon_size + 2) > hole_radius and (moon_orbit - moon_size - 2) < ring_radius:
                 ring_radius += moon_size
                 hole_radius += moon_size
                 ismoon = True;
