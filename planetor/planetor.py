@@ -827,12 +827,12 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     color = atmosphere
     moons = {}
     factor = randomfloat(1.8, 2.6)
-    mass = randomfloat(1, 2.5)
+    mass = randomfloat(1, 2)
     for m in range(1, actual_moons + 1):
         moon_size = randomfloat(1, mass)
         mass = mass + moon_size
         color = blendcolors(color, randomcolor(1)) # remodify color so it can progressively drift from the planet color scheme
-        mdistance = planet_size + (2 * moon_size) + (pow(3, m))
+        mdistance = planet_size + (2 * moon_size) + (pow(4, m))
         scene, distance = moon(m, randomfloat(0,360), color, moon_template, factor, moon_size, planet_size, mdistance, 0)  # start_moon + 1 is because moons start at 1, but modulo causes moon 0
         moon_scene += scene
         moons[distance] = moon_size
