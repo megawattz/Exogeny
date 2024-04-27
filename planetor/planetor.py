@@ -727,7 +727,8 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
     step = randomfloat(1, 4)
     atmos = ttol(atmosphere)
     padding = 2
-    for index in range(1, ring_count+1):  # randomly alter colors 
+    index = 1
+    while index <= ring_count:  # randomly alter colors 
         atmos = fuzz(atmos, 5) # split atmosphere number string into list of 3 floats
         #if len(atmos) < 4:  # make the rings taper off by getting more transparent
             #atmos.append(m * .15)
@@ -748,6 +749,8 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
                 break
         if ismoon:
             continue
+        else:
+            index = index + 1
         ring_scene += ring(basecolor, ring_radius, hole_radius, ring_brightness, index, options, ring_template)
     return ring_scene
 
