@@ -68,6 +68,13 @@ sphere {
                 transmit all v_clouds_density
             }
        }
+       normal {
+           bump_map {
+	        v_clouds_spec
+		map_type 1  // Esfera
+                bump_size 5
+           }
+       }
    }
    finish {
       ambient 0.0
@@ -109,6 +116,7 @@ sphere {
    finish {
       ambient 0.0
       roughness 10
+      diffuse albedo 0.35
    }
    rotate <0,clock*180,0>
 }

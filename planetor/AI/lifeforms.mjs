@@ -99,6 +99,7 @@ const Descriptions = {
 	"alien mustelids standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"alien mermaids and mermen partially underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"exotic adult male and female predator-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
+	"exotic adult male and female halo-alien like, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
 	"four legged alien monstrosity standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading"
     ],
     "Humanoid": [
