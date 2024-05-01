@@ -19,7 +19,7 @@ difference {
             }
          }
       }
-      rotate <0,(-clock*1440000/pow(ring_radius, 2.4)),0>
+      rotate <0,(-clock*60/pow(ring_radius, 2.4)),0>
    } 
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size + (planet_size * v_random_float)

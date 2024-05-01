@@ -24,7 +24,7 @@ disc
          }
       }
       finish {
-         diffuse albedo ring_brightness
+         diffuse albedo ring_brightness/10
          ambient ring_color
       }
     }
