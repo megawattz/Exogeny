@@ -29,12 +29,12 @@ def moon(index, start_angle, atmosphere, template, factor, moon_size, planet_siz
     moon_template = moon_data % (index, speed, start_angle, atmosphere, moon_size, planet_size, mdistance, tilt)
     return (expand_vars(moon_template, Options), mdistance)
 
-def ring(ring_color, radius, hole, variety_seed, index, options, template):
+def ring(ring_color, radius, hole, brightness, index, options, template):
     planet_size = options['planet_size']
-    print("RING: hole:%s radius:%s" % (hole, radius))
+    print("RING: hole:%s radius:%s bright:%s" % (hole, radius, brightness))
     ring_data = readfile("/app/planetor/rings/"+template).decode()
     #print("RING_DATA:"+ring_data)
-    ring_template = ring_data % (ring_color, radius, hole, variety_seed, index, planet_size)
+    ring_template = ring_data % (ring_color, radius, hole, brightness, index, planet_size)
     return expand_vars(ring_template, options)
 
 def resolve_parameter(name, value, options):
@@ -123,7 +123,7 @@ def resolve_parameter(name, value, options):
             options['rings'] = int(value)
         return options['rings']
     elif (name == "ring_brightness"):
-        options['ring_brightness'] = value or str(randomfloat(0.80, 0.95))
+        options['ring_brightness'] = value or str(randomfloat(0.70, 0.95))
         return options['ring_brightness']
     elif (name == "ring_template"):
         rfile = value or randomfile("rings", ".*.tov")
@@ -717,9 +717,8 @@ def addEvaluation(options):
     return options
     
 def addrings(camera_location, ring_count, planet_size, atmosphere, options, moons):
-    ring_brightness = options['ring_brightness']
     print("MOONS: %s" % moons);
-    #random.seed(float(ring_brightness))
+    ring_brightness = float(resolve_parameter("ring_brightness", Options.get("ring_brightness"), Options)) * randomfloat(1, 1.5)    
     ring_template = options["ring_template"]
     ring_scene = ""
     ring_radius = planet_size * randomfloat(1.2, 2.2) # these need to be persistent during generation of rings to prevent overap
@@ -751,6 +750,7 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
             continue
         else:
             index = index + 1
+        ring_brightness = ring_brightness + randomfloat(0.01, 0.1) * int(randomlist([-1, 1]))
         ring_scene += ring(basecolor, ring_radius, hole_radius, ring_brightness, index, options, ring_template)
     return ring_scene
 

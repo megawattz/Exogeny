@@ -2,10 +2,10 @@
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius = %s;
-#declare variety_seed = %s;
+#declare ring_brightness = %s;
 #declare ring_index = %s;
 #declare planet_size = %s;
-#declare ring_brightness = v_ring_brightness;
+
 disc
 {
    <0, 0, 0>,
@@ -19,8 +19,8 @@ disc
          frequency 3
          scale v_ring_brightness * 0.5
          color_map {
-            [0 rgb <0,0,0> filter variety_seed]
-            [1 rgb ring_color filter variety_seed]
+            [0 rgb <0,0,0> filter ring_brightness]
+            [1 rgb ring_color filter ring_brightness]
          }
       }
       finish {

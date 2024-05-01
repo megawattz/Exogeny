@@ -2,10 +2,9 @@
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius = %s;
-#declare variety_seed = %s;
+#declare ring_brightness = %s;
 #declare ring_index = %s;
 #declare planet_size = %s;
-#declare ring_brightness = v_ring_brightness;
 
 difference {
    sphere {
