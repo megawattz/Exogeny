@@ -19,5 +19,6 @@ exogeny_server/*
 planet.mp4
 optimized_planet.gif
 last.pov
+env.txt
 __pycache__
 
