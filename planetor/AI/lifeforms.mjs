@@ -70,23 +70,24 @@ const Descriptions = {
     ],
     "Insectoid":[
 	"exotic random selection from every insect alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
+	"large, alien halo pod infector like wearing jewelry and carrying primitive weapons",
+	"large, alien halo flood infector like wearing jewelry and carrying primitive weapons",
 	"alien looking insects standing upright using primitive, artificial tools, wearing adornment",
 	"alien looking insects standing upright studying reading materials, wearing adornment",
 	"alien crusaceans like exotically formed crabs, lobsters and crawfish using primitive tools made from underwater materials, wearing adornment",
 	"alien spiders using tools, wearing adornment befitting spiders",
 	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
-	"adult male and female alien sangheili-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))"
     ],
     "Reptilian":[
 	"exotic random selection from every reptilian alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
 	"exotic random selection from every small dragon alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
-	"very large snakes, wearing devices",
 	"alien frogs with opposable thumbs, standing erect, adorned in ancient, primitive gear, reading scrolls",
 	"alien dragons wearing jewelry and carrying primitive weapons",
+	"alien halo sangheili like wearing clothing, jewelry and carrying primitive weapons",
 	"alien herbivore dinosaurs, standing erect, with opposable thumbs, scaly skin, wearing ancient garments, holding primitive tools",
 	"ancient roman reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
 	"ancient babylonian reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
-	"ancient eqyptian reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"ancient eqyptian reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools"
     ],
     "Quadruped":[
 	"alien, jumble of many different creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
