@@ -654,7 +654,7 @@ def DefaultOptions():
         "atmosphere_density": "0.90",
         "atmosphere_size": "1.02",
         "rings": 0,
-        "ring_brightness": "0.90",
+        "ring_brightness": None,
         "ring_template":None,
         "moons": 0,
         "moon_position": None,
@@ -727,15 +727,15 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
     atmos = ttol(atmosphere)
     padding = 2
     index = 1
+    atmos = fuzz(atmos, 5) # split atmosphere number string into list of 3 floats
+    color = ltot(atmos)
     while index <= ring_count:  # randomly alter colors 
-        atmos = fuzz(atmos, 5) # split atmosphere number string into list of 3 floats
         #if len(atmos) < 4:  # make the rings taper off by getting more transparent
             #atmos.append(m * .15)
         temp = ring_radius + randomfloat(step*index/3, step*index/2) # need to use this to calculate hole radius
         hole_radius = ring_radius + randomfloat( -2, 1) # let rings overlap for more variety
         ring_radius = temp
-        basecolor = ltot(atmos)
-        color = blendcolors(basecolor, randomcolor(1.3))
+        color = blendcolors(color, randomcolor(2))  # let color drift from previous ring color
         # don't put a ring where a moon is orbiting
         ismoon = False
         for moon_orbit, moon_size in moons.items():
@@ -750,8 +750,8 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
             continue
         else:
             index = index + 1
-        ring_brightness = ring_brightness + randomfloat(0.01, 0.1) * int(randomlist([-1, 1]))
-        ring_scene += ring(basecolor, ring_radius, hole_radius, ring_brightness, index, options, ring_template)
+        ring_brightness = ring_brightness + randomfloat(0, 0.4) * int(randomlist([-1, 1]))
+        ring_scene += ring(color, ring_radius, hole_radius, ring_brightness, index, options, ring_template)
     return ring_scene
 
 def help():
