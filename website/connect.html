@@ -1,10 +1,14 @@
 <html>
-<body>
+  <body>
     <script type="module">
       import {web3utils} from './js/web3.mjs';
-      web3utils.ConnectWallet();
-      //var nfts = web3utils.getNFTs(wallet, chain, chain);
+      try {
+      var wallet = web3utils.ConnectWallet();
+      var nfts = web3utils.GetNFTs(wallet, 0x80001, '0x495f947276749Ce646f68AC8c248420045cb7b5e');
+      } catch (err) {
+         alert(`error: ${err}`);
+      }
     </script>
     Connect
-</body>
+  </body>
 </html>

@@ -1,6 +1,6 @@
 // Check if MetaMask is installed
 export const web3utils = {
-    GetNFTS: function(wallet, chainId, contract) {
+    GetNFTs: function(wallet, chainId, contract) {
         try {
             // Switch to the specified chain
             window.ethereum.request({
@@ -60,18 +60,21 @@ export const web3utils = {
 		    if (accounts.length > 0) {
 			const account = accounts[0];
 			console.log('Connected account:', account);
+			return account;
 			// You can now use this account to interact with the Ethereum blockchain
 		    } else {
-			console.log('No accounts found.');
+			console.error('No accounts found.');
+			throw new Error("No accounts in your wallet");
 		    }
 		})
 		.catch(error => {
-		    // Handle any errors that occur during the request
-		    console.error('Error connecting to wallet:', error);
+		    console.error(`Error connecting to wallet:${error}`);
+		    throw error; // Handle any errors that occur during the request
 		});
 	} else {
 	    // Ethereum wallet is not available
 	    console.error('Please install an Ethereum wallet like MetaMask to use this feature.');
+	    throw new Error('Please install an Ethereum wallet like MetaMask to use this feature.');
 	}
     }
 }
