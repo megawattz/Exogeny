@@ -1,4 +1,4 @@
-FROM node:18.16-bullseye
+FROM node:18.17-bullseye
 
 # general unix tools
 RUN apt update -y && apt install apt-utils
@@ -27,7 +27,6 @@ ENV PATH="${PATH}:/app/planetor/tools"
 # graphics tools
 RUN apt install -y povray povray-doc povray-examples povray-includes imagemagick ffmpeg
 
-
 # django
 RUN apt install -y python3-django python3-pip
 
@@ -41,8 +40,8 @@ COPY . /app
 
 WORKDIR /app
 
-#RUN npm install npm@9.6.6 replicate readline-sync @remix-project/remixd parcel three
-RUN npm install npm@9.6.6 replicate readline-sync @remix-project/remixd parcel
+#RUN npm install replicate readline-sync @remix-project/remixd parcel three
+RUN npm install -g replicate readline-sync @remix-project/remixd parcel
 
 RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i cloudflared-linux-amd64.deb
 

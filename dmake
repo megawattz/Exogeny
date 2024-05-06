@@ -7,10 +7,9 @@ VERSION="-$(git describe --abbrev=0 --tags)"
 PROJECT=exogeny-server-small
 IMAGE=${PROJECT}
 CONTAINER=${PROJECT}
-PORTS=${PORTS:--p 80:80/tcp}
 VOLUMES="-v$(pwd):/app"
+#NETWORK=${PORTS:--p80:80/tcp -p65520:65520/tcp -p65523:65523/tcp}
 NETWORK="--network host"
-#PORTS=${PORTS:-"-p 8090:80/tcp"}
 ENVFILE="./env.txt"
 VOLUMES="-v$(pwd):/app"
 
