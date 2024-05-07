@@ -298,7 +298,7 @@ Atmospheres = {
     "argon":"1.56, 0.71, 2.28",  # light purple
     "acetylene":"1.69, 0.54, 0.01",  # orange
     "phosphine":"1.47, 2.18, 1.72", # aqua
-    "neon": "2.39, 1.31, 0.85", # orange
+    "neon": "2.53, 1.62, 0.04", # orange
     "nitrogen_dioxide":"2.38, 1.73, 1.46", # peach
     "bromine":"2.37, 0.44, 0.26", # scarlet
     "iodine":"2.5, 1.5, 2.5",  # thistle
