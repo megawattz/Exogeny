@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
-import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Pausable.sol";
-import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
-import "@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
-import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+//      https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/access/AccessControl.sol
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/access/AccessControl.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/access/Ownable.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/ERC1155.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/extensions/ERC1155Pausable.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/utils/structs/EnumerableSet.sol";
 
 /**
  * @title PlaneteerNFT
@@ -62,9 +62,14 @@ contract PlaneteerNFT is ERC1155, Ownable, ERC1155Pausable, ERC1155Burnable, ERC
         return ContextMixin.msgSender();
     }
 
+    function _transfer(address sender, address recipient, uint256 amount) internal override {
+        _beforeTokenTransfer(sender, recipient, amount);
+        super._transfer(sender, recipient, amount);
+    }
+
     // Override the _beforeTokenTransfer hook to update the ownership mapping
     function _beforeTokenTransfer(address operator, address from, address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        internal virtual override
+        internal virtual
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
