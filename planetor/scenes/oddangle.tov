@@ -95,7 +95,7 @@ sphere {
    finish {
       ambient 0.0
       roughness 10
-      diffuse albedo 0.1
+      diffuse albedo 1
    }
    rotate <0,-clock*120,0>
 }

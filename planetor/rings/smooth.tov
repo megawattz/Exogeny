@@ -15,7 +15,7 @@ disc
    texture {
       pigment {
          waves
-         turbulence 0.5
+         turbulence 0.2
          frequency 1.5
          scale ring_brightness * 0.5
          color_map {
