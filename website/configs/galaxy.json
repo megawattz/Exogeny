@@ -18,6 +18,9 @@
 	"starforge":{
 	    "Description":"Planets of the Starforge Alliance"
 	}	
+	"imperium":{
+	    "Description":"Planets of the Imperium"
+	}	
     }
 }
 

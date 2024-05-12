@@ -750,8 +750,8 @@ def addrings(camera_location, ring_count, planet_size, atmosphere, options, moon
             continue
         else:
             index = index + 1
-        ring_brightness = ring_brightness + randomfloat(0.01, 0.1) * int(randomlist([-1, 1]))
-        ring_scene += ring(basecolor, ring_radius, hole_radius, ring_brightness, index, options, ring_template)
+        brightness = 0.99 #ring_brightness + randomfloat(0.01, 0.2) #                                                    * int(randomlist([-1, 1]))
+        ring_scene += ring(basecolor, ring_radius, hole_radius, brightness, index, options, ring_template)
     return ring_scene
 
 def help():

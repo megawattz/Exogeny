@@ -2,14 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-//      https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/access/AccessControl.sol
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/access/AccessControl.sol";
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/access/Ownable.sol";
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/ERC1155.sol";
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/extensions/ERC1155Pausable.sol";
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
-import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/utils/structs/EnumerableSet.sol";
+import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/release-v4.7/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
 
 /**
  * @title PlaneteerNFT
@@ -41,7 +34,7 @@ abstract contract ContextMixin {
     }
 }
 
-contract PlaneteerNFT is ERC1155, Ownable, ERC1155Pausable, ERC1155Burnable, ERC1155Supply, ContextMixin {
+contract PlaneteerNFT is ERC1155PresetMinterPauser, ContextMixin {
 
     using EnumerableSet for EnumerableSet.UintSet;
     mapping(address => EnumerableSet.UintSet) private _ownedTokens;
@@ -51,7 +44,7 @@ contract PlaneteerNFT is ERC1155, Ownable, ERC1155Pausable, ERC1155Burnable, ERC
     string contractMetadataURI;
 
     // example or URL template, ipfs://QmZ3MqUtkTR8amyzFWkKeabqVWH4vEfLSxEaNN6s9tJVap/{id}.json
-    constructor(string memory _name) ERC1155("") Ownable(msg.sender)
+    constructor(string memory _name) ERC1155PresetMinterPauser("")
     {
         name = _name;
     }
@@ -62,14 +55,9 @@ contract PlaneteerNFT is ERC1155, Ownable, ERC1155Pausable, ERC1155Burnable, ERC
         return ContextMixin.msgSender();
     }
 
-    function _transfer(address sender, address recipient, uint256 amount) internal override {
-        _beforeTokenTransfer(sender, recipient, amount);
-        super._transfer(sender, recipient, amount);
-    }
-
     // Override the _beforeTokenTransfer hook to update the ownership mapping
     function _beforeTokenTransfer(address operator, address from, address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        internal virtual
+        internal virtual override
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
 
@@ -99,50 +87,20 @@ contract PlaneteerNFT is ERC1155, Ownable, ERC1155Pausable, ERC1155Burnable, ERC
         return contractMetadataURI; // just use the raw NFT URI for the contract metadata 
     }
 
-    function setContractURI(string memory _uri) public onlyOwner {
+    function setContractURI(string memory _uri) public {
         contractMetadataURI = _uri; 
     }
 
-    function setURI(string memory _newuri) public onlyOwner {
+    function setURI(string memory _newuri) public {
         _setURI(_newuri);
     }
 
-    function setName(string memory _newname) public onlyOwner {
+    function setName(string memory _newname) public {
         name = _newname;
     }
 
-    function setSymbol(string memory _newsymbol) public onlyOwner {
+    function setSymbol(string memory _newsymbol) public{
         symbol = _newsymbol;
-    }
-
-    function pause() public onlyOwner {
-        _pause();
-    }
-
-    function unpause() public onlyOwner {
-        _unpause();
-    }
-
-    function mint(address account, uint256 id, uint256 amount, bytes memory data)
-        public
-        onlyOwner
-    {
-        _mint(account, id, amount, data);
-    }
-
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        public
-        onlyOwner
-    {
-        _mintBatch(to, ids, amounts, data);
-    }
-
-    // The following functions are overrides required by Solidity.
-    function _update(address from, address to, uint256[] memory ids, uint256[] memory values)
-        internal
-        override(ERC1155, ERC1155Pausable, ERC1155Supply)
-    {
-        super._update(from, to, ids, values);
     }
 
     function isApprovedForAll(address _owner,address _operator) public override view returns (bool isOperator) {
