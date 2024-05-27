@@ -1,4 +1,4 @@
-// Ring Wispy
+// Ring Vapor
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius =  %s;
@@ -8,7 +8,7 @@
 
 difference {
    sphere {
-      <0, 0, 0>, planet_size * ring_index
+      <0, 0, 0>, planet_size * ring_index + (planet_size * v_random_float)
       scale <1, ring_index/100, 1> 
       texture {
          pigment {
@@ -23,13 +23,13 @@ difference {
          diffuse albedo ring_brightness
          ambient ring_color
       }
-      rotate <0,(-clock*300000/pow(ring_radius, 2.4)),0>
+      rotate <0,(-clock*1500000/pow(ring_radius, 3)),0>
    } 
    cylinder {
-      <0, -10, 0>, <0, 10, 0>, planet_size + (planet_size * v_random_float * 2)
+      <0, -10, 0>, <0, 10, 0>, planet_size * ring_index * 0.9
       texture {
       	      pigment { color rgbt <1,1,1,1> }
       }
-      rotate <0,(-clock*150000/pow(ring_radius, 2.4)),0>
+      //rotate <0,(-clock*1500000/pow(ring_radius, 3)),0>
    }
 }
