@@ -8,7 +8,7 @@
 
 difference {
    sphere {
-      <0, 0, 0>, planet_size * 2.5 + planet_size * v_random_float
+      <0, 0, 0>, planet_size * ring_index
       scale <1, .05/ring_index, 1> 
       texture {
          pigment {
@@ -20,7 +20,7 @@ difference {
 	    scale <1, 0.5, 1>
          }
       }
-      rotate <0,(-clock*720000/pow(ring_radius, 2.4)),0>
+      rotate <0,(-clock*360000/pow(ring_radius, 2.4)),0>
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size + 4 + (planet_size + v_random_float)
