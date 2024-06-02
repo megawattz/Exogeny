@@ -99,7 +99,7 @@ def flat(files, selected, civfile_template, ipfsdata):
                 civ = json.loads(utils.readfile(civfile))
                 #print("civilization file %s:\n%s" % (civfile, civ), file=sys.stderr)
             except Exception as e:
-                print("%s has error %s, not stopping." % (file, e), file=sys.stderr)
+                print("civilization %s has error %s, not stopping." % (civfile, e), file=sys.stderr)
                 civ = {}
 
         try:
@@ -111,7 +111,7 @@ def flat(files, selected, civfile_template, ipfsdata):
                 "planet_index": meta.get('planet_index') or "Rogue",
                 "atmosphere": meta.get('atmosphere') or "unknown",
                 "lifeform":meta.get('lifeform') or "unknown",
-                "lifeform_image": meta.get('remote_lifeform') or ipfs.get('image') or "images/not_available.png",
+                "lifeform_image": ipfs.get('image') or meta.get('remote_lifeform') or "images/not_available.png",
                 "planet_video": meta.get('animation_url') or ipfs.get('animation_url') or "images/not_avaiable.mp4",
             }
         except Exception as e:
@@ -132,6 +132,7 @@ def loadIpfsFiles(glob_pattern):
     aggregated_data = {}
     
     # Use glob to find files matching the pattern
+    count = 0
     for filename in glob.glob(glob_pattern):
         with open(filename, 'r') as file:
             data = json.load(file)
@@ -139,7 +140,9 @@ def loadIpfsFiles(glob_pattern):
             identity = data.get('identity')
             if identity:
                 aggregated_data[identity] = data
-    
+    if (count < 1):
+        raise Exception(f"Only found {count} number of ipfs upload json files")
+        
     return aggregated_data
 
 
