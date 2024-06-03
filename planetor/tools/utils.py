@@ -24,6 +24,7 @@ def readfile(filename):
 
 ChainMap = {
     "1": "ethereum",
+    "11155111":"sepolia",
     "56": "bnb",
     "43114": "avalanche",
     "8453": "base",
