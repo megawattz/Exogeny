@@ -39,7 +39,7 @@ var Config = {
 };
 
 var sector = getCookie("sector") || "nebular";
-	  
+
 export async function LoadPlanets(configOut, planetsOut) {
     // load config
     await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
