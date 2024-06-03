@@ -1,35 +1,81 @@
-// Load Moralis library from the internet (CDN)
-const script = document.createElement("script");
-script.src = "https://unpkg.com/moralis@0.0.1/dist/moralis.min.js"; // Replace with the latest version
-document.head.appendChild(script);
+// Check if MetaMask is installed
+export const web3utils = {
+    GetNFTs: function(wallet, chainId, contract) {
+        try {
+            // Switch to the specified chain
+            window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: `0x${chainId.toString(16)}` }], // Chain ID must be in hexadecimal
+            });
 
-// Function to get all NFTs owned by a wallet
-async function getAllNFTsForWallet(appid) {
-    try {
-        // Initialize Moralis
-        await Moralis.start({ appId: "40404f45-4281-485b-b2fe-b7b39b3ba25c" }); // Replace with your Moralis app ID
+            // Get the balance of NFTs (using the ERC-721 balanceOf function signature)
+            const balanceMethod = '0x70a08231'; // balanceOf ABI signature
+            const balanceParams = wallet.toLowerCase().padStart(64, '0'); // 32 bytes hex format
+            const balanceData = balanceMethod + balanceParams;
 
-        // Prompt the user to connect their wallet
-        const user = await Moralis.authenticate();
+            const balance = window.ethereum.request({
+                method: 'eth_call',
+                params: [{
+                    to: contract,
+                    data: balanceData
+                }, 'latest']
+            });
 
-        // Get NFTs owned by the connected wallet
-        const response = await Moralis.EvmApi.nft.getWalletNFTs({
-            chain: "0x1", // Ethereum Mainnet (adjust for other chains)
-            address: user.get("ethAddress"),
-            mediaItems: false, // Set to true if you want media data
-        });
+            // Convert the balance result from hex to number
+            const tokenCount = parseInt(balance, 16);
+            const nfts = [];
 
-        // Extract relevant NFT information (e.g., token IDs, contract addresses)
-        const nftsOwned = response.result.map((nft) => ({
-            tokenAddress: nft.token_address,
-            tokenId: nft.token_id,
-            contractType: nft.contract_type,
-            // Add other relevant fields as needed
-        }));
+            // Loop to get each NFT ID owned by the wallet
+            for (let i = 0; i < tokenCount; i++) {
+                const tokenOfOwnerByIndexMethod = '0x2f745c59'; // tokenOfOwnerByIndex ABI signature
+                const indexParams = i.toString(16).padStart(64, '0');
+                const tokenData = tokenOfOwnerByIndexMethod + balanceParams + indexParams;
 
-        return nftsOwned;
-    } catch (error) {
-        console.error("Error fetching NFTs:", error);
-        return [];
+                const tokenId = window.ethereum.request({
+                    method: 'eth_call',
+                    params: [{
+                        to: contract,
+                        data: tokenData
+                    }, 'latest']
+                });
+
+                // Convert token ID from hex to number
+                nfts.push(parseInt(tokenId, 16));
+            }
+
+            console.log(`NFTs owned by ${wallet}:`, nfts);
+            return nfts;
+        } catch (error) {
+            console.error('Failed to retrieve NFTs:', error);
+            throw error;
+        }
+    },
+    ConnectWallet: function() {
+	if (typeof window.ethereum !== 'undefined') {
+	    console.log('Ethereum wallet is detected!');
+
+	    // Use the request method to ask for the 'eth_accounts' permission
+	    window.ethereum.request({ method: 'eth_requestAccounts' })
+		.then(accounts => {
+		    if (accounts.length > 0) {
+			const account = accounts[0];
+			console.log('Connected account:', account);
+			return account;
+			// You can now use this account to interact with the Ethereum blockchain
+		    } else {
+			console.error('No accounts found.');
+			throw new Error("No accounts in your wallet");
+		    }
+		})
+		.catch(error => {
+		    console.error(`Error connecting to wallet:${error}`);
+		    throw error; // Handle any errors that occur during the request
+		});
+	} else {
+	    // Ethereum wallet is not available
+	    console.error('Please install an Ethereum wallet like MetaMask to use this feature.');
+	    throw new Error('Please install an Ethereum wallet like MetaMask to use this feature.');
+	}
     }
 }
+
