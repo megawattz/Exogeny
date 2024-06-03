@@ -48,9 +48,9 @@
     </div>
     <script type="module">
       import * as utils from './js/utils.mjs';
-      import web3local from './js/web3.mjs';
+      import * as web3 from './js/web3.mjs';
       
-      web3local.ConnectWallet();
+      web3.web3utils.ConnectWallet();
       
       // Example usage:
       //web3local.getAllNFTsForWallet().then((nfts) => {
