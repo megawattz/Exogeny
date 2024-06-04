@@ -50,8 +50,6 @@
       import * as utils from './js/utils.mjs';
       import {web3utils} from './js/web3.mjs';
       
-      web3utils.ConnectWallet();
-      
       // Example usage:
       //web3local.getAllNFTsForWallet().then((nfts) => {
 	//  console.log("NFTs owned:", nfts);
@@ -231,7 +229,8 @@
       }
       
       // load planets
-      utils.LoadPlanets(Config, Planets).then(randomPlanet);
+      web3utils.ConnectWallet().then(wallet, chainId, contract)
+      
     </script>
   </body>
 </html>
