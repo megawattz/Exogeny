@@ -45,7 +45,8 @@ export const web3utils = {
 
             // Create a new provider and signer
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            //const signer = provider.getSigner();
+            const signer = provider.getSigner();
+	    const walletAddress = signer.getAddress();
 	    
             // ERC1155 contract address and ABI
             const abi = [
@@ -53,18 +54,18 @@ export const web3utils = {
             ];
 	    
             // Create contract instance
-            const contract = new ethers.Contract(contractAddress, abi, wallet);
+            const contract = new ethers.Contract(contractAddress, abi, signer);
 	    
             // Example token IDs and corresponding wallet addresses
 	    if (!this.ContractNFTs)
 		this.ContractNFTs = Array.from({ length: 1000 }, (_, i) => i + 1);
-	    const ownerAddresses = [wallet];
+	    const ownerAddresses = this.ContractNFTs.map(() => wallet);
 	    
             // Call balanceOfBatch
             const balances = await contract.balanceOfBatch(ownerAddresses, this.ContractNFTs);
 	    
             // Display the balances
-            const result = tokenIds.map((tokenId, index) => ({
+            const result = this.ContractNFTs.map((tokenId, index) => ({
                 tokenId: tokenId,
                 count: balances[index].toNumber()
             })).filter(item => item.count > 0);
