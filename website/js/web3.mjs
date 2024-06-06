@@ -1,5 +1,7 @@
 // Check if MetaMask is installed
 
+import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
+
 const EVMchains = {
     arbitrumOne: "0xa4b1",         // Arbitrum One
     arbitrumRinkeby: "0x66eeb",    // Arbitrum Rinkeby Testnet
@@ -36,56 +38,42 @@ const EVMchains = {
 
 export const web3utils = {
     CurrentChainId: 0x1,  // default to ethereum
-    GetNFTs: async function(wallet, chainId, contract) {
-        try {
-            // Switch to the specified chain
-            await window.ethereum.request({
-                method: 'wallet_switchEthereumChain',
-                params: [{ 'chainId': chainId }], // Chain ID must be in hexadecimal
-            });
+    GetNFTs: async function(wallet, chainId, contractAddress) {
+	try {
+            // Request account access
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-            // Get the balance of NFTs (using the ERC-721 balanceOf function signature)
-	    //const balanceMethod = '0x70a08231'; // balanceOf ABI signature
-	    const balanceMethod = '0x4e1273f4'; // balanceOfBatch ABI identifier
-            const balanceParams = wallet.toLowerCase().padStart(64, '0'); // 32 bytes hex format
-            const balanceData = balanceMethod + balanceParams;
-
-            const balance = await window.ethereum.request({
-                method: 'eth_call',
-                params: [{
-                    to: contract,
-                    data: balanceData
-                }, 'latest']
-            });
-
-            // Convert the balance result from hex to number
-            const tokenCount = parseInt(balance, 16);
-            const nfts = [];
-
-            // Loop to get each NFT ID owned by the wallet
-            for (let i = 0; i < tokenCount; i++) {
-                const tokenOfOwnerByIndexMethod = '0x2f745c59'; // tokenOfOwnerByIndex ABI signature
-                const indexParams = i.toString(16).padStart(64, '0');
-                const tokenData = tokenOfOwnerByIndexMethod + balanceParams + indexParams;
-
-                const tokenId = window.ethereum.request({
-                    method: 'eth_call',
-                    params: [{
-                        to: contract,
-                        data: tokenData
-                    }, 'latest']
-                });
-
-                // Convert token ID from hex to number
-                nfts.push(parseInt(tokenId, 16));
-            }
-
-            console.log(`NFTs owned by ${wallet}:`, nfts);
-            return nfts;
+            // Create a new provider and signer
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            //const signer = provider.getSigner();
+	    
+            // ERC1155 contract address and ABI
+            const abi = [
+                "function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"
+            ];
+	    
+            // Create contract instance
+            const contract = new ethers.Contract(contractAddress, abi, wallet);
+	    
+            // Example token IDs and corresponding wallet addresses
+	    if (!this.ContractNFTs)
+		this.ContractNFTs = Array.from({ length: 1000 }, (_, i) => i + 1);
+	    const ownerAddresses = [wallet];
+	    
+            // Call balanceOfBatch
+            const balances = await contract.balanceOfBatch(ownerAddresses, this.ContractNFTs);
+	    
+            // Display the balances
+            const result = tokenIds.map((tokenId, index) => ({
+                tokenId: tokenId,
+                count: balances[index].toNumber()
+            })).filter(item => item.count > 0);
+	    
+            console.log(`Owned NFTs: ${JSON.stringify(result, null, 2)}`);
         } catch (error) {
             console.error('Failed to retrieve NFTs:', error);
             throw error;
-        }
+        }	
     },
     ConnectWallet: async function(chain) {
 	chain = chain || this.CurrentChainId;
