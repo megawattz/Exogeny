@@ -229,7 +229,8 @@
       }
       
       // load planets
-      web3utils.ConnectWallet().then(wallet, chainId, contract);
+      web3utils.ConnectWallet(web3utils.ChainId("sepolia")).then(
+	  (account) => Planets = web3utils.GetNFTs(account, web3utils.ChainId("sepolia"), "0x9C46cE465E14FC0C172E6DAA836431180f5B4Ba2"));
       
     </script>
   </body>
