@@ -227,11 +227,41 @@
 	      clearTimeout(splash);
 	  });
       }
-      
-      // load planets
-      web3utils.ConnectWallet(web3utils.ChainId("sepolia")).then(
-	  (account) => Planets = web3utils.GetNFTs(account, web3utils.ChainId("sepolia"), "0x9C46cE465E14FC0C172E6DAA836431180f5B4Ba2"));
-      
+
+      const contractAddress = "0x9C46cE465E14FC0C172E6DAA836431180f5B4Ba2";
+      const account = await web3utils.WalletAddress();
+
+      // get the metadata base URL on the IPFS file system
+      let abi = [ "function uri(uint256 _id) external view returns (string memory)" ];
+      const nftsURI = await web3utils.CallFunction(contractAddress, abi, "uri", 0);
+      console.log(`Contract IPFS base URL: ${nftsURI}`);
+
+      // get a list of NFTs owned by this user
+      abi = ["function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"];
+      const nfts = Array.from({ length: 600 }, (_, i) => i + 1);
+      let accounts = [];
+      nfts.forEach(() => {
+	  accounts.push(account);
+      });
+      const allNFTs = await web3utils.CallFunction(contractAddress, abi, "balanceOfBatch", accounts, nfts);
+      console.log(`All NFTS: ${allNFTs}`);
+      let ownedNFTs = []
+      for (let id in allNFTs) {
+	  const count = parseInt(allNFTs[id]._hex, 16);
+	  if ( count > 0)
+	      ownedNFTs.push(id);
+      }
+      console.log(`Owned NFTS: ${ownedNFTs}`);
+      //console.log(`Owned NFTS: ${ownedNFTs.length}`);
+      // get the metadata associated with each NFT
+      const NFTmetadata = []
+      for (let nftid in ownedNFTs) {
+	  let idstring = nftid.toString();
+	  let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
+	  console.log(url);
+      	  fetch(url).then(response => response.json()).then((data) => NFTmetadata.push(data)).catch(console.error); // NFTmetadata.push).catch(console.error);
+      }
+      //console.log(NFTmetadata);
     </script>
   </body>
 </html>

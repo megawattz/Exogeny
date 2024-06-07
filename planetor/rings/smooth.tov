@@ -6,28 +6,6 @@
 #declare ring_index = %s;
 #declare planet_size = %s;
 
-// Example of a fuzzy glow in POV-Ray
-#macro Glow(position, radius, flatness, color)
-sphere {
-       position, radius
-       scale <1, 0.1, 1>
-       texture {
-       	       pigment { rgb <1, 0, 0> }  // Red color
-	       finish { ambient 0.3 diffuse 0.7 }
-       halo {
-          dust
-          halo_radius 2.0  // Size of the glow
-    dust_type 1
-    exponent 1.5  // Affects the decay of the glow
-    color_map {
-      [0.0 rgb 1]
-      [1.0 rgb <1, 0.5, 0.5, 0.3>]  // Gradient and transparency
-    }
-    samples 10  // Quality of the halo rendering
-    jitter 0.1  // Randomness in the halo
-  }
-}
-
 disc
 {
    <0, 0, 0>,

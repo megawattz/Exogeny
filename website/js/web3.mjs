@@ -38,43 +38,53 @@ const EVMchains = {
 
 export const web3utils = {
     CurrentChainId: 0x1,  // default to ethereum
-    GetNFTs: async function(wallet, chainId, contractAddress) {
-	try {
+    WalletAddress: async function() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                // Request account access if needed
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+		
+                // Create a new provider
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+		
+                // Get the signer
+                const signer = provider.getSigner();
+		
+                // Get the wallet address
+                const walletAddress = await signer.getAddress();
+		
+                return walletAddress;
+            } catch (error) {
+                console.error('Error getting wallet address:', error);
+                throw error;
+            }
+        } else {
+            console.error('MetaMask is not installed.');
+            throw new Error('MetaMask is not installed.');
+        }
+	
+    },
+    CallFunction: async function(contractAddress, abi, functionName, ...params) {
+        try {
             // Request account access
             await window.ethereum.request({ method: 'eth_requestAccounts' });
-
+	    
             // Create a new provider and signer
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
-	    const walletAddress = signer.getAddress();
-	    
-            // ERC1155 contract address and ABI
-            const abi = [
-                "function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"
-            ];
-	    
+
             // Create contract instance
             const contract = new ethers.Contract(contractAddress, abi, signer);
-	    
-            // Example token IDs and corresponding wallet addresses
-	    if (!this.ContractNFTs)
-		this.ContractNFTs = Array.from({ length: 1000 }, (_, i) => i + 1);
-	    const ownerAddresses = this.ContractNFTs.map(() => wallet);
-	    
-            // Call balanceOfBatch
-            const balances = await contract.balanceOfBatch(ownerAddresses, this.ContractNFTs);
-	    
-            // Display the balances
-            const result = this.ContractNFTs.map((tokenId, index) => ({
-                tokenId: tokenId,
-                count: balances[index].toNumber()
-            })).filter(item => item.count > 0);
-	    
-            console.log(`Owned NFTs: ${JSON.stringify(result, null, 2)}`);
+
+            // Call the specified function with the provided parameters
+            const result = await contract[functionName](...params);
+
+            //console.log(`Result of ${functionName}:`, result);
+            return result;
         } catch (error) {
-            console.error('Failed to retrieve NFTs:', error);
+            console.error('Error:', error);
             throw error;
-        }	
+        }
     },
     ConnectWallet: async function(chain) {
 	chain = chain || this.CurrentChainId;
