@@ -116,9 +116,9 @@ def resolve_parameter(name, value, options):
     elif (name == "rings"):
         camdist = pythag(ttol(options['camera_location']))
         if value == None:
-            options['rings'] = randomint(3, int(camdist/15))
+            options['rings'] = randomint(2, int(camdist/30))
         elif int(value) == 0 and camdist >= 110:
-            options['rings'] = randomint(3, int(camdist/15))
+            options['rings'] = randomint(2, int(camdist/30))
         elif int(value) > 0:
             options['rings'] = int(value)
         return options['rings']
@@ -547,7 +547,7 @@ DbDefaults = {
         "atmosphere_composition": None,
         "atmosphere_density": "0.80",
         "atmosphere_size": "1.02",
-        "moons": 0,
+        "moons": randomint(0, 4),
         "moon_position": None,
         "moon_size": None,
         "moon": None,
@@ -656,7 +656,7 @@ def DefaultOptions():
         "rings": 0,
         "ring_brightness": None,
         "ring_template":None,
-        "moons": 0,
+        "moons": randomint(0, 4),
         "moon_position": None,
         "moon_size": None,
         "moon": None,
