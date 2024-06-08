@@ -30,7 +30,7 @@
     <!-- Bespoke Stuff -->
   </head>
   <body style="position: relative; overflow: hidden; border: 0; font-size: 4vh;">
-    <nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: absolute; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
+    <nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: absolute; left: 0, top: 0; background: transparent; border: 0; z-index: 10;">
     </nav>
     <script>
       $(document).on('mousemove', function(event) {
@@ -41,6 +41,85 @@
 	    }	
       });
     </script>
+    <dialog open style="font-size: 1vw; background: transparent; position: absolute; left: 0, top: 0; background: transparent; border: 0; z-index: 30;" id="filter">
+        <form method="dialog">
+            <h2>Configure Planetary Settings</h2>
+            
+            <!-- Atmosphere Types Dropdown -->
+	    <table tyle=>
+            <label for="atmosphere">Select Atmosphere Types:</label>
+            <select id="atmosphere" name="atmosphere" multiple style="float: left;">
+                <option value="type1">Atmosphere Type 1</option>
+                <option value="type2">Atmosphere Type 2</option>
+                <option value="type3">Atmosphere Type 3</option>
+            </select>
+            <br><br>
+
+            <!-- Lifeforms Dropdown -->
+            <label for="lifeforms">Select Lifeforms:</label>
+            <select id="lifeforms" name="lifeforms" multiple>
+                <option value="lifeform1">Lifeform 1</option>
+                <option value="lifeform2">Lifeform 2</option>
+                <option value="lifeform3">Lifeform 3</option>
+            </select>
+            <br><br>
+
+            <!-- Planet Types Dropdown -->
+            <label for="planetTypes">Select Planet Types:</label>
+            <select id="planetTypes" name="planetTypes" multiple>
+                <option value="planet1">Planet Type 1</option>
+                <option value="planet2">Planet Type 2</option>
+                <option value="planet3">Planet Type 3</option>
+            </select>
+            <br><br>
+
+            <!-- Number of Moons Dropdown -->
+            <label for="moons">Number of Moons:</label>
+            <select id="moons" name="moons">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <br><br>
+
+            <!-- Rings Selection -->
+            <label>Rings:</label>
+            <input type="radio" id="ringsYes" name="rings" value="yes">
+            <label for="ringsYes">Yes</label>
+            <input type="radio" id="ringsNo" name="rings" value="no">
+            <label for="ringsNo">No</label>
+            <br><br>
+
+            <!-- Time to Display -->
+            <label for="displayTime">Time to Display Each Item (seconds):</label>
+            <input type="number" id="displayTime" name="displayTime" min="1" step="1">
+            <br><br>
+
+            <!-- Checkboxes -->
+            <label for="showPlanet">Show Planet:</label>
+            <input type="checkbox" id="showPlanet" name="showPlanet">
+            <br>
+            <label for="showLifeform">Show Lifeform:</label>
+            <input type="checkbox" id="showLifeform" name="showLifeform">
+            <br><br>
+
+            <!-- Radio Buttons for Labeling -->
+            <label>Labeling:</label>
+            <input type="radio" id="labelFull" name="labeling" value="full">
+            <label for="labelFull">Full</label>
+            <input type="radio" id="labelCard" name="labeling" value="card">
+            <label for="labelCard">Card</label>
+            <input type="radio" id="labelNone" name="labeling" value="none">
+            <label for="labelNone">None</label>
+            <br><br>
+
+            <!-- Dialog Buttons -->
+            <button type="submit">Save</button>
+            <button type="button" onclick="document.getElementById('settingsDialog').close();">Cancel</button>
+        </form>
+    </dialog>
     <div style="width: 100%; height: 100%; align-items: center; justify-content: center; margin: none; padding: none; border: 0;">
       <img style="position: absolute; top 0; left 0; width: 100%; height: 100%; margin: none; padding: none; transition: opacity 4s; z-index: 0; pointer-events: none;"id="image"></img>
       <video style="position: absolute; top 50%; left 50%; object-fit: cover; height: 100%; width: 100%; margin: none; padding: none; transition: opacity 4s; z-index: 0; pointer-events: none;" id="video" loop autoplay muted></video>
@@ -238,7 +317,7 @@
 
       // get a list of NFTs owned by this user
       abi = ["function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"];
-      const nfts = Array.from({ length: 600 }, (_, i) => i + 1);
+      const nfts = Array.from({ length: 200 }, (_, i) => i + 1);
       let accounts = [];
       nfts.forEach(() => {
 	  accounts.push(account);
