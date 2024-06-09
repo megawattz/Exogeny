@@ -60,7 +60,8 @@ document.getElementById("navheader").innerHTML = `
 	      <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="galaxy.html">3D Map</a></li>
 		<li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
-		<li><a class="dropdown-item" href="myplanets.html">My Planets</a></li>
+		<li><a class="dropdown-item" href="myplanets.html">My Planets Screensaver</a></li>
+		<li><a class="dropdown-item" href="mygallery.html">My Planets Gallery</a></li>	
 	      </ul>
 	    </li>
 

@@ -227,7 +227,6 @@
       
       // load planets
 
-      const contractAddress = "0x9C46cE465E14FC0C172E6DAA836431180f5B4Ba2";
       const account = await web3utils.WalletAddress();
 
       // load config
@@ -245,7 +244,7 @@
 		.then((response) => response.json()))
 	  	.catch(console.error)
 
-	  Planets = await web3utils.GetNFTs(account, sectorChoice.contract)
+      Planets = await web3utils.GetNFTs(account, sectorChoice.contract)
 
      randomPlanet();
       
