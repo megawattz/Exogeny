@@ -116,3 +116,61 @@ export async function getNFTMetadata(chain, contractAddress, tokenId) {
     return null;
 }
 
+// capitalize each word in a phrase and replace _ with ' '
+export function titleize(sentence) {
+    try {
+	const words = sentence.split(/[_ ]+/);
+	let fixup = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+	return fixup.join(' ')
+    } catch(exc) {
+	return "";
+    }
+}
+
+export function fromRoman(roman) {
+    const map = {
+	"Prime": 1,
+	"II": 2,
+	"III": 3,
+	"IV": 4,
+	"V": 5,
+	"VI": 6,
+	"VII": 7,
+	"VIII": 8,
+	"IX": 9,
+	"X": 10,
+	"XI": 11,
+	"XII": 12,
+	"XIII": 13,
+	"XIV": 14,
+	"XV": 15
+    };
+    return map[roman] || "";
+}
+
+export function toRoman(arabic) {
+    const map = {
+	"1": "Prime",
+	"2":"II",
+	"3":"III",
+	"4":"IV",
+	"5":"V",
+	"6":"VI",
+	"7":"VII",
+	"8":"VIII",
+	"9":"IX",
+	"10":"X",
+	"11":"XI",
+	"12":"XII",
+	"13":"XIII",
+	"14":"XIV",
+	"15":"XV"
+    };
+    return map[arabic] || "";
+}
+
+export function ordinal(place) {
+    const map = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th"];
+    return map[place] || "";
+}
+

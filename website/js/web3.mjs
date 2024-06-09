@@ -156,7 +156,7 @@ export const web3utils = {
 	    let idstring = nftid.toString();
 	    let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
 	    //console.log(url);
-      	    let p = fetch(url).then(response => response.json()).then((data) => NFTmetadata.push(data)).then(console.log).catch(console.error); // NFTmetadata.push).catch(console.error);
+      	    let p = fetch(url).then(response => response.json()).then((data) => NFTmetadata.push(data)).catch(console.error); // NFTmetadata.push).catch(console.error);
 	    promises.push(p);
 	}
 	await Promise.all(promises)

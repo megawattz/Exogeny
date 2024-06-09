@@ -75,43 +75,6 @@
       document.description = document.getElementById("description");
       var overlayTimer = null;
       
-      function randomPlanet() {
-	  if (overlayTimer)
-	      clearInterval(overlayTimer)
-	  	let lifeform = document.lifeform;
-	  let description = document.description;
-	  lifeform.style.opacity = 0;
-	  let video = document.video;
-	  let planet = Planets[RandomInt(0, Planets.length)];
-	  let identity = planet.identity;
-	  video.src = planet.animation_url;
-	  video.style.opacity = 1;
-	  //video.poster = `planets/planet_${identity}.gif`;
-	  Object.assign( description.style, { top: `${RandomInt(40, 40)}vw`, left: `${RandomInt(5, 30)}vw`});
-	  var sometimes = RandomInt(0, 10);
-	  
-	  if (sometimes < 2) {
-	      overlayTimer = overlayTeletype(document.body, "", 40);
-	      description.innerHTML = `<div class="floatingLabel">${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
-	  }
-	  else {
-	      description.innerHTML = "";
-	      overlayTimer = overlayTeletype(document.body, planetStats(planet), 40);
-	  }
-	  
-	  setTimeout(function() {
-	      video.style.opacity = 0;
-	      lifeform.src = planet.image;
-	      lifeform.style.opacity = 1;
-	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
-	      Object.assign(description.style, { position: 'absolute', left:`${RandomInt(30, 50)}vw`, top: `${RandomInt(90, 95)}vh`, fontSize: '3vh'});
-	      return 0;
-	  }, 20000);
-	      
-	  setTimeout(randomPlanet, 30000);
-	  return 0;
-      }
-
       function planetStats(planet, keys) {
 	  keys = keys || [
 	      { key: 'official_designation', 	value: 'Official Planet Name'},
@@ -131,6 +94,59 @@
 	      { key: 'culture', 		value: 'Culture Type'}
 	  ];
 
+	  if (!planet.attribmap) {
+	      planet.attribmap = {}
+	      for (let val of planet.attributes) {
+		  planet.attribmap[val.trait_type] = val.value;
+	      }
+	  }
+      }
+
+      function randomPlanet() {
+	  if (overlayTimer)
+	      clearInterval(overlayTimer)
+	  	let lifeform = document.lifeform;
+	  let description = document.description;
+	  lifeform.style.opacity = 0;
+	  let video = document.video;
+	  let planet = Planets[RandomInt(0, Planets.length)];
+	  let identity = planet.identity;
+	  video.src = planet.animation_url;
+	  video.style.opacity = 1;
+	  //try { video.poster = `planets/planet_${identity}.gif`; } catch {};
+	  Object.assign( description.style, { top: `${RandomInt(40, 40)}vw`, left: `${RandomInt(5, 30)}vw`});
+	  var sometimes = RandomInt(0, 10);
+
+	  planetStats(planet);
+	  
+	  if (sometimes < 2) {
+	      overlayTimer = overlayTeletype(document.body, "", 40);
+	      description.innerHTML = `<div class="floatingLabel">${planet.attribmap.official_designation}</div>`;
+	  }
+	  else {
+	      description.innerHTML = "";
+	      overlayTimer = overlayTeletype(document.body, displayPlanetStats(planet), 40);
+	  }
+	  
+	  setTimeout(function() {
+	      video.style.opacity = 0;
+	      lifeform.src = planet.image;
+	      lifeform.style.opacity = 1;
+	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.attribmap.parent_star} ${planet.attribmap.planet_index}</div>`;
+	      Object.assign(description.style, { position: 'absolute', left:`${RandomInt(30, 50)}vw`, top: `${RandomInt(90, 95)}vh`, fontSize: '3vh'});
+	      return 0;
+	  }, 20000);
+	      
+	  setTimeout(randomPlanet, 30000);
+	  return 0;
+      }
+
+      function displayPlanetStats(planet) {
+	  var readout = '<p>\n';
+	  Object.keys(planet.attribmap).forEach(function(k) {
+	      readout += `<br>${utils.titleize(k)}: ${utils.titleize(planet.attribmap[k])}`;
+	  });	
+
 	  var fictions = {
 	      "Tech Level": `${RandomInt(0, 3)}`,
 	      "Population": `${RandomInt(1,90)} million`,
@@ -138,17 +154,6 @@
 	      "Last Price": `${RandomInt(1, 10)/10} ETH`
 	  };
 
-	  if (!planet.attribmap) {
-	      planet.attribmap = {}
-	      for (let val of planet.attributes) {
-		  planet.attribmap[val.trait_type] = val.value;
-	      }
-	  }
-	  
-	  var readout = '<p>\n';
-	  Object.keys(planet.attribmap).forEach(function(k) {
-	      readout += `<br>${k}: ${planet.attribmap[k]}`;
-	  });	
 	  Object.keys(fictions).forEach(function(e) {
 	      readout += `<br>${e}: ${fictions[e]}`;
 	  });
