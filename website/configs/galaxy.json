@@ -14,24 +14,30 @@
 	    "opensea_collection":"https://testnets.opensea.io/collection/vortexis",
 	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
 	    "contract":"0x9c46ce465e14fc0c172e6daa836431180f5b4ba2",
+	    "owner":"",
 	    "name":"Planets of the Vortexis Expanse"
 	},
+	"nebular":{
+	    "Description":"Planets of the Nebular Federation",
+	    "opensea_collection":"https://testnets.opensea.io/collection/exoplaneteer-4",
+	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
+	    "contract":"0x657c57004a807ed560e48e7c9d1ba698e4fdae6d",
+	    "owner":"0xc00c6e785391c08571c7A5979670F1A13Ec31Dd5",
+            "name":"Planets of the Nebular Federation"
+	},	
 	"starlight":{
 	    "Description":"Planets of the Starlight Sovereignties",
 	    "opensea_collection":"https://testnets.opensea.io/collection/exoplaneteer-2",
 	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
 	    "contract":"0x9261025eA365fbaa60623143e03F177ab35565BD",
 	    "name":"Planets of the Starlight Sovereignties"
-	},
-	"nebular":{
-	    "Description":"Planets of the Nebular Federation"
 	},	
 	"helatrobus":{
 	    "Description":"Planets of the Helatrobus Empire"
-	},	
-	"markab":{
+	},		
+	"markab"	:{
 	    "Description":"Planets of the Markab Confederacy"
-	},	
+	},		
 	"imperium":{
 	    "Description":"Planets of the Imperium"
 	},	
