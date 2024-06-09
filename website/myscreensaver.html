@@ -101,7 +101,7 @@
 	  
 	  setTimeout(function() {
 	      video.style.opacity = 0;
-	      lifeform.src = fixupIPFS(planet.lifeform_image);
+	      lifeform.src = planet.image;
 	      lifeform.style.opacity = 1;
 	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
 	      Object.assign(description.style, { position: 'absolute', left:`${RandomInt(30, 50)}vw`, top: `${RandomInt(90, 95)}vh`, fontSize: '3vh'});
