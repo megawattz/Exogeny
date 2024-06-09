@@ -20,7 +20,7 @@ difference {
             scale <1, 0.5, 1>
          }
       }
-      rotate <0,(-clock*9000000/pow(planet_size, 4) + v_random_float * 360), 0>
+      rotate <0,(-clock*90000000/pow(ring_radius, 4) + v_random_float * 360), 0>
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size * 2.0 

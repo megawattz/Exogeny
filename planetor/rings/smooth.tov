@@ -19,8 +19,8 @@ disc
          frequency 1.5
          scale ring_brightness * 0.5
          color_map {
-            [0 rgb <0,0,0> filter ring_brightness - 0.1]
-	    [1 rgb ring_color filter ring_brightness - 0.1]
+            [0 rgb <0,0,0> filter ring_brightness]
+	    [1 rgb ring_color filter ring_brightness]
          }
       }
       finish {
