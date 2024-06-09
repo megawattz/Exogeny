@@ -52,7 +52,9 @@
       import {web3utils} from './js/web3.mjs';
 
       var Planets = [];
-      var Keys = [];
+      var Config = {};
+      
+      var sector = utils.getCookie("sector") || "vortexis";
       
       function show(item) {
 	  item.style.visibility = 'visible';
@@ -228,8 +230,24 @@
       const contractAddress = "0x9C46cE465E14FC0C172E6DAA836431180f5B4Ba2";
       const account = await web3utils.WalletAddress();
 
-      Planets = await web3utils.GetNFTs(account, contractAddress);
-      randomPlanet();
+      // load config
+      await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+    	.then((response) => response.json())
+    	.then((data) => Object.assign(Config, data))
+    	.then(() => console.log(Config))
+    	.catch((error) => console.error(error))
+
+	      // load planets
+      let sectorChoice = await fetch(`configs/${sector}/sector.json`)
+	  .then((response) => response.json())
+	  .then((data) => Object.assign(Config, data))
+	  .then(fetch(`configs/${sector}/planets.json`)
+		.then((response) => response.json()))
+	  	.catch(console.error)
+
+	  Planets = await web3utils.GetNFTs(account, sectorChoice.contract)
+
+     randomPlanet();
       
     </script>
   </body>

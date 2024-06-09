@@ -87,7 +87,6 @@ export const web3utils = {
         }
     },
     ConnectWallet: async function(chain) {
-	chain = chain || this.CurrentChainId;
 	if (typeof window.ethereum !== 'undefined') {
 	    console.log('Ethereum wallet is detected!');
 
