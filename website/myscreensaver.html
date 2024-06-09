@@ -137,11 +137,18 @@
 	      "Tritanium-44 Production": `${RandomInt(0,100)}/day`,
 	      "Last Price": `${RandomInt(1, 10)/10} ETH`
 	  };
+
+	  if (!planet.attribmap) {
+	      planet.attribmap = {}
+	      for (let val of planet.attributes) {
+		  planet.attribmap[val.trait_type] = val.value;
+	      }
+	  }
 	  
 	  var readout = '<p>\n';
-	  keys.forEach(function(e) {
-	      readout += `<br>${e.value}: ${planet[e.key]}`;
-	  });
+	  Object.keys(planet.attribmap).forEach(function(k) {
+	      readout += `<br>${k}: ${planet.attribmap[k]}`;
+	  });	
 	  Object.keys(fictions).forEach(function(e) {
 	      readout += `<br>${e}: ${fictions[e]}`;
 	  });
