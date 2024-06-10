@@ -119,7 +119,7 @@ export async function getNFTMetadata(chain, contractAddress, tokenId) {
 // capitalize each word in a phrase and replace _ with ' '
 export function titleize(sentence) {
     try {
-	const words = sentence.split(/[_ ]+/);
+	const words = `${sentence}`.split(/[_ ]+/);
 	let fixup = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
 	return fixup.join(' ')
     } catch(exc) {

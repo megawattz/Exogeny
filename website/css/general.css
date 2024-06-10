@@ -43,7 +43,7 @@ body {
 .floatingLabel {
     align-items: center;
     justify-content: center;
-    font-size: 0.6vw;
+    font-size: 1vw;
 }
 
 .galleryVideo {
@@ -389,7 +389,12 @@ a:hover {
 }
 
 .overlayPlanetDetail {
-    font-size: 0.8em;
+    font-size: 0.4vw;
+}
+
+.readout {
+    font-size: 0.8vw;
+    background-color: red;
 }
 
 .attrName {

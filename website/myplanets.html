@@ -146,9 +146,11 @@
       function displayPlanetStats(planet) {
 	  var readout = '<p>\n';
 	  Object.keys(planet.attribmap).forEach(function(k) {
-	      readout += `<br>${utils.titleize(k)}: ${utils.titleize(planet.attribmap[k])}`;
+	      const value = planet.attribmap[k];
+	      readout += `<br>${utils.titleize(k)}: ${utils.titleize(value)}\n`;
 	  });	
-
+	  readout += '</p>';
+	  
 	  var fictions = {
 	      "Tech Level": `${RandomInt(0, 3)}`,
 	      "Population": `${RandomInt(1,90)} million`,
@@ -159,6 +161,7 @@
 	  Object.keys(fictions).forEach(function(e) {
 	      readout += `<br>${e}: ${fictions[e]}`;
 	  });
+	  
 	  readout += `</p>\n`;
 	  return readout;
       }
@@ -171,7 +174,7 @@
 	      overlay = document.createElement("div");
 	      element.appendChild(overlay);
 	      overlay.id = overlayId;
-	      Object.assign(overlay.style, {width: rect.width, height: rect.height, position: 'absolute', top: '8vh', left: '5vh', fontSize: '2.6vh', color: 'white', background: 'transparent',  border: 0, zIndex: element.style.zIndex + 1});
+	      Object.assign(overlay.style, {width: rect.width, height: rect.height, position: 'absolute', top: '8vh', left: '5vh', fontSize: '2vh', color: 'white', background: 'transparent',  border: 0, zIndex: element.style.zIndex + 1});
 	  }
 	  overlay.className = "overlayPlanetDetail";
 	  overlay.innerHTML = "";
@@ -246,7 +249,7 @@
 
       Planets = await web3utils.GetNFTs(account, sectorChoice.contract)
 
-     randomPlanet();
+      randomPlanet();
       
     </script>
   </body>
