@@ -78,29 +78,12 @@
       var overlayTimer = null;
       
       function planetStats(planet, keys) {
-	  keys = keys || [
-	      { key: 'official_designation', 	value: 'Official Planet Name'},
-	      { key: 'name', 			value: 'Common Name'},
-	      { key: 'lifeform', 		value: 'Dominant Indigenous Lifeform'},
-	      { key: 'species', 		value: 'Species Self Named'},
-	      { key: 'atmosphere_composition', 	value: 'Primary Atmosphere'},
-	      { key: 'planet_type',		value: 'Geology/Climate'},
-	      { key: 'industrials', 		value: 'Industrial Minerals'},
-              { key: 'refractories', 		value: 'Refractory Minerals'},
-	      { key: 'radioactives', 		value: 'Radioactive Minerals'},
-	      { key: 'rare', 			value: 'Rare Minerals'},
-	      { key: 'specialized', 		value: 'Specialized Minerals'},
-	      { key: 'exotics', 		value: 'Exotic Resources'},
-	      { key: 'relics', 			value: 'Relics'},
-	      { key: 'biologicals', 		value: 'Biological Resources'},
-	      { key: 'culture', 		value: 'Culture Type'}
-	  ];
-
 	  if (!planet.attribmap) {
 	      planet.attribmap = {}
 	      for (let val of planet.attributes) {
 		  planet.attribmap[val.trait_type] = val.value;
 	      }
+	      planet.attribmap.official_designation = planet.name;
 	  }
       }
 
@@ -144,10 +127,26 @@
       }
 
       function displayPlanetStats(planet) {
+	  let keys = [
+	      { key: 'indigenous_lifeform',	value: 'Dominant Indigenous Lifeform'},
+	      { key: 'atmosphere', 		value: 'Primary Atmosphere'},
+	      { key: 'planet_type',		value: 'Geology/Climate'},
+	      { key: 'industrial_minerals', 	value: 'Industrial Minerals'},
+              { key: 'high_temperature_minerals', value: 'Refractory Minerals'},
+	      { key: 'radioactives', 		value: 'Radioactive Minerals'},
+	      { key: 'rare_minerals', 		value: 'Rare Minerals'},
+	      { key: 'specialized_minerals',	value: 'Specialized Minerals'},
+	      { key: 'exotic_resources',	value: 'Exotic Resources'},
+	      { key: 'relics', 			value: 'Relics'},
+	      { key: 'biological_resources',	value: 'Biological Resources'},
+	      { key: 'artist', 			value: 'Artist'}
+	  ];
+
 	  var readout = '<p>\n';
-	  Object.keys(planet.attribmap).forEach(function(k) {
-	      const value = planet.attribmap[k];
-	      readout += `<br>${utils.titleize(k)}: ${utils.titleize(value)}\n`;
+	  readout += `<br style="font-size: 2vw;">Official Designation: ${planet.attribmap.official_designation}\n`;
+	  keys.forEach(function(attrib) {
+	      const value = planet.attribmap[attrib.key];
+	      readout += `<br>${utils.titleize(attrib.key)}: ${utils.titleize(value)}\n`;
 	  });	
 	  readout += '</p>';
 	  
