@@ -143,7 +143,12 @@ export function fromRoman(roman) {
 	"XII": 12,
 	"XIII": 13,
 	"XIV": 14,
-	"XV": 15
+	"XV": 15,
+	"XVI": 16,
+	"XVII": 17,
+	"XVIII": 18,
+	"XIX": 19,
+	"XX": 20
     };
     return map[roman] || "";
 }
@@ -164,7 +169,12 @@ export function toRoman(arabic) {
 	"12":"XII",
 	"13":"XIII",
 	"14":"XIV",
-	"15":"XV"
+	"15":"XV",
+	"16":"XVI",
+	"17":"XVII",
+	"18":"XVIII",
+	"19":"XIX",
+	"20":"XX"
     };
     return map[arabic] || "";
 }
