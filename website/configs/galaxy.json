@@ -11,20 +11,27 @@
     "sectors" : {
 	"vortexis":{
 	    "Description":"Planets of the Vortexis Expanse",
+	    "contract":"0x9c46ce465e14fc0c172e6daa836431180f5b4ba2",
 	    "opensea_collection":"https://testnets.opensea.io/collection/vortexis",
 	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
-	    "contract":"0x9c46ce465e14fc0c172e6daa836431180f5b4ba2",
 	    "owner":"",
 	    "name":"Planets of the Vortexis Expanse"
 	},
 	"nebular":{
 	    "Description":"Planets of the Nebular Federation",
-	    "opensea_collection":"https://testnets.opensea.io/collection/exoplaneteer-4",
-	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
+	    "opensea_collection":"https://testnets.opensea.io/collection/nebular",
 	    "contract":"0x657c57004a807ed560e48e7c9d1ba698e4fdae6d",
+	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
 	    "owner":"0xc00c6e785391c08571c7A5979670F1A13Ec31Dd5",
             "name":"Planets of the Nebular Federation"
 	},	
+	"helatrobus":{
+	    "Description":"Planets of the Helatrobus Empire",
+	    "contract":"0x1B2a8388Da0522fc34041828e4185d37A62FDE94",
+	    "opensea_collection":"https://testnets.opensea.io/collection/helatrobus-expanse",
+	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
+	    "name":"Planets of the Helatrobus Empire"
+	},		
 	"starlight":{
 	    "Description":"Planets of the Starlight Sovereignties",
 	    "opensea_collection":"https://testnets.opensea.io/collection/exoplaneteer-2",
@@ -32,19 +39,19 @@
 	    "contract":"0x9261025eA365fbaa60623143e03F177ab35565BD",
 	    "name":"Planets of the Starlight Sovereignties"
 	},	
-	"helatrobus":{
-	    "Description":"Planets of the Helatrobus Empire"
+	"espinol"	:{
+	    "Description":"Planets of the Espinol Confederacy",
+	    "contract":"0x0Bbe81F29Bd2f776502278886667a30AF03f96be",
+	    "opensea_collection":"https://testnets.opensea.io/collection/collection-planets-of-the-espinol-confederacy-rele",
+	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
+	    "name":"Planets of the Espinol Confederacy"
 	},		
-	"markab"	:{
-	    "Description":"Planets of the Markab Confederacy"
-	},		
-	"imperium":{
-	    "Description":"Planets of the Imperium"
-	},	
 	"starforge":{
-	    "Description":"Planets of the Starforge Alliance"
+	    "Description":"Planets of the Starforge Alliance",
+	    "opensea_collection":"https://testnets.opensea.io/collection/exoplaneteer-3",
+	    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
+	    "contract":"0x07c1109e7a8887f52b9d8BCcc1C9FA39a603Dd10",
+	    "name":"Planets of the Starforge Alliance"
 	}
     }
 }
-
-
