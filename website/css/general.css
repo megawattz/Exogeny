@@ -41,9 +41,10 @@ body {
 }
 
 .floatingLabel {
-    align-items: center;
-    justify-content: center;
-    font-size: 1vw;
+    align-items: left;
+    align-text: left;
+    //justify-content: center;
+    font-size: 2vw;
 }
 
 .galleryVideo {

@@ -59,11 +59,15 @@
       function show(item) {
 	  item.style.visibility = 'visible';
 	  item.style.display = 'block';
+	  item.style.opacity = 1;
+	  item.style.transition = 'opacity 4s ease-in';
       }
       
       function hide(item) {
-	  item.style.visibility = 'hidden';
-	  item.style.display = 'none';
+	  //item.style.visibility = 'hidden';
+	  //item.style.display = 'none';
+	  item.style.opacity = 0;
+	  item.style.transition = 'opacity 2s ease-out';
       }
 
       function RandomInt(low, high) {
@@ -83,7 +87,7 @@
 	      for (let val of planet.attributes) {
 		  planet.attribmap[val.trait_type] = val.value;
 	      }
-	      planet.attribmap.official_designation = planet.name;
+	      planet.attribmap.official_designation = planet.name.replace('0', 'Rogue');
 	  }
       }
 
@@ -114,11 +118,12 @@
 	  }
 	  
 	  setTimeout(function() {
+	      hide(document.getElementById("_overlay"));
 	      video.style.opacity = 0;
 	      lifeform.src = planet.image;
 	      lifeform.style.opacity = 1;
 	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.attribmap.official_designation}</div>`;
-	      Object.assign(description.style, { position: 'absolute', left:`${RandomInt(30, 50)}vw`, top: `${RandomInt(90, 95)}vh`, fontSize: '3vh'});
+	      Object.assign(description.style, {position: 'absolute', left: '4vw', top: `${RandomInt(80, 95)}vh`, fontSize: '3vh'});
 	      return 0;
 	  }, 20000);
 	      
@@ -168,6 +173,7 @@
       function overlayTeletype(element, HTML, cps) {
 	  let overlayId = element.id + "_overlay";
 	  let overlay = document.getElementById(overlayId)
+
 	  if (!overlay) {
 	      let rect = element.getBoundingClientRect();
 	      overlay = document.createElement("div");
@@ -175,7 +181,11 @@
 	      overlay.id = overlayId;
 	      Object.assign(overlay.style, {width: rect.width, height: rect.height, position: 'absolute', top: '8vh', left: '5vh', fontSize: '2vh', color: 'white', background: 'transparent',  border: 0, zIndex: element.style.zIndex + 1});
 	  }
-	  overlay.className = "overlayPlanetDetail";
+	  // randomize position of text (screen saver must avoid burning screen)
+	  let top = Math.random() * 80 + 20;
+	  let left = Math.random() * 10 + 1;
+	  Object.assign(overlay.style, {top: `{top}vh`, left: `${left}vh`});
+	  show(overlay);
 	  overlay.innerHTML = "";
 	  if (HTML == "")
 	      return;
