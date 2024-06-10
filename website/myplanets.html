@@ -123,7 +123,7 @@
 	      lifeform.src = planet.image;
 	      lifeform.style.opacity = 1;
 	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.attribmap.official_designation}</div>`;
-	      Object.assign(description.style, {position: 'absolute', left: '4vw', top: `${RandomInt(80, 95)}vh`, fontSize: '3vh'});
+	      Object.assign(description.style, {position: 'absolute', left: '4vw', top: `${RandomInt(85, 90)}vh`, fontSize: '3vh'});
 	      return 0;
 	  }, 20000);
 	      
@@ -148,7 +148,7 @@
 	  ];
 
 	  var readout = '<p>\n';
-	  readout += `<br style="font-size: 2vw;">Official Designation: ${planet.attribmap.official_designation}\n`;
+	  readout += `<br style="font-size: 3vw;">Official Name: ${planet.attribmap.official_designation}\n`;
 	  keys.forEach(function(attrib) {
 	      const value = planet.attribmap[attrib.key];
 	      readout += `<br>${utils.titleize(attrib.key)}: ${utils.titleize(value)}\n`;
@@ -179,7 +179,7 @@
 	      overlay = document.createElement("div");
 	      element.appendChild(overlay);
 	      overlay.id = overlayId;
-	      Object.assign(overlay.style, {width: rect.width, height: rect.height, position: 'absolute', top: '8vh', left: '5vh', fontSize: '2vh', color: 'white', background: 'transparent',  border: 0, zIndex: element.style.zIndex + 1});
+	      Object.assign(overlay.style, {width: rect.width, height: rect.height, position: 'absolute', top: '10vh', left: '5vh', fontSize: '2.5vh', color: 'white', background: 'transparent',  border: 0, zIndex: element.style.zIndex + 1});
 	  }
 	  // randomize position of text (screen saver must avoid burning screen)
 	  let top = Math.random() * 80 + 20;

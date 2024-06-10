@@ -44,6 +44,7 @@ body {
     align-items: left;
     align-text: left;
     //justify-content: center;
+    transition: opacity 4s ease-in ease-out;
     font-size: 2vw;
 }
 
