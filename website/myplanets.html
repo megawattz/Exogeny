@@ -134,7 +134,7 @@
 	      video.style.opacity = 0;
 	      lifeform.src = planet.image;
 	      lifeform.style.opacity = 1;
-	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.attribmap.parent_star} ${planet.attribmap.planet_index}</div>`;
+	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.attribmap.official_designation}</div>`;
 	      Object.assign(description.style, { position: 'absolute', left:`${RandomInt(30, 50)}vw`, top: `${RandomInt(90, 95)}vh`, fontSize: '3vh'});
 	      return 0;
 	  }, 20000);
