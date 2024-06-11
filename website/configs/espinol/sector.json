@@ -1,7 +1,0 @@
-{
-    "opensea_collection":"https://testnets.opensea.io/collection/exoplanets-4",
-    "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
-    "contract":"0xc7ba8cfb2438e8a1863329ca608b6bcd6cb83fd0",
-    "planets":"planets.json",
-    "name":"Planets of the Espinol Confederacy"
-}

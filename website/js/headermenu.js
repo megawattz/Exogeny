@@ -83,6 +83,9 @@ document.getElementById("navheader").innerHTML = `
 
 var Config = {};
 
+let currentSector = getCookie("sector") || "vortexis";
+setCookie("sector", currentSector);
+
 fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
     .then((response) => response.json())
     .then((data) => {
@@ -91,11 +94,13 @@ fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
         for (const sector in data.sectors) {
 	    const info = data.sectors[sector]
             let item = document.createElement("li");
-	    item.style.cssText = "color: white"
+	    item.style.cssText = "color: white";
 	    item.className = "dropdown-item";
 	    let href = document.createElement("a")
 	    href.addEventListener('click', function () {setCookie("sector", sector)})
 	    href.text = sector;
+	    if (sector == currentSector)
+		href.style.color = "green";
 	    href.href = 'gallery.html';
 	    item.appendChild(href);
 	    item.title = info.Description;
