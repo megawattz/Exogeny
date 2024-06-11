@@ -27,25 +27,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
 	    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-    <!-- Moralis -->
-    <script src="https://unpkg.com/moralis-v1/dist/moralis.js"></script>
-    <script src="session.js"></script>
-    <script src="authenticate.js"></script>
-    <!-- script>
-      //const serverUrl = "https://dzgjbvdm9qze.usemoralis.com:2053/server";
-      const serverUrl = "https://www.exopl.com:1337/server";
-      const appId = "e1U1jaKoihW5hFcKd0RJBQPDyNkNQgQArVZsMp0s";
-      Moralis.start({ serverUrl, appId });
-      console.log("MoralisUser:", Moralis.User.current());
-      if (Moralis.User.current() == null)
-	  window.location.href = "login.html";
-      function logout() {
-	  if (Moralis.User.current() != null) {
-	      Moralis.User.logOut();
-	      window.location.href = "login.html";
-	  }
-      }
-    </script-->
+    <!-- Web3 -->
+    <script type="module">
+      import * as utils from './js/utils.mjs';
+      import {web3utils} from './js/web3.mjs';
+    </script>
     <link href="planets.css" rel="stylesheet">
   </head>
 
@@ -54,6 +40,12 @@
     <span id="next" style="position: fixed; top: 10%; right: 2%; z-index: 2; font-size: 10vw;">&gt</span>
 
     <div class="container-fluid">
+      <div class="row">
+	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
+	</nav>
+	<script src="./js/headermenu.js" type="module">
+	</script>
+      </div>
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
 	</nav>
@@ -125,7 +117,7 @@
 	    </div>
 	  </div>
 	</div>
-	<script>
+	<script type="module">
 	  var Params = {};
 	  parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
 
@@ -163,17 +155,8 @@
 	  }
 
 	  async function LoadNFTarray(intoArray) {
-	      if (intoArray.length > 0)
-		  return intoArray; // no need to refetch NFTs
-
-	      if (Moralis.User.current().get("nocrypto"))
-		  tempNFTs = await MailUserGetNFTs(Moralis.User.current());
-	      else
-		  tempNFTs = await Moralis.Web3API.account.getNFTs({ chain: "mumbai" });
-
-	      intoArray.push(...tempNFTs.result);
-	      // console.log(JSON.stringify(userNFTs, null, 4));
-	      return intoArray;
+	    intoArray = await web3utils.GetNFTS(wallet, contract);
+	    return userNFTs;
 	  }
 
 	  function parseQuery(query, destination) {

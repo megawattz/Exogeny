@@ -19,12 +19,20 @@
   </head>
   <body>
     <div class="container-fluid bg-image" style="font-color: white; align: bottom;">
-      
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
-	</nav>
 	<script src="./js/headermenu.js" type="module">
 	</script>
+	<script>
+	  $(document).on('mousemove', function(event) {
+	      if (event.clientY <= 400) {
+		  $('.navbar').css('opacity', '1');
+	      } else {
+		  $('.navbar').css('opacity', '0');
+	      }	
+	  });
+	  </script>
+	</nav>
       </div>
       <div>
 	<script type="module">

@@ -38,7 +38,7 @@ document.getElementById("navheader").innerHTML = `
 		Intro
 	      </a>
 	      <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-		<li><a class="dropdown-item" href="intro.html">Introduction</a></li>
+		<li><a class="dropdown-item" href="game.html">Play ExoPlaneteer</a></li>
 		<li><a class="dropdown-item" href="planets.html">Planets</a></li>
 		<li><a class="dropdown-item" href="lifeforms.html">Lifeforms</a></li>
 		<li><a class="dropdown-item" href="cultures.html">Cultures</a></li>
