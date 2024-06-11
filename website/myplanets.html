@@ -248,21 +248,12 @@
     	.then(() => console.log(Config))
     	.catch((error) => console.error(error))
 
-	      // load planets
-      let sectorChoice = await fetch(`configs/${sector}/sector.json`)
-	  .then((response) => response.json())
-	  .then((data) => Object.assign(Config, data))
-	  .then(fetch(`configs/${sector}/planets.json`)
-		.then((response) => response.json()))
-	  	.catch(console.error)
-
-      Planets = await web3utils.GetNFTs(account, sectorChoice.contract)
+      Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
 
       if (Planets.length == 0)
-	  
-	  else
-	      randomPlanet();
-      
+	  alert(`You have no planets in sector: $currentSector`);
+      else
+	  randomPlanet();
       
     </script>
   </body>
