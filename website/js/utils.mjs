@@ -184,3 +184,12 @@ export function ordinal(place) {
     return map[place] || "";
 }
 
+export function sprintf() {
+    let args = Array.from(arguments);
+    let str = args.shift();
+    for (let key in args) {
+	str = str.replace(new RegExp(`\{${key}\}`, "gi"), args[key]);
+    }
+    return str;
+};
+

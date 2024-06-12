@@ -109,14 +109,16 @@
 	</div>
 	<script type="module">
 	  import * as utils from './js/utils.mjs';
+	  import {exogeny} from './js/exogeny.mjs';
 	  import {web3utils} from './js/web3.mjs';
-
+	  
 	  var Params = {};
 	  parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
 
 	  var userNFTs = [];
 	  var currentNFT = 0;
-
+	  var sector = utils.getCookie("sector") || "vortexis";
+	  
 	  function arrow(index) {
 	      //Update();
 	  }
@@ -134,26 +136,9 @@
 	      }
 	  }
 
-	  async function MailUserGetNFTs(emailUser) {
-	      let token_address = emailUser.get("freeNFTcontract");
-	      let token_id = emailUser.get("freeNFTtokenIndex");
-
-	      let nft = await Moralis.Web3API.token.getTokenIdMetadata({
-		  chain: "mumbai",
-		  address: token_address,
-		  token_id: token_id
-	      });
-
-	      return { result: [nft] };
-	  }
-
 	  var wallet = await web3utils.WalletAddress();
 	  var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
-	  
-	  async function LoadNFTarray(intoArray) {
-	      intoArray = await web3utils.GetNFTs(wallet, contractAddress);
-	      return userNFTs;
-	  }
+	  userNFTs = await web3utils.GetNFTs(wallet, contractAddress).then((nfts)=>Update(nfts[0])).catch(console.error);
 
 	  function parseQuery(query, destination) {
 	      var rval = destination || {};
@@ -192,12 +177,7 @@
 	      };
 	      return map[roman] || "";
 	  }
-
-	  function ordinal(place) {
-	      const map = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th"];
-	      return map[place] || "";
-	  }
-
+	  
 	  async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
 	      const NFT = userNFTs[currentNFT];
 
@@ -266,271 +246,21 @@
 	  async function Update(NFT) {
 	      if (!NFT)
 		  NFT = userNFTs[currentNFT];
- 	      const ipfsgate = "https://ipfs.moralis.io:2053/ipfs/";
-	      NFT.meta = JSON.parse(NFT.metadata);
 	      const planetVideo = document.getElementById('planetVideo');
-	      const pvideo = NFT.meta.animation_url.replace("ipfs://", ipfsgate)
-	      const pimage = NFT.meta.image.replace("ipfs://", ipfsgate);
+
+	      const pvideo = NFT.animation_url;
+	      const pimage = NFT.image;
 	      planetVideo.poster = pimage
 	      planetVideo.src = pvideo;
-	      NFT.traits = {};
-	      var Traits = NFT.traits;
-	      for (idx in NFT.meta.attributes) {
-		  var attrib = NFT.meta.attributes[idx];
-		  Traits[attrib.trait_type] = attrib.value;
-	      }
-	      /* ------ Fetch Planet Stats ---------------- */
-	      {
-		  const Planet = Moralis.Object.extend("Planet");
-		  const query = new Moralis.Query(Planet);
-		  query.equalTo("identity", Traits.galactic_catalog);
-		  const results = await query.first();
-		  results.fetch();
-		  // console.log("Planet:", results);
-		  var pd = results.attributes;
-		  const nameMap = [
-		      ["evaluation", "Primary Evaluation"],
-		      ["evaluation2", "Secondary Evaluation"],
-		      ["identity", "Galactic Catalog Id"],
-		      ["star_system", "Star System"],
-		      ["star_index", "Star Index"],
-		      ["planet_index", "Planet Index"],
-		      ["planet_type", "Planet Type"],
-		      ["atmosphere_composition", "Atmosphere"],
-		      ["lifeform", "Lifeform"],
-		      ["chemistry", "Life Chemistry"],
-		      ["rare", "Rare Minerals"],
-		      ["radioactives", "Radioactive Minerals"],
-		      ["refractories", "High Temperature Minerals"],
-		      ["industrials", "Industrial Minerals"],
-		      ["specialized", "Specialized Minerals"],
-		      ["biologicals", "Biological Resources"],
-		      ["exotics", "Minerals Unique to Planet"],
-		      ["relics", "Relics from Antiquity"],
-		      ["resources_value", "Total Resource Value"],
-		  ];
-		  var official = document.getElementById("official");
-		  official.innerText = `${pd['star_index']} ${pd['star_system']} ${fromRoman(pd['planet_index'])}`;
-		  var html = `<table class="statstable">\n`;
-		  html += `<tr><td>Official Designation</td><td>${pd['star_index']} ${pd['star_system']} ${pd['planet_index']}</td></tr>\n`;
-		  for (idx in nameMap) {
-		      const entry = nameMap[idx];
-		      const lookup = entry[0];
-		      const name = entry[1];
-		      var value = new String(pd[lookup]).replaceAll("_", " ");
-		      html += `<tr name="${lookup}"><td name="${lookup}">${name}</td><td id="${lookup}">${value}</td></tr>\n`;
-		  }
-		  html += "</table>";
-		  var info = document.getElementById("basestatstable");
-		  info.innerHTML = html;
-	      }
-	      /* ------ Fetch Civilization Info ---------------- */
-	      {
-		  const Civ = Moralis.Object.extend("Civilization");
-		  const query = new Moralis.Query(Civ);
-		  query.equalTo("identity", Traits.galactic_catalog);
-		  query.include("events");
-		  const results = await query.first();
-		  // console.log("Civ:", JSON.stringify(results));
-		  NFT.Civ = results;
-		  var pd = results.attributes;
-		  const nameMap = [
-		      ["identity", "Galactic Catalog Id"],
-		      ["name", "Name", "input", 40],
-		      ["motto", "Motto", "input", 200],
-		      ["updatedAt","updatedAt", 16],
-		      ["species", "Species", "input", 40],
-		      ["culture", "Culture Type"],
-		      ["population", "Population"],
-		      ["tritanium44", "Tritanium-44 Reserves"],
-		      ["generation", "Prior Lost Civilizations"],
 
-		      // tech levels
-		      ["bio", "Biological", "number"],
-		      ["energy", "Energy", "number"],
-		      ["information", "Information", "number"],
-		      ["engineering", "Engineering", "number"],
-		      ["science", "Science", "number"],
-		      ["transport", "Transporation", "number"],
-		      ["social", "Social", "number"],
-		      ["warfare", "Warfare", "number"],
-		      ["economic", "Economics", "number"],
-		      ["spiritual", "Spiritual", "number"],
-		      ["art", "Art", "number"],
-
-		      // artificial assets
-		      ["knowledge", "Accumulated Knowledge"],
-		      ["infrastructure", "Infrastructure"],
-		      ["manufactured", "Manufactured Goods"],
-		      ["services", "Services"],
-		      ["entertainment", "Entertainment"],
-		      ["woo", "Woo"]
-		  ];
-
-		  var common = document.getElementById("common");
-		  common.innerText = pd['name'];
-
-		  var headname = document.getElementById("headname");
-		  headname.innerText = `${currentNFT} - ${pd['name']}`;
-
-		  var motto = document.getElementById("motto");
-		  motto.innerText = `"${pd['motto']}"`;
-
-		  var identity1 = document.getElementById("identity1");
-		  identity1.innerText = pd['identity'];
-
-		  updatedAt.innerText = pd['updatedAt'];
-
-		  let techs = ['bio', 'energy', 'information', 'engineering', 'science', 'transport',
-			       'social', 'warfare', 'economic', 'spiritual', 'art'];
-		  var totalLevel = 0;
-		  techs.forEach(function (tech) {
-		      let level = results.get(tech);
-		      totalLevel += level;
-		  });
-		  planetLevel.innerText = Math.round(totalLevel * 10 / techs.length) / 10;
-
-		  var html = `<table class="statstable">\n`;
-		  for (idx in nameMap) {
-		      const entry = nameMap[idx];
-		      const lookup = entry[0];
-		      const name = entry[1];
-		      const itype = entry[2];
-		      const maxlength = entry[3];
-		      const id = `civ${name}`;
-		      const value = new String(pd[lookup]).replaceAll("_", " ");
-		      if (itype) {
-			  if (itype == "text") {
-			      html += `<tr name="${lookup}"><td name="${lookup}">${name}</td><td id="${lookup}">${value}<td></tr>\n`;
-			  } else if (itype == "input") {
-			      html += `<tr name="${lookup}">
-									  <td name="${lookup}" colspan="2">${name}  <input style="font-size: 2vw; width: 60%;" name="${lookup}" id="${id}" value="${value}" maxlength="{maxlength}">
-										<button onclick="Move('Civilization', '${Traits.galactic_catalog}', '${lookup}', 'setvalue', {'field':'${lookup}','value':${id}.value})">Set</button>
-										</td>
-										</tr>\n`;
-			  } else if (itype == "number") {
-			      html += `<tr name="${lookup}"><td name="${lookup}">${name}</td><td id="${lookup}">${value}</td></tr>\n`;
-			  }
-		      }
-		      else {
-			  html += `<tr name="${lookup}"><td name="${lookup}">${name}</td><td id="${lookup}">${value}</td></tr>\n`;
-		      }
-		  }
-		  html += "</table>";
-		  var info = document.getElementById("civstatstable");
-		  info.innerHTML = html;
-	      }
-	      var population = document.getElementById("population");
-	      var t44production = document.getElementById("t44production");
-
-	      getEvents(NFT);
+	      var html = `<table class="statstable">\n`;
+	      html += `<th><td>Official Designation</td><td>${NFT.official_designation}</td></th>\n`;
+	      html += exogeny.FormatPlanetData(NFT, '<tr name="{1}"><td name="{1}">{1}</td><td id="{1}">{2}</td></tr>\n');
+	      html += "</table>";
+	      var info = document.getElementById("basestatstable");
+	      info.innerHTML = html;
 	  }
-
-	  var lastEventsCount = {};
-
-	  async function getEvents(NFT) {
-	      var planetevents = document.getElementById("eventlist");
-	      let eventlistholder = document.getElementById("eventlistholder");1
-	      if (eventlistholder)
-		  planetevents.removeChild(eventlistholder);
-	      eventlistholder = document.createElement("div");
-	      eventlistholder.id = "eventlistholder";
-	      planetevents.appendChild(eventlistholder);
-	      
-	      let civ = await NFT.Civ;
-	      let events = null;
-	      try {
-		  events = civ.get('events');
-	      } catch (ex) {
-		  console.log(ex);
-		  return;
-	      }
-
-	      if (events == null || events.length == 0)
-		  return;
-	      
-	      let html = "";
-	      for (var idx in events) {
-		  const event = events[idx];
-		  await event.fetch();
-		  const identity = event.get("identity");
-		  if (!identity) {
-		      //console.log(`New Event Identity Missing: ${JSON.stringify(event, null, 4)}`);
-		      continue;
-		  }
-		  //console.log(`New Event: ${idx}>=${lastEventsCount} ${JSON.stringify(event, null, 4)}`);
-		  const imageUrl = event.get('image_url');
-		  const videoUrl = event.get('video_url');
-		  const color = event.get('color') || 'black';
-		  //child.style.color = event['color'];
-		  const apparent = event.get('apparent');
-		  const date = new Date();
-		  const affected = event.get('affected');
-		  const cost = parseFloat(event.get('cost'));
-		  const influence = event.get('influence');
-		  let effects = effectsString(affected);
-
-		  html = `<div name="planetevent" style="border-radius: 1vw; margin: 0 auto; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
-									<div><p " style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-									${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}<br/><br/>
-										${event.get('apparent')}<br/><br/>Possible effects<br>${effects}
-										<br><i>${influence}<i></br>
-											</div>
-										</div>
-										<div style="text-align: center; color: inherit; margin: 0 auto;">
-									<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${idx}" min="0" max="100" value="0" oninput="rangeValue${idx}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
-										</div>
-										<div>
-												<div style="text-align: center;" id="rangeValue${idx}"></div></td>
-												<div style="text-align: center;"><button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${idx}.value}, 'rangeValue${idx}' )">Influence</button></div>
-									<hr>
-										</div>` + html; // (Put new stuff at the top)
-	      }
-	      eventlistholder.innerHTML = html;
-	  }
-
-	  var ChainMap = {
-	      "80001": "mumbai",
-	      "Mumbai": "mumbai"
-	  }
-
-	  function mapChain(chain) {
-	      let mapped = ChainMap[chain];
-	      if (mapped)
-		  return mapped;
-	      return chain
-	  }
-
-	  async function getArbitraryNFT(chain, contract, tokenid) {
-	      if (contract.slice(0, 2) != "0x")
-		  contract = "0x" + contract;
-	      chain = mapChain(chain);
-	      const options = {
-		  chain: chain,
-		  address: contract,
-		  token_id: tokenid
-	      };
-	      const nft = await Moralis.Web3API.token.getTokenIdMetadata(options);
-	      if (nft)
-		  console.log(`Arbitrary NFT: ${JSON.stringify(nft, null, 4)}`);
-	      return nft;
-	  }
-
-	  async function loadFirstNFT() {
-	      try {
-		  let nft = await getArbitraryNFT(Params.chain, Params.contract, Params.tokenid);
-		  if (nft) {
-		      userNFTs.unshift(nft); // push NFT into position 0, first NFT
-		      currentNFT++;
-		  }
-	      }
-	      catch (ex) {
-		  console.error(`error fetching NFT ${ex}`);
-	      }
-	  }
-
-	  LoadNFTarray(userNFTs).then((nfts) => Update(nfts[0])).catch(console.log);
-
+	  
 	</script>
       </div>
   </body>
