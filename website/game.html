@@ -29,28 +29,18 @@
 
     <!-- Web3 -->
     <script type="module">
-      import * as utils from './js/utils.mjs';
-      import {web3utils} from './js/web3.mjs';
     </script>
-    <link href="planets.css" rel="stylesheet">
   </head>
 
-  <body style="width: 100%; height: auto; margin: 0 auto;">
+  <body style="width: 100%; height: auto; margin: 0 auto; background-color: black;">
     <span id="prev" style="position: fixed; top: 10%; left:  2%; z-index: 2; font-size: 10vw;">&lt</span>
     <span id="next" style="position: fixed; top: 10%; right: 2%; z-index: 2; font-size: 10vw;">&gt</span>
 
     <div class="container-fluid">
       <div class="row">
-	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
+	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 10;">
 	</nav>
-	<script src="./js/headermenu.js" type="module">
-	</script>
-      </div>
-      <div class="row">
-	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
-	</nav>
-	<script src="js/headermenu.js type="module">
-	</script>
+	<script src="js/headermenu.js" type="module"></script>
       </div>
       <div class="row">
 	<span id="headname" style="position: fixed; top: 20%; left:  0%; z-index: 1; font-size: 4vw;"
@@ -118,6 +108,9 @@
 	  </div>
 	</div>
 	<script type="module">
+	  import * as utils from './js/utils.mjs';
+	  import {web3utils} from './js/web3.mjs';
+
 	  var Params = {};
 	  parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
 
@@ -154,9 +147,12 @@
 	      return { result: [nft] };
 	  }
 
+	  var wallet = await web3utils.WalletAddress();
+	  var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
+	  
 	  async function LoadNFTarray(intoArray) {
-	    intoArray = await web3utils.GetNFTS(wallet, contract);
-	    return userNFTs;
+	      intoArray = await web3utils.GetNFTs(wallet, contractAddress);
+	      return userNFTs;
 	  }
 
 	  function parseQuery(query, destination) {
@@ -537,6 +533,5 @@
 
 	</script>
       </div>
-      <script src="strings.js"></script>
   </body>
 </head>

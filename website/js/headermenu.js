@@ -32,7 +32,6 @@ document.getElementById("navheader").innerHTML = `
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNavDropdown">
 	  <ul class="navbar-nav bg-transparent">
-
 	    <li class="nav-item dropdown">
 	      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		Intro
