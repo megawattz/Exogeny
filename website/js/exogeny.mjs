@@ -29,7 +29,7 @@ export const exogeny = {
 	}
 	map.forEach(function(attrib) {
 	    const title = planet.attribmap[attrib.key];
-	    readout += utils.sprintf(format, utils.titleize(attrib.key), utils.titleize(value));
+	    readout += utils.sprintf(format, utils.titleize(attrib.key), utils.titleize(title));
 	});	
 	return readout;
     }

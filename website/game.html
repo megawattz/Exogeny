@@ -107,161 +107,162 @@
 	    </div>
 	  </div>
 	</div>
-	<script type="module">
-	  import * as utils from './js/utils.mjs';
-	  import {exogeny} from './js/exogeny.mjs';
-	  import {web3utils} from './js/web3.mjs';
-	  
-	  var Params = {};
-	  parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
-
-	  var userNFTs = [];
-	  var currentNFT = 0;
-	  var sector = utils.getCookie("sector") || "vortexis";
-	  
-	  function arrow(index) {
-	      //Update();
-	  }
-
-	  document.onclick = function clickNavigate(e) {
-	      const hotzone = window.innerWidth / 10;
-	      if (e.pageX < hotzone) {
-		  --currentNFT;
-		  Update();
-	      }
-
-	      if (e.pageX > (window.innerWidth - hotzone)) {
-		  ++currentNFT;
-		  Update();
-	      }
-	  }
-
-	  var wallet = await web3utils.WalletAddress();
-	  var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
-	  userNFTs = await web3utils.GetNFTs(wallet, contractAddress).then((nfts)=>Update(nfts[0])).catch(console.error);
-
-	  function parseQuery(query, destination) {
-	      var rval = destination || {};
-	      query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
-		  rval[key] = value;
-	      });
-	      return rval;
-	  }
-
-	  function showtransfer(element) {
-	      if (element.value < 0)
-		  transfer.innerText = "(collect T44 to Wallet)";
-	      else if (element.value > 0)
-		  transfer.innerText = "(invest T44 from Wallet)";
-	      else
-		  transfer.innerText = "                        ";
-	  }
-
-	  function fromRoman(roman) {
-	      const map = {
-		  "Prime": 1,
-		  "II": 2,
-		  "III": 3,
-		  "IV": 4,
-		  "V": 5,
-		  "VI": 6,
-		  "VII": 7,
-		  "VIII": 8,
-		  "IX": 9,
-		  "X": 10,
-		  "XI": 11,
-		  "XII": 12,
-		  "XIII": 13,
-		  "XIV": 14,
-		  "XV": 15
-	      };
-	      return map[roman] || "";
-	  }
-	  
-	  async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
-	      const NFT = userNFTs[currentNFT];
-
-	      const userId = Moralis.User.current().id;
-	      const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
-
-	      const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
-	      console.log(`Move ${JSON.stringify(contents)}`);
-
-	      const query = new Moralis.Query("Move");
-	      query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
-	      var thing = await query.first();
-
-	      if (thing) {
-		  thing.set(contents);
-		  console.log(`Update ${JSON.stringify(thing)}`);
-	      } else {
-		  thing = new Moralis.Object("Move", contents);
-		  console.log(`Write New ${JSON.stringify(thing)}`);
-	      }
-
-	      result = await thing.save()
-	      console.log(`Wrote ${JSON.stringify(thing)}`);
-	      if (displayElement)
-		  displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
-	      alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
-	  }
-
-	  function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
-	      let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
-	      return `${units}% will cost ${Math.ceil(cost)} T44`;
-	  }
-
-	  function effectsString(affected) {
-	      let effectStr = "";
-	      let max = 0;
-	      for (let key in affected) {
-		  let amount = affected[key];
-		  if (amount.match(/^-/))
-		      effectStr += `<b>${key}</b> lowered as much as <b>${amount}</b><br>`;
-		  else if (amount.match(/^[+0-9]/))
-		      effectStr += `<b>${key}</b> raised as much as <b>${amount}</b><br>`;
-		  else
-		      effectStr += `<b>${key}</b> could change to <b>${amount}</b><br>`;
-
-	      }
-	      return effectStr;
-	  }
-	  
-	  async function eventAlert(message, sound) {
-	      if (!sound)
-		  sound = getCookie("notification");
-	      if (sound == "none")
-		  return;
-	      //if (!document.hidden) // don't alert if user is already looking
-	      //return;
-	      setTimeout(function() {
-		  let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
-		  if (!answer)
-		      setCookie("notification", "none");
-	      }, 2000);
-	      let soundFile = `sounds/${sound}.mp3`;
-	      new Audio(soundFile).play();
-	  }
-	  
-	  async function Update(NFT) {
-	      if (!NFT)
-		  NFT = userNFTs[currentNFT];
-	      const planetVideo = document.getElementById('planetVideo');
-
-	      const pvideo = NFT.animation_url;
-	      const pimage = NFT.image;
-	      planetVideo.poster = pimage
-	      planetVideo.src = pvideo;
-
-	      var html = `<table class="statstable">\n`;
-	      html += `<th><td>Official Designation</td><td>${NFT.official_designation}</td></th>\n`;
-	      html += exogeny.FormatPlanetData(NFT, '<tr name="{1}"><td name="{1}">{1}</td><td id="{1}">{2}</td></tr>\n');
-	      html += "</table>";
-	      var info = document.getElementById("basestatstable");
-	      info.innerHTML = html;
-	  }
-	  
-	</script>
       </div>
+    </div>
+    <script type="module">
+      import * as utils from './js/utils.mjs';
+      import {exogeny} from './js/exogeny.mjs';
+      import {web3utils} from './js/web3.mjs';
+      
+      var Params = {};
+      parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
+
+      var Planets = [];
+      var currentPlanet = 0;
+      var sector = utils.getCookie("sector") || "vortexis";
+      
+      function arrow(index) {
+	  //Update();
+      }
+
+      document.onclick = function clickNavigate(e) {
+	  const hotzone = window.innerWidth / 10;
+	  if (e.pageX < hotzone) {
+	      --currentPlanet;
+	      Update();
+	  }
+
+	  if (e.pageX > (window.innerWidth - hotzone)) {
+	      ++currentPlanet;
+	      Update();
+	  }
+      }
+
+      function parseQuery(query, destination) {
+	  var rval = destination || {};
+	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
+	      rval[key] = value;
+	  });
+	  return rval;
+      }
+
+      function showtransfer(element) {
+	  if (element.value < 0)
+	      transfer.innerText = "(collect T44 to Wallet)";
+	  else if (element.value > 0)
+	      transfer.innerText = "(invest T44 from Wallet)";
+	  else
+	      transfer.innerText = "                        ";
+      }
+
+      function fromRoman(roman) {
+	  const map = {
+	      "Prime": 1,
+	      "II": 2,
+	      "III": 3,
+	      "IV": 4,
+	      "V": 5,
+	      "VI": 6,
+	      "VII": 7,
+	      "VIII": 8,
+	      "IX": 9,
+	      "X": 10,
+	      "XI": 11,
+	      "XII": 12,
+	      "XIII": 13,
+	      "XIV": 14,
+	      "XV": 15
+	  };
+	  return map[roman] || "";
+      }
+      
+      async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
+	  const NFT = Planets[currentPlanet];
+
+	  const userId = Moralis.User.current().id;
+	  const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
+
+	  const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
+	  console.log(`Move ${JSON.stringify(contents)}`);
+
+	  const query = new Moralis.Query("Move");
+	  query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
+	  var thing = await query.first();
+
+	  if (thing) {
+	      thing.set(contents);
+	      console.log(`Update ${JSON.stringify(thing)}`);
+	  } else {
+	      thing = new Moralis.Object("Move", contents);
+	      console.log(`Write New ${JSON.stringify(thing)}`);
+	  }
+
+	  result = await thing.save()
+	  console.log(`Wrote ${JSON.stringify(thing)}`);
+	  if (displayElement)
+	      displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
+	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
+      }
+
+      function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
+	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
+	  return `${units}% will cost ${Math.ceil(cost)} T44`;
+      }
+
+      function effectsString(affected) {
+	  let effectStr = "";
+	  let max = 0;
+	  for (let key in affected) {
+	      let amount = affected[key];
+	      if (amount.match(/^-/))
+		  effectStr += `<b>${key}</b> lowered as much as <b>${amount}</b><br>`;
+	      else if (amount.match(/^[+0-9]/))
+		  effectStr += `<b>${key}</b> raised as much as <b>${amount}</b><br>`;
+	      else
+		  effectStr += `<b>${key}</b> could change to <b>${amount}</b><br>`;
+
+	  }
+	  return effectStr;
+      }
+      
+      async function eventAlert(message, sound) {
+	  if (!sound)
+	      sound = getCookie("notification");
+	  if (sound == "none")
+	      return;
+	  //if (!document.hidden) // don't alert if user is already looking
+	  //return;
+	  setTimeout(function() {
+	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
+	      if (!answer)
+		  setCookie("notification", "none");
+	  }, 2000);
+	  let soundFile = `sounds/${sound}.mp3`;
+	  new Audio(soundFile).play();
+      }
+      
+      async function Update(NFT) {
+	  if (!NFT)
+	      NFT = Planets[currentPlanet];
+	  const planetVideo = document.getElementById('planetVideo');
+
+	  const pvideo = NFT.animation_url;
+	  const pimage = NFT.image;
+	  planetVideo.poster = pimage
+	  planetVideo.src = pvideo;
+
+	  var html = `<table class="statstable">\n`;
+	  html += `<th><td>Official Designation</td><td>${NFT.official_designation}</td></th>\n`;
+	  html += exogeny.FormatPlanetData(NFT, '<tr name="{1}"><td name="{1}">{1}</td><td id="{1}">{2}</td></tr>\n');
+	  html += "</table>";
+	  var info = document.getElementById("basestatstable");
+	  info.innerHTML = html;
+      }
+      
+      var wallet = await web3utils.WalletAddress();
+      var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
+      Planets = await web3utils.GetNFTs(wallet, contractAddress).then((nfts)=>Update()).catch(console.error);
+
+      </script>
   </body>
 </head>
