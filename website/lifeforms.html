@@ -21,21 +21,23 @@
 
     <!-- Bespoke Stuff -->
   </head>
-  <body id="bodyid" style="background-color: transparent;">
-    <!--video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="width: 100%;"></video-->
+  <body id="bodyid">
     <div class="container-fluid" style="font-color: white; align: bottom;">
       <script type="module">
     	import * as utils from "./js/utils.mjs";
 	var bgimage = document.createElement("img");
 	var bodyid = document.getElementById("bodyid");
 	function loadLifeform(forms) {
+	    //utils.fadeout(bgimage, 2.0)
 	    let index = Math.floor(Math.random() * 100 % forms.length);
 	    let formFile = utils.fixupIPFS(forms[index]);
-	    bgimage.src=formFile;
-    	    bodyid.style.backgroundImage = `url(${formFile})`;
-	    setTimeout( function() { loadLifeform(forms) }, 10000);
+	    bgimage.src = formFile;
+	    bgimage.onload = function() {
+		bodyid.style.backgroundImage = `url(${formFile})`;
+	    }
+	    setTimeout( function() { loadLifeform(forms) }, 5000);
 	}
-	fetch("lifeforms/lifeforms.json")
+	fetch("configs/background_lifeforms.json")
     		.then((response) => response.json())
     		.then((forms) => loadLifeform(forms))
     		.catch(console.error)
