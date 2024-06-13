@@ -20,29 +20,31 @@
     <link rel="stylesheet" href="css/general.css">
 
     <!-- Bespoke Stuff -->
-    <script src="js/functions.js"></script>
-    </style>
-
   </head>
-  <body id="bodyid" style="background-color: black; background-image: url(lifeforms/lifeform_00e030aa-ddbf-4f37-bd49-42a4d756d6b1.png);">
+  <body id="bodyid" style="background-color: black;">
     <!--video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="width: 100%;"></video-->
     <div class="container-fluid" style="font-color: white; align: bottom;">
-      <script>
+      <script type="module">
+    	import * as utils from "./js/utils.mjs";
 	var bgimage = document.createElement("img");
-	function loadLifeform() {
-	    let bodyid = document.getElementById("bodyid");
-	    fadeout(bgimage, 3.0);
+	function loadLifeform(forms) {
+	    var bodyid = document.getElementById("bodyid");
+	    utils.fadeout(bgimage, 3.0);
 	    setTimeout(function() {
-		let formFile = randomLifeform();
+		let index = Math.floor(Math.random() * 100 % forms.length);
+		let formFile = 'lifeforms/'+ forms[index];
 		bgimage.src=formFile;
 		bgimage.style.transition = "opacity 3s ease-in-out;";
 		bgimage.onload = function() {
     		    bodyid.style.backgroundImage = `url(${formFile})`;
-		    setTimeout(loadLifeform, 10000);
-		}
+		    setTimeout( function() { loadLifeform(forms) }, 10000);
+		}(forms);
 	    }, 3000);
 	}
-	loadLifeform();
+	fetch("lifeforms/lifeforms.json")
+    		.then((response) => response.json())
+    		.then((forms) => loadLifeform(forms))
+    		.catch(console.error)
       </script>
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="background: transparent;">
