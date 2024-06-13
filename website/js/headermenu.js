@@ -85,7 +85,7 @@ var Config = {};
 let currentSector = getCookie("sector") || "vortexis";
 setCookie("sector", currentSector);
 
-fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
     .then((response) => response.json())
     .then((data) => {
 	Config = data;

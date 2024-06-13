@@ -19,6 +19,7 @@ body {
     transition: background-image 2s ease-in-out;
     background-attachment: fixed;
     background-size: 100%;
+    z-index: -1000;
 }
 
 .galleryWindow {
