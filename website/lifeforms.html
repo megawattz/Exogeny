@@ -23,25 +23,26 @@
   </head>
   <body id="bodyid">
     <div class="container-fluid" style="font-color: white; align: bottom;">
-      <script type="module">
-    	import * as utils from "./js/utils.mjs";
-	var bgimage = document.createElement("img");
-	var bodyid = document.getElementById("bodyid");
-	function loadLifeform(forms) {
-	    //utils.fadeout(bgimage, 2.0)
-	    let index = Math.floor(Math.random() * 100 % forms.length);
-	    let formFile = utils.fixupIPFS(forms[index]);
-	    bgimage.src = formFile;
-	    bgimage.onload = function() {
-		bodyid.style.backgroundImage = `url(${formFile})`;
-	    }
-	    setTimeout( function() { loadLifeform(forms) }, 5000);
-	}
-	fetch("configs/background_lifeforms.json")
-    		.then((response) => response.json())
-    		.then((forms) => loadLifeform(forms))
-    		.catch(console.error)
-      </script>
+      <div id="backdiv" class="background">
+	<script type="module">
+    	  import * as utils from "./js/utils.mjs";
+	  var bodyid = document.getElementById("bodyid");
+	  function loadLifeform(forms) {
+	      let index = Math.floor(Math.random() * 100 % forms.length);
+	      let formFile = utils.fixupIPFS(forms[index]);
+	      Object.assign(backdiv.style, {visibility: "hidden"})
+	      backdiv.style.backgroundImage = `url(${formFile})`;
+	      setTimeout(() => {
+		  Object.assign(backdiv.style, {visibility: "visible"})
+	      }, 2000);
+	      setTimeout( function() { loadLifeform(forms) }, 5000);
+	  }
+	  fetch("configs/background_lifeforms.json")
+    .then((response) => response.json())
+    .then((forms) => loadLifeform(forms))
+    .catch(console.error)
+	</script>
+      </div>
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="background: transparent;">
 	</nav>
