@@ -39,7 +39,7 @@
     </style>
 
   </head>
-  <body style="font-size: 1.7vw;">
+  <body id="bodyid" style="background-color: black; font-size: 1.7vw;">
     <video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="opacity: 0; width: 100%;"></video>
     
     <div class="container-fluid bg-image" style="font-color: white; align: bottom;">
@@ -53,15 +53,27 @@
       </div>
       <div class="row" style="border-bottom: solid red;">
 	<!--img style="width: 80%;" src="image/ExoPlaneteer.png"-->
-	<script>
-	  function loadPlanet() {
-	      fadeout(videoBackground, 1.0);
-	      videoBackground.style.opacity = 0;
-    	      videoBackground.src = randomPlanet();
-	      fadein(videoBackground, 5.0);
-	      setTimeout(loadPlanet, 20000);
+	<script type="module">
+    	  import * as utils from "./js/utils.mjs";
+	  var bgimage = document.createElement("img");
+	  function loadLifeform(forms) {
+	      var bodyid = document.getElementById("bodyid");
+	      utils.fadeout(bgimage, 3.0);
+	      setTimeout(function() {
+		  let index = Math.floor(Math.random() * 100 % forms.length);
+		  let formFile = 'lifeforms/'+ forms[index];
+		  bgimage.src=formFile;
+		  bgimage.style.transition = "opacity 3s ease-in-out;";
+		  bgimage.onload = function() {
+    		      bodyid.style.backgroundImage = `url(${formFile})`;
+		      setTimeout( function() { loadLifeform(forms) }, 10000);
+		  }(forms);
+	      }, 3000);
 	  }
-	  loadPlanet();
+	  fetch("lifeforms/lifeforms.json")
+    		.then((response) => response.json())
+    		.then((forms) => loadLifeform(forms))
+    		.catch(console.error)
 	</script>
       </div>
       <div class="row" style="width:100%; align-items: center; margin: 0;">
