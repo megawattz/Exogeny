@@ -32,7 +32,7 @@
 	    utils.fadeout(bgimage, 3.0);
 	    setTimeout(function() {
 		let index = Math.floor(Math.random() * 100 % forms.length);
-		let formFile = 'lifeforms/'+ forms[index];
+		let formFile = utils.fixupIPFS(forms[index]);
 		bgimage.src=formFile;
 		bgimage.style.transition = "opacity 3s ease-in-out;";
 		bgimage.onload = function() {
