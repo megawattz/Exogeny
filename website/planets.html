@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="css/general.css">
 
     <!-- Bespoke Stuff -->
-    <script src="js/functions.js"></script>
     <style type="text/css">
       h1,h2,.heading {
 	  padding: 1vw;
@@ -40,8 +39,9 @@
 
   </head>
   <body id="bodyid" style="background-color: black; font-size: 1.7vw;">
-    <video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="opacity: 0; width: 100%;"></video>
-    
+    <div style="align-items: center; width: 100%;">
+      <video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="opacity: 1; transition: opacity 2s ease-in-out; width: 100vw; height: 100vh;"></video>
+    </div>
     <div class="container-fluid bg-image" style="font-color: white; align: bottom;">
       <div class="row">
 
@@ -55,24 +55,15 @@
 	<!--img style="width: 80%;" src="image/ExoPlaneteer.png"-->
 	<script type="module">
     	  import * as utils from "./js/utils.mjs";
-	  var bgimage = document.createElement("img");
-	  function loadLifeform(forms) {
-	      var bodyid = document.getElementById("bodyid");
-	      utils.fadeout(bgimage, 3.0);
-	      setTimeout(function() {
-		  let index = Math.floor(Math.random() * 100 % forms.length);
-		  let formFile = 'lifeforms/'+ forms[index];
-		  bgimage.src=formFile;
-		  bgimage.style.transition = "opacity 3s ease-in-out;";
-		  bgimage.onload = function() {
-    		      bodyid.style.backgroundImage = `url(${formFile})`;
-		      setTimeout( function() { loadLifeform(forms) }, 10000);
-		  }(forms);
-	      }, 3000);
+	  function loadPlanets(planets) {
+	      let index = Math.floor(Math.random() * 100 % planets.length);
+	      let planetFile = 'videos/'+ planets[index];
+	      videoBackground.src=planetFile;
+	      setTimeout( function() { loadPlanets(planets) }, 20000);
 	  }
-	  fetch("lifeforms/lifeforms.json")
+	  fetch("videos/background_planets.json")
     		.then((response) => response.json())
-    		.then((forms) => loadLifeform(forms))
+    		.then((planets) => loadPlanets(planets))
     		.catch(console.error)
 	</script>
       </div>
