@@ -57,11 +57,11 @@
     	  import * as utils from "./js/utils.mjs";
 	  function loadPlanets(planets) {
 	      let index = Math.floor(Math.random() * 100 % planets.length);
-	      let planetFile = 'videos/'+ planets[index];
+	      let planetFile = utils.fixupIPFS(planets[index]);
 	      videoBackground.src=planetFile;
 	      setTimeout( function() { loadPlanets(planets) }, 20000);
 	  }
-	  fetch("videos/background_planets.json")
+	  fetch("configs/background_planets.json")
     		.then((response) => response.json())
     		.then((planets) => loadPlanets(planets))
     		.catch(console.error)
