@@ -21,31 +21,35 @@
 
     <!-- Bespoke Stuff -->
   </head>
-  <body id="bodyid" style="background-color: black;">
-    <!--video class="under" muted autoplay loop reload="metadata" id="videoBackground" style="width: 100%;"></video-->
+  <body id="bodyid" style="background-color: transparent;">
     <div class="container-fluid" style="font-color: white; align: bottom;">
-      <script type="module">
-    	import * as utils from "./js/utils.mjs";
-	var bgimage = document.createElement("img");
-	function loadLifeform(forms) {
-	    var bodyid = document.getElementById("bodyid");
-	    utils.fadeout(bgimage, 3.0);
-	    setTimeout(function() {
-		let index = Math.floor(Math.random() * 100 % forms.length);
-		let formFile = 'lifeforms/'+ forms[index];
-		bgimage.src=formFile;
-		bgimage.style.transition = "opacity 3s ease-in-out;";
-		bgimage.onload = function() {
-    		    bodyid.style.backgroundImage = `url(${formFile})`;
-		    setTimeout( function() { loadLifeform(forms) }, 10000);
-		}(forms);
-	    }, 3000);
-	}
-	fetch("lifeforms/lifeforms.json")
+      <div class="background">
+	<script type="module">
+    	  import * as utils from "./js/utils.mjs";
+	  var bgimage = document.createElement("img");
+	  bgimage.style = {width: "100vw", height: "100vh", position: "fixed", opacity: 1, left: 0, bottom: 0, zIndex: 100};
+	  bgimage.style.transition = "opacity 3s ease-in-out;";
+	  document.body.appendChild(bgimage);
+	  function loadLifeform(forms) {
+	      //var bodyid = document.getElementById("bodyid");
+	      //utils.fadeout(bgimage, 3.0);
+	      let index = Math.floor(Math.random() * 100 % forms.length);
+	      let formFile = utils.fixupIPFS(forms[index]);
+	      bgimage.src = formFile;
+	      //bgimage.onload = function() {
+    	      //	bodyid.style.backgroundImage = bgimage; //`url(${formFile})`;
+	      //}
+	      setTimeout(function() {
+		  loadLifeform(forms);
+	      }, 5000);
+          }		
+	  
+	  fetch("configs/background_lifeforms.json")
     		.then((response) => response.json())
     		.then((forms) => loadLifeform(forms))
     		.catch(console.error)
-      </script>
+	</script>
+      </div>
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="background: transparent;">
 	</nav>
@@ -55,7 +59,7 @@
       <div class="row" style="border-bottom: solid red;">
 	<!--img style="width: 80%;" src="image/ExoPlaneteer.png"-->
       </div>
-      <div class="row" style="width:100%; align-items: center; margin: 0; background: image/stars.jpg">
+      <div class="row" style="width:100%; align-items: center; margin: 0; background: transparent;">
 	<p/>
  	<h2>ExoPlaneteer Life Forms</h2>
 

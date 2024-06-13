@@ -15,7 +15,7 @@ body {
     font-family: Nixie One, sans-serif;
     letter-spacing: 0.1vw;
     color: white;
-    background-image: url("../image/stars.jpg");
+    background-color: transparent;
     transition: background-image 2s ease-in-out;
     background-attachment: fixed;
     background-size: 100%;

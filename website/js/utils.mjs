@@ -38,16 +38,14 @@ var Config = {
     "ipfs_gateway": "https://ipfs.io/",
 };
 
+await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+    .then((response) => response.json())
+    .then((data) => Config = data)
+    .catch(console.error)
+
 var sector = getCookie("sector") || "nebular";
 
 export async function LoadPlanets(configOut, planetsOut) {
-    // load config
-    await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    	.then((response) => response.json())
-    	.then((data) => Object.assign(configOut, data))
-    	.then(() => console.log(configOut))
-    	.catch((error) => console.error(error))
-
     // load planets
     await fetch(`configs/${sector}/planets.json`)
     	.then((response) => response.json())
@@ -245,3 +243,19 @@ export function randomCulture() {
     let index = Math.floor(Math.random() * cultures.length);
     return cultures[index];
 }
+
+var defaultGateway = new RegExp("http.?://ipfs.moralis.io:2053/");
+
+export function fixupIPFS(url, configs) {
+    configs = configs || Config;
+    let fixed = url;
+    if (fixed.startsWith("http")) {
+	fixed = url.replace(defaultGateway, configs.ipfs_gateway);
+	fixed = fixed.replace("IPFS_GATEWAY", configs.ipfs_gateway);
+    } else {
+	fixed = configs.ipfs_gateway + url;
+    }
+    return fixed;
+}
+
+
