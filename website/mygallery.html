@@ -116,7 +116,7 @@
 		  upperRight.appendChild(lifeformIcon);
 
 		  let lowerLeft = document.createElement("div");
-		  lowerLeft.innerHTML = `<a title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.contract).replace('tokenid', planet.tokenid)}">
+		  lowerLeft.innerHTML = `<a title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.sectors[sector].contract).replace('tokenid', planet.tokenid)}">
 			${utils.titleize(planet.attribmap.parent_star)}
 			</a>`;
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });

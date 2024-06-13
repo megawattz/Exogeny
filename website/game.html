@@ -248,7 +248,7 @@
 
 	  const pvideo = NFT.animation_url;
 	  const pimage = NFT.image;
-	  planetVideo.poster = pimage
+	  //planetVideo.poster = pimage
 	  planetVideo.src = pvideo;
 
 	  var html = `<table class="statstable">\n`;
@@ -261,7 +261,9 @@
       
       var wallet = await web3utils.WalletAddress();
       var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
-      Planets = await web3utils.GetNFTs(wallet, contractAddress).then((nfts)=>Update()).catch(console.error);
+      web3utils.GetNFTs(wallet, contractAddress).then(
+	  (nfts)=>{ Planets = nfts; Update(nfts[0]) }
+      ).catch(console.error);
 
       </script>
   </body>

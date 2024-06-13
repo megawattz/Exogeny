@@ -184,13 +184,11 @@ export function ordinal(place) {
     return map[place] || "";
 }
 
-const findRegex = new RegExp(`\{\${key}\}`, "gi");
-
 export function sprintf() {
     let args = Array.from(arguments);
-    let str = args.shift();
+    let str = args[0];
     for (let key in args) {
-	str = str.replace(findRegex, args[key]);
+	str = str.replaceAll('{'+key+'}', args[key]);
     }
     return str;
 };

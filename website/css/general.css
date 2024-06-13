@@ -274,6 +274,7 @@ input {
     border-radius: 1vw;
 }
 
+/*
 table {
     border: 1px solid  white;
     border-radius: 1vw;
@@ -283,6 +284,7 @@ table {
     padding-top: 0.4vw;
     padding-bottom: 0.4vw;
 }
+*/
 
 th {
     text-align: left;
@@ -408,4 +410,11 @@ a:hover {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.statstable {
+    width: 92vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2vw;
 }
