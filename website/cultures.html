@@ -30,10 +30,11 @@
 
   </head>
   <body id="bodyid">
-    <script>
+    <script type="module">
+      import * as utils from "./js/utils.mjs";
       function switchCulture() {
 	  let bodyid = document.getElementById("bodyid");
-	  let formfile = "cultures/"+randomCulture();
+	  let formfile = "cultures/"+utils.randomCulture();
     	  bodyid.style.backgroundImage = `url(${formfile})`;
 	  setTimeout(switchCulture, 10000);
       }
