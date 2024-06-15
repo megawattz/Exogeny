@@ -38,7 +38,8 @@
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 	  
-	  <div id="planetDisplay" style="position: relative; height: 96%; display: flex; border-radius: 2vw; justify-content: center; overflow: hidden;">
+	  <div id="planetDisplay" style="position: relative; height: 96%; display: flex; color: white; font-size: 2vw;
+					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	  
 	       <video id="planetVideo" autoplay loop muted preload="metadata" style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
 	       
@@ -120,6 +121,8 @@
       import * as utils from './js/utils.mjs';
       import {exogeny} from './js/exogeny.mjs';
       import {web3utils} from './js/web3.mjs';
+
+      var Config = {};
       
       var Params = {};
       parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
@@ -253,6 +256,13 @@
 	      planet = Planets[currentPlanet];
 	  const planetVideo = document.getElementById('planetVideo');
 
+	  if (!planet.attribmap) {
+	      planet.attribmap = {};
+	      planet.attributes.forEach(attrib =>{
+		  planet.attribmap[attrib.trait_type] = attrib.value;
+	      });
+	  }
+	  
 	  const pvideo = planet.animation_url;
 	  const pimage = planet.image;
 	  //planetVideo.poster = pimage
@@ -265,24 +275,18 @@
 	  
 	  lifeformImage.src = planet.image;
 	  
-	  lifeformIcon.src = `image/${planet.image}.png`;
+	  lifeformIcon.src = `image/${planet.attribmap['indigenous_lifeform']}.png`;
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
-	      show(this.lifeformImage);
+	      utils.show(this);
 	  });
 	  lifeformImage.addEventListener('mouseup', function() {
-	      hide(this);
+	      utils.hide(this);
 	  });
 	  
-	  lowerLeft.innerHTML = `<a title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.sectors[sector].contract).replace('tokenid', planet.tokenid)}">
-			${planet.star_index} ${planet.star_system}
-			</a>`;
-	  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
-	  planetDiv.appendChild(lowerLeft);
-		      
-	  lowerRight.innerHTML = `<span>${planet.planet_index}<span>`;
-	  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
-	  planetDiv.appendChild(lowerRight);
+	  lowerLeft.innerHTML = `<span>${utils.titleize(planet.attribmap.parent_star)}</span>`;
+
+	  lowerRight.innerHTML = `<span>${planet.attribmap.orbital_position}<span>`;
 
 
 	  
@@ -294,6 +298,10 @@
 	  info.innerHTML = html;
       }
       
+      fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+    		.then((response) => response.json())
+    		.then((data) => Config = data)
+    		.catch(console.log)
       var wallet = await web3utils.WalletAddress();
       var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
       web3utils.GetNFTs(wallet, contractAddress).then(

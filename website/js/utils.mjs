@@ -258,4 +258,13 @@ export function fixupIPFS(url, configs) {
     return fixed;
 }
 
+export function show(item) {
+    item.style.visibility = 'visible';
+    item.style.display = 'block';
+}
+	  
+export function hide(item) {
+    item.style.visibility = 'hidden';
+    item.style.display = 'none';
+}
 
