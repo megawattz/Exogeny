@@ -29,15 +29,15 @@
   </head>
 
   <body style="width: 100%; height: auto; margin: 0 auto; background-color: black;">
-    <span id="prev" style="position: fixed; top: 10%; left:  2%; z-index: 2; font-size: 10vw;">&lt</span>
-    <span id="next" style="position: fixed; top: 10%; right: 2%; z-index: 2; font-size: 10vw;">&gt</span>
-
     <div class="container-fluid">
       <div class="row">
 	<div style="display: flex; height: 100vh; position: relative; 
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 	  
+	  <span id="prev" style="position: fixed; top: 40%; left:  2%; z-index: 2; color: gray; font-size: 10vw;">&lt</span>
+	  <span id="next" style="position: fixed; top: 40%; right: 2%; z-index: 2; color: gray; font-size: 10vw;">&gt</span>
+	
 	  <div id="planetDisplay" style="position: relative; height: 96%; display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	  
@@ -46,9 +46,9 @@
 	       <div id="upperLeft" style="position: absolute; top:1%; left: 2%;">
 	       </div>
 
+	       <img id="lifeformImage" style="pointerEvents: auto; visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; zIndex: 20;">
 	       <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 4%";>
 		 <img id="lifeformIcon" style="height: 100%;">
-		 <img id="lifeformImage" style="pointerEvents: auto; visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; zIndex: 20;">
 	       </div>
 
 	       <div id="lowerLeft" style= "position: absolute; bottom: 2%; left: 2%;">
@@ -278,10 +278,10 @@
 	  lifeformIcon.src = `image/${planet.attribmap['indigenous_lifeform']}.png`;
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
-	      utils.show(this);
+	      utils.show(lifeformImage);
 	  });
-	  lifeformImage.addEventListener('mouseup', function() {
-	      utils.hide(this);
+	  lifeformIcon.addEventListener('mouseup', function() {
+	      utils.hide(lifeformImage);
 	  });
 	  
 	  lowerLeft.innerHTML = `<span>${utils.titleize(planet.attribmap.parent_star)}</span>`;
