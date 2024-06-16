@@ -148,7 +148,7 @@ export function fromRoman(roman) {
 	"XIX": 19,
 	"XX": 20
     };
-    return map[roman] || "";
+    return map[roman] || roman;
 }
 
 export function toRoman(arabic) {
@@ -174,7 +174,7 @@ export function toRoman(arabic) {
 	"19":"XIX",
 	"20":"XX"
     };
-    return map[arabic] || "";
+    return map[arabic] || arabic;
 }
 
 export function ordinal(place) {

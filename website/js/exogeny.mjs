@@ -17,6 +17,7 @@ export const exogeny = {
 	{ key: 'biological_resources',	value: 'Biological Resources'},
 	{ key: 'artist', 			value: 'Artist'}
     ],
+    
     FormatPlanetData: function(planet, format, map) {
 	map = map || exogeny.DefaultAttributeMap;
 	var readout = '';
