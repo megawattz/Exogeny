@@ -35,6 +35,11 @@ body {
     pointer-events: none; /* Ensure it doesn't interfere with other elements */
 }
 
+.info {
+    font-size: 1vw;
+    align-items: center;
+}
+
 .galleryWindow {
     width: 20%;
     position: relative;
