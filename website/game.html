@@ -38,7 +38,7 @@
 	  <span id="prev" style="position: fixed; top: 40%; left:  2%; z-index: 2; color: gray; font-size: 10vw;">&lt</span>
 	  <span id="next" style="position: fixed; top: 40%; right: 2%; z-index: 2; color: gray; font-size: 10vw;">&gt</span>
 	
-	  <div id="planetDisplay" style="position: relative; height: 96%; display: flex; color: white; font-size: 2vw;
+	  <div id="planetDisplay" style="position: relative; width: 1400px;  height: 96%; padding: 0; margin: 0;display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	  
 	       <video id="planetVideo" autoplay loop muted preload="metadata" style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
@@ -274,6 +274,7 @@
 	  lifeformImage.src = planet.image;
 	  
 	  lifeformIcon.src = `image/${planet.attribmap['indigenous_lifeform']}.png`;
+	  
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
 	      utils.show(lifeformImage);
@@ -285,8 +286,6 @@
 	  lowerLeft.innerHTML = `<span>${utils.titleize(planet.attribmap.parent_star)}</span>`;
 
 	  lowerRight.innerHTML = `<span>${planet.attribmap.orbital_position}<span>`;
-
-
 	  
 	  var html = `<table class="statstable">\n`;
 	  html += `<th><td>Official Designation</td><td>${NFT.official_designation}</td></th>\n`;
