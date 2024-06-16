@@ -51,10 +51,10 @@
 		 <img id="lifeformIcon" style="height: 100%;">
 	       </div>
 
-	       <div id="lowerLeft" style= "position: absolute; bottom: 2%; left: 2%;">
+	       <div id="lowerLeft" style="position: absolute; bottom: 2%; left: 2%;">
 	       </div>
 
-	       <div id="lowerRight"  style= "position: absolute; bottom: 2%; right: 4%;">
+	       <div id="lowerRight"  style="position: absolute; bottom: 2%; right: 4%;">
 	       </div>
 	       
 	  </div>
@@ -269,9 +269,7 @@
 	  planetVideo.src = pvideo;
 	  planetVideo.currentTime = 10;
 	  
-	  document.getElementById("upperLeft").innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
-	  
-	  //$('#upperLeft').innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
+	  document.getElementById("upperLeft").innerHTML = `<img style="width: 5vw;" src="image/resources.png"><br> <span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
 	  
 	  lifeformImage.src = planet.image;
 	  
