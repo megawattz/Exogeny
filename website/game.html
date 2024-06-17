@@ -38,13 +38,14 @@
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" onclick="document.prev()" style="pointer-events: auto; position: fixed; top: 40%; left:  2%; z-index: 2; color: gray; font-size: 10vw;">&lt</span>
-	  <span id="next" onclick="document.next()" style="pointer-events: auto; position: fixed; top: 40%; right: 2%; z-index: 2; color: gray; font-size: 10vw;">&gt</span>
+	  <span id="prev" title="Previous planet" onclick="document.prev()" style="pointer-events: auto; position: fixed; top: 40%; left:  2%; z-index: 2; color: white; font-size: 10vw;">&lt</span>
+	  <span id="next" title="Next planet" onclick="document.next()" style="pointer-events: auto; position: fixed; top: 40%; right: 2%; z-index: 2; color: white; font-size: 10vw;">&gt</span>
 	  
-	  <div id="planetDisplay" style="position: relative; width: 100%; max-width: 1400px; height: 96%; padding: 0; margin: 0;display: flex; color: white; font-size: 2vw;
+	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100%; max-width: 1400px; height: 96%; padding: 0; margin: 0; display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	    
-	    <video id="planetVideo" autoplay loop muted preload="metadata" style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
+	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
+		   	style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
 	    
 	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
 	    </div>
@@ -65,18 +66,20 @@
 	<p></p>
 	<hr />
 	<div id="planetdata" class="row events" >
-	  <span class="statsheader">Latest Events</span>
-	  <div id="eventlist" class="eventlist">
+	  <div>
+	    <span class="statsheader">Latest Events</span>
+	    <div id="eventlist" class="eventlist">
+	    </div>
 	  </div>
 	  <hr>
 	  <div id="civilization" class="statstable">
-	    <span class="statsheader">Civilization Stats</span>
+	    <span class="statsheader">Civilization</span>
 	    <div id="civstatstable" class="statstable">
 	    </div>
 	  </div>
 	  <hr>
-	  <span class="statsheader" id="fundamentals"></span>
-	  <div id="basestats" class="row section tablestats">
+	  <div id="planetstats" class="statstable">
+	    <span class="statsheader">Planet</span>
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
@@ -97,24 +100,6 @@
       var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
       
-      function arrow(index) {
-	  //Update();
-      }
-      /*
-      document.onclick = function clickNavigate(e) {
-	  const hotzone = window.innerWidth / 10;
-	  if (e.pageX < hotzone) {
-	      --currentPlanetIndex;
-	      Update();
-	  }
-
-	  if (e.pageX > (window.innerWidth - hotzone)) {
-	      ++currentPlanetIndex;
-	      Update();
-	  }
-      }
-      */
-
       document.next = function() {
 	  ++currentPlanetIndex;
 	  Update();
@@ -142,34 +127,6 @@
 	      transfer.innerText = "                        ";
       }
       
-      async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
-	  const NFT = Planets[currentPlanetIndex];
-
-	  const userId = Moralis.User.current().id;
-	  const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
-
-	  const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
-	  console.log(`Move ${JSON.stringify(contents)}`);
-
-	  const query = new Moralis.Query("Move");
-	  query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
-	  var thing = await query.first();
-
-	  if (thing) {
-	      thing.set(contents);
-	      console.log(`Update ${JSON.stringify(thing)}`);
-	  } else {
-	      thing = new Moralis.Object("Move", contents);
-	      console.log(`Write New ${JSON.stringify(thing)}`);
-	  }
-
-	  result = await thing.save()
-	  console.log(`Wrote ${JSON.stringify(thing)}`);
-	  if (displayElement)
-	      displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
-	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
-      }
-
       function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
 	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
 	  return `${units}% will cost ${Math.ceil(cost)} T44`;
@@ -261,9 +218,7 @@
 
 	  lowerRight.innerHTML = `<span title="Orbital position ${utils.fromRoman(planet.attribmap.orbital_position)} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
 
-	  fundamentals.innerHTML = `<span>Fundamental Statistics for <i>${planet.name}</i></span>`;
-	  
-	  let data = exogeny.FormatPlanetData(planet, `<tr><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
+	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  let html = '<table class="statstable">\n';
 	  html += data;
 	  html += '</table>\n';
