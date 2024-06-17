@@ -20,11 +20,11 @@ disc
          scale ring_brightness * 0.5
          color_map {
             [0 rgb <0,0,0> filter ring_brightness]
-            [1 rgb ring_color filter ring_brightness]
+            [1 rgb ring_color filter 0.7]
          }
       }
       finish {
-         diffuse albedo ring_brightness
+         diffuse albedo -ring_brightness
          ambient ring_color
       }
     }

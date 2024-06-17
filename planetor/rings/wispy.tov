@@ -14,7 +14,7 @@ difference {
             image_map {
                v_planet_spec
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness - 0.1
+	       transmit all ring_brightness
             }
          }
       }
