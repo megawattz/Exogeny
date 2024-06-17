@@ -41,11 +41,11 @@
 	  <span id="prev" title="Previous planet" onclick="document.prev()" style="pointer-events: auto; position: fixed; top: 40%; left:  2%; z-index: 2; color: white; font-size: 10vw;">&lt</span>
 	  <span id="next" title="Next planet" onclick="document.next()" style="pointer-events: auto; position: fixed; top: 40%; right: 2%; z-index: 2; color: white; font-size: 10vw;">&gt</span>
 	  
-	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100%; max-width: 1400px; height: 96%; padding: 0; margin: 0; display: flex; color: white; font-size: 2vw;
-					 border-radius: 2vw; justify-content: center; overflow: hidden;">
+	  <div id="planetDisplay" style="pointer-events: auto; position: relative; height: 96%; padding: 0; margin: 0; display: flex; color: white; font-size: 2vw;
+					 border-radius: 2vw; z-index: -10; justify-content: center; overflow: hidden;">
 	    
 	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
-		   	style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
+		   	style="z-index: -10; height: 96%; border-radius: 2vw;"></video>
 	    
 	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
 	    </div>
