@@ -16,7 +16,8 @@ export const exogeny = {
 	{ key: 'exotic_resources',	value: 'Exotic Resources'},
 	{ key: 'relics', 			value: 'Relics'},
 	{ key: 'biological_resources',	value: 'Biological Resources'},
-	{ key: 'artist', 			value: 'Artist'}
+	{ key: 'tokenid',		value: 'Token Index in Collection'},
+	{ key: 'artist', 		value: 'Artist'}
     ],
     
     FormatPlanetData: function(planet, format, map) {
