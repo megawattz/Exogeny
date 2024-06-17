@@ -37,46 +37,46 @@
 	<div style="display: flex; height: 100vh; position: relative; 
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
+
+	  <span id="prev" onclick="document.prev()" style="pointer-events: auto; position: fixed; top: 40%; left:  2%; z-index: 2; color: gray; font-size: 10vw;">&lt</span>
+	  <span id="next" onclick="document.next()" style="pointer-events: auto; position: fixed; top: 40%; right: 2%; z-index: 2; color: gray; font-size: 10vw;">&gt</span>
 	  
-	  <span id="prev" style="position: fixed; top: 40%; left:  2%; z-index: 2; color: gray; font-size: 10vw;">&lt</span>
-	  <span id="next" style="position: fixed; top: 40%; right: 2%; z-index: 2; color: gray; font-size: 10vw;">&gt</span>
-	
 	  <div id="planetDisplay" style="position: relative; width: 100%; max-width: 1400px; height: 96%; padding: 0; margin: 0;display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
-	  
-	       <video id="planetVideo" autoplay loop muted preload="metadata" style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
-	       
-	       <div id="upperLeft" class="videolabel" style="position: absolute; top:1%; left: 4%;">
-	       </div>
+	    
+	    <video id="planetVideo" autoplay loop muted preload="metadata" style="z-index: -10; height: 100%; border-radius: 2vw;"></video>
+	    
+	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
+	    </div>
 
-	       <img id="lifeformImage" style="pointerEvents: auto; visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; zIndex: 20;">
-	       <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%";>
-7		 <img id="lifeformIcon" style="pointerEvents: auto; height: 100%;">
-	       </div>
+	    <img id="lifeformImage" style="pointerEvents: auto; visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; zIndex: 20;">
+	    <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%";>
+	      <img id="lifeformIcon" style="pointerEvents: auto; height: 100%;">
+	    </div>
 
-	       <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 2%; left: 4%;">
-	       </div>
+	    <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 2%; left: 4%;">
+	    </div>
 
-	       <div id="lowerRight" class="videolabel"  style="position: absolute; bottom: 2%; right: 4%;">
-	       </div>
-	       
+	    <div id="lowerRight" class="videolabel"  style="position: absolute; bottom: 2%; right: 4%;">
+	    </div>
+	    
 	  </div>
 	</div>
 	<p></p>
 	<hr />
-	<div id="planetdata" class="row section info" >
+	<div id="planetdata" class="row events" >
 	  <span class="statsheader">Latest Events</span>
 	  <div id="eventlist" class="eventlist">
 	  </div>
 	  <hr>
-	  <div id="civilization" class="row section">
+	  <div id="civilization" class="statstable">
 	    <span class="statsheader">Civilization Stats</span>
-	    <div id="civstatstable" class="statstable col-sm-8 data">
+	    <div id="civstatstable" class="statstable">
 	    </div>
 	  </div>
 	  <hr>
 	  <span class="statsheader" id="fundamentals"></span>
-	  <div id="basestats" class="row section tablestats" hx-get="stats_resources?hx-swap=innerHTML">
+	  <div id="basestats" class="row section tablestats">
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
@@ -94,26 +94,37 @@
       parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
 
       var Planets = [];
-      var currentPlanet = 0;
+      var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
       
       function arrow(index) {
 	  //Update();
       }
-
+      /*
       document.onclick = function clickNavigate(e) {
 	  const hotzone = window.innerWidth / 10;
 	  if (e.pageX < hotzone) {
-	      --currentPlanet;
+	      --currentPlanetIndex;
 	      Update();
 	  }
 
 	  if (e.pageX > (window.innerWidth - hotzone)) {
-	      ++currentPlanet;
+	      ++currentPlanetIndex;
 	      Update();
 	  }
       }
+      */
 
+      document.next = function() {
+	  ++currentPlanetIndex;
+	  Update();
+      }
+      
+      document.prev = function() {
+	  --currentPlanetIndex;
+	  Update();
+      }
+      
       function parseQuery(query, destination) {
 	  var rval = destination || {};
 	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
@@ -132,7 +143,7 @@
       }
       
       async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
-	  const NFT = Planets[currentPlanet];
+	  const NFT = Planets[currentPlanetIndex];
 
 	  const userId = Moralis.User.current().id;
 	  const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
@@ -197,8 +208,13 @@
       }
       
       async function Update(planet) {
+	  if (currentPlanetIndex < 0)
+	      currentPlanetIndex = Planets.length - 1;
+	  if (currentPlanetIndex > (Planets.length - 1))
+	      currentPlanetIndex = 0;
+	  
 	  if (!planet)
-	      planet = Planets[currentPlanet];
+	      planet = Planets[currentPlanetIndex];
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
@@ -215,12 +231,12 @@
 	  planetVideo.src = pvideo;
 	  planetVideo.currentTime = 10;
 	  
-	  document.getElementById("upperLeft").innerHTML = `<img style="width: 5vw;" src="image/resources.png"><br>&nbsp;<span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
+	  document.getElementById("upperLeft").innerHTML = `<img style="width: 5vw;" src="image/resources.png"><br><span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
 	  
 	  lifeformImage.src = planet.image;
 	  
 	  lifeformIcon.src = `image/${planet.attribmap['indigenous_lifeform']}.png`;
-	  lifeformIcon.title = `${planet.attribmap['indigenous_lifeform']}`;
+	  lifeformIcon.title = `Lifeform: ${planet.attribmap['indigenous_lifeform']}`;
 	  
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
@@ -229,12 +245,23 @@
 	  lifeformIcon.addEventListener('mouseup', function() {
 	      utils.hide(lifeformImage);
 	  });
+
+	  document.addEventListener('keydown', function(event) {
+	      switch(event.key) {
+	      	case 'ArrowLeft':
+	      	  document.prev();
+	      	  break;
+	      	case 'ArrowRight':
+		  document.next();
+		  break;
+	      }
+	  });
 	  
-	  lowerLeft.innerHTML = `<span>${utils.titleize(planet.attribmap.parent_star)}</span>`;
+	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.parent_star)}</span>`;
 
-	  lowerRight.innerHTML = `<span title="${utils.fromRoman(planet.attribmap.orbital_position)}">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
+	  lowerRight.innerHTML = `<span title="Orbital position ${utils.fromRoman(planet.attribmap.orbital_position)} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
 
-	  fundamentals.innerHTML = `<span>Fundamental Statistics for ${planet.name}</span>`;
+	  fundamentals.innerHTML = `<span>Fundamental Statistics for <i>${planet.name}</i></span>`;
 	  
 	  let data = exogeny.FormatPlanetData(planet, `<tr><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  let html = '<table class="statstable">\n';
@@ -244,9 +271,9 @@
       }
       
       fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    		.then((response) => response.json())
-    		.then((data) => Config = data)
-    		.catch(console.log)
+    .then((response) => response.json())
+    .then((data) => Config = data)
+    .catch(console.log)
       var wallet = await web3utils.WalletAddress();
       var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
       web3utils.GetNFTs(wallet, contractAddress).then(
@@ -255,4 +282,4 @@
 
       </script>
   </body>
-</head>
+</html>
