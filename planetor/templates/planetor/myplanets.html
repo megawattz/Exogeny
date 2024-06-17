@@ -49,7 +49,7 @@
       <div class="row g-0" style="background-color: black; width: 106%; height: 100%">
         <div class="col-8">
 	  <div id="planetDisplay" style="background-color: black; padding: 5px; background-repeat: no-repeat; width: 100%; height: 90%;">
-	    <video onclick="this.paused ? play() : pause();" id="planetVideo" loop onplay="this.currentTime=6;" preload="none" width="100%"></video>
+	    <video onclick="this.paused ? play() : pause();" id="planetVideo" loop onplay="this.currentTime=10;" preload="none" width="100%"></video>
 	    <style>
 	      .header {
 		  font-size: 12pt;
@@ -256,6 +256,7 @@
 		var planetVideo = document.getElementById('planetVideo');
 		planetVideo.src=`/gallery/planet_${id}.mp4#t=6`;
 		planetVideo.poster=`/stills/planet_${id}.gif`;
+		planetVideo.currentTime = 10;
 		
       		$.ajax({
 		    url: `/dbread?table=civilization&row=${id}`,
@@ -328,7 +329,7 @@
 					    if (!tag)
 						return;
 					    var planetDiv = document.createElement("div");
-					    planetDiv.innerHTML = `\n<hr /><p style="margin-top: 2vh;">${count}) <a target="_blank" href="/editplanet/#${tag.id}">${tag.id}</a></p>\n<video id="${tag.id}" style="width: 40%;" title="Catalog#:${tag.id}" onplay="this.currentTime=6;" onclick='showPlanet(\"${tag.id}\")' onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" preload="none" poster="/stills/planet_${tag.id}.gif"></video><img style="vertical-align: top; width: 58%;" src="/lifeforms/lifeform_${tag.id}.png?${Math.random()}">`;
+					    planetDiv.innerHTML = `\n<hr /><p style="margin-top: 2vh;">${count}) <a target="_blank" href="/editplanet/#${tag.id}">${tag.id}</a></p>\n<video id="${tag.id}" style="width: 40%;" title="Catalog#:${tag.id}" onplay="this.currentTime=10;" onclick='showPlanet(\"${tag.id}\")' onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" preload="none" poster="/stills/planet_${tag.id}.gif"></video><img style="vertical-align: top; width: 58%;" src="/lifeforms/lifeform_${tag.id}.png?${Math.random()}">`;
 					    position.appendChild(planetDiv);
 					    draw();
 					}, delay += 5);
