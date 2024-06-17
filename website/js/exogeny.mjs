@@ -3,7 +3,8 @@
 import * as utils from './utils.mjs';
 
 export const exogeny = {
-    DefaultAttributeMap: [
+    AttributesOfInterest: [
+	{ key: 'official_designation',	value: 'Official Name'},
 	{ key: 'indigenous_lifeform',	value: 'Dominant Indigenous Lifeform'},
 	{ key: 'atmosphere', 		value: 'Primary Atmosphere'},
 	{ key: 'planet_type',		value: 'Geology/Climate'},
@@ -19,18 +20,17 @@ export const exogeny = {
     ],
     
     FormatPlanetData: function(planet, format, map) {
-	map = map || exogeny.DefaultAttributeMap;
+	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
 	if (!planet.attribmap) {
 	    planet.attribmap = {}
 	    for (let val of planet.attributes) {
 		planet.attribmap[val.trait_type] = val.value;
-	      }	
-	    planet.attribmap.official_designation = planet.name.replace('0', 'Rogue');
+	    }	
 	}
-	map.forEach(function(attrib) {
-	    const title = planet.attribmap[attrib.key];
-	    readout += utils.sprintf(format, utils.titleize(attrib.key), utils.titleize(title));
+	map.forEach(function(map) {
+	    const value = planet.attribmap[map.key];
+	    readout += utils.sprintf(format, map.value, utils.titleize(value));
 	});	
 	return readout;
     }

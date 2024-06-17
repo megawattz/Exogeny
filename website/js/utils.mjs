@@ -128,6 +128,7 @@ export function titleize(sentence) {
 export function fromRoman(roman) {
     const map = {
 	"Prime": 1,
+	"I": 1,
 	"II": 2,
 	"III": 3,
 	"IV": 4,
@@ -146,9 +147,43 @@ export function fromRoman(roman) {
 	"XVII": 17,
 	"XVIII": 18,
 	"XIX": 19,
-	"XX": 20
+	"XX": 20,
+	"XXI": 21,
+	"XXII": 22,
+	"prime": 1,
+	"i": 1,
+	"ii": 2,
+	"iii": 3,
+	"iv": 4,
+	"v": 5,
+	"vi": 6,
+	"vii": 7,
+	"viii": 8,
+	"ix": 9,
+	"x": 10,
+	"xi": 11,
+	"xii": 12,
+	"xiii": 13,
+	"xiv": 14,
+	"xv": 15,
+	"xvi": 16,
+	"xvii": 17,
+	"xviii": 18,
+	"xix": 19,
+	"xx": 20,
+	"xxi": 21,
+	"xxii": 22
     };
     return map[roman] || roman;
+}
+
+export function fromRomanEmbedded(str) {
+    function romanOnly(all, white, roman) {
+	return " " + fromRoman(roman);
+    }
+    
+    let rval = str.replace(/(\s)([xiv]+)/gi, romanOnly);
+    return rval;
 }
 
 export function toRoman(arabic) {
@@ -172,7 +207,9 @@ export function toRoman(arabic) {
 	"17":"XVII",
 	"18":"XVIII",
 	"19":"XIX",
-	"20":"XX"
+	"20":"XX",
+	"21":"XXI",
+	"22":"XXII"
     };
     return map[arabic] || arabic;
 }

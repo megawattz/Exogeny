@@ -180,6 +180,11 @@
 	      planet.attributes.forEach(attrib =>{
 		  planet.attribmap[attrib.trait_type] = attrib.value;
 	      });
+	      Object.entries(planet).forEach(([key,value]) =>{
+		  planet.attribmap[key] = value;
+	      });
+	      planet.attribmap.official_designation = utils.fromRomanEmbedded(planet.name.replace('0', 'Rogue'));
+	      planet.attribmap.name = utils.fromRoman(planet.name.replace('0', 'Rogue'));
 	  }
 	  
 	  const pvideo = planet.animation_url;
@@ -216,7 +221,7 @@
 	  
 	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.parent_star)}</span>`;
 
-	  lowerRight.innerHTML = `<span title="Orbital position ${utils.fromRoman(planet.attribmap.orbital_position)} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
+	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
 
 	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  let html = '<table class="statstable">\n';
