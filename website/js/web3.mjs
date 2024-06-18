@@ -37,7 +37,7 @@ const EVMchains = {
 };
 
 export const web3utils = {
-    CurrentChainId: 0x1,  // default to ethereum
+    Provider: {},  // default to ethereum
     WalletAddress: async function() {
         if (typeof window.ethereum !== 'undefined') {
             try {
@@ -46,6 +46,7 @@ export const web3utils = {
 		
                 // Create a new provider
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
+		web3utils.Provider = provider;
 		
                 // Get the signer
                 const signer = provider.getSigner();

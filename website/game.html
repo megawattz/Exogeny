@@ -91,12 +91,10 @@
 	  </div>
 	  
 	  <hr />
-	  <div id="planetlist" class="statstable">
-	    <span class="statsheader">Your Properties</span>
-	    <!--
-	    <div id="basestatstable" class="statstable">
+	  <div id="itemlist" class="statstable">
+	    <span id="planetlistheader"class="statsheader"></span>
+	    <div id="planetlist">
 	    </div>
-	    -->
 	  </div>
 	  
 	</div>
@@ -108,6 +106,7 @@
       import {web3utils} from './js/web3.mjs';
 
       var Planets = [];
+      var Civilizations = [];
       var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
       
@@ -120,59 +119,11 @@
 	  --currentPlanetIndex;
 	  Update();
       }
-      
-      function parseQuery(query, destination) {
-	  var rval = destination || {};
-	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
-	      rval[key] = value;
-	  });
-	  return rval;
-      }
 
-      function showtransfer(element) {
-	  if (element.value < 0)
-	      transfer.innerText = "(collect T44 to Wallet)";
-	  else if (element.value > 0)
-	      transfer.innerText = "(invest T44 from Wallet)";
-	  else
-	      transfer.innerText = "                        ";
-      }
-      
-      function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
-	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
-	  return `${units}% will cost ${Math.ceil(cost)} T44`;
-      }
-
-      function effectsString(affected) {
-	  let effectStr = "";
-	  let max = 0;
-	  for (let key in affected) {
-	      let amount = affected[key];
-	      if (amount.match(/^-/))
-		  effectStr += `<b>${key}</b> lowered as much as <b>${amount}</b><br>`;
-	      else if (amount.match(/^[+0-9]/))
-		  effectStr += `<b>${key}</b> raised as much as <b>${amount}</b><br>`;
-	      else
-		  effectStr += `<b>${key}</b> could change to <b>${amount}</b><br>`;
-
-	  }
-	  return effectStr;
-      }
-      
-      async function eventAlert(message, sound) {
-	  if (!sound)
-	      sound = getCookie("notification");
-	  if (sound == "none")
-	      return;
-	  //if (!document.hidden) // don't alert if user is already looking
-	  //return;
-	  setTimeout(function() {
-	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
-	      if (!answer)
-		  setCookie("notification", "none");
-	  }, 2000);
-	  let soundFile = `sounds/${sound}.mp3`;
-	  new Audio(soundFile).play();
+      function handleFragmentChange() {
+	  let fragment = window.location.hash;
+	  let index = fragment.replace('#', '');
+	  Update(Planets[index]);
       }
       
       async function Update(planet) {
@@ -238,6 +189,7 @@
 		  break;
 	      }
 	  });
+	  window.addEventListener('hashchange', handleFragmentChange);
 	  
 	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.parent_star)}</span>`;
 
@@ -249,6 +201,20 @@
 	  html += data;
 	  html += '</table>\n';
 	  basestatstable.innerHTML = html;
+
+	  var civ = {};
+	  planetlistheader.innerHTML = `Your Planets in ${sector} Sector`;
+	  data = `<table class="statstable"><tr><th class="statlabel">#</th><th class="statvalue">Wealth</th><th class="statvalue">Tech</th></tr>\n`;
+	  Object.entries(Planets).forEach(([index, planet]) => {
+	      data += `<tr class="statsrow">
+			<td class="statlabel">${index}</td>
+			<td class="statvalue">${civ.tritanium44 || 0}</td>
+			<td class="statvalue">${civ.techlevel || 0}</td>
+			<td class="statvalue"><a href="#${index}">${planet.name}</a></td>
+			</tr>`;
+	  });
+	  data += '</table>\n';
+	  planetlist.innerHTML = data;
       }
       
       fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
@@ -261,6 +227,60 @@
 	  (nfts)=>{ Planets = nfts; Update(nfts[0]) }
       ).catch(console.error);
 
+      function parseQuery(query, destination) {
+	  var rval = destination || {};
+	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
+	      rval[key] = value;
+	  });
+	  return rval;
+      }
+
+      function showtransfer(element) {
+	  if (element.value < 0)
+	      transfer.innerText = "(collect T44 to Wallet)";
+	  else if (element.value > 0)
+	      transfer.innerText = "(invest T44 from Wallet)";
+	  else
+	      transfer.innerText = "                        ";
+      }
+      
+      function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
+	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
+	  return `${units}% will cost ${Math.ceil(cost)} T44`;
+      }
+
+      function effectsString(affected) {
+	  let effectStr = "";
+	  let max = 0;
+	  for (let key in affected) {
+	      let amount = affected[key];
+	      if (amount.match(/^-/))
+		  effectStr += `<b>${key}</b> lowered as much as <b>${amount}</b><br>`;
+	      else if (amount.match(/^[+0-9]/))
+		  effectStr += `<b>${key}</b> raised as much as <b>${amount}</b><br>`;
+	      else
+		  effectStr += `<b>${key}</b> could change to <b>${amount}</b><br>`;
+
+	  }
+	  return effectStr;
+      }
+      
+      async function eventAlert(message, sound) {
+	  if (!sound)
+	      sound = getCookie("notification");
+	  if (sound == "none")
+	      return;
+	  //if (!document.hidden) // don't alert if user is already looking
+	  //return;
+	  setTimeout(function() {
+	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
+	      if (!answer)
+		  setCookie("notification", "none");
+	  }, 2000);
+	  let soundFile = `sounds/${sound}.mp3`;
+	  new Audio(soundFile).play();
+      }
+      
       </script>
   </body>
 </html>
