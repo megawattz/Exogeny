@@ -16,10 +16,11 @@ export const exogeny = {
 	{ key: 'exotic_resources',	value: 'Exotic Resources'},
 	{ key: 'relics', 			value: 'Relics'},
 	{ key: 'biological_resources',	value: 'Biological Resources'},
-	{ key: 'tokenid',		value: 'Token Index in Collection'},
+	{ key: 'tokenid',		value: 'NFT Token Index in Collection'},
 	{ key: 'artist', 		value: 'Artist'}
     ],
-    
+    ConfigData: {},
+    ContractToSector : {},
     FormatPlanetData: function(planet, format, map) {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
@@ -34,6 +35,19 @@ export const exogeny = {
 	    readout += utils.sprintf(format, map.value, utils.titleize(value));
 	});	
 	return readout;
+    },
+    LoadConfig: function(config) {
+	exogeny.ConfigData = config;
+	config.sectors.forEach((sectorName) => {
+	    exogeny.ContractToSector[sectorName] = exogeny.ConfigData.sectors[sectorName];
+	});
+    },
+    SectorData: function(sectorName) {
+	return exogeny.ConfigData.sectors[sectorName] || "unknown_sector " + sectorName;
+    },
+    Contract: function(contractId) {
+	return exogeny.ContractToSector[contractId] || "unknown_contract " + contractId;
     }
 }
+
 

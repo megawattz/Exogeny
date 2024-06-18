@@ -46,24 +46,28 @@
 	    
 	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
 		   	style="z-index: -10; height: 96%; border-radius: 2vw;"></video>
-	    
-	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
-	    </div>
 
-	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
-	    <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%;";>
-	      <img id="lifeformIcon" style="pointer-events: auto; z-index: 30; height: 100%;">
-	    </div>
+	    <div id="controldiv" style="postion: relative; max-width: 1024px; height: 96%">
+		 
+	      <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
+	      </div>
 
-	    <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 2%; left: 4%;">
-	    </div>
+	      <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
+	      <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%;";>
+		<img id="lifeformIcon" style="pointer-events: auto; z-index: 30; height: 100%;">
+	      </div>
 
-	    <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 2%; right: 4%;">
+	      <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 2%; left: 4%;">
+	      </div>
+
+	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 2%; right: 4%;">
+	      </div>
+
 	    </div>
-	    
 	  </div>
 	</div>
 	<p></p>
+	
 	<hr />
 	<div id="planetdata" class="row events" >
 	  <div>
@@ -71,18 +75,30 @@
 	    <div id="eventlist" class="eventlist">
 	    </div>
 	  </div>
-	  <hr>
+	  
+	  <hr />
 	  <div id="civilization" class="statstable">
 	    <span class="statsheader">Civilization</span>
 	    <div id="civstatstable" class="statstable">
 	    </div>
 	  </div>
-	  <hr>
+	  
+	  <hr />
 	  <div id="planetstats" class="statstable">
-	    <span class="statsheader">Planet</span>
+	    <span id="planetname" class="statsheader"></span>
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
+	  
+	  <hr />
+	  <div id="planetlist" class="statstable">
+	    <span class="statsheader">Your Properties</span>
+	    <!--
+	    <div id="basestatstable" class="statstable">
+	    </div>
+	    -->
+	  </div>
+	  
 	</div>
       </div>
     </div>
@@ -90,11 +106,6 @@
       import * as utils from './js/utils.mjs';
       import {exogeny} from './js/exogeny.mjs';
       import {web3utils} from './js/web3.mjs';
-
-      var Config = {};
-      
-      var Params = {};
-      parseQuery(window.location.search, Params); // why not return Params? wanted to be able to add to already existing Params
 
       var Planets = [];
       var currentPlanetIndex = 0;
@@ -207,6 +218,12 @@
 	  lifeformIcon.addEventListener('mouseup', function() {
 	      utils.hide(lifeformImage);
 	  });
+	  lifeformIcon.addEventListener('touchstart', function() {
+	      utils.show(lifeformImage);
+	  });
+	  lifeformIcon.addEventListener('touchend', function() {
+	      utils.hide(lifeformImage);
+	  });
 
 	  document.addEventListener('keydown', function(event) {
 	      switch(event.key) {
@@ -226,6 +243,7 @@
 
 	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
 
+	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
 	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  let html = '<table class="statstable">\n';
 	  html += data;
@@ -235,7 +253,7 @@
       
       fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
     .then((response) => response.json())
-    .then((data) => Config = data)
+    .then((data) => exogeny.LoadConfig(data))
     .catch(console.log)
       var wallet = await web3utils.WalletAddress();
       var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
