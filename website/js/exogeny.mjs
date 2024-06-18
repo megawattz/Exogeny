@@ -21,6 +21,7 @@ export const exogeny = {
     ],
     ConfigData: {},
     ContractToSector : {},
+    Sectors: {},
     FormatPlanetData: function(planet, format, map) {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
@@ -38,6 +39,7 @@ export const exogeny = {
     },
     LoadConfig: function(config) {
 	exogeny.ConfigData = config;
+	exogeny.Sectors = config.sectors;
 	config.sectors.forEach((sectorName) => {
 	    exogeny.ContractToSector[sectorName] = exogeny.ConfigData.sectors[sectorName];
 	});
