@@ -34,7 +34,7 @@
   <body style="width: 100%; height: auto; margin: 0 auto; background-color: black;">
     <div class="hover-area"></div>
     <div class="hidden-div" id="smallmenu">
-      <a href="mygallery.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a>
+      <a href="mygallery.html"><img style="width: 50vw;" src="image/ExoPlaneteer.png"></a>
     </div>
     <div class="container-fluid">
       <div class="row">
@@ -228,7 +228,7 @@
       var wallet = await web3utils.WalletAddress();
       var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
       web3utils.GetNFTs(wallet, contractAddress).then(
-	  (nfts)=>{ Planets = nfts; Update(nfts[0]) }
+	  (nfts)=>{ Planets = nfts; Update(nfts[window.location.hash.replace('#', '') || "0"])}
       ).catch(console.error);
 
       function parseQuery(query, destination) {

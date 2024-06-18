@@ -58,7 +58,7 @@
  	  
 	  function displayPlanets(planets) {
 	      let max = 30;
-	      Object.entries(planets).forEach((index, planet) => {
+	      Object.entries(planets).forEach(([index, planet]) => {
 		  planet.attribmap = {};
 		  planet.attributes.forEach((attrib) => {
 		      planet.attribmap[attrib.trait_type] = attrib.value;
@@ -117,16 +117,11 @@
 
 		  let lowerLeft = document.createElement("div");
 		  lowerLeft.innerHTML = `<a title="Play" href="game.html#${index}">
-			${utils.titleize(planet.attribmap.name)}
+			${planet.name}
 			</a>`;
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
 		  planetDiv.appendChild(lowerLeft);
 		      
-		  let lowerRight = document.createElement("div");	
-		  lowerRight.innerHTML = `<span>${planet.attribmap.orbital_position}<span>`;
-		  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
-		  planetDiv.appendChild(lowerRight);
-
 		  document.body.append(planetDiv);
 	      });
 	  }
