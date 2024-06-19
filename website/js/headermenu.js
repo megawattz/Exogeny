@@ -22,10 +22,20 @@ function getCookie(name) {
     return hits[1];
 }
 
+function titleize(sentence) {
+    try {
+	const words = `${sentence}`.split(/[_ ]+/);
+	let fixup = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+	return fixup.join(' ')
+    } catch(exc) {
+	return "";
+    }
+}
+
 document.getElementById("navheader").innerHTML = `
       <div class="container-fluid">
 	<a class="navbar-brand" href="home.html">
-	  <img style="height: 10vh;" src="image/ExoPlaneteer.png">
+	  <img style="width: 30vw; margin-right: 0; pad-right: 0;" src="image/ExoPlaneteer.png">
 	</a>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	  <span class="navbar-toggler-icon"></span>
@@ -36,7 +46,7 @@ document.getElementById("navheader").innerHTML = `
 	      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		Intro
 	      </a>
-	      <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="home.html">Introduction Start Here</a></li>
 		<li><a class="dropdown-item" href="planets.html">Planets</a></li>
 		<li><a class="dropdown-item" href="lifeforms.html">Lifeforms</a></li>
@@ -49,7 +59,7 @@ document.getElementById("navheader").innerHTML = `
 	      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		Sectors
 	      </a>
-	      <ul id="sectors" class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+	      <ul id="sectors" class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 	      </ul>
 	    </li>
 
@@ -57,7 +67,7 @@ document.getElementById("navheader").innerHTML = `
 	      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		Planets
 	      </a>
-	      <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="galaxy.html">3D Map</a></li>
 		<li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
 		<li><a class="dropdown-item" href="screensaver.html">Screensaver</a></li>
@@ -70,7 +80,7 @@ document.getElementById("navheader").innerHTML = `
 	      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		About
 	      </a>
-	      <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="faq.html">FAQ</a></li>
 		<li><a class="dropdown-item" href="info.html">Contact</a></li>
 		<li><a class="dropdown-item" href="roadmap.html">Roadmap</a></li>
@@ -98,9 +108,10 @@ await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
 	    item.className = "dropdown-item";
 	    let href = document.createElement("a")
 	    href.addEventListener('click', function () {setCookie("sector", sector)})
-	    href.text = sector;
+	    href.text = titleize(sector);
+	    Object.assign(href.style, {textDecoration: "none"});
 	    if (sector == currentSector)
-		href.style.color = "green";
+		Object.assign(href.style, {color: "green"});
 	    href.href = 'gallery.html';
 	    item.appendChild(href);
 	    item.title = info.Description;

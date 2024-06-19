@@ -136,13 +136,18 @@
     		.then((response) => response.json())
     		.then((data) => Object.assign(Config, data))
     		.then(() => console.log(Config))
-    		.catch((error) => console.error(error))
+    		.catch((error) => { console.error(error); web3utils.modal("No planets")})
 
 	  const account = await web3utils.WalletAddress();
 	  
 	  Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
 
-	  displayPlanets(Planets)
+	  if (Planets.length == 0) {
+	      web3utils.modal("You do not have any planets in this sector");
+	  }
+	  else {
+	      displayPlanets(Planets);
+	  }
 	  
 	</script>
       </div>

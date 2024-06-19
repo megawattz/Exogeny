@@ -304,4 +304,3 @@ export function hide(item) {
     item.style.visibility = 'hidden';
     item.style.display = 'none';
 }
-
