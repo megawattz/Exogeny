@@ -147,6 +147,7 @@
     		.catch((error) => {
 		    utils.modalAlert(`<p>You have no holdings in the <i>${Config.sectors[sector].Description}.</i></p>
 			<p><a href="${Config.sectors[sector].opensea_collection}">Visit market to see more</a><p>`);
+		    console.log(error);
 		});
 	</script>
       </div>
