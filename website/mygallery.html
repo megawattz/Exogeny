@@ -145,8 +145,8 @@
 	  Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
     		.then((data) => displayPlanets(data))
     		.catch((error) => {
-		    utils.modalAlert(`You do not have any planets in sector: ${utils.titleize(sector)}<p>
-			<a href="${Config.sectors[sector].opensea_collection}">Visit Market</a>`);
+		    utils.modalAlert(`<p>You have no holdings in the <i>${Config.sectors[sector].Description}.</i></p>
+			<p><a href="${Config.sectors[sector].opensea_collection}">Visit market to see more</a><p>`);
 		});
 	</script>
       </div>

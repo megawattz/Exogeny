@@ -249,11 +249,15 @@
     	.catch((error) => console.error(error))
 
       Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
-
-      if (Planets.length == 0)
-	  alert(`You have no planets in sector: $currentSector`);
-      else
-	  randomPlanet();
+    		.then(randomPlanet())
+      /*
+	  Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
+    		.then((data) => displayPlanets(data))
+    		.catch((error) => {
+		    utils.modalAlert(`<p>You have no holdings in the <i>${Config.sectors[sector].Description}.</i></p>
+			<p><a href="${Config.sectors[sector].opensea_collection}">Visit market to see more</a><p>`);
+		});
+      */
       
     </script>
   </body>

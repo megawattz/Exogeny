@@ -70,7 +70,7 @@ document.getElementById("navheader").innerHTML = `
 	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="galaxy.html">3D Map</a></li>
 		<li><a class="dropdown-item" href="myplanets.html">My Planets Screensaver</a></li>
-		<li><a class="dropdown-item" href="mygallery.html">My Planets Gallery</a></li>	
+		<li><a class="dropdown-item" href="mygallery.html">My Planets in Sector</a></li>	
 		<li><a class="dropdown-item" href="gallery.html">All Planets in Sector</a></li>
 		<li><a class="dropdown-item" href="screensaver.html">All Planets Screensaver</a></li>
 	      </ul>
