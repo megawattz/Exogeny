@@ -304,3 +304,26 @@ export function hide(item) {
     item.style.visibility = 'hidden';
     item.style.display = 'none';
 }
+
+export function modalAlert (divhtml) {
+    // Get the modal
+    var modal = document.createElement("div");
+    modal.innerHTML = divhtml;
+    Object.assign(modal.style, { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+				 maxWidth: "100%",  height: "auto", marginLeft: "auto", marginRight: "auto"});
+    document.body.appendChild(modal);
+    
+    var button = document.createElement("button");
+    Object.assign(button.style, {height: "4vh", width: "10vw"})
+    modal.appendChild(button);
+
+    // When the user clicks on <span> (x), close the modal
+    button.onclick = function() {
+	modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    modal.onclick = function(event) {
+	modal.style.display = "none";
+    }
+}

@@ -136,19 +136,18 @@
     		.then((response) => response.json())
     		.then((data) => Object.assign(Config, data))
     		.then(() => console.log(Config))
-    		.catch((error) => { console.error(error); web3utils.modal("No planets")})
+    		.catch((error) => {
+		    console.error(error);
+		});
 
 	  const account = await web3utils.WalletAddress();
-	  
-	  Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
 
-	  if (Planets.length == 0) {
-	      web3utils.modal("You do not have any planets in this sector");
-	  }
-	  else {
-	      displayPlanets(Planets);
-	  }
-	  
+	  Planets = await web3utils.GetNFTs(account, Config.sectors[sector].contract)
+    		.then((data) => displayPlanets(data))
+    		.catch((error) => {
+		    utils.modalAlert(`You do not have any planets in sector: ${utils.titleize(sector)}<p>
+			<a href="${Config.sectors[sector].opensea_collection}">Visit Market</a>`);
+		});
 	</script>
       </div>
   </body>

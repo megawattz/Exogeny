@@ -69,10 +69,10 @@ document.getElementById("navheader").innerHTML = `
 	      </a>
 	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="galaxy.html">3D Map</a></li>
-		<li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
-		<li><a class="dropdown-item" href="screensaver.html">Screensaver</a></li>
 		<li><a class="dropdown-item" href="myplanets.html">My Planets Screensaver</a></li>
 		<li><a class="dropdown-item" href="mygallery.html">My Planets Gallery</a></li>	
+		<li><a class="dropdown-item" href="gallery.html">All Planets in Sector</a></li>
+		<li><a class="dropdown-item" href="screensaver.html">All Planets Screensaver</a></li>
 	      </ul>
 	    </li>
 
@@ -112,7 +112,7 @@ await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
 	    Object.assign(href.style, {textDecoration: "none"});
 	    if (sector == currentSector)
 		Object.assign(href.style, {color: "green"});
-	    href.href = 'gallery.html';
+	    href.href = 'mygallery.html';
 	    item.appendChild(href);
 	    item.title = info.Description;
             sectorlist.appendChild(item);
