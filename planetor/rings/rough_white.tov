@@ -1,4 +1,4 @@
-// Ring Smooth
+// Ring Rough
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius = %s;
@@ -10,17 +10,17 @@ disc
 {
    <0, 0, 0>,
    <0, 90, 0>,
-   ring_radius * 1.5, hole_radius
+   ring_radius*1.5, hole_radius*1.5
    no_reflection
    texture {
       pigment {
          waves
-         turbulence 0.2
-         frequency 1.5
+         turbulence 0.3
+         frequency 3
          scale ring_brightness * 0.5
          color_map {
             [0 rgb <0,0,0> transmit ring_brightness]
-            [1 rgb <20,20,20> * v_random_float transmit v_random_float]
+ 	    [1 rgb <10,10,10> transmit 0.70]
          }
       }
       finish {
@@ -28,5 +28,5 @@ disc
          //ambient ring_color
       }
     }
-    rotate <0,(-clock*300000/pow(ring_radius, 2.4)),0>
+    rotate <0,(-clock*90000/pow(ring_radius, 2)),0>
 }

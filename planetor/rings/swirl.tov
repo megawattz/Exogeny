@@ -15,7 +15,7 @@ difference {
             image_map {
 	       v_planet_spec
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness - 0.1
+	       transmit all ring_brightness
             }
 	    scale <1, 0.5, 1>
          }
@@ -25,6 +25,32 @@ difference {
          ambient ring_color
       }
       rotate <0,(-clock*300000/pow(ring_radius, 2.4)),0>
+   }
+   cylinder {
+      <0, -10, 0>, <0, 10, 0>, planet_size + 4 + (planet_size + v_random_float)
+      texture {
+      	      pigment { color rgbt <1,1,1,1> }
+      }
+   }
+   
+   sphere {
+      <0, 0, 0>, planet_size * ring_index
+      scale <1, .05/ring_index, 1> 
+      texture {
+         pigment {
+            image_map {
+	       v_planet_spec
+               map_type 2 interpolate 4 // Esfera
+	       transmit all ring_brightness
+            }
+	    scale <1, 0.5, 1>
+         }
+      }
+      finish {
+         diffuse albedo -ring_brightness
+         ambient ring_color
+      }
+      rotate <0,(-clock*280000/pow(ring_radius, 2.4)),0>
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size + 4 + (planet_size + v_random_float)
