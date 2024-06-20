@@ -20,7 +20,7 @@ disc
          scale ring_brightness * 0.5
          color_map {
             [0 rgb <0,0,0> transmit ring_brightness]
-            [1 rgb <20,20,20> * v_random_float transmit v_random_float]
+            [1 rgb ring_color * 10 transmit v_random_float]
          }
       }
       finish {
