@@ -6,45 +6,19 @@
 #declare ring_index = %s;
 #declare planet_size = %s;
 
-// Function to convert image to grayscale
-#macro GrayscaleImage(image_file)
-  function {
-    pigment {
-      image_map {
-        png image_file
-        map_type 0 interpolate 2 // Planar mapping
-	transmit all ring_brightness - 0.1
-      }
-    }
-  }
-#end
-
-#macro GrayscaleFunction(image_func)
-  function {
-    // Convert RGB to grayscale using luminance formula
-    0.299 * image_func(x, y, z).red +
-    0.587 * image_func(x, y, z).green +
-    0.114 * image_func(x, y, z).blue
-  }
-#end
-
-// Declare the image function using the macro
-#declare MyImageFunction = GrayscaleImage("v_planet") // Replace with your image file
-#declare MyGrayscaleFunction = GrayscaleFunction(MyImageFunction)
-
 difference {
-	      sphere {
+   sphere {
       <0, 0, 0>, planet_size * 2 + (planet_size * 2 * v_random_float)
       scale <1, .1/ring_index, 1> 
       texture {
          pigment {
-	    function { MyGrayScaleFunction(x, y, z) }
-	    color_map {
-               [0 rgb <0,0,0>]
-               [1 rgb <1,1,1>]
+            image_map {
+               v_planet_spec
+               map_type 2 interpolate 4 // Esfera
+	       transmit all ring_brightness - 0.1
             }
+            scale <1, 0.5, 1>
          }
-	 scale <1, 0.5, 1>
       }
       rotate <0,(-clock*90000000/pow(ring_radius, 4) + v_random_float * 360), 0>
    }
