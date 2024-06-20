@@ -28,5 +28,5 @@ disc
          //ambient ring_color
       }
     }
-    rotate <0,(-clock*900000/pow(ring_radius, 2.4)),0>
+    rotate <0,(-clock*300000/pow(ring_radius, 2.4)),0>
 }

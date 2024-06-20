@@ -116,9 +116,9 @@ def resolve_parameter(name, value, options):
     elif (name == "rings"):
         camdist = pythag(ttol(options['camera_location']))
         if value == None:
-            options['rings'] = randomint(2, int(camdist/10))
+            options['rings'] = randomint(2, int(camdist/20))
         elif int(value) == 0 and camdist >= 110:
-            options['rings'] = randomint(2, int(camdist/10))
+            options['rings'] = randomint(2, int(camdist/20))
         elif int(value) > 0:
             options['rings'] = int(value)
         return options['rings']
