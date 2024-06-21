@@ -1,4 +1,4 @@
-// Ring Asteroids
+// Ring Asteroids2
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius = %s;
@@ -35,5 +35,5 @@ difference {
       	      pigment { color rgbt <1,1,1,1> }
       }
    }
-   rotate <0,ring_index * 10 + -clock*60*ring_index, 0>
+   Orbit(ring_radius) 
 }

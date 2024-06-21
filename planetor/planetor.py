@@ -17,7 +17,7 @@ import inspect
 import uuid
 import pathlib
 
-Scene = ""
+Functions = '#include "exogeny.inc"'
 Options = {}
 false = False
 true = True
@@ -813,7 +813,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     Options['created'] = int(time.time())
     # new way, don't store full path
     scene = resolve_parameter("scene", Options["scene"], Options)
-    Scene = str(readfile("/app/planetor/scenes/"+scene), 'utf-8')
+    Scene = Functions + str(readfile("/app/planetor/scenes/"+scene), 'utf-8')
     
     pov = expand_vars(Scene, Options)
 

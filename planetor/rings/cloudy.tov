@@ -1,4 +1,4 @@
-// Ring Vapor
+// Ring Cloudy
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius =  %s;
@@ -8,25 +8,24 @@
 
 difference {
    sphere {
-      <0, 0, 0>, ring_radius
-      scale <1, ring_index/100, 1> 
+      <0, 0, 0>, (planet_size * 2) + (2 * ring_index) scale <1, ring_index/180, 1> 
       texture {
          pigment {
             image_map {
                v_clouds_spec
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness - 0.2
+	       transmit all ring_brightness - 0.1
             }
          }
       }
       finish {
-         diffuse albedo ring_brightness
- 	 ambient ring_color
+         diffuse albedo -ring_brightness
+	 ambient ring_color
       }
       Orbit(ring_radius) 
    } 
    cylinder {
-      <0, -10, 0>, <0, 10, 0>, hole_radius
+      <0, -10, 0>, <0, 10, 0>, (planet_size) + (2 * ring_index)
       texture {
       	      pigment { color rgbt <1,1,1,1> }
       }

@@ -1,4 +1,4 @@
-// Ring Smooth
+// Ring Smokecolor
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius = %s;
@@ -27,5 +27,5 @@ disc
          diffuse albedo -ring_brightness
       }
     }
-    rotate <0,(-clock*300000/pow(ring_radius, 2.4)),0>
+    Orbit(ring_radius) 
 }

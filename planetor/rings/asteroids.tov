@@ -28,7 +28,7 @@ difference {
             }
          }
       }
-      rotate <0, ring_index * 60 + -clock*60*ring_index, 0>
+      Orbit(ring_radius) 
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size * (1.2 + v_random_float)
