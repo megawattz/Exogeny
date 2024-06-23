@@ -72,7 +72,7 @@ if __name__ == "__main__":
         "test":"do not push to ipfs, just verify metadata extraction",
         "skip":"skip X number of files (use this if an upload failed and you want to restart after the point of failure)",
         "logfile":"where to log upload URLS",
-        "lifeform": r"filemask to where the associated lifeform/landscape file is (put %s where the planet id should go, default is /app/planetor/out/lifeforms/lifeform_%s.png"
+        "lifeform": r"*filemask to where the associated lifeform/landscape file is (put %s where the planet id should go, default is /app/planetor/out/lifeforms/lifeform_%s.png"
     })
 
     if params.get("logfile"):
@@ -82,6 +82,8 @@ if __name__ == "__main__":
     bannerfile = params.get('banner') or 'banner.gif'
     limit = int(params.get('limit') or "8")
     skip = int(params.get('skip') or "0")
+
+    pprint(params)
     
     imagecontent = str(base64.b64encode(readfile(bannerfile)), 'utf-8')
 
@@ -100,9 +102,13 @@ if __name__ == "__main__":
             print("planetid: %s" % planetid)
             image = lifeform % planetid
             idir, ifile = re.findall('(.*?)([^/]+$)', image)[0]
-            
-            videocontent = str(base64.b64encode(readfile(video)), 'utf-8')
-            imagecontent = str(base64.b64encode(readfile(image)), 'utf-8')
+
+            try :
+                videocontent = str(base64.b64encode(readfile(video)), 'utf-8')
+                imagecontent = str(base64.b64encode(readfile(image)), 'utf-8')
+            except Exception as e:
+                pprint(e)
+                continue
 
             print("\t"+vfile)
             print("\t"+ifile)

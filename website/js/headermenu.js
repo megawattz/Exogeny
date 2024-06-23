@@ -112,7 +112,7 @@ await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
 	    Object.assign(href.style, {textDecoration: "none"});
 	    if (sector == currentSector)
 		Object.assign(href.style, {color: "green"});
-	    href.href = 'mygallery.html';
+	    href.href = 'gallery.html';
 	    item.appendChild(href);
 	    item.title = info.Description;
             sectorlist.appendChild(item);

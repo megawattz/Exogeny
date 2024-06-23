@@ -1,7 +1,7 @@
 Unfortunately this cannot be automated completely in one program due to a chicken egg problem. You must know the
 contract address, which is dynamically assigned, before you deploy the NFTs
 
-* For the following steps you have to be working inside the container if running all this inside a Docker container
+* For the following steps you have to be working inside the container if you were creating planets inside a Docker container
 
 * Prepare the mp4 files to be in there final state.
 
@@ -10,59 +10,56 @@ contract address, which is dynamically assigned, before you deploy the NFTs
   ** Change the internal metadata of the mp4 file to name it from a particular set of star systems.
 
     	*** In the current directory create a list of star systems you want this particular deployment to be. Choose
-            about 30 Star Systems and create a text file called /app/planetor/names/systems.txt
+            about 30 Star Systems and create a text file called systems.txt in the current (deploy) directory
 
-	*** While you don't have to do this, I create copies of the mp4 files to work on just in case something goes
-	    wrong. I don't want to permanenty ruin a batch of planets that took days to create. Like this cp
-	    /app/planetor/out/gallery/*.mp4 <work_directory> (<work directory can be /app/planetor/out/deploy)
+	*** Run "nameloop.sh ../gallery/*.mp4" program which loops through the systems, stars and planet numbers and
+            alters the internal metadata of the mp4 planet files to used names from system.txt.  Like this. nameloop.sh
+            ../gallery/*.mp4 (or whatever directory your mp4 files are. The altered files will be automatically put into
+            a subdirectory name "out"
 
-	*** Run the nameloop.sh program which loops through the systems, stars and planet numbers and alters the
-            internal metadata of the mp4 planet files to have the specified star_index star_system planet_index name.
-            Like this. nameloop.sh app/planetor/out/deploy/*.mp4 (or whatever directory you copied the mp4 files to)
-
-	*** If this process stops prematurely it's because it ran out of systems. Add more to
-            /app/planetor/names/systems.txt and run it again
+	*** If this process generates fewer output files than the original batch, it's because it ran out of
+            systems. Add more to /app/planetor/names/systems.txt and run it again
 
 * Choose an image for the collection and create an image 350x260 (OpenSea Wants That Size).
 
 * run ipfslifeform.py (OR ipfsplanet.py) [banner=bannerfilename.gif] *.mp4
 
-   a. This will create a png file still of the mp4 and upload both to ipfs
+  a. This will create a png file still of the mp4 and upload both to ipfs
 
-   b. You can only upload a limited number of files at any one time. It appears to be around 50 pairs (mp4 plus
-      png). Only a limited number of files can uploaded at once so ipfplanet.py does them in batches of 10 by default
-      but you can override them if you want. There's really no reason to do that.
+  b. You can only upload a limited number of files at any one time. It appears to be around 50 pairs (mp4 plus
+     png). Only a limited number of files can uploaded at once so ipfplanet.py does them in batches of 10 by default but
+     you can override them if you want. There's really no reason to do that.
 
-   c. This will create a file called ipfsplanet.json which is a list of the IPFS urls of all those planets you
-      uploaded. You need this for the next step. This is needed for step 5
+  c. This will create a file called ipfsplanet.json which is a list of the IPFS urls of all those planets you
+     uploaded. You need this for the next step. This is needed for step 5
 
 * Deploy the smart contract. This has to be done in order to get the contract address which is needed in the
-   metadata. However, because the IPFS folder URL of the metadata is not yet know (step 5 generates the metadata and
-   uploads it to IPFS) the contract doesn't know the URI of the metadata so you have to deploy the contract without
-   knowing the all important URI. You will have to use the setURI() function later in this process: Note:
-   remix.ethereum.org doesn't seem to be able to access local files using brave browser which is blocking web socket
-   access to localhost:65520
+  metadata. However, because the IPFS folder URL of the metadata is not yet known (step 5 generates the metadata and
+  uploads it to IPFS) the contract doesn't know the URI of the metadata so you have to deploy the contract without
+  knowing the all important URI. You will have to use the setURI() function later in this process: Note:
+  remix.ethereum.org doesn't seem to be able to access local files using brave browser which is blocking web socket
+  access to localhost:65520
 
 * run osmetaex.py (or osmeta.py), (name stands for "open sea metadata")
 
-   a. This will read the ipfsplanets.json file and create a series of JSON files with very long names. This is the
-      format of MetaData that open sea wants. I can't vouch for other NFT marketplaces.
+  a. This will read the ipfsplanets.json file and create a series of JSON files with very long names. This is the format
+     of MetaData that open sea wants. I can't vouch for other NFT marketplaces.
 
 * Run ipfsjson.py passing in a wildcard(s) of the json files to upload. Be careful not to include the ipsplanets.json
-   file itself or any other JSON file or it will become an NFT :) I use ipfsjson.py 0000*.json.
+  file itself or any other JSON file or it will become an NFT :) I use ipfsjson.py 0000*.json.
 
-   a. This will upload all the metadata files into one IPFS folder. You will need the ERC1155 URL Pattern it prints out
-   at the end. If you miss that, it's derived from the URL contained in each of the files.
+  a. This will upload all the metadata files into one IPFS folder. You will need the ERC1155 URL Pattern it prints out
+     at the end. If you miss that, it's derived from the URL contained in each of the files.
 
 * Take that URL and using Remix (how to you deployed the contract) call the setURI function of the contract in question,
-   passing in that URL. 
+  passing in that URL.
 
 * The contract is actually installed on OpenSea but nothing will be visible because you have to mint the NFTS. This
-   simply means, call the mint function or batchMint. We don't let the users mint because it uses a lot of CPU so we're
-   going to premint these and sell them on OpenSea. You likely uploaded a lot of NFTs so to batchMint them, you need to
-   generate a string of sequenced numbers. Hint: Use the shell command "seq" for example seq -s, 0 1000 will generate 0
-   to 1000 separated by comma's. Wrap that in [] and you can cut and paste that into the mintBatch function call
-   parameter.
+  simply means, call the mint function or batchMint. We don't let the users mint because it uses a lot of CPU so we're
+  going to premint these and sell them on OpenSea. You likely uploaded a lot of NFTs so to batchMint them, you need to
+  generate a string of sequenced numbers. Hint: Use the shell command "seq" for example seq -s, 0 1000 will generate 0
+  to 1000 separated by comma's. Wrap that in [] and you can cut and paste that into the mintBatch function call
+  parameter.
 
 * At this point the NFTs will start appearing in the OpenSea collection
 
