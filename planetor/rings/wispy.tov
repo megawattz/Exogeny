@@ -8,13 +8,14 @@
 
 difference {
    sphere {
-      <0, 0, 0>, planet_size * 4 * 0.75 scale <1, ring_index/100, 1> 
+      <0, 0, 0>, ring_radius * 1.5
+      scale <1, ring_index/100, 1> 
       texture {
          pigment {
             image_map {
                v_clouds_spec
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness * 0.9
+	       transmit all ring_brightness
             }
          }
       }
@@ -25,7 +26,7 @@ difference {
       Orbit(ring_radius) 
    } 
    cylinder {
-      <0, -10, 0>, <0, 10, 0>, planet_size + (planet_size * v_random_float * 2)
+      <0, -10, 0>, <0, 10, 0>, hole_radius * 1.5
       texture {
       	      pigment { color rgbt <1,1,1,1> }
       }
