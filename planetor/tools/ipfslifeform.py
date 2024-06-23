@@ -107,7 +107,8 @@ if __name__ == "__main__":
                 videocontent = str(base64.b64encode(readfile(video)), 'utf-8')
                 imagecontent = str(base64.b64encode(readfile(image)), 'utf-8')
             except Exception as e:
-                pprint(e)
+                pprint(e, stream=sys.stderr)
+                pprint(video, stream=sys.stderr)
                 continue
 
             print("\t"+vfile)

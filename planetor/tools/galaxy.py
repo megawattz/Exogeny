@@ -47,36 +47,6 @@ def getnode(root, node_name):
         root[node_name] = {}
     return root.get(node_name)
 
-def nested(files, selected, ipfsdata):
-    galaxy = {}
-
-    for file in files:
-        meta = None
-        try:
-            print("file %s" % file, file=sys.stderr)
-            meta = json.loads(ffmpeg.probe(file).get("format").get("tags").get("comment"))
-        except Exception as e:
-            print("error: %s %s." % (file, e), file=sys.stderr)
-            continue
-
-        system = getnode(galaxy, meta['star_system'])
-        star = getnode(system, meta['star_index'])
-        planet_index = meta['planet_index']
-
-        planet = {
-            "official_designation":"%s %s %s" % (meta["star_index"], meta["star_system"], meta['planet_index']),
-            "location": lochash(1000, meta["star_system"])
-        }
-
-        for k in selected:
-            planet[k] = meta.get(k) or civ[k] or "unknown"
-            if k in ipfsdata:
-                planet[k] = ipfsdata.get(k)
-        
-        star[planet_index] = planet
-
-    return galaxy
-
 def flat(files, selected, civfile_template, ipfsdata):
     galaxy = []
     for file in files:
@@ -130,7 +100,7 @@ def flat(files, selected, civfile_template, ipfsdata):
 
 def loadIpfsFiles(glob_pattern):
     aggregated_data = {}
-    
+
     # Use glob to find files matching the pattern
     count = 0
     for filename in glob.glob(glob_pattern):
@@ -139,7 +109,9 @@ def loadIpfsFiles(glob_pattern):
             # Assuming 'identity' is a top-level key in your JSON structure
             identity = data.get('identity')
             if identity:
+                count += 1
                 aggregated_data[identity] = data
+                
     if (count < 1):
         raise Exception(f"Only found {count} number of ipfs upload json files")
         
@@ -159,10 +131,11 @@ if __name__ == "__main__":
     })
 
     meta = params.get('meta') or "identity,planet_type,atmosphere_composition,evaluation,evaluation2,lifeform,chemistry,resources_value,industrials,refractories,radioactives,rare,specialized,exotics,relics,biologicals,name,species,culture,contract,chain,tokenid"
-    civfile_template = params.get('culture') or "/app/planetor/out/civilization/civilization_{identity}.json"
+    civfile_template = params.get('culture') or "../civilization/civilization_{identity}.json"
     selected = meta.split(',')
     ipfs = params.get("ipfs") or "00000000000000000000*.json"
-    method = params.get("method") or "f"
+
+    pprint(params)
     
     ipfsdata = loadIpfsFiles(ipfs)
     
@@ -170,10 +143,7 @@ if __name__ == "__main__":
     
     galaxy = None
 
-    if method == "n":
-        galaxy = nested(files, selected, civfile_template, ipfsdata)
-    elif method == "f":
-        galaxy = flat(files, selected, civfile_template, ipfsdata)
+    galaxy = flat(files, selected, civfile_template, ipfsdata)
 
     planets = json.dumps(galaxy, indent=4)
 
