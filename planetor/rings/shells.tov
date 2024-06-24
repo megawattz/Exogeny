@@ -7,7 +7,7 @@
 #declare planet_size = %s;
 
   sphere {
-      <0, 0, 0>, planet_size * 2 + ring_index
+      <0, 0, 0>, ring_radius * ring_index
       no_shadow
       no_reflection
       texture {
@@ -25,5 +25,5 @@
          diffuse albedo ring_brightness
          ambient ring_color
       }
-      Orbit(ring_index * 10)
+      Orbit(ring_radius)
 }
