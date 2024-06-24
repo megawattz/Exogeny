@@ -9,6 +9,14 @@
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
     "ipfs_gateway": "https://ipfs.io/",
     "sectors" : {
+	"draco":{
+	    "Description":"Planets of the Draconis Belt",
+	    "contract":"0x9a43630ac827dbe3155a5900d769e019403c0f13",
+	    "opensea_collection":"https://testnets.opensea.io/collection/draconis-belt",
+	    "chain":"sepolia",
+	    "chainid":"0xaa36a7",
+	    "name":"Planets of the Draconis Belt"
+	},
 	"orion":{
 	    "Description":"Planets of Orions Veil",
 	    "contract":"0xE2f3266c8245E0A259A64d4C75798B4e7A4A2D50",

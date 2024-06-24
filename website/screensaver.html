@@ -224,7 +224,8 @@
       }
       
       // load planets
-      utils.LoadPlanets(Config, Planets).then(randomPlanet);
+      Planets = await utils.LoadPlanets(Planets);
+      randomPlanet();
     </script>
   </body>
 </html>

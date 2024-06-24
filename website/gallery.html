@@ -37,7 +37,7 @@
 
 	  var sector = utils.getCookie("sector") || "vortexis";
 	  
-	  async function LoadPlanets() {
+	  async function LoadLocalPlanets() {
 	      // load config
 	      await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
     		  .then((response) => response.json())
@@ -137,7 +137,8 @@
 		  document.body.append(planetDiv);
 	      });
 	  }
-	  LoadPlanets();
+	  
+	  LoadLocalPlanets();
 	  
 	</script>
       </div>

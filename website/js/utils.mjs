@@ -45,15 +45,14 @@ await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
 
 var sector = getCookie("sector") || "nebular";
 
-export async function LoadPlanets(configOut, planetsOut) {
+export async function LoadPlanets(planetsOut) {
     // load planets
-    await fetch(`configs/${sector}/planets.json`)
+    return fetch(`configs/${sector}/planets.json`)
     	.then((response) => response.json())
-    	.then((data) => Object.assign(planetsOut, data))
-        .then(() => console.log(planetsOut))
-    	.then(fetch(`configs/${sector}/planets.json`)
-	      .then((response) => response.json())	
-	      .then((data) => { planetsOut = data } ))
+	.then((data) => {
+	    if (planetsOut) planetsOut = data;
+	    return data;
+	});
 }		
 
 export async function FetchJSON(url) {
