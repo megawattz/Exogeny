@@ -1,0 +1,86 @@
+.hover-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 9999; /* Ensure it stays on top */
+}
+
+.hidden-div {
+    position: fixed;
+    top: -10vh;
+    left: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    background-color: transparent;
+    transition: top 0.3s;
+    z-index: 9998; /* Behind the hover area */
+}
+.hover-area:hover + .hidden-div,
+.hidden-div:hover {
+    top: 0;
+}
+
+div {
+    color: white;
+    font-size: 2vw;
+}
+
+.planetdata {
+    display: flex;
+    width: 96%;
+    align-items: center;
+    justify-content: center;
+}
+
+.planetlist {
+    padding: 2px;
+    font-size: 4vw;
+}
+
+.center {
+    width: 96%;
+    align-items: center;
+    justify-content: center;
+}
+
+.videolabel {
+    color: white;
+    font-size: clamp(10pt, 5vw, 1.5em);
+}
+
+.statsheader {
+    display: flex;
+    width: 100%;
+    font-size: 5vw;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+}
+
+.statstable {
+    width: 92vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3vw;
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.statsrow {
+    border-bottom: solid grey 1px;
+}
+
+.statlabel {
+    font-size: 3vw;
+}
+
+.statvalue {
+    font-size: 3vw;
+    text-align: right;
+}
