@@ -288,7 +288,7 @@ def ttol(txt): # test to list = "1,2,3" = [1, 2, 3]
 
 Atmospheres = {
     "chlorine":"0.22, 1.71, 1.26", # blue green
-    "sulfur_dioxide":"2.49, 1.54, 0.11", # light orange
+    "sulfur_dioxide":"1.25, 0.75, 0.5", # light orange
     "nitrous_oxide":"0.63, 1.85, 0.85", # light green
     "krypton":"1.56, 0.86, 1.19", # light magenta
     "hydrogen_iodide":"1.65, 0.62, 2.19", # purple

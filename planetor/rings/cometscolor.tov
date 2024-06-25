@@ -1,0 +1,35 @@
+// Ring Cloudy
+#declare ring_color = <%s>;
+#declare ring_radius = %s;
+#declare hole_radius =  %s;
+#declare ring_brightness =  %s;
+#declare ring_index =  %s;
+#declare planet_size =  %s;
+
+difference {
+   sphere {
+      <0, 0, 0>, ring_radius * 1.5
+      scale <1, ring_index/180, 1> 
+      texture {
+         pigment {
+            image_map {
+	       png "trans_23_clouds.png"
+               map_type 2 interpolate 4 // Esfera
+	       transmit all ring_brightness - 0.1
+	       once
+            }
+         }
+      }
+      finish {
+         diffuse albedo ring_brightness
+	 ambient ring_color
+      }
+      Orbit(ring_radius) 
+   } 
+   cylinder {
+      <0, -10, 0>, <0, 10, 0>, hole_radius
+      texture {
+      	      pigment { color rgbt <1,1,1,1> }
+      }
+   }
+}
