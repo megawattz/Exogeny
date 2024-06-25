@@ -79,7 +79,6 @@ def resolve_parameter(name, value, options):
     elif (name == "atmosphere_composition"):
         gases = [
             "carbon_dioxide",
-            "sulfur_dioxide",
             "nitrous_oxide",
             "krypton",
             "hydrogen_iodide",
@@ -89,12 +88,13 @@ def resolve_parameter(name, value, options):
             "TFNM",
             "acetylene",
             "nitrosyl_bromide",
-            "neon",
-            "bromine",
             "water_vapor",
             "nitrogen_dioxide",
             "ammonia",
             "iodine",
+            "sulfur_dioxide",
+            "neon",
+            "bromine",
             "chlorine",
             "ozone",
             "nitrogen",

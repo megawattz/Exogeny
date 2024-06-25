@@ -21,12 +21,12 @@ difference {
       }
       finish {
          diffuse albedo ring_brightness
-         ambient ring_color
+         ambient rgbt <1, 1, 1, 0.8>
       }
       Orbit(ring_radius) 
    } 
    cylinder {
-      <0, -10, 0>, <0, 10, 0>, hole_radius * 1.5
+      <0, -10, 0>, <0, 10, 0>, hole_radius
       texture {
       	      pigment { color rgbt <1,1,1,1> }
       }
