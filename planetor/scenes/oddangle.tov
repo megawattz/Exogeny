@@ -30,7 +30,14 @@ camera {
     }
 }
 
-#declare sunloc = camloc * <-100, -100, -100>;
+#declare sunstatic = camloc * <-100, -100, -100>;
+
+#declare mytransform = transform {
+	 Axis_Rotate_Trans(VPerp_To_Vector(sunstatic), -clock*360)
+};
+
+#declare sunloc = TransformLocation(sunstatic, mytransform);
+
 //#warning concat("camloc is: ", Vstr(camloc, 10, 2), " sunloc is:", Vstr(sunloc, 10, 2))
 
 // Sun
@@ -38,9 +45,6 @@ light_source {
     sunloc
     color 0.6 *  <v_sun_brightness>
     parallel
-    transform {
-      Axis_Rotate_Trans(VPerp_To_Vector(sunloc), -clock*360)
-    }
 }
 
 // Planet

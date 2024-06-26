@@ -26,5 +26,6 @@ sphere {
          diffuse albedo ring_brightness
       }
    }
+   rotate <0, (v_random_float+clock)*planet_rotate, 0>
    scale<1,1,1>
 }

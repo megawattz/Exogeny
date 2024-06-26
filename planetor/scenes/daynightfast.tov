@@ -29,16 +29,19 @@ camera {
     }
 }
 
-#declare sunloc = camloc * <-100, -140, -100>;
+#declare sunstatic = camloc * <-100, -140, -100>;
+
+#declare mytransform = transform {
+	 Axis_Rotate_Trans(VPerp_To_Vector(sunstatic), -clock*360)
+};
+
+#declare sunloc = TransformLocation(sunstatic, mytransform);
 
 // Sun
 light_source {
     sunloc
     color 0.6 * <v_sun_brightness>
     parallel
-    transform {
-      Axis_Rotate_Trans(VPerp_To_Vector(sunloc), -clock*360)
-    }
 }
 
 // Planet
