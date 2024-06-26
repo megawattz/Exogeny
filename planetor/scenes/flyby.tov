@@ -37,6 +37,8 @@ light_source {
 // Planet
 #declare p_planet_size = v_planet_size;
 #declare planet_rotate = -180;
+#declare planet_rotate_random = v_random_float;
+
 sphere {
     <0,0,0> p_planet_size
     no_reflection
@@ -60,7 +62,7 @@ sphere {
      ambient rgb 0   // to avoid pear shaped planets
    }
    scale<1,1,1>
-   rotate <0, (v_random_float+clock)*planet_rotate, 0>
+   rotate <0, (planet_rotate_random+clock)*planet_rotate, 0>
 }
 
 // Clouds
