@@ -12,6 +12,7 @@
 **/combined/
 **/out*/
 **/archive/
+**/split*/
 **/.git/
 **/node_modules/
 **/collections/

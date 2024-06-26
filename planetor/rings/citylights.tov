@@ -1,0 +1,30 @@
+// City Lights
+#declare ring_color = <%s>;
+#declare ring_radius = %s;
+#declare hole_radius = %s;
+#declare ring_brightness = %s;
+#declare ring_index = %s;
+#declare planet_size = %s;
+
+#declare sundirection = vnormalize(<0,0,0> - sunloc);
+
+#declare citylights = <0, 0, 0> + (sundirection * 0.1);
+
+sphere {
+    citylights planet_size * 1.002
+    no_reflection
+    no_shadow
+    texture {
+        pigment{
+            image_map {
+	        png "citylights.png"
+                map_type 1  // Esfera
+            }
+       }
+       finish {
+         ambient 1
+         diffuse albedo ring_brightness
+      }
+   }
+   scale<1,1,1>
+}

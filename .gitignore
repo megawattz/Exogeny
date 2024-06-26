@@ -12,6 +12,7 @@
 **/logs/*
 **/out/*
 **/archive/*
+**/split*/*
 *key*
 **/website/.git
 **/website/planets/*

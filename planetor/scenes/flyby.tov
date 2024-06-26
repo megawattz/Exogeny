@@ -19,17 +19,17 @@ global_settings{
 #declare hyperbole = (clock+0.01)*(clock+0.01);
 #declare cam_dist = v_planet_size/1.5;
 #declare dist = (cam_dist/hyperbole);
-#declare camloc = <dist, dist, dist>;
+#declare sunloc = <dist, dist, dist>;
 
 camera {
-    location camloc
+    location sunloc
     rotate <0, v_random_float * 180 - 90, v_camera_angle>
-    look_at -camloc
+    look_at -sunloc
 }
 
 // Sun
 light_source {
-    camloc
+    sunloc
     color <v_sun_brightness> * 0.7
     spotlight
 }

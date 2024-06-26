@@ -22,9 +22,11 @@ camera {
     rotate <0, v_random_float * 90, v_camera_angle>
 }
 
+#declare sunloc = 100 * <v_camera_location>;
+
 // Sun
 light_source {
-    100 * <v_camera_location>
+    sunloc
     color <v_sun_brightness>
     spotlight
 }
