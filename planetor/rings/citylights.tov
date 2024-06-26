@@ -11,7 +11,7 @@
 #declare citylights = <0, 0, 0> + (sundirection * 0.1);
 
 sphere {
-    citylights planet_size * 1.0001
+    <0, 0, 0> planet_size
     no_reflection
     no_shadow
     texture {
@@ -26,6 +26,7 @@ sphere {
          diffuse albedo ring_brightness
       }
    }
-   Axis_Rotate_Trans(sundirection, (planet_rotate_random+clock) * planet_rotate)
+   rotate <0, (v_random_float+clock)*planet_rotate, 0>
+   translate sundirection * 0.001   
    scale<1,1,1>
 }
