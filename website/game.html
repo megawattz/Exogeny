@@ -96,9 +96,7 @@
 	  
 	  <hr />
 	  <div id="itemlist" class="statstable">
-	    <span id="planetlistheader"class="statsheader"></span>
-	    <div id="planetlist">
-	    </div>
+	    <a href="mygallery.html">My Planets in this Sector</a>
 	  </div>
 	  
 	</div>
@@ -205,20 +203,6 @@
 	  html += data;
 	  html += '</table>\n';
 	  basestatstable.innerHTML = html;
-
-	  var civ = {};
-	  planetlistheader.innerHTML = `Your Planets in ${sector} Sector`;
-	  data = `<table class="statstable"><tr><th class="statlabel">#</th><th class="statvalue">Wealth</th><th class="statvalue">Tech</th></tr>\n`;
-	  Object.entries(Planets).forEach(([index, planet]) => {
-	      data += `<tr class="statsrow">
-			<td class="statlabel">${index}</td>
-			<td class="statvalue">${civ.tritanium44 || 0}</td>
-			<td class="statvalue">${civ.techlevel || 0}</td>
-			<td class="statvalue"><a href="#${index}">${planet.name}</a></td>
-			</tr>`;
-	  });
-	  data += '</table>\n';
-	  planetlist.innerHTML = data;
       }
       
       fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })

@@ -115,13 +115,13 @@
 		  });
 		  upperRight.appendChild(lifeformIcon);
 
-		  let lowerLeft = document.createElement("div");
-		  lowerLeft.innerHTML = `<a title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.sectors[sector].contract).replace('tokenid', planet.tokenid)}">
-			${utils.titleize(planet.attribmap.parent_star)}
-			</a>`;
-		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
-		  planetDiv.appendChild(lowerLeft);
-		      
+		  lowerLeft.innerHTML = `<a title="Play" href="game.html#${index}">
+                       ${utils.titleize(planet.attribmap.name)}
+                       ${planet.name}
+                        </a>`;
+                  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
+                  planetDiv.appendChild(lowerLeft);
+                      
 		  let lowerRight = document.createElement("div");	
 		  lowerRight.innerHTML = `<span>${planet.attribmap.orbital_position}<span>`;
 		  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
