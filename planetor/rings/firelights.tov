@@ -1,0 +1,32 @@
+// Fire Lights
+#declare ring_color = <%s>;
+#declare ring_radius = %s;
+#declare hole_radius = %s;
+#declare ring_brightness = %s;
+#declare ring_index = %s;
+#declare planet_size = %s;
+
+#declare sundirection = vnormalize(<0,0,0> - sunloc);
+
+#declare citylights = <0, 0, 0> + (sundirection * 0.1);
+
+sphere {
+    <0, 0, 0> planet_size
+    no_reflection
+    no_shadow
+    texture {
+        pigment{
+            image_map {
+	        png "firelights.png"
+                map_type 1  // Esfera
+            }
+       }
+       finish {
+         ambient 1
+         diffuse albedo ring_brightness
+      }
+   }
+   rotate <0, (planet_rotate_random+clock)*planet_rotate, 0>
+   translate sundirection * 0.001   
+   scale<1,1,1>
+}
