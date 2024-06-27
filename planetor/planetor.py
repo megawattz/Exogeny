@@ -641,7 +641,7 @@ def DefaultOptions():
         "camera_angle": randomlist(["45","-45"]),
         "camera_look_at": '0,0,0',
         "sun_brightness": '6,6,6',
-        "camera_location":  "-40,-40,-40",
+        "camera_location":  "-40,-40,-60",
         "planet_size": 20,
         "background": None,
         "planet": None,

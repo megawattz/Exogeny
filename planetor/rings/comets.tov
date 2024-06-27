@@ -1,4 +1,4 @@
-// Ring Cloudy
+// Ring Comets
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius =  %s;
@@ -15,19 +15,19 @@ difference {
             image_map {
 	       png "trans_23_clouds.png"
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness - 0.1
+	       transmit all ring_brightness - 0.2
 	       once
             }
          }
       }
       finish {
-         diffuse albedo ring_brightness
-	 ambient rgbt <1, 1, 1, 0.5>
+         diffuse albedo 1
+	 //ambient ring_color
       }
       Orbit(ring_radius) 
    } 
    cylinder {
-      <0, -10, 0>, <0, 10, 0>, hole_radius
+      <0, -10, 0>, <0, 10, 0>, hole_radius * 1.2
       texture {
       	      pigment { color rgbt <1,1,1,1> }
       }

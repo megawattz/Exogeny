@@ -195,6 +195,7 @@ function getAtmosphere(name) {
 }
 
 const Extras = [
+    "spooky alien landscape",
     "meteors",
     "bubbles of colored gas",
     "stormy",
@@ -359,7 +360,8 @@ function Run() {
 	   prompt = `
 	   three to five photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera))))
 	   ${getAtmosphere(params['atmosphere'])} sky, clouds
-	   background dramatic, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} and ${getExtra()}
+	   background dramatic, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} 
+           and ${getExtra()} and ${getExtra()}
  	   ${getAction()} ((Safe for Work)) head and body same skin type and color
 	   perfectly round eye iris
 	   ((each individual should be slightly unique from each other))

@@ -96,7 +96,9 @@
 	  
 	  <hr />
 	  <div id="itemlist" class="statstable">
-	    <a href="mygallery.html">My Planets in this Sector</a>
+	    <span id="planetlistheader"class="statsheader"></span>
+	    <div id="planetlist">
+	    </div>
 	  </div>
 	  
 	</div>
@@ -125,7 +127,7 @@
       function handleFragmentChange() {
 	  let fragment = window.location.hash;
 	  let index = fragment.replace('#', '');
-	  Update(Planets[index]);
+	  Update(Planets[Number(index)]);
       }
       
       async function Update(planet) {
@@ -203,14 +205,29 @@
 	  html += data;
 	  html += '</table>\n';
 	  basestatstable.innerHTML = html;
+
+	  var civ = {};
+	  planetlistheader.innerHTML = `Your Planets in ${sector} Sector`;
+	  data = `<table class="statstable"><tr><th class="statlabel">#</th><th class="statvalue">Wealth</th><th class="statvalue">Tech</th></tr>\n`;
+	  Object.entries(Planets).forEach(([index, planet]) => {
+	      data += `<tr class="statsrow">
+			<td class="statlabel">${index}</td>
+			<td class="statvalue">${civ.tritanium44 || 0}</td>
+			<td class="statvalue">${civ.techlevel || 0}</td>
+			<td class="statvalue"><a href="#${index}">${planet.name}</a></td>
+			</tr>`;
+	  });
+	  data += '</table>\n';
+	  planetlist.innerHTML = data;
       }
       
-      fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    .then((response) => response.json())
-    .then((data) => exogeny.LoadConfig(data))
-    .catch(console.log)
+      await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+    	.then((response) => response.json())
+    	.then((data) => exogeny.LoadConfig(data))
+    	.catch(console.log)
+      
       var wallet = await web3utils.WalletAddress();
-      var contractAddress = "0x9c46ce465e14fc0c172e6daa836431180f5b4ba2";
+      var contractAddress = exogeny.SectorToSectorData(web3utils.getCookie("sector"));
       web3utils.GetNFTs(wallet, contractAddress).then(
 	  (nfts)=>{ Planets = nfts; Update(nfts[0]) }
       ).catch(console.error);
