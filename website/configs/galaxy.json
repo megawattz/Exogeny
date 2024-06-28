@@ -11,7 +11,7 @@
     "sectors" : {
 	"concord":{
 	    "Description":"Planets of the Celestial Concord",
-	    "contract":"0xae20E397ED15644013aC3Ae19F3102a735c9Ea72f",
+	    "contract":"0xae20e397ed15644013ac3ae19f3102a735c9ea72",
 	    "opensea_collection":"https://testnets.opensea.io/collection/cloud-27",
 	    "chain":"sepolia",
 	    "chainid":"0xaa36a7",
