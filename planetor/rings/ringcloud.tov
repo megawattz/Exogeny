@@ -13,7 +13,7 @@
       texture {
          pigment {
             image_map {
-               png "ringclouds.png"
+               png "ringcloud.png"
                map_type 1 interpolate 4 // Esfera
                transmit all ring_brightness
                once
@@ -35,7 +35,7 @@ sphere {
       texture {
          pigment {
             image_map {
-               png "ringclouds.png"
+               png "ringcloud.png"
                map_type 1 interpolate 4 // Esfera
                transmit all ring_brightness
                once
