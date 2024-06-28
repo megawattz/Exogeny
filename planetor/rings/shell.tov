@@ -45,7 +45,7 @@ sphere {
       }
       finish {
          diffuse albedo ring_brightness
-         ambient rgb <v_random_color>
+         ambient ring_color
       }
       Orbit(ring_index * 22)
 }
