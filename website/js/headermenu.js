@@ -92,7 +92,7 @@ document.getElementById("navheader").innerHTML = `
 
 var Config = {};
 
-let currentSector = getCookie("sector") || "vortexis";
+let currentSector = getCookie("sector") || "concord";
 setCookie("sector", currentSector);
 
 await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })

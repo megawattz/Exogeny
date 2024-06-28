@@ -9,6 +9,14 @@
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
     "ipfs_gateway": "https://ipfs.io/",
     "sectors" : {
+	"concord":{
+	    "Description":"Planets of the Celestial Concord",
+	    "contract":"0xae20E397ED15644013aC3Ae19F3102a735c9Ea72f",
+	    "opensea_collection":"https://testnets.opensea.io/collection/cloud-27",
+	    "chain":"sepolia",
+	    "chainid":"0xaa36a7",
+	    "name":"Planets of the Celestial Concord"
+	},
 	"draco":{
 	    "Description":"Planets of the Draconis Belt",
 	    "contract":"0x9a43630ac827dbe3155a5900d769e019403c0f13",
