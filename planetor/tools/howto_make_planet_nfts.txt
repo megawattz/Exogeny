@@ -67,3 +67,4 @@ contract address, which is dynamically assigned, before you deploy the NFTs
   that, which uploads the collection metadata to IPFS, and writes the URLs involved into a json file. Grab the URL
   directly and call the contract function setContractURI.
       
+* Create a datafile to be used by the website by running "galaxy"
