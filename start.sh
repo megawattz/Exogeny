@@ -10,7 +10,7 @@ mkdir -p planetor/out
 
 ( # subshell
     cd contracts/NFT/.workspaces/PlaneteerNFT/contracts
-    remixd -H 0.0.0.0 &
+    remixd &
 )
 
 # copy saved credentials to /root directory which only exists at runtime
