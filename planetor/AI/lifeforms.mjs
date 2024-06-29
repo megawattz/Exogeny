@@ -76,6 +76,7 @@ const Descriptions = {
 	"alien looking insects standing upright studying reading materials, wearing adornment",
 	"alien crusaceans like exotically formed crabs, lobsters and crawfish using primitive tools made from underwater materials, wearing adornment",
 	"alien spiders using tools, wearing adornment befitting spiders",
+	"alien creatures based on, but not exactly like, the attackers from a quite place",
 	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
     ],
     "Reptilian":[
