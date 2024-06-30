@@ -106,7 +106,10 @@ await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
 	    item.style.cssText = "color: white";
 	    item.className = "dropdown-item";
 	    let href = document.createElement("a")
-	    href.addEventListener('click', function () {setCookie("sector", sector)})
+	    href.addEventListener('click', function () {
+		setCookie("sector", sector);
+		window.location.href = "gallery.html";
+	    })
 	    href.text = titleize(sector);
 	    Object.assign(href.style, {textDecoration: "none"});
 	    if (sector == currentSector)

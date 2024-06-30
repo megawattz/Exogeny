@@ -8,10 +8,10 @@
 
 #declare sundirection = vnormalize(<0,0,0> - sunloc);
 
-#declare citylights = <0, 0, 0> + (sundirection * 0.1);
+#declare citylights = <0, 0, 0>;
 
 sphere {
-    <0, 0, 0> planet_size
+    <0, 0, 0> planet_size * 1.01
     no_reflection
     no_shadow
     texture {
@@ -27,6 +27,6 @@ sphere {
       }
    }
    rotate <0, (planet_rotate_random+clock)*planet_rotate, 0>
-   translate sundirection * 0.001   
+   translate sundirection * 1.01
    scale<1,1,1>
 }

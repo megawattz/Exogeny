@@ -39,7 +39,7 @@ export const exogeny = {
     },
     LoadConfig: function(config) {
 	exogeny.ConfigData = config;
-	Object.entries(config.sectors).forEach([sector, info] => {
+	Object.entries(config.sectors).forEach(([sector, info]) => {
 	    exogeny.ContractToSector[info.contractid] = info;
 	    exogeny.SectorToContract[sector] = info;
 	});

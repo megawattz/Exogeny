@@ -61,10 +61,10 @@
 		<img id="lifeformIcon" style="pointer-events: auto; z-index: 30; height: 100%;">
 	      </div>
 
-	      <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 2%; left: 4%;">
+	      <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 6%; left: 4%;">
 	      </div>
 
-	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 2%; right: 4%;">
+	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 4%;">
 	      </div>
 
 	    </div>
@@ -227,7 +227,7 @@
     	.catch(console.log)
       
       var wallet = await web3utils.WalletAddress();
-      var contractAddress = exogeny.SectorToSectorData(web3utils.getCookie("sector"));
+      var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       web3utils.GetNFTs(wallet, contractAddress).then(
 	  (nfts)=>{ Planets = nfts; Update(nfts[0]) }
       ).catch(console.error);
