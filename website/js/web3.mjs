@@ -161,5 +161,40 @@ export const web3utils = {
 	}
 	await Promise.all(promises)
 	return NFTmetadata;	
+    },
+    fetchNFTs: async function(wallet, contractAddress, callback)
+    {
+	// get the metadata base URL on the IPFS file system
+	let abi = [ "function uri(uint256 _id) external view returns (string memory)" ];
+	const nftsURI = await web3utils.CallFunction(contractAddress, abi, "uri", 0);
+	//console.log(`Contract IPFS base URL: ${nftsURI}`);
+
+	// get a list of NFTs owned by this user
+	abi = ["function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"];
+	const nfts = Array.from({ length: 200 }, (_, i) => i + 1);
+	let accounts = [];
+	nfts.forEach(() => {
+	    accounts.push(wallet);
+	});
+	const allNFTs = await web3utils.CallFunction(contractAddress, abi, "balanceOfBatch", accounts, nfts);
+	//console.log(`All NFTS: ${allNFTs}`);
+	let ownedNFTs = []
+	for (let id in allNFTs) {
+	    const count = parseInt(allNFTs[id]._hex, 16);
+	    if ( count > 0)
+		ownedNFTs.push(id);
+	}
+	//console.log(`Owned NFTS: ${ownedNFTs}`);
+	//console.log(`Owned NFTS: ${ownedNFTs.length}`);
+	// get the metadata associated with each NFT
+	for (let nftid in ownedNFTs) {
+	    let idstring = nftid.toString();
+	    let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
+	    //console.log(url);
+      	    let p = fetch(url)
+		.then(response => response.json())
+		.then((data) => NFTmetadata.push(data))
+		.catch(console.error); // NFTmetadata.push).catch(console.error);
+	}
     }
 }
