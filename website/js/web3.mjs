@@ -162,7 +162,7 @@ export const web3utils = {
 	await Promise.all(promises)
 	return NFTmetadata;	
     },
-    fetchNFTs: async function(wallet, contractAddress, callback)
+    FetchNFTs: async function(wallet, contractAddress, callback)
     {
 	// get the metadata base URL on the IPFS file system
 	let abi = [ "function uri(uint256 _id) external view returns (string memory)" ];
@@ -187,14 +187,42 @@ export const web3utils = {
 	//console.log(`Owned NFTS: ${ownedNFTs}`);
 	//console.log(`Owned NFTS: ${ownedNFTs.length}`);
 	// get the metadata associated with each NFT
+	const NFTmetadata = [];
 	for (let nftid in ownedNFTs) {
 	    let idstring = nftid.toString();
 	    let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
 	    //console.log(url);
       	    let p = fetch(url)
 		.then(response => response.json())
-		.then((data) => NFTmetadata.push(data))
+	    	.then(callback)
 		.catch(console.error); // NFTmetadata.push).catch(console.error);
 	}
-    }
+    },
+    FetchNFT: async function(wallet, contractAddress, tokenid, callback)
+    {
+	// get the metadata base URL on the IPFS file system
+	let abi = [ "function uri(uint256 _id) external view returns (string memory)" ];
+	const nftsURI = await web3utils.CallFunction(contractAddress, abi, "uri", 0);
+	//console.log(`Contract IPFS base URL: ${nftsURI}`);
+
+	// get a list of NFTs owned by this user
+	abi = ["function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"];
+	const nfts = [tokenid]
+	let accounts = [wallet];
+	const allNFTs = await web3utils.CallFunction(contractAddress, abi, "balanceOfBatch", accounts, nfts);
+	//console.log(`All NFTS: ${allNFTs}`);
+	let ownedNFTs = []
+	for (let id in allNFTs) {
+	    const count = parseInt(allNFTs[id]._hex, 16);
+	    if ( count > 0)
+		ownedNFTs.push(id);
+	}
+	let nftid = ownedNFTs[0]
+	let idstring = nftid.toString();
+	let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
+      	let p = fetch(url)
+	    .then(response => response.json())
+	    .then(callback)
+	    .catch(console.error); // NFTmetadata.push).catch(console.error);
+    }	
 }

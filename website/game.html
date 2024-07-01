@@ -126,18 +126,26 @@
 
       function handleFragmentChange() {
 	  let fragment = window.location.hash;
-	  let index = fragment.replace('#', '');
-	  Update(Planets[Number(index)]);
+	  let tokenid = Number(fragment.replace('#', ''));
+	  if (!Planets[tokenid])
+	      web3utils.FetchNFT(wallet, contractAddress, tokenid, Update);
+      }
+
+      function UpdatePlanets(planet) {
+	  Planets[tokenid] = planet;
       }
       
       async function Update(planet) {
-	  if (currentPlanetIndex < 0)
-	      currentPlanetIndex = Planets.length - 1;
-	  if (currentPlanetIndex > (Planets.length - 1))
-	      currentPlanetIndex = 0;
-	  
-	  if (!planet)
-	      planet = Planets[currentPlanetIndex];
+	  if (!planet) {
+	      if (currentPlanetIndex < 0)
+		  currentPlanetIndex = Planets.length - 1;
+	      if (currentPlanetIndex > (Planets.length - 1))
+		  currentPlanetIndex = 0;
+	      if (!Planets[currentPlanetIndex]) {
+		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex, Update);
+		  return;
+	      }
+	  }
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
@@ -225,13 +233,11 @@
     	.then((response) => response.json())
     	.then((data) => exogeny.LoadConfig(data))
     	.catch(console.log)
-      
+
       var wallet = await web3utils.WalletAddress();
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
-      web3utils.GetNFTs(wallet, contractAddress).then(
-	  (nfts)=>{ Planets = nfts; Update(nfts[0]) }
-      ).catch(console.error);
-
+      Update();
+      
       function parseQuery(query, destination) {
 	  var rval = destination || {};
 	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {

@@ -11,7 +11,7 @@
 #declare citylights = <0, 0, 0>;
 
 sphere {
-    <0, 0, 0> planet_size * 1.01
+    <0, 0, 0> planet_size * 1.001
     no_reflection
     no_shadow
     texture {
