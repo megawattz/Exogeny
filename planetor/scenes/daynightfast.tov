@@ -51,6 +51,7 @@ light_source {
 sphere {
     <0,0,0> p_planet_size
     no_reflection
+    no_shadow
     texture {
         pigment{
             image_map {
