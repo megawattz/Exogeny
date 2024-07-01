@@ -28,7 +28,7 @@
       Orbit(ring_index * 20)
 }
 
-sphere {
+  sphere {
       <0, 0, 0>, ring_radius * 2.001
       no_shadow
       no_reflection
