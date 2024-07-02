@@ -21,10 +21,10 @@ difference {
          }
       }
       finish {
-         diffuse albedo	-ring_brightness
+         diffuse albedo	ring_brightness
 	 ambient ring_color
       }
-      Orbit(ring_radius) 
+      Orbit(ring_index * 20) 
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, hole_radius

@@ -28,5 +28,5 @@ disc
          //ambient ring_color
       }
     }
-    Orbit(ring_radius) 
+    Orbit(ring_index * 20) 
 }

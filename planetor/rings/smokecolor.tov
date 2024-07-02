@@ -27,5 +27,5 @@ disc
          diffuse albedo -ring_brightness
       }
     }
-    Orbit(ring_radius) 
+    Orbit(ring_index * 20) 
 }
