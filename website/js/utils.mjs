@@ -181,7 +181,7 @@ export function fromRomanEmbedded(str) {
 	return " " + fromRoman(roman);
     }
     
-    let rval = str.replace(/(\s)([xiv]+)/gi, romanOnly);
+    let rval = str.replace(/(\s)([xiv]*[xiv]+)(?![a-hj-u])/gi, romanOnly);
     return rval;
 }
 
