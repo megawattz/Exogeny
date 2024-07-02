@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>ExoPlaneteer - My Planets</title>
+    <title>ExoPlaneteer - Play</title>
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta charset="utf-8">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbars/">
@@ -142,7 +142,8 @@
 		  currentPlanetIndex = Planets.length - 1;
 	      if (currentPlanetIndex > (Planets.length - 1))
 		  currentPlanetIndex = 0;
-	      if (!Planets[PlanetIds[currentPlanetIndex]]) {
+	      planet = Planets[PlanetIds[currentPlanetIndex]];
+	      if (!planet) {
 		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
 		      .then((nft) => {
 			  Planets[PlanetIds[currentPlanetIndex]] = nft;
