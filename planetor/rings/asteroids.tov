@@ -28,7 +28,7 @@ difference {
             }
          }
       }
-      Orbit(ring_index * 15) 
+      Orbit(ring_index * 20) 
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size * (1.2 + v_random_float)
