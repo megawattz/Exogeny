@@ -109,7 +109,8 @@
       import {exogeny} from './js/exogeny.mjs';
       import {web3utils} from './js/web3.mjs';
 
-      var Planets = [];
+      var Planets = {};
+      var PlanetIds = [];
       var Civilizations = [];
       var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
@@ -141,8 +142,13 @@
 		  currentPlanetIndex = Planets.length - 1;
 	      if (currentPlanetIndex > (Planets.length - 1))
 		  currentPlanetIndex = 0;
-	      if (!Planets[currentPlanetIndex]) {
-		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex, Update);
+	      if (!Planets[PlanetIds[currentPlanetIndex]]) {
+		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
+		      .then((nft) => {
+			  Planets[PlanetIds[currentPlanetIndex]] = nft;
+			  Update(nft)
+		      })
+		      .catch(console.error);
 		  return;
 	      }
 	  }
@@ -236,6 +242,7 @@
 
       var wallet = await web3utils.WalletAddress();
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
+      PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       Update();
       
       function parseQuery(query, destination) {
