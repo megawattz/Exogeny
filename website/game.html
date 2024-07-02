@@ -139,11 +139,18 @@
       async function Update(planet) {
 	  if (!planet) {
 	      if (currentPlanetIndex < 0)
-		  currentPlanetIndex = Planets.length - 1;
-	      if (currentPlanetIndex > (Planets.length - 1))
+		  currentPlanetIndex = PlanetIds.length - 1;
+	      if (currentPlanetIndex > (PlanetIds.length - 1))
 		  currentPlanetIndex = 0;
 	      planet = Planets[PlanetIds[currentPlanetIndex]];
 	      if (!planet) {
+		  // get the next NFT ahead of time
+		  if (!Planets[PlanetIds[currentPlanetIndex + 1]]) {
+		      web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex + 1)
+			  .then((nft) => Planets[PlanetIds[currentPlanetIndex + 1]] = nft)
+			  .catch(console.error);
+		  }
+		  // get our current one and display it
 		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
 		      .then((nft) => {
 			  Planets[PlanetIds[currentPlanetIndex]] = nft;
