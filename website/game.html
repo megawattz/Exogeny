@@ -42,10 +42,11 @@
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" title="Previous planet" onclick="document.prev()" style="pointer-events: auto; position: fixed; top: 40%; left:  2%; z-index: 30; color: white; font-size: 8vw;">
+	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 75%; left: 4%;">
 	    &lt<img style="height: 8vh" src="image/planet_icon1.png">
 	  </span>
-	  <span id="next" title="Next planet"     onclick="document.next()" style="pointer-events: auto; position: fixed; top: 40%; right: 2%; z-index: 30; color: white; font-size: 8vw;">
+	  
+	  <span id="next" title="Next planet"     onclick="document.next()" class="arrowplanet" style="top: 75%; right: 4%;">
 	    <img style="height: 8vh" src="image/planet_icon2.png">&gt
 	  </span>
 	  
@@ -54,7 +55,6 @@
 	    
 	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
 		   	style="z-index: -10; height: 96%; border-radius: 2vw;"></video>
-
 	    <div id="controldiv" style="postion: relative; max-width: 1024px; height: 96%">
 		 
 	      <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
@@ -78,8 +78,16 @@
 	    </div>
 	  </div>
 	</div>
-	
+	<div>
+	  <span title="Show all my planets" class="statsheader"><a href="mygallery.html"><img src="image/planet_list.png"></a></span>
+	</div>
 	<div id="planetdata" class="row events" >
+	  <hr />
+	  <div id="planetstats" class="statstable">
+	    <span id="planetname" class="statsheader"></span>
+	    <div id="basestatstable" class="statstable">
+	    </div>
+	  </div>
 	  <hr />
 	  <div>
 	    <span class="statsheader">Latest Events</span>
@@ -91,20 +99,6 @@
 	  <div id="civilization" class="statstable">
 	    <span class="statsheader">Civilization</span>
 	    <div id="civstatstable" class="statstable">
-	    </div>
-	  </div>
-	  
-	  <hr />
-	  <div id="planetstats" class="statstable">
-	    <span id="planetname" class="statsheader"></span>
-	    <div id="basestatstable" class="statstable">
-	    </div>
-	  </div>
-	  
-	  <hr />
-	  <div id="itemlist" class="statstable">
-	    <span id="planetlistheader"class="statsheader"></span>
-	    <div id="planetlist">
 	    </div>
 	  </div>
 	  
@@ -136,7 +130,7 @@
 	  let fragment = window.location.hash;
 	  let tokenid = Number(fragment.replace('#', ''));
 	  if (!Planets[tokenid])
-	      web3utils.FetchNFT(wallet, contractAddress, tokenid, Update);
+	      web3utils.FetchNFT(wallet, contractAddress, tokenid).then(Update).catch(console.error);
       }
 
       function UpdatePlanets(planet) {
@@ -247,7 +241,7 @@
       var wallet = await web3utils.WalletAddress();
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
-      Update();
+      handleFragmentChange();
       
       function parseQuery(query, destination) {
 	  var rval = destination || {};

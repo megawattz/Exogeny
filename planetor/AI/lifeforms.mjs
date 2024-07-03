@@ -22,7 +22,7 @@ const Negatives = {
     "Fungoid":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Aquatic":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Aerial":"children,adults,teens,child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
-    "Cephalapoid":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
+    "Cephalopoid":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Insectoid":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Reptilian":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit,human",
     "Quadruped":"child,children,human,torso,woman,people,men,women,man,person,gun,soldier,business suit,((nudity)),((naked)),((ugly)), ((morbid)), ((mutilated)), [out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck)))",
@@ -61,7 +61,7 @@ const Descriptions = {
 	"alien pufferfish as birds, floating in the air",
 	"alien pterodactyls reading books"
     ],
-    "Cephalapoid":[
+    "Cephalopoid":[
 	"large, alien multilegged octopus using tools devices halfway submerged",
 	"large, alien steampunk jellyfish with many tentacles halfway submerged using tools",
 	"large, alien multilegged squid with primitive tools in arms halfway submerged",

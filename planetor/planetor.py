@@ -215,7 +215,7 @@ def resolve_parameter(name, value, options):
     elif (name == "lifeform"):
         planet_type = options.get('planet_type')
         if planet_type and planet_type == "aquatic":
-            options['lifeform'] = randomlist(["Cephalapoid","Aquatic"])
+            options['lifeform'] = randomlist(["Cephalopoid","Aquatic"])
         else:
             #options['lifeform'] = value or exprandomline(LifeForms, 1.0)
             options['lifeform'] = value or exprandomline(LifeForms, 1.4)
@@ -510,7 +510,7 @@ def make_query(selectables):
     return query
 
 Chemistry = ['carbon','ammonia','arsenic','borane','hydrogen_sulfide','methane','silicon','sulfur','retinal']
-LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalapoid','Human','Aerial','Insectoid','Reptilian','Humanoid','Quadruped']
+LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Human','Aerial','Insectoid','Reptilian','Humanoid','Quadruped']
 
 # Database Operations (the file backing store will be replaced with Redis or Mongo)
 DatabaseDirectory = "/app/planetor/out"
