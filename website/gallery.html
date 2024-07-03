@@ -93,12 +93,13 @@
 		  });
 
 		  let ipfsURL = fixupIPFS(planet.planet_video);
-		  planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" poster="planets/planet_${identity}.gif"></video>`;
+		  planetDiv.innerHTML = `<video id="planetVideo" style="width: 100%"; class="galleryVideo" onclick="this.paused ? play() : pause();" 
+					loop="loop" preload="none" src="${ipfsURL}" poster="planets/planet_${identity}.gif"></video>`;
 		  Planets[identity] = planetDiv;
 		  
 		  let upperLeft = document.createElement("div");
 		  upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
-		  Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
+		  Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%", width: "12%"});
 		  planetDiv.appendChild(upperLeft);
     
 		  let upperRight = document.createElement("div");
