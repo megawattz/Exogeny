@@ -32,29 +32,33 @@
   </head>
 
   <body style="width: 100%; height: auto; margin: 0 auto; background-color: black;">
-    <div class="hover-area"></div>
+    <div class="hover-area"  title="My Planets"></div>
     <div class="hidden-div" id="smallmenu">
-      <a href="home.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a>
+      <a href="mygallery.html"><img id="myplanets" src="image/planet_list.png" style="width: 20vw"></a>
+      <!--a href="mygallery.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a-->
     </div>
     <div class="container-fluid">
       <div class="row">
-	<div style="display: flex; height: 100vh; position: relative; 
+	<div style="display: flex; width: 100vw; position: relative; 
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 75%; left: 4%;">
+	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 70%; left: 4%;">
 	    &lt<img style="height: 8vh" src="image/planet_icon1.png">
 	  </span>
 	  
-	  <span id="next" title="Next planet"     onclick="document.next()" class="arrowplanet" style="top: 75%; right: 4%;">
+	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 70%; right: 4%;">
 	    <img style="height: 8vh" src="image/planet_icon2.png">&gt
 	  </span>
 	  
-	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100%; height: 96%; padding: 0; margin: 0; display: flex; color: white; font-size: 2vw;
+	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100%; height: 96%; 
+					 padding: 0; margin: 0; display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	    
 	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
-		   	style="z-index: -10; height: 96%; border-radius: 2vw;"></video>
+		   style="z-index: -10; width: 96%; border-radius: 2vw;">
+	    </video>
+	    
 	    <div id="controldiv" style="postion: relative; max-width: 1024px; height: 96%">
 		 
 	      <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
@@ -62,7 +66,7 @@
 
 	      <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
 	      
-	      <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%;";>
+	      <div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%;">
 		<img id="lifeformIcon" style="pointer-events: auto; z-index: 30; height: 100%;">
 	      </div>
 
@@ -78,9 +82,6 @@
 	    </div>
 	  </div>
 	</div>
-	<div>
-	  <span title="Show all my planets" class="statsheader"><a href="mygallery.html"><img src="image/planet_list.png"></a></span>
-	</div>
 	<div id="planetdata" class="row events" >
 	  <hr />
 	  <div id="planetstats" class="statstable">
@@ -88,6 +89,7 @@
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
+	  
 	  <hr />
 	  <div>
 	    <span class="statsheader">Latest Events</span>
@@ -223,6 +225,7 @@
 	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
 
 	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
+	  
 	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  let html = '<table class="statstable">\n';
 	  html += data;
