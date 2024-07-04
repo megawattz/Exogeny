@@ -37,68 +37,71 @@
       <a href="mygallery.html"><img id="myplanets" src="image/planet_list.png" style="width: 30vw"></a>
       <!--a href="mygallery.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a-->
     </div>
-    <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin: 0; padding: 0;
-		border-radius: 2vw;  overflow: hidden;">
-
-      <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 40%; left: 4%;">
-	&lt<img style="height: 8vh" src="image/planet_icon1.png">
-      </span>
-      
-      <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 40%; right: 4%;">
-	<img style="height: 8vh" src="image/planet_icon2.png">&gt
-      </span>
-      
-      <div id="planetDisplay" style="pointer-events: auto; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-				     padding: 0; margin: 0; color: white; font-size: 2vw;
-				     border-radius: 2vw; overflow: hidden;">
+    <div class="container-fluid">
+      <div class="row">
+	<div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; margin: 0; padding: 0;
+		    border-radius: 2vw;  overflow: hidden;">
+	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 40%; left: 4%;">
+	  &lt<img style="height: 8vh" src="image/planet_icon1.png">
+	  </span>
 	
-	<video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
-	       style="position: absolute; top: 0; left: 0; z-index: -10; width: 100%; padding: 0; margin: 0, border-radius: 2vw;">
-	</video>
+	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 40%; right: 4%;">
+	    <img style="height: 8vh" src="image/planet_icon2.png">&gt
+	  </span>
 	
-	<div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="position: absolute; top:1%; left: 4%;">
-	</div>
+	  <div id="planetDisplay" style="pointer-events: auto; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+					 padding: 0; margin: 0; color: white; font-size: 2vw;
+					 border-radius: 2vw; overflow: hidden;">
+	    
+	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
+		   style="position: absolute; top: 0; left: 0; z-index: -10; width: 100%; padding: 0; margin: 0, border-radius: 2vw;">
+	    </video>
+	    
+	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="position: absolute; top:1%; left: 4%;">
+	    </div>
 
-	<img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
-	
-	<div id="upperRight" style="position: absolute; height: 12%; width: 12%; top: 2%; right: 2%;">
-	  <img id="lifeformIcon" style="pointer-events: auto; z-index: 30; height: 100%;">
-	</div>
+	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
+	    
+	    <div id="upperRight" style="position: absolute; width: 10%; top: 2%; right: 2%;">
+	      <img id="lifeformIcon" style="pointer-events: auto; z-index: 30; width: 100%;">
+	    </div>
 
-	<div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 6%; left: 4%;">
-	</div>
+	    <div id="lowerLeft" class="videolabel" style="position: absolute; bottom: 6%; left: 4%;">
+	    </div>
 
-	<div id="lowerMiddle" class="videolabel" style="position: absolute; bottom: 16%; left: 4%;">
-	</div>
-	
-	<div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 8%;">
+	    <div id="lowerMiddle" class="videolabel" style="position: absolute; bottom: 16%; left: 4%;">
+	    </div>
+	    
+	    <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 8%;">
+	    </div>
+	  </div>
 	</div>
       </div>
     </div>
-    <p>
-    <div id="planetdata" class="row events" >
-      <hr />
-      <div id="planetstats" class="statstable">
-	<span id="planetname" class="statsheader"></span>
-	<div id="basestatstable" class="statstable">
-	</div>
-      </div>
-      
-      <hr />
-      <div>
-	<span class="statsheader">Latest Events</span>
-	<div id="eventlist" class="eventlist">
-	</div>
-      </div>
-      
-      <hr />
-      <div id="civilization" class="statstable">
-	<span class="statsheader">Civilization</span>
-	<div id="civstatstable" class="statstable">
-	</div>
-      </div>
-      
+</div>
+<div id="planetdata" class="row events" style="position: relative;" >
+  <hr />
+  <div id="planetstats" class="statstable">
+    <span id="planetname" class="statsheader"></span>
+    <div id="basestatstable" class="statstable">
     </div>
+  </div>
+  
+  <hr />
+  <div>
+    <span class="statsheader">Latest Events</span>
+    <div id="eventlist" class="eventlist">
+    </div>
+  </div>
+  
+  <hr />
+  <div id="civilization" class="statstable">
+    <span class="statsheader">Civilization</span>
+    <div id="civstatstable" class="statstable">
+    </div>
+  </div>
+  
+</div>
 </div>
 </div>
 <script type="module">
