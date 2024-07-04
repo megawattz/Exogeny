@@ -29,6 +29,7 @@
       <div>
 	<script type="module">
 	  import * as utils from './js/utils.mjs';
+	  import {exogeny} from './js/exogeny.mjs';
 	  
 	  var Planets = {};
 	  
@@ -111,6 +112,7 @@
 		  planetDiv.appendChild(lifeformImage);
 		  
 		  let lifeformIcon = document.createElement("img");
+
 		  lifeformIcon.src = `image/${planet.lifeform}.png`;
 		  Object.assign(lifeformIcon.style, {height: "100%"});
 		  lifeformIcon.lifeformImage = lifeformImage;

@@ -362,7 +362,7 @@ function Run() {
 three to five photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera))))
 ${getAction()} 
 ${getAtmosphere(params['atmosphere'])} sky, clouds
-surrealistic background dramatic, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} 
+dramatic background, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} 
 and ${getExtra()} and ${getExtra()}
 ((Safe for Work)) head and body same skin type and color
 perfectly round eye iris

@@ -26,11 +26,14 @@ export const exogeny = {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
 	if (!planet.attribmap) {
-	    planet.attribmap = {}
+	    planet.attribmap = planet.attribmap || {};
 	    for (let val of planet.attributes) {
 		planet.attribmap[val.trait_type] = val.value;
 	    }	
 	}
+	if (!format)
+	    return planet.attribmap;
+	
 	map.forEach(function(map) {
 	    const value = planet.attribmap[map.key];
 	    readout += utils.sprintf(format, map.value, utils.titleize(value));
@@ -51,5 +54,3 @@ export const exogeny = {
 	return exogeny.ContractToSector[contractId] || "unknown_contract " + contractId;
     }
 }
-
-
