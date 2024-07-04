@@ -44,12 +44,12 @@
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 40%; left: 4%;">
-	    &lt<img style="height: 8vh" src="image/planet_icon1.png">
+	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
+	    &lt<!--img style="height: 8vh" src="image/planet_icon1.png"-->
 	  </span>
 	  
-	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 40%; right: 4%;">
-	    <img style="height: 8vh" src="image/planet_icon2.png">&gt
+	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 4%;">
+	    <!--img style="height: 8vh" src="image/planet_icon2.png"-->&gt
 	  </span>
 	  
 	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100%; height: 96%; 
@@ -59,7 +59,6 @@
 	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
 		   style="z-index: -10; width: 100%; margin: 0; padding: 0; border-radius: 2vw;">
 	    </video>
-	    
 	    <div id="controldiv" style="postion: relative; max-width: 1024px; height: 96%">
 		 
 	      <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel" style="align-items: center; position: absolute; top:1%; left: 4%;">
@@ -83,6 +82,7 @@
 	    </div>
 	  </div>
 	</div>
+	    <hr/>
 	<div id="planetdata" class="row events" >
 	  <div id="planetstats" class="statstable">
 	    <span id="planetname" class="statsheader"></span>

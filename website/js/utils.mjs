@@ -120,7 +120,7 @@ export function titleize(sentence) {
 	let fixup = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
 	fixup = fixup.join(' ');
 	// capitalize roman numerals
-	fixup = fixup.replace(/[xiv]*[xiv]+(?![a-hj-u])/gi, (s) => s.toUpperCase());
+	fixup = fixup.replace(/[xiv]*[xiv]+(?![a-hj-uwyz])/gi, (s) => s.toUpperCase());
 	return fixup;
     } catch(exc) {
 	return "";
@@ -184,7 +184,7 @@ export function fromRomanEmbedded(str) {
 	return " " + fromRoman(roman);
     }
     
-    let rval = str.replace(/(\s)([xiv]*[xiv]+)(?![a-hj-u])/gi, romanOnly);
+    let rval = str.replace(/(\s)([xiv]*[xiv]+)(?![a-hj-uwyz])/gi, romanOnly);
     return rval;
 }
 
