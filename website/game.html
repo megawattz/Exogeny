@@ -31,7 +31,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   </head>
 
-  <body style="width: 100%; height: auto; margin: 0 auto; background-color: black;">
+  <body style="width: 100%; height: auto; margin: 0 auto; background-image: url(image/background_stars.jpg);">
     <div class="hover-area"  title="My Planets"></div>
     <div class="hidden-div" id="smallmenu">
       <a href="mygallery.html"><img id="myplanets" src="image/planet_list.png" style="width: 30vw"></a>
@@ -39,15 +39,15 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-	<div style="display: flex; width: 100vw; position: relative; 
+	<div style="display: flex; height: 100vh; position: relative; 
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 70%; left: 4%;">
+	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 40%; left: 4%;">
 	    &lt<img style="height: 8vh" src="image/planet_icon1.png">
 	  </span>
 	  
-	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 70%; right: 4%;">
+	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 40%; right: 4%;">
 	    <img style="height: 8vh" src="image/planet_icon2.png">&gt
 	  </span>
 	  
@@ -76,7 +76,7 @@
 	      <div id="lowerMiddle" class="videolabel" style="position: absolute; bottom: 16%; left: 4%;">
 	      </div>
 	      
-	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 4%;">
+	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 8%;">
 	      </div>
 
 	    </div>
@@ -220,9 +220,9 @@
 	  });
 	  window.addEventListener('hashchange', handleFragmentChange);
 	  
-	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.parent_star)}</span>`;
+	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.name)}</span>`;
 
-	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
+	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${planet.attribmap.orbital_position}<span>`;
 
 	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
 	  
@@ -233,7 +233,6 @@
 	  basestatstable.innerHTML = html;
 
 	  var civ = {};
-	  planetlist.innerHTML = `<a href="mygallery.html">Your Planets in ${sector} Sector</a>`;
       }
       
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })

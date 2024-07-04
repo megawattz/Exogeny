@@ -53,6 +53,7 @@ const Descriptions = {
 	"alien clams partially underwater using primitive tools",
 	"alien orcas partially underwater using primitive tools",
 	"alien otters partially underwater using primitive tools",
+	"alien fish partially underwater using primitive tools",
 	"alien seals partially underwater using primitive tools"
     ],
     "Aerial":[
@@ -101,7 +102,7 @@ const Descriptions = {
 	"alien mustelids standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"alien mermaids and mermen partially underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"exotic adult male and female predator-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female halo-alien like, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
+	"exotic adult male and female halo-alien like, in clothes, using primitive tools, in archaic clothing ((matching eyes))",
 	"four legged alien monstrosity standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading"
     ],
     "Humanoid": [
@@ -364,7 +365,7 @@ ${getAction()}
 ${getAtmosphere(params['atmosphere'])} sky, clouds
 dramatic background, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} 
 and ${getExtra()} and ${getExtra()}
-((Safe for Work)) head and body same skin type and color
+((Safe for Work)) entire body same skin type and color
 perfectly round eye iris
 ((each individual should be slightly unique from each other))
 as if photographed by nikon SLR camera f/8

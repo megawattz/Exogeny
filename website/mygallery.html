@@ -58,17 +58,20 @@
 	  
 	  function displayPlanet(planet, index) {
 	      planet.attribmap = {};
+	      
 	      planet.attributes.forEach((attrib) => {
 		  planet.attribmap[attrib.trait_type] = attrib.value;
 	      });
+	      
 	      if (!index)
 		  index = planet.attribmap.tokenid;
+	      
 	      var planetDiv = document.createElement("div");
 	      planetDiv.className = "galleryWindow";
 	      let identity = planet.identity;
 		  
-	      planetDiv.addEventListener('dblclick', function(event) {
-		  window.location.href=`game.html#${planet.attribmap.tokenid}`;
+	      planetDiv.addEventListener('click', function(event) {
+		  window.location.href=`game.html#${planet.tokenid}`;
 	      });
 
 	      let ipfsURL = planet.animation_url;

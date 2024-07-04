@@ -118,7 +118,10 @@ export function titleize(sentence) {
     try {
 	const words = `${sentence}`.split(/[_ ]+/);
 	let fixup = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-	return fixup.join(' ')
+	fixup = fixup.join(' ');
+	// capitalize roman numerals
+	fixup = fixup.replace(/[xiv]*[xiv]+(?![a-hj-u])/gi, (s) => s.toUpperCase());
+	return fixup;
     } catch(exc) {
 	return "";
     }
