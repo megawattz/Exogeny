@@ -44,11 +44,11 @@
 		    border-radius: 2vw; justify-content: center; align-items: center; 
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 70%; left: 4%;">
+	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 40%; left: 4%;">
 	    &lt<img style="height: 8vh" src="image/planet_icon1.png">
 	  </span>
 	  
-	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 70%; right: 4%;">
+	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 40%; right: 4%;">
 	    <img style="height: 8vh" src="image/planet_icon2.png">&gt
 	  </span>
 	  
@@ -77,28 +77,25 @@
 	      <div id="lowerMiddle" class="videolabel" style="position: absolute; bottom: 16%; left: 4%;">
 	      </div>
 	      
-	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 4%;">
+	      <div id="lowerRight" class="videolabel" style="position: absolute; bottom: 6%; right: 8%;">
 	      </div>
 
 	    </div>
 	  </div>
 	</div>
 	<div id="planetdata" class="row events" >
-	  <hr />
 	  <div id="planetstats" class="statstable">
 	    <span id="planetname" class="statsheader"></span>
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
 	  
-	  <hr />
 	  <div>
 	    <span class="statsheader">Latest Events</span>
 	    <div id="eventlist" class="eventlist">
 	    </div>
 	  </div>
 	  
-	  <hr />
 	  <div id="civilization" class="statstable">
 	    <span class="statsheader">Civilization</span>
 	    <div id="civstatstable" class="statstable">
@@ -221,9 +218,9 @@
 	  });
 	  window.addEventListener('hashchange', handleFragmentChange);
 	  
-	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.parent_star)}</span>`;
+	  lowerLeft.innerHTML = `<span title="Star around which planet orbits">${utils.titleize(planet.attribmap.name)}</span>`;
 
-	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${utils.toRoman(planet.attribmap.orbital_position)}<span>`;
+	  lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${planet.attribmap.orbital_position}<span>`;
 
 	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
 	  
