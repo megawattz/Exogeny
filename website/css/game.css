@@ -11,7 +11,9 @@ body {
     position: fixed;
     justify-content: center;
     z-index: 30;
-    color: white;
+    color: bright white;
+    width: 2vw;
+    opacity: 100%;
     font-size: 5vw;
 }
 
@@ -67,7 +69,7 @@ div {
 
 .videolabel {
     color: white;
-    font-size: clamp(10pt, 5vw, 1.5em);
+    font-size: clamp(10pt, 8vw, 2.0em);
 }
 
 .statsheader {
