@@ -1,11 +1,18 @@
+html {
+}
+
+body {
+}
+
 .arrowplanet {
     display: flex;
     align-items: center;
     pointer-events: auto;
     position: fixed;
+    justify-content: center;
     z-index: 30;
     color: white;
-    font-size: 8vw;
+    font-size: 5vw;
 }
 
 .hover-area {

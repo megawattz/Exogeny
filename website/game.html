@@ -8,7 +8,7 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="description" content="">
 
@@ -31,58 +31,57 @@
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   </head>
 
-  <body style="width: 100%; height: auto; margin: 0 auto; padding: 0; 
-	       background-image: url(image/background_stars.jpg); background-repeat: norepeat;">
+  <body style="width: 100%; height: auto; margin: 0 auto; padding: 0;
+	       background-image: url(image/background_stars.jpg); background-repeat: repeat-y; background-size: cover;">
     <div class="hover-area"  title="My Planets"></div>
     <div class="hidden-div" id="smallmenu">
       <a href="mygallery.html"><img id="myplanets" src="image/planet_list.png" style="width: 30vw"></a>
-      <!--a href="mygallery.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a-->
     </div>
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-	<div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;  
-		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
+      <div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;  
+		  background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
-	    &lt<!--img style="height: 8vh" src="image/planet_icon1.png"-->
-	  </span>
+	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
+	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="image/planet_icon1.png">
+	</span>
+	
+	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 4%;">
+	  <img style="position: absolute; opacity: 70%; height: 5vw" src="image/planet_icon2.png">&gt
+	</span>
+	
+	<div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
+				       padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
+				       border-radius: 2vw; justify-content: center; overflow: hidden;">
 	  
-	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 4%;">
-	    <!--img style="height: 8vh" src="image/planet_icon2.png"-->&gt
-	  </span>
+	  <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
+		 style="z-index: -10; width: 100%; margin: 0 auto; padding: 0; border-radius: 2vw;
+			position: absolute; top: 0; left: 0;">
+	  </video>
 	  
-	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
-					 padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
-					 border-radius: 2vw; justify-content: center; overflow: hidden;">
+	  <div id="controldiv" style="postion: relative;">
 	    
-	    <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
-		   style="z-index: -10; width: 100%; margin: 0 auto; padding: 0; border-radius: 2vw;
-			  position: absolute; top: 0; left: 0;">
-	    </video>
-	    
-	    <div id="controldiv" style="postion: relative; height: 96%">
-		 
-	      <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel"
-		   style="align-items: center; position: absolute; top: 1%; left: 6%;">
-	      </div>
-
-	      <div id="upperRight" style="width: 10%; position: absolute; top: 1%; right: 6%;">
-		<img id="lifeformIcon" style="pointer-events: auto; z-index: 30; width: 100%; height: 100%;">
-	      </div>
-
-	      <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
-
-	      <!--
-	      <div id="lowerLeft" class="videolabel"   style="position: absolute; bottom: 6%; left: 4%;">
-	      </div>
-
-	      <div id="lowerMiddle" class="videolabel" style="position: absolute; bottom: 16%; left: 4%;">
-	      </div>
-	      
-	      <div id="lowerRight" class="videolabel"  style="position: absolute; bottom: 6%; right: 8%;">
-	      </div>
-	      -->
-
+	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel"
+		 style="align-items: center; position: absolute; top: 1%; left: 6%;">
 	    </div>
+
+	    <div id="upperRight" style="width: 10%; position: absolute; top: 1%; right: 6%;">
+	      <img id="lifeformIcon" style="pointer-events: auto; z-index: 30; width: 100%; height: 100%;">
+	    </div>
+
+	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
+
+	    <!--
+		<div id="lowerLeft" class="videolabel"   style="position: absolute; bottom: 6%; left: 4%;">
+		</div>
+
+		<div id="lowerMiddle" class="videolabel" style="position: absolute; bottom: 16%; left: 4%;">
+		</div>
+		
+		<div id="lowerRight" class="videolabel"  style="position: absolute; bottom: 6%; right: 8%;">
+		</div>
+		-->
+
+	  </div>
 	</div>
 	
 	<div id="lowerTable" style="position: absolute; width: 100%;">
@@ -130,14 +129,6 @@
 	  Update();
       }
 
-      const VideoChangeObserver = new ResizeObserver(entries => {
-	  for (let element of entries) {
-	      planetDisplay.height = element.contentRect.height;
-	  }
-      });
-
-      VideoChangeObserver.observe(planetVideo);
-      
       function handleFragmentChange() {
 	  let fragment = window.location.hash;
 	  let tokenid = Number(fragment.replace('#', ''));
@@ -217,13 +208,13 @@
 
 	  document.addEventListener('keydown', function(event) {
 	      switch(event.key) {
-	      	case 'ArrowLeft':
+	      case 'ArrowLeft':
 	      	  document.prev();
 	      	  break;
-	      	case 'ArrowRight':
+	      case 'ArrowRight':
 		  document.next();
 		  break;
-	      	case 'Escape':
+	      case 'Escape':
 		  utils.hide(lifeformImage);
 		  break;
 	      }
@@ -235,7 +226,7 @@
 
 	  //lowerRight.innerHTML = `<span title="Orbital position ${planet.attribmap.orbital_position} out from parent star">${planet.attribmap.orbital_position}<span>`;
 	  
-	      
+	  
 	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
 	  
 	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
@@ -248,9 +239,9 @@
       }
       
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    	.then((response) => response.json())
-    	.then((data) => exogeny.LoadConfig(data))
-    	.catch(console.log)
+    .then((response) => response.json())
+    .then((data) => exogeny.LoadConfig(data))
+    .catch(console.log)
 
       var wallet = await web3utils.WalletAddress();
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
@@ -311,6 +302,6 @@
 	  new Audio(soundFile).play();
       }
       
-      </script>
+    </script>
   </body>
 </html>
