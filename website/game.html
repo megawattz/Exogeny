@@ -39,18 +39,18 @@
       <!--a href="mygallery.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a-->
     </div>
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-	<div style="width: 100%; padding: 0; margin: 0 auto; max-width: 1700px; border-radius: 2vw;  
+	<div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;  
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
 	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
 	    &lt<!--img style="height: 8vh" src="image/planet_icon1.png"-->
 	  </span>
 	  
-	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 8%;">
+	  <span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 4%;">
 	    <!--img style="height: 8vh" src="image/planet_icon2.png"-->&gt
 	  </span>
 	  
-	  <div id="planetDisplay" style="pointer-events: auto; position: relative;  width: 100%; aspect-ratio: 1024 / 768;
+	  <div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
 					 padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	    
@@ -59,7 +59,7 @@
 			  position: absolute; top: 0; left: 0;">
 	    </video>
 	    
-	    <div id="controldiv" style="postion: relative; max-width: 1024px; height: 96%">
+	    <div id="controldiv" style="postion: relative; height: 96%">
 		 
 	      <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel"
 		   style="align-items: center; position: absolute; top: 1%; left: 6%;">
@@ -85,7 +85,7 @@
 	    </div>
 	</div>
 	
-	<div id="lowerTable" style="position: absolute; width: 92%;">
+	<div id="lowerTable" style="position: absolute; width: 100%;">
 	  <div id="planetdata" class="row" >
 	    <div id="planetstats" class="statstable">
 	      <span id="planetname" class="statsheader"></span>
