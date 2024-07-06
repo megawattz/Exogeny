@@ -39,8 +39,7 @@
       <!--a href="mygallery.html"><img style="height: 10vh;" src="image/ExoPlaneteer.png"></a-->
     </div>
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-      <div class="row">
-	<div style="width: 100%; height: 100vh; position: relative; padding: 0; margin: 0 auto; max-width: 1700px; border-radius: 2vw;  
+	<div style="width: 100%; padding: 0; margin: 0 auto; max-width: 1700px; border-radius: 2vw;  
 		    background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
 	  <span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
@@ -52,7 +51,7 @@
 	  </span>
 	  
 	  <div id="planetDisplay" style="border: 1px solid white; pointer-events: auto; 
-					 position: absolute;  width: 100%; aspect-ratio: 1024 / 768;
+					 position: relative;  width: 100%; aspect-ratio: 1024 / 768;
 					 padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
 					 border-radius: 2vw; justify-content: center; overflow: hidden;">
 	    
@@ -83,10 +82,9 @@
 	      </div>
 
 	    </div>
-	  </div>
 	</div>
 	
-	<div style="position: relative; bottom: 0; left: 0;">
+	<div id="lowerTable" style="position: absolute;">
 	  <div id="planetdata" class="row events" >
 	    <div id="planetstats" class="statstable">
 	      <span id="planetname" class="statsheader"></span>
