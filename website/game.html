@@ -122,7 +122,11 @@
 
       function handleFragmentChange() {
 	  let fragment = window.location.hash;
-	  let tokenid = Number(fragment.replace('#', ''));
+	  let tokenString = fragment.replace('#', '');
+	  let tokenid = Number(tokenString);
+	  let planetIndex = PlanetIds.indexOf(tokenString);
+	  if (planetIndex > -1)
+	      currentPlanetIndex = planetIndex;
 	  if (!Planets[tokenid])
 	      web3utils.FetchNFT(wallet, contractAddress, tokenid).then(Update).catch(console.error);
       }
