@@ -143,7 +143,7 @@ export const web3utils = {
 	//console.log(`All NFTS: ${allNFTs}`);
 	let ownedNFTs = []
 	for (let id in allNFTs) {
-	    const count = parseInt(allNFTs[id]._hex, 16);
+	    const count = allNFTs[id].toNumber();
 	    if ( count > 0)
 		ownedNFTs.push(id);
 	}
@@ -152,8 +152,8 @@ export const web3utils = {
 	// get the metadata associated with each NFT
 	const NFTmetadata = [];
 	let promises = [];
-	for (let nftid in ownedNFTs) {
-	    let idstring = nftid.toString();
+	for (let nftid of ownedNFTs) {
+	    let idstring = parseInt(nftid).toString(16);
 	    let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
 	    //console.log(url);
       	    let p = fetch(url).then(response => response.json()).then((data) => NFTmetadata.push(data)).catch(console.error); // NFTmetadata.push).catch(console.error);
@@ -171,7 +171,7 @@ export const web3utils = {
 
 	// get a list of NFTs owned by this user
 	abi = ["function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids) external view returns (uint256[] memory)"];
-	const nfts = Array.from({ length: 200 }, (_, i) => i + 1);
+	const nfts = Array.from({ length: 1000 }, (_, i) => i + 1);
 	let accounts = [];
 	nfts.forEach(() => {
 	    accounts.push(wallet);
@@ -180,7 +180,7 @@ export const web3utils = {
 	//console.log(`All NFTS: ${allNFTs}`);
 	let ownedNFTs = []
 	for (let id in allNFTs) {
-	    const count = parseInt(allNFTs[id]._hex, 16);
+	    const count = allNFTs[id].toNumber();
 	    if ( count > 0)
 		ownedNFTs.push(id);
 	}
@@ -188,10 +188,9 @@ export const web3utils = {
 	//console.log(`Owned NFTS: ${ownedNFTs.length}`);
 	// get the metadata associated with each NFT
 	const NFTmetadata = [];
-	for (let nftid in ownedNFTs) {
-	    let idstring = nftid.toString();
+	for (let nftid of ownedNFTs) {
+	    let idstring = parseInt(nftid).toString(16);
 	    let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
-	    //console.log(url);
       	    let p = fetch(url)
 		.then(response => response.json())
 	    	.then(callback)
@@ -211,7 +210,7 @@ export const web3utils = {
 	//console.log(`All NFTS: ${allNFTs}`);
 	let ownedNFTs = []
 	for (let id in allNFTs) {
-	    const count = parseInt(allNFTs[id]._hex, 16);
+	    const count = allNFTs[id].toNumber();
 	    if ( count > 0)
 		ownedNFTs.push(id);
 	}
@@ -227,7 +226,7 @@ export const web3utils = {
 	const howmany = await web3utils.CallFunction(contractAddress, abi, "balanceOf", wallet, tokenid);
 	if (howmany < 1)
 	    return {};
-	let idstring = tokenid.toString();
+	let idstring = tokenid.toString(16);
 	let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
       	let nft = await fetch(url)
 	    .then(response => response.json())
