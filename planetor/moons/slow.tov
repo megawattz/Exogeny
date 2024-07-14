@@ -17,7 +17,7 @@ sphere {
         pigment{
             image_map {
                 v_moon_spec
-                map_type 1 interpolate 2 // Esfera
+                map_type 1 interpolate 4 // Esfera
             }
       }
       normal {
