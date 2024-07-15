@@ -68,10 +68,10 @@ document.getElementById("navheader").innerHTML = `
 		Planets
 	      </a>
 	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
-		<li><a class="dropdown-item" href="gallery.html">All Planets in Sector</a></li>
-		<li><a class="dropdown-item" href="screensaver.html">All Planets Screensaver</a></li>
-		<li><a class="dropdown-item" href="myplanets.html">My Planets Screensaver</a></li>
-		<li><a class="dropdown-item" href="mygallery.html">My Planets in Sector</a></li>	
+		<li><a class="dropdown-item" href="gallery.html">Gallery - Planets in Sector</a></li>
+		<li><a class="dropdown-item" href="screensaver.html">Screensaver - Planets in Sector</a></li>
+		<li><a class="dropdown-item" href="myplanets.html">Screensaver - My Planets</a></li>
+		<li><a class="dropdown-item" href="mygallery.html">Gallery - My Planets</a></li>	
 		<li><a class="dropdown-item" href="galaxy.html">3D Map</a></li>
 	      </ul>
 	    </li>
