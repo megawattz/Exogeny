@@ -22,7 +22,7 @@ contract address, which is dynamically assigned, before you deploy the NFTs
 
 * Choose an image for the collection and create an image 350x260 (OpenSea Wants That Size).
 
-* run ipfslifeform.py (OR ipfsplanet.py) [banner=bannerfilename.gif] *.mp4
+* run ipfslifeform.py [banner=bannerfilename.gif] *.mp4
 
   a. This will create a png file still of the mp4 and upload both to ipfs
 
