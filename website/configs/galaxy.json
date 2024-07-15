@@ -9,6 +9,14 @@
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
     "ipfs_gateway": "https://ipfs.io/",
     "sectors" : {
+	"vesper":{
+	    "Description":"Planets of the Vesper Dominion",
+	    "contract":"0xEB4c0DbC813757b108fb19D2A72f9834d9Dd6BF4",
+	    "opensea_collection":"https://testnets.opensea.io/collection/versper",
+	    "chain":"sepolia",
+	    "chainid":"0xaa36a7",
+	    "name":"Planets of the Vesper Dominion"
+	},
 	"concord":{
 	    "Description":"Planets of the Celestial Concord",
 	    "contract":"0xae20e397ed15644013ac3ae19f3102a735c9ea72",

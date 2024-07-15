@@ -119,13 +119,13 @@ def loadIpfsFiles(glob_pattern):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 1:
         print(Help)
         sys.exit(0)
 
     params, files = utils.fetchArgs(sys.argv[1:], docs= {
         "meta":"metadata elements to extract, comma separated",
-        "culture":"format of filename containing cultural information of planet {identity}, default /app/planetor/out/civilization/civilization_{identity}.json",
+        "culture":"format of filename containing cultural information of planet {identity}, default ../civilization/civilization_{identity}.json",
         "ipfs":"format of filenames containing IPFS urls, default ./0000000000000000000000000000000*.json (must have an 'identity' element in the json)",
         "method":"f=flat, n = nested formatted=format_string_with_embedded_variables, i.e. \"planet {planet} has an atmosphere of {atmosphere_composition}\""
     })
