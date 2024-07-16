@@ -114,7 +114,7 @@ if [ $FRAMES -gt 1 ]; then
     mv -vf ${SPECSFILE}.tmp ${SPECSFILE}
     ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Frame=1 Final_Frame=${FRAMES} Initial_Clock=0.0 Final_Clock=${FINAL_CLOCK} Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
 else
-    ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Clock=0.6 Initial_Frame=120 Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
+    ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Clock=0.4 Initial_Frame=40 Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
 fi
 
 ( # so that returning restores original directory

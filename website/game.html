@@ -224,6 +224,7 @@
 	      if (!Planets[PlanetIds[currentPlanetIndex + i]]) {
 		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex + i)
 		      .then((nft) => Planets[PlanetIds[currentPlanetIndex + i]] = nft)
+		      .then(console.log)
 		      .catch(console.error)
 	      }					
 	  }			
