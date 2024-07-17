@@ -1,0 +1,35 @@
+// Ring Swirlcolor
+#declare ring_color = <%s>;
+#declare ring_radius = %s;
+#declare hole_radius = %s;
+#declare ring_brightness = %s;
+#declare ring_index = %s;
+#declare planet_size = %s;
+
+difference {
+   sphere {
+      <0, 0, 0>, planet_size * ring_index
+      scale <1, .05/ring_index, 1> 
+      texture {
+         pigment {
+            image_map {
+	       png "mottled_trans_two.png"
+               map_type 2 interpolate 4 // Esfera
+       	       transmit all ring_brightness - 0.2
+            }
+	    scale <1, 0.5, 1>
+         }
+      }
+      finish {
+         diffuse albedo -ring_brightness
+         ambient rgb ring_color transmit 0.5
+      }
+      Orbit(ring_index * 20) 
+   }
+   cylinder {
+      <0, -10, 0>, <0, 10, 0>, planet_size + 4 + (planet_size + v_random_float)
+      texture {
+      	      pigment { color rgbt <1,1,1,1> }
+      }
+   }
+}

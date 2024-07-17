@@ -38,33 +38,6 @@ const EVMchains = {
 
 export const web3utils = {
     Provider: {},  // default to ethereum
-    WalletAddress: async function() {
-        if (typeof window.ethereum !== 'undefined') {
-            try {
-                // Request account access if needed
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-		
-                // Create a new provider
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-		web3utils.Provider = provider;
-		
-                // Get the signer
-                const signer = provider.getSigner();
-		
-                // Get the wallet address
-                const walletAddress = await signer.getAddress();
-		
-                return walletAddress;
-            } catch (error) {
-                console.error('Error getting wallet address:', error);
-                throw error;
-            }
-        } else {
-            console.error('MetaMask is not installed.');
-            throw new Error('MetaMask is not installed.');
-        }
-	
-    },
     CallFunction: async function(contractAddress, abi, functionName, ...params) {
         try {
             // Request account access
@@ -86,6 +59,33 @@ export const web3utils = {
             console.error('Error:', error);
             throw error;
         }
+    },
+    WalletAddress: async function() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                // Request account access if needed
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+		
+                // Create a new provider
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+		web3utils.Provider = provider;
+		
+                // Get the signer
+                const signer = provider.getSigner();
+		
+                // Get the wallet address
+                const walletAddress = await signer.getAddress();
+
+                return walletAddress;
+            } catch (error) {
+                console.error('Error getting wallet address:', error);
+                throw error;
+            }
+        } else {
+            console.error('MetaMask is not installed.');
+            throw new Error('MetaMask is not installed.');
+        }
+	
     },
     ConnectWallet: async function(chain) {
 	if (typeof window.ethereum !== 'undefined') {

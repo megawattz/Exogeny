@@ -103,6 +103,7 @@
       import * as utils from './js/utils.mjs';
       import {exogeny} from './js/exogeny.mjs';
       import {web3utils} from './js/web3.mjs';
+      import {authenticate} from './js/authenticate.mjs';
 
       var Planets = {};
       var PlanetIds = [];
@@ -235,7 +236,8 @@
     	.then((data) => exogeny.LoadConfig(data))
     	.catch(console.log)
 
-      var wallet = await web3utils.WalletAddress();
+      //var wallet = await web3utils.WalletAddress();
+      var wallet = await authenticate.Login();
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       handleFragmentChange();
