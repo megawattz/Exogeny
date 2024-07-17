@@ -653,7 +653,7 @@ def DefaultOptions():
         "atmosphere_composition":None,
         "atmosphere_density": "0.80",
         "atmosphere_size": "1.02",
-        "rings": 1,
+        "rings": 0,
         "ring_brightness": None,
         "ring_template": "firelights.tov",
         "moons": randomint(0, 4),
