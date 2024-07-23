@@ -46,15 +46,15 @@ const Descriptions = {
 	"unusual, mobile fungus showing signs of higher intelligence",
     ],
     "Aquatic":[
-	"alien clams partially underwater using primitive tools",
-	"alien orcas partially underwater using primitive tools",
-	"alien otters partially underwater using primitive tools",
-	"alien fish partially underwater using primitive tools",
-	"alien floating eyeball dangling appendages partially underwater using primitive tools",
-	"alien mermaids and mermen partially underwater using primitive tools",
-	"alien Naga, male and female, partially underwater using primitive tools",
-	"alien crustaceans partially underwater using primitive tools",
-	"alien seals partially underwater using primitive tools"
+	"alien clams underwater using primitive tools",
+	"alien orcas underwater using primitive tools",
+	"alien otters underwater using primitive tools",
+	"alien fish underwater using primitive tools",
+	"alien floating eyeball dangling appendages underwater using primitive tools",
+	"alien mermaids and mermen underwater using primitive tools",
+	"alien Naga, male and female, underwater using primitive tools",
+	"alien crustaceans underwater using primitive tools",
+	"alien seals underwater using primitive tools"
     ],
     "Aerial":[
 	"alien flying small dragons",
@@ -76,6 +76,7 @@ const Descriptions = {
 	"alien creatures based on, but not exactly like, the attackers from a quite place",
 	"exotic random selection from every insect alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
 	"large, alien halo pod infector like wearing jewelry and carrying primitive weapons",
+	"large, alien non-aquatic crustaceans wearing jewelry and carrying primitive weapons",
 	"large, alien halo flood infector like wearing jewelry and carrying primitive weapons",
 	"alien looking insects standing upright using primitive, artificial tools, wearing adornment",
 	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
@@ -83,13 +84,14 @@ const Descriptions = {
     "Reptilian":[
 	"alien halo sangheili like wearing clothing, jewelry and carrying primitive weapons",
 	"alien herbivore dinosaurs, standing erect, with opposable thumbs, scaly skin, wearing ancient garments, holding primitive tools",
-	"ancient roman reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
-	"ancient babylonian reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"ancient roman reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"ancient roman alligators with opposable thumbs, standing erect, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"ancient babylonian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
 	"exotic random selection from every reptilian alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
 	"exotic random selection from every small dragon alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
 	"alien frogs with opposable thumbs, standing erect, adorned in ancient, primitive gear, reading scrolls",
 	"alien dragons wearing jewelry and carrying primitive weapons",
-	"ancient eqyptian reptiles with opposable thumbs, with scaly skin in human posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools"
+	"ancient eqyptian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools"
     ],
     "Quadruped":[
 	"alien, large cat-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
@@ -100,6 +102,7 @@ const Descriptions = {
 	"exotic adult male and female halo-alien like, in clothes, using primitive tools, in archaic clothing ((matching eyes))",
 	"alien, jumble of many different creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"alien, furry, large, felines standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
+	"adult male and female Yautja-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
 	"alien, furry, canines, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
 	"alien, furry, rodent-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
 	"furry, alien mammals standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
