@@ -96,8 +96,8 @@
 		  var Options = {};
 		  var ShowPlanets = [];
 		  var called = 0;
-
-		  function showPickList(options) {
+		  
+		  function picklist(options) {
 		      return new Promise((resolve, reject) => {
 			  // Create the popup container
 			  const popup = document.createElement('div');
@@ -118,7 +118,7 @@
 			  list.style.padding = '0';
 
 			  // Add list items
-			  options.forEach(option => {
+			  options.items.forEach(option => {
 			      const listItem = document.createElement('li');
 			      listItem.textContent = option;
 			      listItem.style.padding = '5px 10px';
@@ -150,16 +150,15 @@
 				  reject('No selection made');
 			      }
 			  });
-		      });
+		      });	
 		  }
-
+		  
 		  // Example usage
 		  /*
 		  showPickList(['Option 1', 'Option 2', 'Option 3'])
     			.then(selected => console.log('Selected:', selected))
     			.catch(err => console.log(err));
 			*/
-
 		  
 		  function setbackground(element, imageurl) {
 		      // this is used to retry a failed background image load. JS caches the failure to fetch the file
@@ -267,8 +266,29 @@
 		      if (event.keyCode == 09)
 			  preview();
 		  });
+
+		  function fileList(directory, mask) {
+		      $.ajax({
+			  url: `/dirlist?directory=${directory}&mask=${mask}&count=99999999`, //The URL you defined in urls.py
+			  success: function(data) {
+			      console.log(data);
+			      return data;
+			  }	
+		      });	
+		  }	
+		  
+		  var MenuItems = {
+		      "background": function() {
+			  fileList("backgrounds", "*").then(picklist)
+		      }
+		  }	
 		  
 		  function promptOverride() {
+		      let fill = MenuItems[this.name];
+		      if (fill) {
+			  this.value = fill();
+			  return;
+		      }
 		      var doit = prompt(this.name, this.value);
 		      if (!doit)
 			  return
