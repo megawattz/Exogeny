@@ -97,6 +97,70 @@
 		  var ShowPlanets = [];
 		  var called = 0;
 
+		  function showPickList(options) {
+		      return new Promise((resolve, reject) => {
+			  // Create the popup container
+			  const popup = document.createElement('div');
+			  popup.style.position = 'fixed';
+			  popup.style.top = '50%';
+			  popup.style.left = '50%';
+			  popup.style.transform = 'translate(-50%, -50%)';
+			  popup.style.backgroundColor = '#fff';
+			  popup.style.border = '1px solid #ccc';
+			  popup.style.padding = '10px';
+			  popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+			  popup.style.zIndex = '1000';
+
+			  // Create the list
+			  const list = document.createElement('ul');
+			  list.style.listStyleType = 'none';
+			  list.style.margin = '0';
+			  list.style.padding = '0';
+
+			  // Add list items
+			  options.forEach(option => {
+			      const listItem = document.createElement('li');
+			      listItem.textContent = option;
+			      listItem.style.padding = '5px 10px';
+			      listItem.style.cursor = 'pointer';
+			      listItem.addEventListener('click', () => {
+				  document.body.removeChild(popup);
+				  resolve(option);
+			      });
+			      listItem.addEventListener('mouseover', () => {
+				  listItem.style.backgroundColor = '#f0f0f0';
+			      });
+			      listItem.addEventListener('mouseout', () => {
+				  listItem.style.backgroundColor = '';
+			      });
+			      list.appendChild(listItem);
+			  });
+
+			  // Add the list to the popup
+			  popup.appendChild(list);
+
+			  // Add the popup to the body
+			  document.body.appendChild(popup);
+
+			  // Handle click outside the popup to close it without selecting
+			  document.addEventListener('click', function handler(event) {
+			      if (!popup.contains(event.target)) {
+				  document.body.removeChild(popup);
+				  document.removeEventListener('click', handler);
+				  reject('No selection made');
+			      }
+			  });
+		      });
+		  }
+
+		  // Example usage
+		  /*
+		  showPickList(['Option 1', 'Option 2', 'Option 3'])
+    			.then(selected => console.log('Selected:', selected))
+    			.catch(err => console.log(err));
+			*/
+
+		  
 		  function setbackground(element, imageurl) {
 		      // this is used to retry a failed background image load. JS caches the failure to fetch the file
 		      // so must add a cache buster random number to the image url
