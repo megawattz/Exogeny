@@ -16,6 +16,7 @@ import shlex
 import inspect
 import uuid
 import pathlib
+import pymongo
 
 Functions = '#include "exogeny.inc"'
 Options = {}
@@ -512,93 +513,26 @@ def make_query(selectables):
 Chemistry = ['carbon','ammonia','arsenic','borane','hydrogen_sulfide','methane','silicon','sulfur','retinal']
 LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Human','Aerial','Insectoid','Reptilian','Humanoid','Quadruped']
 
-# Database Operations (the file backing store will be replaced with Redis or Mongo)
-DatabaseDirectory = "/app/planetor/out"
+Mongo = pymongo.MongoClient("mongodb://127.0.0.1:27017")
+Database = Mongo['exogeny']
 
-DbDefaults = {
-    "user": {
-        "id":"",
-        "handles":[],
-        "emails":[],
-        "planets":[],
-        "activity":{
-            "first":0,
-            "last":0,
-            "times":[],
-        },
-        "planets": [
-            "10000"
-        ]
-    },
-    "specs": {
-        "id":"",
-        "scene": None,
-        "camera_location": "%d,%d,%d" % (randomint(-100, -30), randomint(-100, -30), randomint(-100, -30)),
-        "camera_angle": randomlist(["45","-45"]),
-        "camera_look_at": "0, 0, 0",
-        "sun_brightness": "6,6,6",
-        "planet_size": None,
-        "background": "background_9.jpg",
-        "planet": "planet_3.jpg",
-        "clouds_size": "1.003",
-        "clouds": "clouds_11.jpg",
-        "clouds_density": "0.42",
-        "atmosphere":None,
-        "atmosphere_composition": None,
-        "atmosphere_density": "0.80",
-        "atmosphere_size": "1.02",
-        "moons": randomint(0, 4),
-        "moon_position": None,
-        "moon_size": None,
-        "moon": None,
-        "rings": 0,
-        "ring_brightness": None,
-        "random_color": None,
-        "random_float": None,
-        "random_trans": None,
-        "star_system": "Sol",
-        "star_index": "Alpha",
-        "planet_index": "III",
-        "evaluation": None,
-        "evaluation2": None,
-        "identity": None,
-        "lifeform": None,
-        "chemistry": None,
-        "planet_type": "planet",
-        "unexplored": "1",
-        "artist":"anonymous.png",
-        "audio": "None.mp3"
-    }
-}
+def DbRead(table, query):
+    collection = Database[table]
+    data = collection.find_one(query)
+    return data
 
-def DbRead(table, row):
-    path = "%s/%s/%s_%s.json" % (DatabaseDirectory, table, table, row)
-    try:
-        data = readfile(path).decode()
-        rdata = json.loads(data) # convert to Python dictionary
-    except Exception as e:  # if this is a new record, give it standard, default values
-        rdata = DbDefaults.get(table) or {}
-    rdata['id'] = row # set internal id to file id
-    #print("RECORD:%s.%s\n%s" % (table, row, rdata))
-    return rdata
+def DbUpdate(table, query, data):
+    collection = Database[table]
+    result = collection.update_one(query, {"$set": data}, upsert=True)
+    print(f"DbUdate: {table} {query} {data} {result.upserted_id}")
+    return result
 
-def DbUpdate(table, row, branch, overwrite=False):
-    updated = {}
-    data = DbRead(table, row)
-    #print("READ:%s.%s=%s" % (table, row, data))
-    if not overwrite:
-        updated = data | branch
-    else:
-       updated = branch
-    updated['id'] = row
-    #print("UPDATED:%s.%s=%s" % (table, row, updated))
-    path = "%s/%s/%s_%s.json" % (DatabaseDirectory, table, table, row)
-    writefile(path, json.dumps(updated, indent=4))
-    return updated
-
-def DbDelete(table, row):
-    path = "%s/%s/%s_%s.json" % (DatabaseDirectory, table, table, row)
-    return os.remove(path)
+def DbDelete(table, query):
+    if not query:
+        raise ValueError("The query for deleting must not be empty")
+    collection = Database[table]
+    result = collection.delete_one(query)
+    return result
 
 def civilization(identity, options):
     civilization = {
@@ -787,7 +721,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     identity = resolve_parameter("identity", Options['identity'], Options)
 
     civ = civilization(identity, selections)
-    DbUpdate("civilization", identity, civ)
+    DbUpdate("civilization", {"identity": identity}, civ)
 
     # if we have selected to regenrate lifeform image, delete the old one
     if not Options.get('lifeform'):
@@ -868,7 +802,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
         os.mkdir(logdir)
 
     Options['lifeform_image'] = 'lifeform_%s.png' % identity
-    specs = DbUpdate("specs", identity, Options)
+    specs = DbUpdate("planets", {"identity": identity}, Options)
 
     povray_command = "%s ./generate.sh '%s' > out/logs/generate_%s.log 2>&1 %s" % (
         env,
