@@ -20,6 +20,7 @@ RUN apt install -y \
     tcpdump \
     jq \
     fim \
+    "inetutils-*" \
     net-tools
 
 ENV PATH="${PATH}:/app/planetor/tools"

@@ -40,15 +40,16 @@ if __name__ == "__main__":
     Database = params.get("database") or "exogeny"
     Collection = params.get("collection")
 
-    Mongo = pymongo.MongoClient(server)
+    Mongo = pymongo.MongoClient(Server)
+    
     database = Mongo[Database]
-
-    collection = Database[collection]
-    data = collection.find_one(query)
+    collection = database[Collection]
     
     if len(queries) < 1:
         queries.append(sys.stdin.read())
 
     for query in queries:
-        pprint(collection.command(query))
+        #command = "collection." + query
+        pprint(collection.find_one({}));
         
+    print("Done")
