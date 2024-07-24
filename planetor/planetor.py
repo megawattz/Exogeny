@@ -524,7 +524,7 @@ def DbRead(table, query):
 def DbUpdate(table, query, data):
     collection = Database[table]
     result = collection.update_one(query, {"$set": data}, upsert=True)
-    print(f"DbUdate: {table} {query} {data} {result.upserted_id}")
+    print(f"DbUdate: {table} {query} {result.upserted_id}")
     return result
 
 def DbDelete(table, query):
@@ -721,7 +721,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     identity = resolve_parameter("identity", Options['identity'], Options)
 
     civ = civilization(identity, selections)
-    DbUpdate("civilization", {"identity": identity}, civ)
+    DbUpdate("civilizations", {"identity": identity}, civ)
 
     # if we have selected to regenrate lifeform image, delete the old one
     if not Options.get('lifeform'):
