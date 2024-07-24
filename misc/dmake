@@ -1,0 +1,95 @@
+#!/bin/bash
+
+PROJECT=mongo
+IMAGE=mongo
+CONTAINER=mongo
+PORTS="-p2000:2000 -p27017:27017"
+NETWORK="--network host ${PORTS}"
+PARAMETERS=
+VOLUMES="-v$(pwd):/app -v$(pwd)/mongo/db:/data/db -v$(pwd)/mongo/configdb:/data/configdb"
+
+# This is like a makefile but make was designed in an era of conditions that no longer apply and offers nothing that
+# shell doesn't and forces you to learn a new language for what? Just a bunch of excessive details 90% of which nobody
+# will ever use.
+
+# print what is about to execute
+function show {
+    echo $@;
+    $@;
+}
+
+# change directory to where the script lives
+cd $(dirname $0)
+
+case "$1" in
+    cert)
+    	openssl genrsa -out key.pem 2048
+	openssl req -new -x509 -key key.pem -out cert.pem -days 3650
+	;;
+	
+    prebuild)
+	sudo git clean -f .
+	show docker build -f Dockerfile.prebuild -t yarnd .
+	show docker run --rm -it -w /app  ${VOLUMES} --name yarnd yarnd /app/yarnbuild.sh
+	;;
+    
+    image)
+	show docker build -t ${IMAGE} .
+	;;
+
+    reimage)
+	show docker build --no-cache -t ${IMAGE} .
+	;;
+
+    serve)
+	shift
+	show docker run --rm -w /app ${HOSTS} ${PARAMETERS} ${NETWORK} ${VOLUMES} -d --name ${CONTAINER} ${IMAGE} /app/serve.sh
+	;;
+    
+    dev)
+	shift
+	show docker run --rm -it -w /app ${HOSTS} ${PARAMETERS} ${NETWORK} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /bin/bash
+	;;
+    
+    shell)
+	shift 
+	show docker exec -it ${CONTAINER} /bin/bash
+	;;
+    
+    nomount)
+	shift 
+	show docker run --rm -it -w /app ${HOSTS} ${PARAMETERS} ${NETWORK} --name ${CONTAINER} ${IMAGE} $@
+	;;
+
+    test)
+	shift 
+	show docker run --rm -it -w /app ${HOSTS} ${PARAMETERS} ${NETWORK} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /app/test.sh
+	;;
+
+    "exec")
+	shift 
+	show docker exec -it ${CONTAINER} $@
+	 ;;
+     
+    stop)
+	show docker kill ${CONTAINER}
+	;;
+
+    clean)
+	sudo git clean -f .
+	;;
+
+    reset)
+	rm -rf mongo
+	rm -rf node_modules
+	;;
+    
+    *)
+	echo "current directory is: $(pwd)"
+	echo "commands are"
+	echo ./dev build - create the container
+	echo "./dev run <command>" - example: ./dev run bash
+	echo ./dev server - run the webserver an serve the website
+esac
+
+      
