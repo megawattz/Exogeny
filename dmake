@@ -8,8 +8,8 @@ PROJECT=exogeny-server-small
 IMAGE=${PROJECT}
 CONTAINER=${PROJECT}
 VOLUMES="-v$(pwd):/app"
-#NETWORK=${PORTS:--p80:80/tcp -p65520:65520/tcp -p65523:65523/tcp}
-NETWORK="--network host"
+PORTS="-p80:80/tcp"
+NETWORK="--network exogeny ${PORTS}"
 ENVFILE="./env.txt"
 VOLUMES="-v$(pwd):/app"
 
@@ -50,18 +50,18 @@ case "$1" in
 
     serve) #	production serve (don't mount host directories)
 	./dmake init
-	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} -d --name ${CONTAINER} ${IMAGE} /app/start.sh
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${VOLUMES} -d --name ${CONTAINER} ${IMAGE} /app/start.sh
 	;;
     
     dev) #		start the container with a bash shell and mount the entire dev environment host directory under /app
 	./dmake init
-	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /bin/bash
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /bin/bash
 	;;
     
     run) #		start container with command of your choosing, example: ./dmake run find / -iname '*.js'
 	shift  # remove first command line argument (run) so that $@ becomes commands to run in the container
 	./dmake init
-	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} --name ${CONTAINER} ${IMAGE} $@
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${VOLUMES} --name ${CONTAINER} ${IMAGE} $@
 	;;
     
     shell) #	start a second command of your choice in an already running container example, ./dmake exec /bin/bash
@@ -70,7 +70,7 @@ case "$1" in
 
     "test") #	run tests (has to be in parens because tests is a shell keyword)
 	shift 
-	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${PORTS} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /app/test.sh
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${VOLUMES} --name ${CONTAINER} ${IMAGE} /app/test.sh
 	;;
 
     "exec") #	start a second command of your choice in an already running container example, ./dmake exec /bin/bash
