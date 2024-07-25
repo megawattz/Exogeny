@@ -1,7 +1,6 @@
-#!/usr/local/bin/nodejs
+#!/usr/bin/node
 
-import Replicate from "replicate";
-import readlineSync from "readline-sync";
+import Replicate from "/usr/lib/node_modules/replicate/index.js";
 import { fetchArgs } from "/app/planetor/tools/utils.mjs"
 
 const Specials = [
@@ -316,24 +315,6 @@ function getTerrain(name) {
     	return name;
     var choice = randomMember(group) || name;
     return choice;
-}
-
-function getInput(question) {
-    var lines = [];
-
-    console.error(question);
-
-    while (true) {
-	const line = readlineSync.prompt({ prompt: '', keepWhitespace: false });
-	if (line.length < 1)
-	    break;
-	lines.push(line);
-    }
-
-    // Entire input has been read
-    const input = lines.join('');
-
-    return input
 }
 
 function Run() {
