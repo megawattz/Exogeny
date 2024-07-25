@@ -513,7 +513,7 @@ def make_query(selectables):
 Chemistry = ['carbon','ammonia','arsenic','borane','hydrogen_sulfide','methane','silicon','sulfur','retinal']
 LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Human','Aerial','Insectoid','Reptilian','Humanoid','Quadruped']
 
-Mongo = pymongo.MongoClient("mongodb://127.0.0.1:27017")
+Mongo = pymongo.MongoClient("mongodb://mongo:27017")
 Database = Mongo['exogeny']
 
 def DbRead(table, query):

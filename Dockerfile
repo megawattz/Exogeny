@@ -53,13 +53,9 @@ RUN apt-get install -y pipx python3-aiohttp python3-aiosignal python3-asgiref py
     python3-six python3-sqlparse python3-tqdm python3-urllib3 python3-virtualenv python3-virtualenv-clone \
     python3-wand python3-yarl
 
+RUN pwd
+
 RUN apt-get install -y python3-pillow python3-django python3-full
-
-#RUN pipx install python3-attrs python3-Django python3-ffmpeg-python python3-openai python3-pipenv \
-#    python3-psycopg2-binary python3-pytz python3-replicate python3-typing_extensions 
-
-#RUN python3 -m venv /usr/local
-#ENV PYTHONPATH=/usr/lib/python3.11/site-packages
 
 RUN python3 -m venv /usr/lib/python3.11
 RUN ln -sf /lib/python3.11/bin/pip /usr/bin/pip

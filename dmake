@@ -4,12 +4,12 @@
 cd $(dirname $0)
 
 VERSION="-$(git describe --abbrev=0 --tags)"
-PROJECT=exogeny-new-nodejs
+PROJECT=exogeny
 IMAGE=${PROJECT}
 CONTAINER=${PROJECT}
 VOLUMES="-v$(pwd):/app"
 PORTS="-p80:80/tcp"
-#NETWORK="--network exogeny ${PORTS}"
+NETWORK="--network exogeny ${PORTS}"
 ENVFILE="./env.txt"
 VOLUMES="-v$(pwd):/app"
 

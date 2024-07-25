@@ -43,9 +43,11 @@ fi
 IDENTITY=${1}   # a random number (pid number) uses to create all files and directories related to this planet
 
 SPECSFILE="${SPECS}/specs_${IDENTITY}.json"
+mongo "exogeny.planets.find_one({'identity':'${IDENTITY}'})" | tee SPECSFILE
 cat ${SPECSFILE}
 
 CIVFILE="${CIVILIZATION}/civilization_${IDENTITY}.json"
+mongo "exogeny.civilizations.find_one({'identity':'${IDENTITY}'})" | tee SPECSFILE
 cat ${CIVFILE}
 
 STARSYSTEM=$(cat $SPECSFILE | jq -r .star_system) # name of the planet and description passed in by planetor.py
