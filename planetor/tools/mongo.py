@@ -33,15 +33,13 @@ def execmongo(client, command):
     db_name, collection_name, operation, remainder = re.split(r'[.)(]+', command, maxsplit=3)
     print(f"Command:{command} Database:{db_name} Collection:{collection_name} Operation: {operation} Args:{remainder}", file=sys.stderr)
 
-    args = re.split(r'[,]', remainder)
+    args = re.split(r'[)/;(]+', remainder)
     
     if args[-1] is None or args[-1] == "":
         args.pop()
 
     db = client[db_name]
     collection = db[collection_name]
-
-    pprint("Args:", args)
     
     # Convert arguments from string to appropriate types (if possible)
     args = [eval(arg) for arg in args]
@@ -78,10 +76,17 @@ if __name__ == "__main__":
     
     for query in queries:
         query = re.sub('@([a-zA-Z0-9._-]+)', replaceWithFile, query)
-        print(f"query: {query}", file=sys.stderr)
+        #print(f"query: {query}", file=sys.stderr)
         result = execmongo(Mongo, query)
         # Pretty print the result
-        if isinstance(result, dict):
+
+        print(type(result))
+        
+        if isinstance(result, pymongo.results.InsertOneResult):
+            pprint(f"inserted: {result.inserted_id}")
+        elif isinstance(result, pymongo.results.UpdateResult):
+            pprint(f"inserted: {result.upserted_id}")
+        elif isinstance(result, dict):
             pprint(result)
         else:
             for doc in result:
