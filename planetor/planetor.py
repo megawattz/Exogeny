@@ -110,7 +110,7 @@ def resolve_parameter(name, value, options):
         return value
 
     if (name == "sun_brightness"):
-        bright = randomlist([ 2, 3, 4, 5, 6])
+        bright = randomlist([2, 3, 4, 5, 6, 7, 8, 9])
         options['sun_brightness'] = value or "%d,%d,%d" % (bright, bright, bright)
         return options['sun_brightness']
     elif (name == "rings"):
