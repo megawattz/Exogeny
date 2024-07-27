@@ -170,8 +170,10 @@ fi
 	 -movflags faststart -pix_fmt yuva420p -r 10 planet1.mp4
 
     if [ $FRAMES -gt 1 ] && [[ ! "$AUDIO" =~ "None" ]]; then
-    	${NICE} ffmpeg -i planet1.mp4 -i ${APP}/audio/${AUDIO} -t 00:00:20 -c copy -map 0:v -map 1:a planet.mp4
-    else
+    	${NICE} ffmpeg -i planet1.mp4 -i ${APP}/audio/${AUDIO} -t 00:00:20 -c copy -map 0:v -map 1:a planet.mp4 
+	mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};@${SPECSFILE};True)"
+	mongo "exogeny.civilizations.replace_one({'identity':\"${IDENTITY}\"};@${CIVFILE};True)"
+   else
 	mv -vf planet1.mp4 planet.mp4
     fi
 

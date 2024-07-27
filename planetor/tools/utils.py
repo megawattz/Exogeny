@@ -50,7 +50,7 @@ def fetchArgs(args, docs={}):
         print("@filename means: read entire file 'filename' and use as value to argument, i.e. arg=@myfile\n\n")
         sys.exit(-1) #raise Exception("Must supply at least one argument")
     for arg in args:
-        hit = re.findall("-?-?([^=]*)=(.*)", arg)
+        hit = re.findall("--([^=]*)=(.*)", arg)
         if not hit:
             break
         key = hit[0][0]
