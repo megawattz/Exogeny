@@ -1,12 +1,10 @@
 #!/usr/local/bin/node
 
-const Moralis = require("moralis-v1/node");
-
-const Credentials = require("/app/planetor/tools/moralis_dapp_credentials.json")
-
 const Utils = require("/app/planetor/tools/utils");
 
 const fs = require('fs');
+
+const { MongoClient } = require('mongodb');
 
 function help() {
     let contents = fs.readFileSync(__dirname+'/event_template.json');
@@ -51,7 +49,7 @@ function resultsToMap(results) {
     return imap;
 }
 
-async function moralisQuery(collection, selectors, options) {
+async function mongoQuery(collection, selectors, options) {
     const query = new Moralis.Query(collection);
     
     for (k in options)
@@ -183,8 +181,10 @@ function getTechLevel(target) {
 }
 
 async function Process() {
-	Moralis.start({ serverUrl: Credentials.serverUrl, appId: Credentials.appId, masterKey: Credentials.masterKey });
-
+    
+    new MongoClient
+const { MongoClient } = require('mongodb');
+    
 	const Node = process.argv.shift(); // remove node.js from the command args
 	const App = process.argv.shift(); // remove events.js from the command args
 

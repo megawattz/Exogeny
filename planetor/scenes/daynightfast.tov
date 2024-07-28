@@ -91,7 +91,7 @@ sphere {
 	    bump_map {
 	        v_clouds_spec
 		map_type 1  // Esfera
-                bump_size v_random_float * 5
+                bump_size v_random_float * 100
            }
        }
    }

@@ -1,5 +1,3 @@
-#!/usr/local/bin/node
-
 export function fetchArgs(args, docs = {}) {
     var params = {};
     var remainder = [];
@@ -55,7 +53,7 @@ export function message(verbosity, ...strs) {
     console.error(`${'-'.repeat(stackDepth)} ${elements[2]} (${verbosity})`, ...strs);
 }
 
-export function parseMoralisDbArgs(args) {
+export function parseMongoDbArgs(args) {
     let command = args.shift(); // first argument on command line
     if (command.match(/[={}<>~@#$%^+-]/)) // command must not have any special characters
         throw new Error(`command not recognized: ${command}`);
@@ -85,6 +83,3 @@ export function parseMoralisDbArgs(args) {
     message(4, `Arguments:\ncommand: ${JSON.stringify(command, null, 4)}\nselectors: ${JSON.stringify(selectors, null, 4)}\nother: ${JSON.stringify(other, null, 4)}\nmultiple: ${JSON.stringify(multiple, null, 4)}`);
     return [command, selectors, other, multiple];
 }
-
-
-
