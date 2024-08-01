@@ -54,12 +54,17 @@ def fetchArgs(args, docs={}):
         if not hit:
             break
         key = hit[0][0]
-        value = hit[0][1]
+        
+        # if single parameter without =
+        if len(hit[0]) < 2:
+            value = True
+        else:        
+            value = hit[0][1]
         if not key in docs:
             raise Exception("%s not a recognized parameter, use:\n%s" % (key, json.dumps(docs, indent=4)))
         params[key] = value
         if (value[:1] == '@'):
-                params[key] = readfile(value[1:])
+            params[key] = readfile(value[1:])
         count = count + 1
     for k,v in docs.items():
         if docs[k][:1] == '*':

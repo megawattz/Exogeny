@@ -122,40 +122,40 @@ fi
     pwd
     chmod a+rwx *
     convert -scale ${WIDTH}x${HEIGHT}+0+0 ${APP}/backgrounds/${BACKGROUND} ${BACKGROUND}.work  # we need to modify this so make our own copy
-    cp -vf ${BACKGROUND}.work ${BACKGROUND}
+    cp -vf ${BACKGROUND}.work ./${BACKGROUND}
     
-    ${NICE} composite \( ${APP}/artists/${ARTIST} -resize 20% -geometry +700+720 \) ${BACKGROUND} ${BACKGROUND}.work
-    cp -vf ${BACKGROUND}.work ${BACKGROUND}
+    ${NICE} composite \( ${APP}/artists/${ARTIST} -resize 20% -geometry +700+720 \) ./${BACKGROUND} ${BACKGROUND}.work
+    cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	    
     if [ "${UNEXPLORED}" != "0" ]; then
 	echo "No Labels in Rendering (plain image)"
     else
 	# life form
-	${NICE} composite \( ${APP}/images/${LIFEFORM}.png -resize 20% -geometry +890+10 \) ${BACKGROUND} ${BACKGROUND}.work
-	cp -vf ${BACKGROUND}.work ${BACKGROUND}
+	${NICE} composite \( ${APP}/images/${LIFEFORM}.png -resize 20% -geometry +890+10 \) ./${BACKGROUND} ${BACKGROUND}.work
+	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 
 	# music
 	if [[ !"$AUDIO" =~ "None" ]]; then	
-	    ${NICE} composite \( ${APP}/images/Music.png -resize 20% -geometry +10+120 \) ${BACKGROUND} ${BACKGROUND}.work
-	    cp -vf ${BACKGROUND}.work ${BACKGROUND}
+	    ${NICE} composite \( ${APP}/images/Music.png -resize 20% -geometry +10+120 \) ./${BACKGROUND} ${BACKGROUND}.work
+	    cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	fi
 
 	# natural resources
-	${NICE} composite \( ${APP}/images/resources.png -resize 20% -gravity northwest -geometry +10+0 \) ${BACKGROUND} ${BACKGROUND}.work
-	cp -vf ${BACKGROUND}.work ${BACKGROUND}
-	${NICE} convert -pointsize 50 -fill white -draw "text 100, 22 \" ${RESOURCES}\"" -gravity northwest ${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
-	cp -vf ${BACKGROUND}.work ${BACKGROUND}
+	${NICE} composite \( ${APP}/images/resources.png -resize 20% -gravity northwest -geometry +10+0 \) ./${BACKGROUND} ${BACKGROUND}.work
+	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
+	${NICE} convert -pointsize 50 -fill white -draw "text 100, 22 \" ${RESOURCES}\"" -gravity northwest ./${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
+	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	# star
-	${NICE} convert -pointsize 40 -fill white -draw "text 0, 0 \" ${STARINDEX} ${STARSYSTEM}\"" -gravity southwest ${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
-	cp -vf ${BACKGROUND}.work ${BACKGROUND}
+	${NICE} convert -pointsize 40 -fill white -draw "text 0, 0 \" ${STARINDEX} ${STARSYSTEM}\"" -gravity southwest ./${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
+	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	# planet index
-	${NICE} convert -pointsize 50 -fill white -draw "text 0, 0 \"${PLANETINDEX}  \" " -gravity southeast ${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
-	cp -vf ${BACKGROUND}.work ${BACKGROUND}
+	${NICE} convert -pointsize 50 -fill white -draw "text 0, 0 \"${PLANETINDEX}  \" " -gravity southeast ./${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
+	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	# code branch
 	#${NICE} convert -pointsize 15 -fill white -draw "text 0, 0 \"${GIT_INFO} \"" -gravity south ${BACKGROUND} work.${BACKGROUND}  # write the description text into the image in the lower left
 	#cp work.${BACKGROUND} ${BACKGROUND}
 
-	cp -lf ${BACKGROUND} ${APP}/background.jpg # only for debugging
+	cp -lf ./${BACKGROUND} ${APP}/background.jpg # only for debugging
     fi 
     
     chmod a+rw ${APP}/*
@@ -164,16 +164,16 @@ fi
 
     METADATA=$(cat ${SPECS}/specs_${IDENTITY}.json | jq -c)
     
-    ${NICE} ffmpeg -framerate 10 -pattern_type glob -i '*.png' -i ${BACKGROUND} \
+    ${NICE} ffmpeg -framerate 10 -pattern_type glob -i '*.png' -i ./${BACKGROUND} \
 	 -filter_complex "[0:v]curves=all='0/0 0.2/0 1/1'[c];[c]scale=1024:768[scaled];[1:v][scaled]overlay=0.0" \
-	 -metadata minor_version="${REVISION}" -metadata artist="${ARTIST}" -metadata album="${IDENTITY}" -metadata title="${DESCRIPTION}" -metadata comment="${METADATA}" \
+	 -metadata minor_version="${REVISION}" -metadata artist="${ARTIST}" -metadata album="${IDENTITY}" -metadata title="${DESCRIPTION}" \
 	 -movflags faststart -pix_fmt yuva420p -r 10 planet1.mp4
 
     if [ $FRAMES -gt 1 ] && [[ ! "$AUDIO" =~ "None" ]]; then
-    	${NICE} ffmpeg -i planet1.mp4 -i ${APP}/audio/${AUDIO} -t 00:00:20 -c copy -map 0:v -map 1:a planet.mp4 
-	mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};@${SPECSFILE};True)"
-	mongo "exogeny.civilizations.replace_one({'identity':\"${IDENTITY}\"};@${CIVFILE};True)"
-   else
+    	${NICE} ffmpeg -i planet1.mp4 -i ${APP}/audio/${AUDIO} -t 00:00:20 -c copy -map 0:v -map 1:a planet.mp4
+	COMBINED=$(jq -s '.[0] * .[1]' ${SPECSFILE} ${CIVFILE} )
+	mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};${COMBINED};True)"
+    else
 	mv -vf planet1.mp4 planet.mp4
     fi
 
