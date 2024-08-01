@@ -113,6 +113,8 @@ if [ $FRAMES -gt 1 ]; then
     jq ". += {\"history\":\"${HISTORY}\"}" ${SPECSFILE} > ${SPECSFILE}.tmp
     mv -vf ${SPECSFILE}.tmp ${SPECSFILE}
     ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Frame=1 Final_Frame=${FRAMES} Initial_Clock=0.0 Final_Clock=${FINAL_CLOCK} Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
+    COMBINED=$(jq -s '.[0] * .[1]' ${SPECSFILE} ${CIVFILE} )
+    mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};${COMBINED};True)"
 else
     ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Clock=0.6 Initial_Frame=120 Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
 fi
@@ -171,8 +173,6 @@ fi
 
     if [ $FRAMES -gt 1 ] && [[ ! "$AUDIO" =~ "None" ]]; then
     	${NICE} ffmpeg -i planet1.mp4 -i ${APP}/audio/${AUDIO} -t 00:00:20 -c copy -map 0:v -map 1:a planet.mp4
-	COMBINED=$(jq -s '.[0] * .[1]' ${SPECSFILE} ${CIVFILE} )
-	mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};${COMBINED};True)"
     else
 	mv -vf planet1.mp4 planet.mp4
     fi
