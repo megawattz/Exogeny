@@ -1,5 +1,5 @@
 {
-	"limits":[],
+	"limits":{},
     "affected": {
         "transport":"0.2"
     },

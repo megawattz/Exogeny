@@ -1,15 +1,15 @@
 {
-    "limits": [
-    	{"lifeform": { "$in": ['Biped','Tetrapod']}},
-	{"level": {"$lt": 1 }}
-    ],
+    "limits": {
+	"level": {"$lt": 1},
+	"lifeform": { "$in": ["Biped","Tetrapod"] }
+    },
     "affected": {
-        "bio":"0.3",
-	"energy":"0.2",
-	"science":"0.1",
-	"warfare":"0.2",
-	"economic":"0.1",
-	"spiritual":"0.1"
+        "bio": 0.3,
+	"energy": 0.2,
+	"science": 0.1,
+	"warfare": 0.2,
+	"economic" :0.1,
+	"spiritual": 0.1
     },
     "level": 0,
     "amplifiers": {},
@@ -21,5 +21,5 @@
     "color":"green",
     "apparent":"Your people have learned to cooperate with and utilize the other creatures in their surroundings",
     "actual":""
-}
+}	
 

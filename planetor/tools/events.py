@@ -92,13 +92,16 @@ Aspects = {
 
 def merge_map_and_array(map, array_of_maps):
     result = []
-    for key in array_of_maps.keys():
+    
+    for item in array_of_maps:
+        key = next(iter(item))
         if not map.get(key):
-            result.append(array_of_maps[key])
+            result.append(item)
             
     for k, v in map.items():
         result.append({k:v})
-        
+
+    pprint.pprint(result)
     return result
         
 
@@ -134,7 +137,8 @@ def process(params, selector_strings):
     # send an event to the galaxy
     elif command == "engage":
         event = json.loads(params['event'])
-        selectors = merge_map_and_array(event.limits, selectors)
+        selectors = merge_map_and_array(event['limits'], selectors)
+        message(4, f"Selectors: {selectors}")
         result = collection.update_many({ '$and' : selectors }, {"$push": { "events": event}})
         message(3, json.dumps(result.raw_result, indent=4))
 

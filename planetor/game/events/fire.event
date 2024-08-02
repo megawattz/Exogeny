@@ -1,7 +1,7 @@
 {
-    "limits": [
-	{"lifeform": { "$ne": 'Aquatic'}}
-    ],
+    "limits": {
+	"lifeform": { "$nin": ["Aquatic","Gaseous"]}
+    },
     "affected": {
 	"engineering":"0.1",
 	"science":"0.1",

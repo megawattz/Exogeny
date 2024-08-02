@@ -1,5 +1,5 @@
 {
-	"limits":[],
+	"limits":{},
     "affected": {
         "engineering":"0.2",
 	"social":"0.1",
