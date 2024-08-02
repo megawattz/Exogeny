@@ -8,6 +8,7 @@ import re
 import utils
 import pymongo
 import pprint
+import pdb
 
 def help():
     with open(os.path.join(os.path.dirname(__file__), 'event_template.json')) as f:
@@ -24,11 +25,12 @@ def help():
    select planets to operate on by specifying various selectors
    where: selectors are: (can be multiple)
       field==value field equals value, like, identity=479303468
-      field~=value field not equal value, like, lifeform~=Tetrapod
+      field!=value field not equal value, like, lifeform~=Tetrapod
       field>=value field greater than or equal to value, like, industrials>=27.7
       field>value field greater than value
       field<=value field less than or equal to value
-      field@value1,val2,val3 field equals one of the listed values
+      field@=value1,val2,val3 field equals one of the listed values
+      field%=regex field matches regular expression
 
   options: verbosity=0 no status messages, 9 lots of status messages
 
@@ -36,7 +38,7 @@ def help():
      event help
      event query culture==Practical radioactives>=10 bio>=2.3 science<=2
      event event culture==Military warfare>=5 population>=4 plague.event asteroid.event election.event
-     event event lifeform==Fungoid warfare>=5 events/*.event"""
+     event event lifeform==Fungoid warfare>=5 events%=*.event"""
 
 Verbosity = 3
 def message(level, *args):
@@ -58,14 +60,15 @@ def parse_selectors(selectors):
         "==":"$eq",
         ">": "$gt",
         "<": "$lt",
-        "~=":"$ne",
+        "!=":"$ne",
         "<=":"$lte",
         ">=":"$gte",
+        "%=": "$regex",
         "@=":"$in"
     }
 
     for selector in selectors:
-        match = re.match("([A-Za-z_]+)([@=<>~!]+)(.*)", selector)
+        match = re.match("([A-Za-z_]+)([@=<>~%!]+)(.*)", selector)
         field, op, value = match.groups(1)
         if ',' in value:
             value = re.split(r',', value)
@@ -73,24 +76,6 @@ def parse_selectors(selectors):
         selectors_json.append(json_selector)
 
     return selectors_json
-
-def if_eligible(planet, events):
-    allowed = []
-    for event in events:
-        message(6, f"checking event eligibility {json.dumps(event, indent=4)}")
-        eligible = True
-        limits = event.get("limits")
-        if not limits:
-            break
-        for limit in limits:
-            if not eval(limit):
-                message(3, f"Planet Lifeform {json.dumps(planet, indent=4)}")
-                message(3, f"limit:{limit} not met for this event.")
-                eligible = False
-                break
-        if eligible:
-            allowed.append(event)
-    return allowed
 
 def get_tech_level(target):
     total_level = sum(target[tech] for tech in Techs)
@@ -107,7 +92,10 @@ Aspects = {
 def process(params, selector_strings):
     message(6, "params:", params)
 
-    selectors = parse_selectors(selector_strings)                                                
+    if selector_strings == "all":
+        selectors = {}
+    else:
+        selectors = parse_selectors(selector_strings)                                                
 
     client = pymongo.MongoClient(params.get('server') or "mongodb://mongo:27017")
     
@@ -125,92 +113,34 @@ def process(params, selector_strings):
     message(8, fields)
     project={element: 1 for element in re.split(r'[, ]+', fields) }
     project['identity'] = 1 # always show identity
-    project['_id'] = 0  # always suppress mongo id
 
+    # query
     if command == "query":
+        project['_id'] = 0  # always suppress mongo id
         documents = collection.find({'$and': selectors }, project)
         for doc in documents:
             pprint.pprint(doc, indent=4)
 
+    # send an event to the galaxy
     elif command == "engage":
-        engage = True
-        process_events(selectors, files, engage)
+        event = json.loads(params['event'])
+        result = collection.update_many(event['affected'], {"$push": { "events": event}})
+        message(3, json.dumps(result.raw_result, indent=4))
 
+    # remove outstanding events from previous cycle
+    elif command == "purge":  
+        result = collection.update_many({'$and': selectors }, {"$unset": { "events": ""} })
+        message(3, json.dumps(result.raw_result, indent=4))
+        
     elif command == "event":
         process_events(selectors, files, engage)
-
-def process_events(selectors, files, engage):
-    message(2, "Loading Events")
-    events2civs = []
-    for filename in files:
-        eventname = os.path.basename(filename).split('.')[0]
-        message(4, f"Event filename:{filename} = eventname:{eventname}")
-        finds = mongo_query("Event", {"identity": {"op": "==", "value": eventname}})
-        with open(filename) as f:
-            contents = f.read()
-        message(6, contents)
-        ob = json.loads(contents)
-        if finds:
-            event = finds[0]
-            message(5, f"Already Existing, update {event.get('identity')}")
-            ob['LastPushed'] = datetime.datetime.utcnow()
-            event.update(ob)
-        else:
-            message(4, f"Create New Event from file {filename}")
-            ob['identity'] = eventname
-            ob['LastPushed'] = datetime.datetime.utcnow()
-            event = {"Event": ob}
-
-        message(5, f"Loaded event {eventname}")
-        newevent = event.save()
-        events2civs.append(newevent)
-        message(5, f"Adding Events {events2civs}")
-
-    message(6, f"New Events: {json.dumps(events2civs, indent=4)}")
-
-    if not engage:
-        return
-
-    if not selectors:
-        raise ValueError("Must provide selectors")
-
-    message(5, "Querying Matching Civilizations")
-    merges = get_planets_and_civilizations(selectors)
-    message(5, f"Civilizations:\n{json.dumps(merges, indent=4)}")
-
-    success = 0
-    errors = 0
-    unix_timestamp = int(datetime.datetime.utcnow().timestamp())
-    for merge in merges.values():
-        try:
-            civ = merge['civ']
-            message(4, f"Civilization (before fetch) {json.dumps(civ, indent=4)}")
-            civ.fetch()
-            civ['level'] = get_tech_level(civ)
-            message(4, f"Civilization (after fetch) {json.dumps(civ, indent=4)}")
-            message(5, f"Pre eligible new events {json.dumps(events2civs, indent=4)}")
-            eligible_events = if_eligible(civ, events2civs)
-            message(5, f"eligible new events {json.dumps(eligible_events, indent=4)}")
-            message(5, f"civ events before adding: {json.dumps(civ.get('events', []), indent=4)}")
-            eventlist = civ.get("events", [])
-            eventlist.extend(eligible_events)
-            message(5, f"new events after adding: {json.dumps(eventlist, indent=4)}")
-            result = civ.update({"lastevent": unix_timestamp, "events": eventlist})
-            message(2, f"Result of saving civ: {json.dumps(result, indent=4)}")
-            success += 1
-        except Exception as ex:
-            errors += 1
-            message(1, f"Error {ex} {str(ex).splitlines()[1]} with Civilization {civ['identity']} {json.dumps(civ, indent=4)}")
-            message(4, str(ex))
-
-    message(2, f"{success} civilizations successfully modified, {errors} errors")
 
 if __name__ == "__main__":
     params, queries = utils.fetchArgs(sys.argv[1:], docs={
         "server":"mongo URL: default = mongodb://mongo:27017",
         "command":"*command to game: query, event, engage, help",
         "event":"event file to send to all planets matching selectors",
-        "fields":"which fields to display",
+        "fields":"which fields to display (or 'all' to match all planets)",
         "suppress":"which fields to block",
         "verbosity":"how much data to display: default 3"
     });

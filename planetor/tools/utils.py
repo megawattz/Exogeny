@@ -64,7 +64,7 @@ def fetchArgs(args, docs={}):
             raise Exception("%s not a recognized parameter, use:\n%s" % (key, json.dumps(docs, indent=4)))
         params[key] = value
         if (value[:1] == '@'):
-            params[key] = readfile(value[1:])
+            params[key] = readfile(value[1:]).decode('utf-8')
         count = count + 1
     for k,v in docs.items():
         if docs[k][:1] == '*':
