@@ -8,6 +8,7 @@
     "light_year_units": 5,
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
     "ipfs_gateway": "https://ipfs.io/",
+    "exogeny_server": "http://mongo:2000"
     "sectors" : {
 	"vesper":{
 	    "Description":"Planets of the Vesper Dominion",

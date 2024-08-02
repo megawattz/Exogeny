@@ -108,14 +108,15 @@ rm -f ${STILLS}/planet_${IDENTITY}.gif
 
 # if genrating only one frame, create a single frame better than frame 0
 if [ $FRAMES -gt 1 ]; then
-    HISTORY=$(${APP}/AI/history.py lifeform=${LIFEFORM} planet=${PLANETTYPE} culture=${CULTURE})
-    cat ${SPECSFILE}
-    jq ". += {\"history\":\"${HISTORY}\"}" ${SPECSFILE} > ${SPECSFILE}.tmp
-    mv -vf ${SPECSFILE}.tmp ${SPECSFILE}
+    
     ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Frame=1 Final_Frame=${FRAMES} Initial_Clock=0.0 Final_Clock=${FINAL_CLOCK} Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
     COMBINED=$(jq -s '.[0] * .[1]' ${SPECSFILE} ${CIVFILE} )
     mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};${COMBINED};True)"
 else
+    HISTORY=$(${APP}/AI/history.py --lifeform=${LIFEFORM} --planet=${PLANETTYPE} --culture=${CULTURE})
+    cat ${SPECSFILE}
+    jq ". += {\"history\":\"${HISTORY}\"}" ${SPECSFILE} > ${SPECSFILE}.tmp
+    mv -vf ${SPECSFILE}.tmp ${SPECSFILE}
     ${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Clock=0.6 Initial_Frame=120 Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
 fi
 

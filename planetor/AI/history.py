@@ -14,7 +14,7 @@ import pprint
 import re
 
 def openAIquery(prompt):
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages = [
             {
@@ -22,6 +22,7 @@ def openAIquery(prompt):
                 "content": prompt
             }
         ])
+    
     return response
 
 def history(args):
@@ -62,7 +63,7 @@ if __name__ == "__main__":
         print(rval)
         sys.exit(0)
 
-    content = rval['choices'][0]['message']['content']
+    content = rval.choices[0].message.content
 
     content = content.replace('\n', '\\n')
 
