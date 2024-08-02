@@ -92,10 +92,7 @@ Aspects = {
 def process(params, selector_strings):
     message(6, "params:", params)
 
-    if selector_strings == "all":
-        selectors = {}
-    else:
-        selectors = parse_selectors(selector_strings)                                                
+    selectors = parse_selectors(selector_strings)                                                
 
     client = pymongo.MongoClient(params.get('server') or "mongodb://mongo:27017")
     
@@ -140,7 +137,7 @@ if __name__ == "__main__":
         "server":"mongo URL: default = mongodb://mongo:27017",
         "command":"*command to game: query, event, engage, help",
         "event":"event file to send to all planets matching selectors",
-        "fields":"which fields to display (or 'all' to match all planets)",
+        "fields":"which fields to display",
         "suppress":"which fields to block",
         "verbosity":"how much data to display: default 3"
     });
