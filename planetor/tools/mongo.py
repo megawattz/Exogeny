@@ -27,11 +27,16 @@ Notes:
 2) There are various anomalies in the planets, intentionally. Can you find any?
 '''
 
+def message(*args):
+    # This is a placeholder for the actual implementation of the message function
+    frame = sys._getframe(1)
+    print(f"{os.path.basename(frame.f_code.co_filename)}:{frame.f_lineno}: ", *args, file=sys.stderr)
+
 def execmongo(client, command):
     """Execute a MongoDB command using pymongo."""
     # Split the command to identify the database and the collection0
     db_name, collection_name, operation, remainder = re.split(r'[.)(]+', command, maxsplit=3)
-    print(f"Command:{command} Database:{db_name} Collection:{collection_name} Operation: {operation} Args:{remainder}", file=sys.stderr)
+    message(f"Command:{command} Database:{db_name} Collection:{collection_name} Operation: {operation} Args:{remainder}")
 
     args = re.split(r'[)(;]+', remainder)
 
@@ -46,9 +51,9 @@ def execmongo(client, command):
     # Execute the operation
 
     args = [eval(arg) for arg in args]
-        
-    pprint(args)
 
+    message(f"{command} {args}")
+    
     result = getattr(collection, operation)(*args)
 
     return result
@@ -67,9 +72,11 @@ if __name__ == "__main__":
         usage: mongo server=mongodb://hostname:port query query query ...
         where query is of the general format "database.collection.command.arguments...", 
         example: mongo server=mongodb://localhost:27017 exogeny.planets.find({"identity", "78c701a2-4aa4-11ef-8bb3-5bb5dfbe4b64"})
+        WARNING: Use ; to separate mongo arguments instead of ,  This simple parser cannot distiguish argument separator , from , inside text
+        WARNING: when finding, you need to suppress the mongo _id object, like, database.collection.find({};{'_id': 0})
         @{filename} = read contents from filename into commandline
         """
-        print(help)
+        message(help)
         sys.exit(0);
 
     params, queries = utils.fetchArgs(sys.argv[1:], docs={
@@ -80,18 +87,16 @@ if __name__ == "__main__":
     
     for query in queries:
         query = re.sub('@([a-zA-Z0-9./_-]+)', replaceWithFile, query)
-        #print(f"query: {query}", file=sys.stderr)
         result = execmongo(Mongo, query)
-        # Pretty print the result
 
-        print(type(result))
+        message(type(result))
         
         if isinstance(result, pymongo.results.InsertOneResult):
-            pprint(f"inserted: {result.inserted_id}")
+            message(f"inserted: {result.inserted_id}")
         elif isinstance(result, pymongo.results.UpdateResult):
-            pprint(f"inserted: {result.upserted_id}")
+            message(f"inserted: {result.upserted_id}")
         elif isinstance(result, dict):
-            pprint(result)
+            print(json.dumps(result, indent=4))
         else:
             for doc in result:
-                pprint(doc)
+                print(json.dumps(doc, indent=4))
