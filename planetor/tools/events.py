@@ -21,6 +21,7 @@ def help():
       query - list planets based on selectors that will receive the events
       event - create new events, or modify already existing events but don't push them to any planets
       engage - send events to the planets matching the selectors
+      purge - purge all events from the previous cycle (normally done once an hour before sending new events)
 
    select planets to operate on by specifying various selectors
    where: selectors are: (can be multiple)
@@ -89,6 +90,18 @@ Aspects = {
     "techs": "bio,energy,information,engineering,science,transport,social,warfare,economic,spiritual,art"
 }
 
+def merge_map_and_array(map, array_of_maps):
+    result = []
+    for key in array_of_maps.keys():
+        if not map.get(key):
+            result.append(array_of_maps[key])
+            
+    for k, v in map.items():
+        result.append({k:v})
+        
+    return result
+        
+
 def process(params, selector_strings):
     message(6, "params:", params)
 
@@ -121,7 +134,8 @@ def process(params, selector_strings):
     # send an event to the galaxy
     elif command == "engage":
         event = json.loads(params['event'])
-        result = collection.update_many(event['affected'], {"$push": { "events": event}})
+        selectors = merge_map_and_array(event.limits, selectors)
+        result = collection.update_many({ '$and' : selectors }, {"$push": { "events": event}})
         message(3, json.dumps(result.raw_result, indent=4))
 
     # remove outstanding events from previous cycle

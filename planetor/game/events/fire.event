@@ -1,12 +1,16 @@
 {
-    "affected": { "$and": [
-	{"engineering": {"$lt": 0.1}},
-	{"bio": {"$lt": 0.1}}
-    ]},	
-    "level": "0",
+    "limits": [
+	{"lifeform": { "$ne": 'Aquatic'}}
+    ],
+    "affected": {
+	"engineering":"0.1",
+	"science":"0.1",
+	"energy": "0.2"
+    },
+    "level": 0,
     "amplifiers":{},
     "mitigators":{},
-    "cost": "0.01", 
+    "cost": 0.01, 
     "influence":"Do you want to help them utilize the fire?",
     "image_url":"https://soleexperiences.org/wp-content/uploads/2015/06/Caveman-Campfire.jpg",
     "video_url":"https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/NL0L5N5Rgimkt8edi/videoblocks-234z_v1-0111_a007_08202354_c063_bn3ar-hwt__821f6bbb76d7ad39aa56efaba2e082fa__P360.mp4",

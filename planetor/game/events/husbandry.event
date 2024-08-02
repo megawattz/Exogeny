@@ -1,7 +1,7 @@
 {
     "limits": [
-    	 "['Biped','Tetrapod'].includes(planet.lifeform)",
-	 "planet.level < 1"
+    	{"lifeform": { "$in": ['Biped','Tetrapod']}},
+	{"level": {"$lt": 1 }}
     ],
     "affected": {
         "bio":"0.3",

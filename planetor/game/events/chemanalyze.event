@@ -1,7 +1,7 @@
 {
     "limits": [
-    	"['Fungoid','Gaseous','Liquid'].includes(planet.lifeform)"
-    ],
+        {"lifeform": {"$in":['Fungoid','Gaseous','Liquid']}}
+    ],		
     "affected": {
         "science":"2",
 	"engineering":"2",
