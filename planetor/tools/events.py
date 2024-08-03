@@ -161,7 +161,7 @@ if __name__ == "__main__":
     });
 
     message(4, f"params:{pprint.saferepr(params)} queries:{pprint.saferepr(queries)}") 
-    Verbosity = int(params['verbosity']) or "3"
+    Verbosity = int(params.get('verbosity') or "3")
     
     process(params, queries)
         

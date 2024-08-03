@@ -36,7 +36,7 @@ def execmongo(client, command):
     """Execute a MongoDB command using pymongo."""
     # Split the command to identify the database and the collection0
     db_name, collection_name, operation, remainder = re.split(r'[.)(]+', command, maxsplit=3)
-    message(f"Command:{command} Database:{db_name} Collection:{collection_name} Operation: {operation} Args:{remainder}")
+    message(f"Command:{command} Database:{db_name} Collection:{collection_name} Operation:{operation} Args:{remainder}")
 
     args = re.split(r'[)(;]+', remainder)
 
@@ -52,7 +52,13 @@ def execmongo(client, command):
 
     args = [eval(arg) for arg in args]
 
-    message(f"{command} {args}")
+    if operation == "find":
+        if len(args) < 2:
+            args.append({"_id": 0})
+        else:
+            args[1]["_id"] = 0 # suppress mongo id
+    
+    message(f"{operation} {args}")
     
     result = getattr(collection, operation)(*args)
 
