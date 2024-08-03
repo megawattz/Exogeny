@@ -22,7 +22,6 @@
     
   </head>
   <body style="background-color: black; font: monaco; color: white; width:95%; height:95%;">
-
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-brand">
 	<div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbarsExample10">
@@ -44,67 +43,66 @@
 	</div>
       </nav>
     <br><br>
-    
+    <style>
+      .header {
+	  font-size: 12pt;
+	  border-bottom: groove white;
+	  border-top: groove white;
+      }
+      input,select {
+	  background-color: transparent;
+	  border: 0;
+	  color: white;
+	  background: inherit;
+	  text-align: right;
+	  /* font-family: 'Courier Prime', monospace; */
+      }
+      td {
+	  animation: glow 2s ease-in-out infinite alternate;
+	  background: inherit;
+	  padding-right: 1em;
+	  padding-left: 1em;
+	  #border: solid 1px;
+      }
+      .videoOverlay {
+	  position:absolute;
+	  top:10%;
+	  left:1%;
+	  z-index:1;
+      }
+      .icon {
+	  height: 48px; width: 48px;
+      }
+      .number {
+	  width: 2em;
+	  text-align: right;
+	  border-right: groove white;
+      }
+      .resource {
+	  font-size: 10pt;
+	  width: 20em;
+      }
+      .text {
+	  padding-right: 5px;
+	  text-align: left;
+      }
+      input[type="text"] {
+	  text-align: left;
+      }
+    </style>
+    <script>
+      function details(element, visible) {
+	  if (visible == false)
+	      element.style.opacity = 0
+	  if (visible == true)
+	      element.style.opacity = 1
+      }
+    </script>
     <div class="container-fluid">
       <div class="row g-0" style="background-color: black; width: 106%; height: 100%">
         <div class="col-8">
 	  <div id="planetDisplay" style="background-color: black; padding: 5px; background-repeat: no-repeat; width: 100%; height: 90%;">
 	    <video onclick="this.paused ? play() : pause();" id="planetVideo" loop onplay="this.currentTime=10;" preload="none" width="100%"></video>
-	    <style>
-	      .header {
-		  font-size: 12pt;
-		  border-bottom: groove white;
-		  border-top: groove white;
-	      }
-	      input,select {
-		  background-color: transparent;
-		  border: 0;
-		  color: white;
-		  background: inherit;
-		  text-align: right;
-		  /* font-family: 'Courier Prime', monospace; */
-	      }
-	      td {
-		  animation: glow 2s ease-in-out infinite alternate;
-		  background: inherit;
-		  padding-right: 1em;
-		  padding-left: 1em;
-		  #border: solid 1px;
-	      }
-	      .videoOverlay {
-		   position:absolute;
-		   top:10%;
-		   left:1%;
-		   z-index:1;
-	      }
-	      .icon {
-		  height: 48px; width: 48px;
-	      }
-	      .number {
-		  width: 2em;
-		  text-align: right;
-		  border-right: groove white;
-	      }
-	      .resource {
-		  font-size: 10pt;
-		  width: 20em;
-	      }
-	      .text {
-		  padding-right: 5px;
-		  text-align: left;
-	      }
-	      input[type="text"] {
-		  text-align: left;
-	      }
-	    </style>
-	    <script>
-	      function details(element, visible) {
-		  if (visible == false)
-		      element.style.opacity = 0
-		  if (visible == true)
-		      element.style.opacity = 1
-	      }
-	    </script>
 	    <form class="videoOverlay" style="opacity: 0;" onmouseover="details(this, true);" onmouseout="details(this, false);">
 	      <table style="width: 95%; font-size: 10pt;">
 		<tr class="header" style="font-size: 12pt;">
