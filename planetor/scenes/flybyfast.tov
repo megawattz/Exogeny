@@ -19,7 +19,7 @@ global_settings{
 #declare hyperbole = (clock+0.01)*(clock+0.01);
 #declare cam_dist = v_planet_size/1.5;
 #declare dist = (cam_dist/hyperbole);
-#declare sunloc = <dist, dist, dist>;
+#declare sunloc = <dist, dist+1, dist>;
 
 camera {
     location sunloc
