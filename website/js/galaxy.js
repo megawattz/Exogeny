@@ -36,6 +36,7 @@ var Container = document.body
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({alpha: true});
+renderer.info.autoReset = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
 Container.appendChild(renderer.domElement);
 

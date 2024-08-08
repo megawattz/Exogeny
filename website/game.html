@@ -83,13 +83,12 @@
 	      </div>
 	    </div>
 	    
-	    <div id="planetevents" class="row section">
+	    <div>
 	      <span class="statsheader">Latest Events</span>
 	      <div id="eventlist" class="eventlist">
 	      </div>
-	      <hr>
 	    </div>
-	
+	    
 	    <div id="civilization" class="statstable">
 	      <span class="statsheader">Civilization</span>
 	      <div id="civstatstable" class="statstable">
@@ -100,7 +99,6 @@
 	</div>
       </div>
     </div>
-    
     <script type="module">
       import * as utils from './js/utils.mjs';
       import {exogeny} from './js/exogeny.mjs';
@@ -243,56 +241,6 @@
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       handleFragmentChange();
-
-      async function fetchEvents() {
-	  fetch(`${Config.exogeny_server}/events`).then(()=>response.json()).catch(console.error);
-      }
-
-      async function updateEvents(planet) {
-	  var planetevents = document.getElementById("eventlist");
-	  let eventlistholder = document.getElementById("eventlistholder");1
-	  if (eventlistholder)
-	      planetevents.removeChild(eventlistholder);
-	  eventlistholder = document.createElement("div");
-	  eventlistholder.id = "eventlistholder";
-	  planetevents.appendChild(eventlistholder);
-	  
-	  let events = await fetchEvents(planet)
-	  if (events == null || events.length == 0)
-	      return;
-	  
-	  let html = "";
-	  for (var idx in events) {
-	      const event = events[idx];
-	      const imageUrl = event.get('image_url');
-	      const videoUrl = event.get('video_url');
-	      const color = event.get('color') || 'black';
-	      //child.style.color = event['color'];
-	      const apparent = event.get('apparent');
-	      const date = new Date();
-	      const affected = event.get('affected');
-	      const cost = parseFloat(event.get('cost'));
-	      const influence = event.get('influence');
-	      let effects = effectsString(affected);
-
-	      html = `<div name="planetevent" style="border-radius: 1vw; margin: 0 auto; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
-									<div><p " style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-									${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}<br/><br/>
-										${event.get('apparent')}<br/><br/>Possible effects<br>${effects}
-										<br><i>${influence}<i></br>
-											</div>
-										</div>
-										<div style="text-align: center; color: inherit; margin: 0 auto;">
-									<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${idx}" min="0" max="100" value="0" oninput="rangeValue${idx}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
-										</div>
-										<div>
-												<div style="text-align: center;" id="rangeValue${idx}"></div></td>
-												<div style="text-align: center;"><button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${idx}.value}, 'rangeValue${idx}' )">Influence</button></div>
-									<hr>
-										</div>` + html; // (Put new stuff at the top)
-	  }
-	  eventlistholder.innerHTML = html;
-      }
       
       function parseQuery(query, destination) {
 	  var rval = destination || {};
