@@ -105,7 +105,6 @@
       import * as utils from './js/utils.mjs';
       import {exogeny} from './js/exogeny.mjs';
       import {web3utils} from './js/web3.mjs';
-      import {authenticate} from './js/authenticate.mjs';
 
       var Planets = {};
       var PlanetIds = [];
@@ -236,14 +235,18 @@
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
     	.then((response) => response.json())
     	.then((data) => exogeny.LoadConfig(data))
-    	.catch(console.log)
+    	.catch(console.error)
 
       //var wallet = await web3utils.WalletAddress();
-      var wallet = await authenticate.Login();
+      //var wallet = await authenticate.Login();
+
+      var wallet = web3utils.Login(exogeny.GetConfig("exogeny_server"))
+      
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       handleFragmentChange();
 
+      /*
       async function fetchEvents() {
 	  fetch(`${Config.exogeny_server}/events`).then(()=>response.json()).catch(console.error);
       }
@@ -347,7 +350,7 @@
 	  let soundFile = `sounds/${sound}.mp3`;
 	  new Audio(soundFile).play();
       }
-      
+      */
     </script>
   </body>
 </html>

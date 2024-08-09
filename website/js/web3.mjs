@@ -60,6 +60,38 @@ export const web3utils = {
             throw error;
         }
     },
+    Login: async function(ExogenyServer) {
+        if (typeof window.ethereum !== 'undefined') {
+	    console.log("LOGIN");
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const accounts = await provider.send('eth_requestAccounts', []); // Request account access if needed
+	    console.log(`Accounts Fetched: ${JSON.stringify(accounts)}`);
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
+	    console.log(`Address Fetched: ${JSON.stringify(address)}`);
+	    
+            // Message to sign
+            const message = 'Exogeny Login';
+            const signature = await signer.signMessage(message);
+	    console.log(`Signature Fetched: ${JSON.stringify(signature)}`);
+	    
+            // Send the address and signature to the server for verification
+	    console.log(`login: ${ExogenyServer + '/login'}`);
+            const response = await fetch(ExogenyServer + '/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ address, message, signature })
+            });
+	    console.log(JSON.stringify(response, null, 4));
+	    return response.wallet;
+	    
+        } else {
+            alert('You need to install a crypto wallet like MetaMask');
+        }
+	return null
+    },
     WalletAddress: async function() {
         if (typeof window.ethereum !== 'undefined') {
             try {

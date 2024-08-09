@@ -22,6 +22,9 @@ export const exogeny = {
     ConfigData: {},
     ContractToSector : {},
     SectorToContract: {},
+    GetConfig: function(key) {
+	return this.ConfigData[key];
+    },
     FormatPlanetData: function(planet, format, map) {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
