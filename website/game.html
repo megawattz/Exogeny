@@ -237,11 +237,12 @@
     	.then((data) => exogeny.LoadConfig(data))
     	.catch(console.error)
 
-      //var wallet = await web3utils.WalletAddress();
-      //var wallet = await authenticate.Login();
-
-      var wallet = web3utils.Login(exogeny.GetConfig("exogeny_server"))
-      
+      var wallet = web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
+      while (wallet.net < 4) {
+	  alert("login required")
+	  wallet = web3utils.Login(exogeny.GetConfig("exogeny_server"));
+      }
+	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       handleFragmentChange();

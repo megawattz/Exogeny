@@ -56,37 +56,47 @@ export const web3utils = {
             //console.log(`Result of ${functionName}:`, result);
             return result;
         } catch (error) {
-            console.error('Error:', error);
+            console.error(error.message);
             throw error;
         }
     },
-    Login: async function(ExogenyServer) {
+    
+    Authenticate: async function(exogeny_server) {
+        let response = await fetch(exogeny_server + '/authenticate', 
+				   {
+				       method: 'GET',
+				       credentials: 'include'
+				   });	
+	if (response.status != 200)
+	    response = this.Login(exogeny_server);
+	return response.wallet
+    },
+    
+    Login: async function(exogeny_server) {
         if (typeof window.ethereum !== 'undefined') {
-	    console.log("LOGIN");
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const accounts = await provider.send('eth_requestAccounts', []); // Request account access if needed
-	    console.log(`Accounts Fetched: ${JSON.stringify(accounts)}`);
             const signer = provider.getSigner();
             const address = await signer.getAddress();
-	    console.log(`Address Fetched: ${JSON.stringify(address)}`);
 	    
             // Message to sign
-            const message = 'Exogeny Login';
+            const message = 'ExogenyLogin';
             const signature = await signer.signMessage(message);
-	    console.log(`Signature Fetched: ${JSON.stringify(signature)}`);
 	    
             // Send the address and signature to the server for verification
-	    console.log(`login: ${ExogenyServer + '/login'}`);
-            const response = await fetch(ExogenyServer + '/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ address, message, signature })
-            });
-	    console.log(JSON.stringify(response, null, 4));
-	    return response.wallet;
-	    
+            //const response = await fetch(exogeny_server + `/login?address=${address}&message=${message}&signature=${signature}`);
+            const response = await fetch(exogeny_server + `/login?address=${address}&message=${message}&signature=${signature}`,
+					 {
+					     method: 'GET',
+					     credentials: 'include'
+					 });
+	    const headers = response.headers;
+	    for (let header in headers) {
+		console.log("HEADERS:\n"+JSON.stringify(header));
+		if (header == 'exogenyauth')
+		    document.cookie = `exogenyauth=${headers['exogenyauth']}`;
+	    }	
+	    return response.status;
         } else {
             alert('You need to install a crypto wallet like MetaMask');
         }

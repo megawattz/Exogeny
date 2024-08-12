@@ -50,7 +50,7 @@ case "$1" in
 
     serve) #	production serve (don't mount host directories)
 	./dmake init
-	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${VOLUMES} -d --name ${CONTAINER} ${IMAGE} /app/start.sh
+	show docker run --rm -it -w /app ${HOSTS} ${ENV} ${EXTRA} ${NETWORK} ${VOLUMES} -d --name ${CONTAINER} ${IMAGE} /app/serve.sh
 	;;
     
     dev) #		start the container with a bash shell and mount the entire dev environment host directory under /app
