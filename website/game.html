@@ -238,7 +238,7 @@
     	.catch(console.error)
 
       var wallet = web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
-      while (wallet.net < 4) {
+      while (wallet.length < 4) {
 	  alert("login required")
 	  wallet = web3utils.Login(exogeny.GetConfig("exogeny_server"));
       }

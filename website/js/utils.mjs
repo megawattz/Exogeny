@@ -16,12 +16,13 @@ export function extractDomain(hostname) {
 }
 
 export function setCookie(name, value) {
-    document.cookie = `${name}=${value}; path=/; max-age=${365*86400}; domain=${extractDomain()}; secure`;
+    document.cookie = `${name}=${value}; path=/; max-age=${365*86400}; domain=${extractDomain()};`;
     return document.cookie;
 }
 
 export function getCookie(name) {
-    let hits = document.cookie.match(`${name}=([^;]*)`);
+    let cookie = document.cookie;
+    let hits = document.cookie.match(`/${name}=([^;]*)/`);
     if (!hits)
 	return null;
     return hits[1];

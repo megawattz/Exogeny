@@ -1,6 +1,7 @@
 // Check if MetaMask is installed
 
 import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
+import * as utils from "./utils.mjs";
 
 const EVMchains = {
     arbitrumOne: "0xa4b1",         // Arbitrum One
@@ -38,6 +39,7 @@ const EVMchains = {
 
 export const web3utils = {
     Provider: {},  // default to ethereum
+    
     CallFunction: async function(contractAddress, abi, functionName, ...params) {
         try {
             // Request account access
@@ -62,11 +64,9 @@ export const web3utils = {
     },
     
     Authenticate: async function(exogeny_server) {
-        let response = await fetch(exogeny_server + '/authenticate', 
-				   {
-				       method: 'GET',
-				       credentials: 'include'
-				   });	
+ 	//let exogenyauth = utils.getCookie("exogenyauth");
+	let exogenyauth = localStorage.getItem("exogenyauth");
+        let response = await fetch(`${exogeny_server}/authenticate?exogenyauth=${exogenyauth}`);
 	if (response.status != 200)
 	    response = this.Login(exogeny_server);
 	return response.wallet
@@ -84,24 +84,21 @@ export const web3utils = {
             const signature = await signer.signMessage(message);
 	    
             // Send the address and signature to the server for verification
-            //const response = await fetch(exogeny_server + `/login?address=${address}&message=${message}&signature=${signature}`);
-            const response = await fetch(exogeny_server + `/login?address=${address}&message=${message}&signature=${signature}`,
-					 {
-					     method: 'GET',
-					     credentials: 'include'
-					 });
+            const response = await fetch(`${exogeny_server}/login?address=${address}&message=${message}&signature=${signature}&exogenyauth=${utils.getCookie("exogenyauth")}`);
 	    const headers = response.headers;
-	    for (let header in headers) {
-		console.log("HEADERS:\n"+JSON.stringify(header));
-		if (header == 'exogenyauth')
-		    document.cookie = `exogenyauth=${headers['exogenyauth']}`;
-	    }	
+	    headers.forEach((value, key) => {
+		if (key == 'exogenyauth') {
+		    //utils.setCookie("exogenyauth", value);
+		    localStorage.setItem("exogenyauth", value);
+		}
+	    });	
 	    return response.status;
         } else {
             alert('You need to install a crypto wallet like MetaMask');
         }
 	return null
     },
+    
     WalletAddress: async function() {
         if (typeof window.ethereum !== 'undefined') {
             try {
@@ -129,6 +126,7 @@ export const web3utils = {
         }
 	
     },
+    
     ConnectWallet: async function(chain) {
 	if (typeof window.ethereum !== 'undefined') {
 	    console.log('Ethereum wallet is detected!');
@@ -160,13 +158,15 @@ export const web3utils = {
 	    console.error('Please install an Ethereum wallet like MetaMask to use this feature.');
 	    throw new Error('Please install an Ethereum wallet like MetaMask to use this feature.');
 	}	
-    },	
+    },
+    
     ChainId: function(chainName) {
 	const chainId = EVMchains[chainName];
 	if (!chainId)
 	    throw new Error(`Unknown chain: ${chainName}`);
     	return chainId;
     },
+    
     GetNFTs: async function(wallet, contractAddress)
     {
 	// get the metadata base URL on the IPFS file system
@@ -204,6 +204,7 @@ export const web3utils = {
 	await Promise.all(promises)
 	return NFTmetadata;	
     },
+    
     FetchNFTs: async function(wallet, contractAddress, callback)
     {
 	// get the metadata base URL on the IPFS file system
@@ -239,6 +240,7 @@ export const web3utils = {
 		.catch(console.error); // NFTmetadata.push).catch(console.error);
 	}
     },
+    
     GetNFTids: async function(wallet, contractAddress)
     {
 	// get a list of NFTs owned by this user
@@ -257,7 +259,8 @@ export const web3utils = {
 		ownedNFTs.push(id);
 	}
 	return ownedNFTs;
-    }, 
+    },
+    
     FetchNFT: async function(wallet, contractAddress, tokenid)
     {
 	// get the metadata base URL on the IPFS file system
