@@ -241,7 +241,7 @@
       
       //var wallet = await web3utils.WalletAddress();
 
-      var authentic = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"));
+      var wallet = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"));
 	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);

@@ -64,7 +64,7 @@ export const web3utils = {
     },
     
     Authenticate: async function(exogeny_server) {
- 	let exogenyauth = utils.getCookie("exogenyauth")<;
+ 	let exogenyauth = utils.getCookie("exogenyauth");
 	if (!exogenyauth)
 	    exogenyauth = localStorage.getItem("exogenyauth");
         let response = await fetch(`${exogeny_server}/authenticate?exogenyauth=${exogenyauth}`);
