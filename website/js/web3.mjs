@@ -58,14 +58,15 @@ export const web3utils = {
             //console.log(`Result of ${functionName}:`, result);
             return result;
         } catch (error) {
-            console.error(error.message);
+            console.error(error.message, error.stack);
             throw error;
         }
     },
     
     Authenticate: async function(exogeny_server) {
- 	//let exogenyauth = utils.getCookie("exogenyauth");
-	let exogenyauth = localStorage.getItem("exogenyauth");
+ 	let exogenyauth = utils.getCookie("exogenyauth")<;
+	if (!exogenyauth)
+	    exogenyauth = localStorage.getItem("exogenyauth");
         let response = await fetch(`${exogeny_server}/authenticate?exogenyauth=${exogenyauth}`);
 	if (response.status != 200)
 	    response = this.Login(exogeny_server);
@@ -88,7 +89,7 @@ export const web3utils = {
 	    const headers = response.headers;
 	    headers.forEach((value, key) => {
 		if (key == 'exogenyauth') {
-		    //utils.setCookie("exogenyauth", value);
+		    utils.setCookie("exogenyauth", value);
 		    localStorage.setItem("exogenyauth", value);
 		}
 	    });	

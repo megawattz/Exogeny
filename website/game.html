@@ -237,21 +237,22 @@
     	.then((data) => exogeny.LoadConfig(data))
     	.catch(console.error)
 
-      var wallet = web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
-      while (wallet.length < 4) {
-	  alert("login required")
-	  wallet = web3utils.Login(exogeny.GetConfig("exogeny_server"));
-      }
+      var ExogenyServer = exogeny.GetConfig("exogeny_server");
+      
+      //var wallet = await web3utils.WalletAddress();
+
+      var authentic = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"));
 	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       handleFragmentChange();
 
+      fetch(`${ExogenyServer}/planets`)
+    	.then(()=>response.json())
+    	.then(console.log)
+    	.catch(console.error);
+      
       /*
-      async function fetchEvents() {
-	  fetch(`${Config.exogeny_server}/events`).then(()=>response.json()).catch(console.error);
-      }
-
       async function updateEvents(planet) {
 	  var planetevents = document.getElementById("eventlist");
 	  let eventlistholder = document.getElementById("eventlistholder");1
