@@ -237,10 +237,10 @@
     	.then((data) => exogeny.LoadConfig(data))
     	.catch(console.error)
 
-      var wallet = web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
-      while (wallet.length < 4) {
-	  alert("login required")
-	  wallet = web3utils.Login(exogeny.GetConfig("exogeny_server"));
+      var wallet = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
+      while (!wallet) {
+	  await web3utils.Login(exogeny.GetConfig("exogeny_server"));
+	  wallet = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
       }
 	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
