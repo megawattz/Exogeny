@@ -245,7 +245,8 @@
 	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
-      handleFragmentChange();
+      console.log(PlanetIds)
+      //handleFragmentChange();
 
       /*
       async function fetchEvents() {

@@ -43,10 +43,11 @@ export const web3utils = {
     CallFunction: async function(contractAddress, abi, functionName, ...params) {
         try {
             // Request account access
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            //await window.ethereum.request({ method: 'eth_requestAccounts' });
 	    
             // Create a new provider and signer
             const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const accounts = await provider.send('eth_requestAccounts', []); // Request account access if needed
             const signer = provider.getSigner();
 
             // Create contract instance

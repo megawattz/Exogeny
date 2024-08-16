@@ -21,8 +21,8 @@ export function setCookie(name, value) {
 }
 
 export function getCookie(name) {
-    let cookie = document.cookie;
-    let hits = document.cookie.match(`/${name}=([^;]*)/`);
+    let finder = new RegExp(`${name}=([^;]*)`);
+    let hits = finder.exec(document.cookie)
     if (!hits)
 	return null;
     return hits[1];
