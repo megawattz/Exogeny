@@ -16,7 +16,7 @@ def help():
     with open(os.path.join(os.path.dirname(__file__), 'civilization_template.json')) as f:
         civob = json.load(f)
 
-    return f"""event [query|event] parameter=value selector selector selector
+    return """event [query|event] parameter=value selector selector selector
     where command is:
       query - list planets based on selectors that will receive the events
       event - create new events, or modify already existing events but don't push them to any planets
@@ -27,9 +27,9 @@ def help():
    where: selectors are: (can be multiple)
       field==value field equals value, like, identity=479303468
       field!=value field not equal value, like, lifeform~=Tetrapod
-      field>=value field greater than or equal to value, like, industrials>=27.7
-      field>value field greater than value
-      field<=value field less than or equal to value
+      field}=value field greater than or equal to value, like, industrials>=27.7
+      field}value field greater than value
+      field{=value field less than or equal to value
       field@=value1,val2,val3 field equals one of the listed values
       field%=regex field matches regular expression
 
@@ -37,9 +37,10 @@ def help():
 
   examples: 
      event help
-     event query culture==Practical radioactives>=10 bio>=2.3 science<=2
-     event event culture==Military warfare>=5 population>=4 plague.event asteroid.event election.event
-     event event lifeform==Fungoid warfare>=5 events%=*.event"""
+     event query culture==Practical radioactives}=10 bio}=2.3 science<=2
+     event event culture==Military warfare}=5 population}=4 plague.event asteroid.event election.event
+     event event lifeform==Fungoid warfare}=5 events%=*.event
+"""
 
 Verbosity = 3
 def message(level, *args):
@@ -59,17 +60,17 @@ def parse_selectors(selectors):
 
     operators = {
         "==":"$eq",
-        ">": "$gt",
-        "<": "$lt",
+        "}": "$gt",
+        "{": "$lt",
         "!=":"$ne",
-        "<=":"$lte",
-        ">=":"$gte",
-        "%=": "$regex",
+        "{=":"$lte",
+        "{=":"$gte",
+        "%=":"$regex",
         "@=":"$in"
     }
 
     for selector in selectors:
-        match = re.match("([A-Za-z_]+)([@=<>~%!]+)(.*)", selector)
+        match = re.match("([A-Za-z_]+)([@={}~%!]+)(.*)", selector)
         field, op, value = match.groups(1)
         if ',' in value:
             value = re.split(r',', value)
@@ -105,7 +106,7 @@ def merge_map_and_array(map, array_of_maps):
     return result
         
 
-def process(params, selector_strings):
+def process(command, params, selector_strings):
     message(6, "params:", params)
 
     selectors = parse_selectors(selector_strings)                                                
@@ -115,7 +116,6 @@ def process(params, selector_strings):
     database = client['exogeny']
     collection = database['planets']
     
-    command = params.get('command')
     message(4, f"Action: {command} {selectors}")
 
     # certain special words are combined aspects (easier to specify output)
@@ -147,21 +147,24 @@ def process(params, selector_strings):
         result = collection.update_many({'$and': selectors }, {"$unset": { "events": ""} })
         message(3, json.dumps(result.raw_result, indent=4))
         
+    elif command == "help":
+        print(help());
+        
     elif command == "event":
         process_events(selectors, files, engage)
 
 if __name__ == "__main__":
+    command = sys.argv.pop(1);
     params, queries = utils.fetchArgs(sys.argv[1:], docs={
         "server":"mongo URL: default = mongodb://mongo:27017",
-        "command":"*command to game: query, event, engage, help",
         "event":"event file to send to all planets matching selectors",
         "fields":"which fields to display",
         "suppress":"which fields to block",
         "verbosity":"how much data to display: default 3"
     });
 
-    message(4, f"params:{pprint.saferepr(params)} queries:{pprint.saferepr(queries)}") 
     Verbosity = int(params.get('verbosity') or "3")
+    message(3, f"command:{command} params:{pprint.saferepr(params)} queries:{pprint.saferepr(queries)}") 
     
-    process(params, queries)
+    process(command, params, queries)
         
