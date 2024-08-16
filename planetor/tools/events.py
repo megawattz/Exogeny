@@ -64,7 +64,7 @@ def parse_selectors(selectors):
         "{": "$lt",
         "!=":"$ne",
         "{=":"$lte",
-        "{=":"$gte",
+        "}=":"$gte",
         "%=":"$regex",
         "@=":"$in"
     }
@@ -74,6 +74,13 @@ def parse_selectors(selectors):
         field, op, value = match.groups(1)
         if ',' in value:
             value = re.split(r',', value)
+
+        # convert any all number string into a numeric type, or don't 
+        try:
+            value = float(value)
+        except:
+            pass
+        
         json_selector = { field : { operators[op]: value }}
         selectors_json.append(json_selector)
 
@@ -109,7 +116,7 @@ def merge_map_and_array(map, array_of_maps):
 def process(command, params, selector_strings):
     message(6, "params:", params)
 
-    selectors = parse_selectors(selector_strings)                                                
+    selectors = parse_selectors(selector_strings)
 
     client = pymongo.MongoClient(params.get('server') or "mongodb://mongo:27017")
     
