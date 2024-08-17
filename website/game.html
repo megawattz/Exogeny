@@ -41,11 +41,11 @@
       <div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;  
 		  background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
-	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
+	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 30%; left: 4%;">
 	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
 	</span>
 	
-	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 4%;">
+	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 30%; right: 4%;">
 	  <img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon2.png">&gt
 	</span>
 	
@@ -128,7 +128,7 @@
 	  let tokenid = Number(tokenString);
 	  let planetIndex = PlanetIds.indexOf(tokenString);
 	  if (planetIndex > -1)
-	      currentPlanetIndex = planetIndex;
+	      currentPlanetIndex = currentPlanetIndex;
 	  if (!Planets[tokenid])
 	      web3utils.FetchNFT(wallet, contractAddress, tokenid).then(Update).catch(console.error);
       }
@@ -246,7 +246,7 @@
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTs(wallet, contractAddress);
       console.log(PlanetIds)
-      //handleFragmentChange();
+      handleFragmentChange();
 
       var events = await web3utils.Events(exogeny.GetConfig("exogeny_server"), PlanetIds);
       
