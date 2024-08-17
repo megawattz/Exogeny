@@ -41,14 +41,14 @@ Container.appendChild(renderer.domElement);
 
 // Scene
 const scene = new THREE.Scene();
-Object.assign(renderer.domElement.style, {backgroundImage: 'url(image/skybox2.jpg)', position: 'absolute', top: 0, left: 0});
+Object.assign(renderer.domElement.style, {backgroundImage: 'url(images/skybox2.jpg)', position: 'absolute', top: 0, left: 0});
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 scene.add(ambientLight);
 
 // Textures
 var coloredStars = {};
 let textureLoader = new THREE.TextureLoader();
-let starImage = textureLoader.load('image/star_small_trans.png');
+let starImage = textureLoader.load('images/star_small_trans.png');
 let spriteMaterial = new THREE.SpriteMaterial({"map": starImage});
 
 // labels
@@ -199,7 +199,7 @@ function popupSystem(star) {
 	contents += `
 		<tr>
 		<td><a href='javascript:window.planetVideo(${JSON.stringify(planet)});window.setPlanetDetail(${JSON.stringify(planet)})'>${planet.star_index} ${planet.star_system} ${index}</a></td>
-		<td><a href='javascript:window.lifeformImage(${JSON.stringify(planet)})'><img style="height: 1.5vw; border-radius: 1vw; border: 1px solid rgb(247,136,79);" src="image/${planet.lifeform}.png"></td-->
+		<td><a href='javascript:window.lifeformImage(${JSON.stringify(planet)})'><img style="height: 1.5vw; border-radius: 1vw; border: 1px solid rgb(247,136,79);" src="images/${planet.lifeform}.png"></td-->
 		<td>${planet.planet_type}</td>
 		<td style="color: ${atmoscolor(planet.atmosphere)};">${planet.atmosphere_composition}</td>
 		</tr>\n`;
@@ -308,13 +308,13 @@ window.planetVideo = function(planet) {
 
     /*
     let upperLeft = document.createElement("div");
-    upperLeft.innerHTML = `<img style="width: 3vw; margin: 0;" title="${labels.getLabel('resources')}" src="image/resources.png"><br>${planet.resources_value}`;
+    upperLeft.innerHTML = `<img style="width: 3vw; margin: 0;" title="${labels.getLabel('resources')}" src="images/resources.png"><br>${planet.resources_value}`;
     Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
     Planet.appendChild(upperLeft);
     */
 
     let upperRight = document.createElement("div");
-    upperRight.innerHTML = `<a title="${labels.getLabel('lifeform')}" href='javascript:window.lifeformImage(${JSON.stringify(planet)})'><img style="width: 4vw;" src="image/${planet.lifeform}.png"></a>`;
+    upperRight.innerHTML = `<a title="${labels.getLabel('lifeform')}" href='javascript:window.lifeformImage(${JSON.stringify(planet)})'><img style="width: 4vw;" src="images/${planet.lifeform}.png"></a>`;
     Object.assign(upperRight.style, {position: "absolute", top: "2%", right: "3%"});
     Planet.appendChild(upperRight);
 

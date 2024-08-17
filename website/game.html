@@ -143,16 +143,23 @@
 		  currentPlanetIndex = PlanetIds.length - 1;
 	      if (currentPlanetIndex > (PlanetIds.length - 1))
 		  currentPlanetIndex = 0;
+	      
 	      planet = Planets[PlanetIds[currentPlanetIndex]];
+	      console.log(`CurrentPlanet: ${Object.keys(Planets).length} ${currentPlanetIndex}:${planet.identity}`);
+	      
 	      if (!planet) {
 		  // get the next NFT ahead of time
 		  if (!Planets[PlanetIds[currentPlanetIndex]]) {
 		      planet = await web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
-			  .then((nft) => Planets[PlanetIds[currentPlanetIndex]] = nft)
+			  .then((nft) => {
+			      console.log(`Fetched Planet: ${nft.identity}`);
+			      Planets[PlanetIds[currentPlanetIndex]] = nft
+			  })
 			  .catch(console.error);
 		  }
 	      }
 	  }
+	  
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
@@ -244,7 +251,7 @@
       }
 	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
-      PlanetIds = await web3utils.GetNFTs(wallet, contractAddress);
+      PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       console.log(PlanetIds)
       handleFragmentChange();
 
