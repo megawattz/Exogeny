@@ -75,6 +75,16 @@ export const web3utils = {
 	return response.headers.get('wallet')
     },
     
+    Events: async function(exogeny_server, planets) {
+	let exogenyauth = localStorage.getItem("exogenyauth");
+        let response = await fetch(`${exogeny_server}/planets?exogenyauth=${exogenyauth}&planets=${planets.join(',')}`);
+	if (response.status != 200) {
+	    localStorage.removeItem("exogenyauth")
+	    return null;
+	}
+	return response.events;
+    },
+    
     Login: async function(exogeny_server) {
         if (typeof window.ethereum !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum);

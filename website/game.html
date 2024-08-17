@@ -32,21 +32,21 @@
   </head>
 
   <body style="width: 100%; height: auto; margin: 0 auto; padding: 0;
-	       background-image: url(image/background_stars.jpg); background-repeat: repeat-y; background-size: cover;">
+	       background-image: url(images/background_stars.jpg); background-repeat: repeat-y; background-size: cover;">
     <div class="hover-area"  title="My Planets"></div>
     <div class="hidden-div" id="smallmenu">
-      <a href="mygallery.html"><img id="myplanets" src="image/planet_list.png" style="width: 30vw"></a>
+      <a href="mygallery.html"><img id="myplanets" src="images/planet_list.png" style="width: 30vw"></a>
     </div>
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
       <div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;  
 		  background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
 	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 20%; left: 4%;">
-	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="image/planet_icon1.png">
+	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
 	</span>
 	
 	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 20%; right: 4%;">
-	  <img style="position: absolute; opacity: 70%; height: 5vw" src="image/planet_icon2.png">&gt
+	  <img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon2.png">&gt
 	</span>
 	
 	<div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
@@ -174,11 +174,11 @@
 	  planetVideo.src = pvideo;
 	  planetVideo.currentTime = 10;
 	  
-	  document.getElementById("upperLeft").innerHTML = `<img style="width: 8vw;" src="image/resources.png"><br><span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
+	  document.getElementById("upperLeft").innerHTML = `<img style="width: 8vw;" src="images/resources.png"><br><span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
 	  
 	  lifeformImage.src = planet.image;
 	  
-	  lifeformIcon.src = `image/${planet.attribmap['indigenous_lifeform']}.png`;
+	  lifeformIcon.src = `images/${planet.attribmap['indigenous_lifeform']}.png`;
 	  //lifeformIcon.title = `Lifeform: ${planet.attribmap['indigenous_lifeform']}`;
 	  
 	  $('lifeformIcon').lifeformImage = lifeformImage;
@@ -244,10 +244,12 @@
       }
 	  
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
-      PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
+      PlanetIds = await web3utils.GetNFTs(wallet, contractAddress);
       console.log(PlanetIds)
       //handleFragmentChange();
 
+      var events = await web3utils.Events(exogeny.GetConfig("exogeny_server"), PlanetIds);
+      
       /*
       async function fetchEvents() {
 	  fetch(`${Config.exogeny_server}/events`).then(()=>response.json()).catch(console.error);
