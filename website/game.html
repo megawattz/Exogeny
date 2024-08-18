@@ -228,7 +228,7 @@
 
 	  var civ = {};
 
-	  updateEvents(planet)
+	  nonNFTdata(planet);
 	  
 	  // prefetch the next 5 planets while user looks at this one
 	  for (let i = 1; i < 5; ++i) {
@@ -247,10 +247,10 @@
     	.then((data) => exogeny.LoadConfig(data))
     	.catch(console.error)
 
-      var wallet = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
+      var wallet = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"))
       while (!wallet) {
-	  await web3utils.Login(exogeny.GetConfig("exogeny_server"));
-	  wallet = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
+	  await exogeny.Login(exogeny.GetConfig("exogeny_server"));
+	  wallet = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"))
       }
 
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
@@ -258,12 +258,9 @@
       console.log(PlanetIds)
       handleFragmentChange();
 
-      /*
-      async function fetchEvents() {
-	  fetch(`${Config.exogeny_server}/events`).then(()=>response.json()).catch(console.error);
-      }
-
-      async function updateEvents(planet) {
+      async function nonNFTdata(planet) {
+	  let response = await exogeny.ServerRequest("/planets", `identities=${planet.identity}`);
+	  let planetData = JSON.parse(await response.json());
 	  var planetevents = document.getElementById("eventlist");
 	  let eventlistholder = document.getElementById("eventlistholder");
 	  if (eventlistholder)
@@ -272,12 +269,12 @@
 	  eventlistholder.id = "eventlistholder";
 	  planetevents.appendChild(eventlistholder);
 
-	  if (planet.events == null || planet.events.length == 0)
+	  if (planetData.events === undefined || Object.keys(planetData.events).length === 0)
 	      return;
 
 	  let html = "";
-	  for (var idx in events) {
-	      const event = events[idx];
+	  for (let name in events) {
+	      const event = events[name];
 	      const imageUrl = event.get('image_url');
 	      const videoUrl = event.get('video_url');
 	      const color = event.get('color') || 'black';
@@ -308,6 +305,7 @@
 	  eventlistholder.innerHTML = html;
       }
 
+      /*
       function parseQuery(query, destination) {
 	  var rval = destination || {};
 	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {

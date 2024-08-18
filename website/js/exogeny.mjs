@@ -1,5 +1,6 @@
 // Check if MetaMask is installed
 
+import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
 import * as utils from './utils.mjs';
 
 export const exogeny = {
@@ -55,5 +56,47 @@ export const exogeny = {
     },
     Contract: function(contractId) {
 	return exogeny.ContractToSector[contractId] || "unknown_contract " + contractId;
-    }
+    },
+    ServerRequest: async function(command, ...params) {  //params are "key=value","key=value","key=value"
+	let server = this.GetConfig('exogeny_server');
+	let exogenyauth = localStorage.getItem("exogenyauth");
+	let request = `${server}/${command}?exogenyauth=${exogenyauth}&${params.join('&')}`;
+	let response = await fetch(request);
+	return response;
+    },
+    Authenticate: async function(exogeny_server) {
+	let response= await this.ServerRequest(`authenticate`);
+	if (response.status == 401) {
+	    localStorage.removeItem("exogenyauth")
+	    return null;
+	}
+	return response.headers.get('wallet')
+    },
+    Login: async function(exogeny_server) {
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const accounts = await provider.send('eth_requestAccounts', []); // Request account access if needed
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
+	    
+            // Message to sign
+            const message = 'ExogenyLogin';
+            const signature = await signer.signMessage(message);
+	    
+            // Send the address and signature to the server for verification
+            const response = await fetch(`${exogeny_server}/login?address=${address}&message=${message}&signature=${signature}&exogenyauth=${utils.getCookie("exogenyauth")}`);
+	    const headers = response.headers;
+	    headers.forEach((value, key) => {
+		if (key == 'exogenyauth') {
+		    //utils.setCookie("exogenyauth", value);
+		    localStorage.setItem("exogenyauth", value);
+		}
+	    });	
+	    return response.status;
+        } else {
+            alert('You need to install a crypto wallet like MetaMask');
+        }
+	return null
+    },
+    
 }

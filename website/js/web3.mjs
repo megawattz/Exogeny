@@ -64,54 +64,6 @@ export const web3utils = {
         }
     },
     
-    Authenticate: async function(exogeny_server) {
- 	//let exogenyauth = utils.getCookie("exogenyauth");
-	let exogenyauth = localStorage.getItem("exogenyauth");
-        let response = await fetch(`${exogeny_server}/authenticate?exogenyauth=${exogenyauth}`);
-	if (response.status != 200) {
-	    localStorage.removeItem("exogenyauth")
-	    return null;
-	}
-	return response.headers.get('wallet')
-    },
-    
-    Events: async function(exogeny_server, planets) {
-	let exogenyauth = localStorage.getItem("exogenyauth");
-        let response = await fetch(`${exogeny_server}/planets?exogenyauth=${exogenyauth}&planets=${planets.join(',')}`);
-	if (response.status != 200) {
-	    localStorage.removeItem("exogenyauth")
-	    return null;
-	}
-	return response.events;
-    },
-    
-    Login: async function(exogeny_server) {
-        if (typeof window.ethereum !== 'undefined') {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const accounts = await provider.send('eth_requestAccounts', []); // Request account access if needed
-            const signer = provider.getSigner();
-            const address = await signer.getAddress();
-	    
-            // Message to sign
-            const message = 'ExogenyLogin';
-            const signature = await signer.signMessage(message);
-	    
-            // Send the address and signature to the server for verification
-            const response = await fetch(`${exogeny_server}/login?address=${address}&message=${message}&signature=${signature}&exogenyauth=${utils.getCookie("exogenyauth")}`);
-	    const headers = response.headers;
-	    headers.forEach((value, key) => {
-		if (key == 'exogenyauth') {
-		    //utils.setCookie("exogenyauth", value);
-		    localStorage.setItem("exogenyauth", value);
-		}
-	    });	
-	    return response.status;
-        } else {
-            alert('You need to install a crypto wallet like MetaMask');
-        }
-	return null
-    },
-    
     WalletAddress: async function() {
         if (typeof window.ethereum !== 'undefined') {
             try {
