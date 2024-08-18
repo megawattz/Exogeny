@@ -27,7 +27,7 @@
     <!-- Jerk Query -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
 	    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    
+
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   </head>
 
@@ -38,28 +38,28 @@
       <a href="mygallery.html"><img id="myplanets" src="images/planet_list.png" style="width: 30vw"></a>
     </div>
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-      <div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;  
+      <div style="width: 100%; padding: 0; margin: 0 auto; border-radius: 2vw;
 		  background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
 
 	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 30%; left: 4%;">
 	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
 	</span>
-	
+
 	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 30%; right: 4%;">
 	  <img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon2.png">&gt
 	</span>
-	
+
 	<div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
 				       padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
 				       border-radius: 2vw; justify-content: center; overflow: hidden;">
-	  
+
 	  <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
 		 style="z-index: -10; width: 100%; margin: 0 auto; padding: 0; border-radius: 2vw;
 			position: absolute; top: 0; left: 0;">
 	  </video>
-	  
+
 	  <div id="controldiv" style="postion: relative;">
-	    
+
 	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel"
 		 style="align-items: center; position: absolute; top: 1%; left: 2%; height: 18vh;">
 	    </div>
@@ -72,9 +72,9 @@
 
 	  </div>
 	</div>
-	
+
 	<br>
-	
+
 	<div id="lowerTable" style="position: absolute; width: 94%; padding-left: 2vw; margin: 0 auto;">
 	  <div id="planetdata" class="row" >
 	    <div id="planetstats" class="statstable">
@@ -82,25 +82,25 @@
 	      <div id="basestatstable" class="statstable">
 	      </div>
 	    </div>
-	    
+
 	    <div id="planetevents" class="row section">
 	      <span class="statsheader">Latest Events</span>
 	      <div id="eventlist" class="eventlist">
 	      </div>
 	      <hr>
 	    </div>
-	
+
 	    <div id="civilization" class="statstable">
 	      <span class="statsheader">Civilization</span>
 	      <div id="civstatstable" class="statstable">
 	      </div>
 	    </div>
-	    
+
 	  </div>
 	</div>
       </div>
     </div>
-    
+
     <script type="module">
       import * as utils from './js/utils.mjs';
       import {exogeny} from './js/exogeny.mjs';
@@ -111,12 +111,12 @@
       var Civilizations = [];
       var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
-      
+
       document.next = function() {
 	  ++currentPlanetIndex;
 	  Update();
       }
-      
+
       document.prev = function() {
 	  --currentPlanetIndex;
 	  Update();
@@ -136,17 +136,17 @@
       function UpdatePlanets(planet) {
 	  Planets[tokenid] = planet;
       }
-      
+
       async function Update(planet) {
 	  if (!planet) {
 	      if (currentPlanetIndex < 0)
 		  currentPlanetIndex = PlanetIds.length - 1;
 	      if (currentPlanetIndex > (PlanetIds.length - 1))
 		  currentPlanetIndex = 0;
-	      
+
 	      planet = Planets[PlanetIds[currentPlanetIndex]];
 	      console.log(`CurrentPlanet: ${Object.keys(Planets).length} ${currentPlanetIndex}:${planet.identity}`);
-	      
+
 	      if (!planet) {
 		  // get the next NFT ahead of time
 		  if (!Planets[PlanetIds[currentPlanetIndex]]) {
@@ -159,7 +159,7 @@
 		  }
 	      }
 	  }
-	  
+
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
@@ -174,20 +174,20 @@
 	      planet.attribmap.official_designation = utils.fromRomanEmbedded(planet.name.replace('0', 'Rogue'));
 	      planet.attribmap.name = utils.fromRoman(planet.name.replace('0', 'Rogue'));
 	  }
-	  
+
 	  const pvideo = planet.animation_url;
 	  const pimage = planet.image;
 	  //planetVideo.poster = pimage
 	  planetVideo.src = pvideo;
 	  planetVideo.currentTime = 10;
-	  
+
 	  document.getElementById("upperLeft").innerHTML = `<img style="width: 8vw;" src="images/resources.png"><br><span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
-	  
+
 	  lifeformImage.src = planet.image;
-	  
+
 	  lifeformIcon.src = `images/${planet.attribmap['indigenous_lifeform']}.png`;
 	  //lifeformIcon.title = `Lifeform: ${planet.attribmap['indigenous_lifeform']}`;
-	  
+
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
 	      utils.show(lifeformImage);
@@ -215,11 +215,11 @@
 		  break;
 	      }
 	  });
-	  
+
 	  window.addEventListener('hashchange', handleFragmentChange);
-	  
+
 	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
-	  
+
 	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  let html = '<table class="statstable">\n';
 	  html += data;
@@ -228,6 +228,8 @@
 
 	  var civ = {};
 
+	  updateEvents(planet)
+	  
 	  // prefetch the next 5 planets while user looks at this one
 	  for (let i = 1; i < 5; ++i) {
 	      if (!Planets[PlanetIds[currentPlanetIndex + i]]) {
@@ -235,10 +237,11 @@
 		      .then((nft) => Planets[PlanetIds[currentPlanetIndex + i]] = nft)
 		      .then(console.log)
 		      .catch(console.error)
-	      }					
-	  }			
-      }	
-      
+	      }
+	  }
+
+      }
+
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
     	.then((response) => response.json())
     	.then((data) => exogeny.LoadConfig(data))
@@ -249,14 +252,12 @@
 	  await web3utils.Login(exogeny.GetConfig("exogeny_server"));
 	  wallet = await web3utils.Authenticate(exogeny.GetConfig("exogeny_server"))
       }
-	  
+
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
       console.log(PlanetIds)
       handleFragmentChange();
 
-      var events = await web3utils.Events(exogeny.GetConfig("exogeny_server"), PlanetIds);
-      
       /*
       async function fetchEvents() {
 	  fetch(`${Config.exogeny_server}/events`).then(()=>response.json()).catch(console.error);
@@ -264,17 +265,16 @@
 
       async function updateEvents(planet) {
 	  var planetevents = document.getElementById("eventlist");
-	  let eventlistholder = document.getElementById("eventlistholder");1
+	  let eventlistholder = document.getElementById("eventlistholder");
 	  if (eventlistholder)
 	      planetevents.removeChild(eventlistholder);
 	  eventlistholder = document.createElement("div");
 	  eventlistholder.id = "eventlistholder";
 	  planetevents.appendChild(eventlistholder);
-	  
-	  let events = await fetchEvents(planet)
-	  if (events == null || events.length == 0)
+
+	  if (planet.events == null || planet.events.length == 0)
 	      return;
-	  
+
 	  let html = "";
 	  for (var idx in events) {
 	      const event = events[idx];
@@ -307,7 +307,7 @@
 	  }
 	  eventlistholder.innerHTML = html;
       }
-      
+
       function parseQuery(query, destination) {
 	  var rval = destination || {};
 	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
@@ -324,7 +324,7 @@
 	  else
 	      transfer.innerText = "                        ";
       }
-      
+
       function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
 	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
 	  return `${units}% will cost ${Math.ceil(cost)} T44`;
@@ -345,7 +345,7 @@
 	  }
 	  return effectStr;
       }
-      
+
       async function eventAlert(message, sound) {
 	  if (!sound)
 	      sound = getCookie("notification");

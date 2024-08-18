@@ -143,15 +143,17 @@ def process(command, params, selector_strings):
 
     # send an event to the galaxy
     elif command == "engage":
-        event = json.loads(params['event'])
-        selectors = merge_map_and_array(event['limits'], selectors)
+        event = params['event']
+        event_name = re.findall(r'[a-zA-Z0-9_]+', os.path.basename(event))[0]
+        eventObject = json.load(open(event, 'r'))
+        selectors = merge_map_and_array(eventObject['limits'], selectors)
         message(4, f"Selectors: {selectors}")
-        result = collection.update_many({ '$and' : selectors }, {"$push": { "events": event}})
+        result = collection.update_many({ '$and' : selectors }, {"$set": { "events": {event_name : eventObject} } } )
         message(3, json.dumps(result.raw_result, indent=4))
 
     # remove outstanding events from previous cycle
     elif command == "purge":  
-        result = collection.update_many({'$and': selectors }, {"$unset": { "events": ""} })
+        result = collection.update_many({'$and': selectors }, {"$unset" : { "events": 1} })
         message(3, json.dumps(result.raw_result, indent=4))
         
     elif command == "help":
@@ -164,9 +166,9 @@ if __name__ == "__main__":
     command = sys.argv.pop(1);
     params, queries = utils.fetchArgs(sys.argv[1:], docs={
         "server":"mongo URL: default = mongodb://mongo:27017",
-        "event":"event file to send to all planets matching selectors",
-        "fields":"which fields to display",
-        "suppress":"which fields to block",
+        "event":"event file to send to all planets matching selectors, example: --event=fire.event",
+        "fields":"which fields to display, example: --fields=identity,population,name",
+        "suppress":"which fields to block, same syntax as --fields",
         "verbosity":"how much data to display: default 3"
     });
 
