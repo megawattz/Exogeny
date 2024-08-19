@@ -16,14 +16,36 @@ def help():
     with open(os.path.join(os.path.dirname(__file__), 'civilization_template.json')) as f:
         civob = json.load(f)
 
-    return """event [query|event] parameter=value selector selector selector
+    return """event [command] --parameter=value --parameter=value ... selector selector ...
     where command is:
+      engage - send events to the planets matching the selectors
       query - list planets based on selectors that will receive the events
       event - create new events, or modify already existing events but don't push them to any planets
-      engage - send events to the planets matching the selectors
-      purge - purge all events from the previous cycle (normally done once an hour before sending new events)
+      purge - delete events from the previous cycle (normally done once an hour before sending new events)
 
-   select planets to operate on by specifying various selectors
+    --parameters are:
+    --server: mongo URL: default = mongodb://mongo:27017
+    --event: event file to send to all planets matching selectors, example: --event=fire.event
+    --fields: which fields to display, example: --fields=identity,population,name (really only useful for query command)
+    --suppress: which fields to block, same syntax as --fields but suppress showing OR which event types to purge
+    --verbosity: how much data to display: default 3
+
+  examples: 
+    events help
+    events engage culture@=Military,Religion,Egalitarian warfare}=5 population}=40000 plague.event, // Send a plague to all planets matching the selectors:
+    events query --fields=identity,population culture==Practical bio}=2.3 // Display all planets with culture==Practical and bio tech greater than 2.3 but only display identity, and population
+    events purge --suppress=.fire culture@=Predatory,Adventurous  // remove fire events. Use "all" for "all" events IMPORTANT put a . at the start and between any elements in the suppress
+
+    for --fields and --suppress there are some shorthand words to designate multiple fields
+    planet:       planet_size,atmosphere_density,star_system,star_index,planet_index,evaluation,evaluation2,planet_type,unexplored
+    resources:    lifeform,chemistry,atmosphere_composition,rare,radioactives,refractories,industrials,specialized,biologicals,exotics,relics,resources_value,created
+    civilization: name,motto,species,culture,generation
+    assets:       infrastructure,manufactured,services,entertainment,woo,happiness,population,tritanium44
+    techs:        bio,energy,information,engineering,science,transport,social,warfare,economic,spiritual,art
+
+    i.e. --fields=resources,planet
+
+   selectors choose which planets to operate on by specifying various selectors
    where: selectors are: (can be multiple)
       field==value field equals value, like, identity=479303468
       field!=value field not equal value, like, lifeform~=Tetrapod
@@ -33,13 +55,6 @@ def help():
       field@=value1,val2,val3 field equals one of the listed values
       field%=regex field matches regular expression
 
-  options: verbosity=0 no status messages, 9 lots of status messages
-
-  examples: 
-     event help
-     event query culture==Practical radioactives}=10 bio}=2.3 science<=2
-     event event culture==Military warfare}=5 population}=4 plague.event asteroid.event election.event
-     event event lifeform==Fungoid warfare}=5 events%=*.event
 """
 
 Verbosity = 3
@@ -152,8 +167,9 @@ def process(command, params, selector_strings):
         message(3, json.dumps(result.raw_result, indent=4))
 
     # remove outstanding events from previous cycle
-    elif command == "purge":  
-        result = collection.update_many({'$and': selectors }, {"$unset" : { "events": 1} })
+    elif command == "purge":
+        specifier = params.get('suppress') or ""
+        result = collection.update_many({'$and': selectors }, {"$unset" : { f"events{specifier}": 1} })
         message(3, json.dumps(result.raw_result, indent=4))
         
     elif command == "help":
@@ -163,15 +179,24 @@ def process(command, params, selector_strings):
         process_events(selectors, files, engage)
 
 if __name__ == "__main__":
-    command = sys.argv.pop(1);
+    if len(sys.argv) < 2:
+        print(help())
+        sys.exit(0)
+        
+    command = sys.argv.pop(1); # remove the command from the argument list. Don't process it as a normal argument. It's special
+    
     params, queries = utils.fetchArgs(sys.argv[1:], docs={
         "server":"mongo URL: default = mongodb://mongo:27017",
         "event":"event file to send to all planets matching selectors, example: --event=fire.event",
         "fields":"which fields to display, example: --fields=identity,population,name",
-        "suppress":"which fields to block, same syntax as --fields",
+        "suppress":"which fields to block, same syntax as --fields OR which event types to purge",
         "verbosity":"how much data to display: default 3"
     });
 
+    if len(queries) < 1:
+        print(help())
+        sys.exit(0)
+    
     Verbosity = int(params.get('verbosity') or "3")
     message(3, f"command:{command} params:{pprint.saferepr(params)} queries:{pprint.saferepr(queries)}") 
     
