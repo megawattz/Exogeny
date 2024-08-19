@@ -41,7 +41,7 @@ if __name__ == "__main__":
     collection = db['planets']
 
     for spec in specs:
-        print(spec, file=sys.stderr)
+        print(spec)
         jsondata = {};
         with open(spec, 'r') as file:
             jsondata = json.load(file);
@@ -50,8 +50,8 @@ if __name__ == "__main__":
            jsondata.update(civdata)
 
         if params.get('test'):
-            print(json.dumps(jsondata, indent=4))
+            print(json.dumps(jsondata, indent=4), flush=True)
         else:
             result = collection.update_one({'identity':jsondata['identity']}, {'$set': jsondata}, upsert=True);
             for doc in result:
-                print(json.dumps(doc, indent=4))
+                print(json.dumps(doc, indent=4), flush=True)
