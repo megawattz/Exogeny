@@ -40,17 +40,21 @@ if __name__ == "__main__":
     collection = db['planets']
 
     for spec in specs:
-        print(spec)
-        jsondata = {};
-        with open(spec, 'r') as file:
-            jsondata = json.load(file);
-        with open(f"{params['civ']}/civilization_{jsondata['identity']}.json") as file:
-           civdata = json.load(file)
-           jsondata.update(civdata)
+        try:
+            print(spec)
+            jsondata = {};
+        
+            with open(spec, 'r') as file:
+                jsondata = json.load(file);
+                with open(f"{params['civ']}/civilization_{jsondata['identity']}.json") as file:
+                    civdata = json.load(file)
+                    jsondata.update(civdata)
 
-        if params.get('test'):
-            print(json.dumps(jsondata, indent=4), flush=True)
-        else:
-            result = collection.update_one({'identity':jsondata['identity']}, {'$set': jsondata}, upsert=True);
-            for doc in result:
-                print(json.dumps(doc, indent=4), flush=True)
+            if params.get('test'):
+                print(json.dumps(jsondata, indent=4), flush=True)
+            else:
+                result = collection.update_one({'identity':jsondata['identity']}, {'$set': jsondata}, upsert=True);
+                print(result.raw_result, flush=True)
+                   
+        except Exception as err:
+            print(err)
