@@ -47,24 +47,22 @@ def fetchArgs(args, docs={}):
         for k,v in docs.items():
             print("%s=<%s>" % (k, v))
         print("\n* indicates argument required")
-        print("@filename means: read entire file 'filename' and use as value to argument, i.e. arg=@myfile\n\n")
+        print("@filename means: read entire file 'filename' and use as value to argument, i.e. arg=@myfile")
+        print("At least one argument required\n")
         sys.exit(-1) #raise Exception("Must supply at least one argument")
     for arg in args:
-        hit = re.findall("--([^=]*)=(.*)", arg)
-        if not hit:
+        hit = re.findall("--([^=]*)=?(.*)", arg)
+        if not hit: 
             break
         key = hit[0][0]
-        
-        # if single parameter without =
-        if len(hit[0]) < 2:
-            value = True
-        else:        
-            value = hit[0][1]
         if not key in docs:
             raise Exception("%s not a recognized parameter, use:\n%s" % (key, json.dumps(docs, indent=4)))
-        params[key] = value
+        value = hit[0][1]
         if (value[:1] == '@'):
             params[key] = readfile(value[1:]).decode('utf-8')
+        if value == '': #key without a parameter means key is True, for example --testmode
+            value = True;
+        params[key] = value
         count = count + 1
     for k,v in docs.items():
         if docs[k][:1] == '*':
