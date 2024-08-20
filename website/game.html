@@ -240,7 +240,6 @@
 		      .catch(console.error)
 	      }
 	  }
-
       }
 
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
@@ -261,7 +260,9 @@
 
       async function nonNFTdata(planet) {
 	  let response = await exogeny.ServerRequest("/planets", `identities=${planet.identity}`);
-	  let planetData = JSON.parse(await response.json());
+	  let identity = planet.identity;
+	  let temp = await response.json();
+	  var planetData = temp[0]
 	  var planetevents = document.getElementById("eventlist");
 	  let eventlistholder = document.getElementById("eventlistholder");
 	  if (eventlistholder)
@@ -270,40 +271,55 @@
 	  eventlistholder.id = "eventlistholder";
 	  planetevents.appendChild(eventlistholder);
 
-	  if (planetData.events === undefined || Object.keys(planetData.events).length === 0)
+	  if (!planetData.events)
 	      return;
 
 	  let html = "";
-	  for (let name in events) {
-	      const event = events[name];
-	      const imageUrl = event.get('image_url');
-	      const videoUrl = event.get('video_url');
-	      const color = event.get('color') || 'black';
-	      //child.style.color = event['color'];
-	      const apparent = event.get('apparent');
+	  for (let name in planetData.events) {
+	      let event = planetData.events[name];
+	      const imageUrl = event['image_url'];
+	      const videoUrl = event['video_url'];
+	      const color = event['color'] || 'black';
+	      const apparent = event['apparent'];
 	      const date = new Date();
-	      const affected = event.get('affected');
-	      const cost = parseFloat(event.get('cost'));
-	      const influence = event.get('influence');
-	      let effects = effectsString(affected);
-
+	      const affected = event['affected'];
+	      const cost = parseFloat(event['cost']);
+	      const influence = event['influence'];
+	      const effects = effectsString('affected');
+	      
 	      html = `<div name="planetevent" style="border-radius: 1vw; margin: 0 auto; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
 									<div><p " style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
 									${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}<br/><br/>
-										${event.get('apparent')}<br/><br/>Possible effects<br>${effects}
+										${apparent}<br/><br/>Possible effects<br>${effects}
 										<br><i>${influence}<i></br>
-											</div>
+										</div>
 										</div>
 										<div style="text-align: center; color: inherit; margin: 0 auto;">
-									<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${idx}" min="0" max="100" value="0" oninput="rangeValue${idx}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
+									<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${name}" min="0" max="100" value="0" oninput="rangeValue${name}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
 										</div>
 										<div>
-												<div style="text-align: center;" id="rangeValue${idx}"></div></td>
-												<div style="text-align: center;"><button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${idx}.value}, 'rangeValue${idx}' )">Influence</button></div>
-									<hr>
+										<div style="text-align: center;" id="rangeValue${name}"></div></td>
+										<div style="text-align: center;"><button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">Influence</button></div>
+										<hr>
 										</div>` + html; // (Put new stuff at the top)
 	  }
 	  eventlistholder.innerHTML = html;
+      }
+
+      function effectsString(affected) {
+	  let effectStr = "";
+	  let max = 0;
+	  for (let key in affected) {
+	      let amount = affected[key];
+	      if (amount.match(/^-/))
+		  effectStr += `<b>${key}</b> lowered as much as <b>${amount}</b><br>`;
+	      else if (amount.match(/^[+0-9]/))
+		  effectStr += `<b>${key}</b> raised as much as <b>${amount}</b><br>`;
+	      else
+		  effectStr += `<b>${key}</b> could change to <b>${amount}</b><br>`;
+
+	  }
+	  return effectStr;
       }
 
       /*
@@ -327,22 +343,6 @@
       function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
 	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
 	  return `${units}% will cost ${Math.ceil(cost)} T44`;
-      }
-
-      function effectsString(affected) {
-	  let effectStr = "";
-	  let max = 0;
-	  for (let key in affected) {
-	      let amount = affected[key];
-	      if (amount.match(/^-/))
-		  effectStr += `<b>${key}</b> lowered as much as <b>${amount}</b><br>`;
-	      else if (amount.match(/^[+0-9]/))
-		  effectStr += `<b>${key}</b> raised as much as <b>${amount}</b><br>`;
-	      else
-		  effectStr += `<b>${key}</b> could change to <b>${amount}</b><br>`;
-
-	  }
-	  return effectStr;
       }
 
       async function eventAlert(message, sound) {

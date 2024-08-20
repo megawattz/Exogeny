@@ -7,7 +7,7 @@ VERSION="-$(git describe --abbrev=0 --tags)"
 PROJECT=exogeny-new-nodejs
 IMAGE=${PROJECT}
 CONTAINER=${PROJECT}
-VOLUMES="-v$(pwd):/app -v/home/woody/Projects/DeployedPlanets:/archive"
+VOLUMES="-v$(pwd):/app -v/home/woody/Projects/ExogenySave:/archive"
 PORTS="-p80:80/tcp"
 NETWORK="--network exogeny ${PORTS}"
 ENVFILE="./env.txt"

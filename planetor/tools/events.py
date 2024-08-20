@@ -22,6 +22,7 @@ def help():
       query - list planets based on selectors that will receive the events
       event - create new events, or modify already existing events but don't push them to any planets
       purge - delete events from the previous cycle (normally done once an hour before sending new events)
+      count - count the number of items matching the query
 
     --parameters are:
     --server: mongo URL: default = mongodb://mongo:27017
@@ -35,6 +36,7 @@ def help():
     events engage culture@=Military,Religion,Egalitarian warfare}=5 population}=40000 plague.event, // Send a plague to all planets matching the selectors:
     events query --fields=identity,population culture==Practical bio}=2.3 // Display all planets with culture==Practical and bio tech greater than 2.3 but only display identity, and population
     events purge --suppress=.fire culture@=Predatory,Adventurous  // remove fire events. Use "all" for "all" events IMPORTANT put a . at the start and between any elements in the suppress
+    events count moons==2
 
     for --fields and --suppress there are some shorthand words to designate multiple fields
     planet:       planet_size,atmosphere_density,star_system,star_index,planet_index,evaluation,evaluation2,planet_type,unexplored
@@ -87,7 +89,7 @@ def parse_selectors(selectors):
     for selector in selectors:
         match = re.match("([A-Za-z_]+)([@={}~%!]+)(.*)", selector)
         field, op, value = match.groups(1)
-        if ',' in value:
+        if op == '@=':
             value = re.split(r',', value)
 
         # convert any all number string into a numeric type, or don't 
@@ -155,6 +157,10 @@ def process(command, params, selector_strings):
         documents = collection.find({'$and': selectors }, project)
         for doc in documents:
             pprint.pprint(doc, indent=4)
+
+    if command == "count":
+        count = collection.count_documents({'$and': selectors })
+        print(count);
 
     # send an event to the galaxy
     elif command == "engage":
