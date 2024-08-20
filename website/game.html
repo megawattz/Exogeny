@@ -78,17 +78,18 @@
 
 	<div id="lowerTable" style="position: absolute; width: 94%; padding-left: 2vw; margin: 0 auto;">
 	  <div id="planetdata" class="row" >
-	    <div id="planetstats" class="statstable">
-	      <span id="planetname" class="statsheader"></span>
-	      <div id="basestatstable" class="statstable">
-	      </div>
-	    </div>
-
+	    
 	    <div id="planetevents" class="row section">
 	      <span class="statsheader">Latest Events</span>
 	      <div id="eventlist" class="eventlist">
 	      </div>
 	      <hr>
+	    </div>
+
+	    <div id="planetstats" class="statstable">
+	      <span id="planetname" class="statsheader"></span>
+	      <div id="basestatstable" class="statstable">
+	      </div>
 	    </div>
 
 	    <div id="civilization" class="statstable">
@@ -285,23 +286,29 @@
 	      const affected = event['affected'];
 	      const cost = parseFloat(event['cost']);
 	      const influence = event['influence'];
-	      const effects = effectsString('affected');
+	      const effects = effectsString(affected);
 	      
-	      html = `<div name="planetevent" style="border-radius: 1vw; margin: 0 auto; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
-									<div><p " style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-									${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}<br/><br/>
-										${apparent}<br/><br/>Possible effects<br>${effects}
-										<br><i>${influence}<i></br>
-										</div>
-										</div>
-										<div style="text-align: center; color: inherit; margin: 0 auto;">
-									<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${name}" min="0" max="100" value="0" oninput="rangeValue${name}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
-										</div>
-										<div>
-										<div style="text-align: center;" id="rangeValue${name}"></div></td>
-										<div style="text-align: center;"><button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">Influence</button></div>
-										<hr>
-										</div>` + html; // (Put new stuff at the top)
+	      html =   `<div name="planetevent" class="statstable" style="border-radius: 1vw; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
+			<div style="width: 100%; font-size: 5vh; text-align: center; margin: 0 auto;"><font style="padding: 1vw; margin: 1vw; background-color: #333; border-radius: 10vw;">&nbsp;&nbsp;&nbsp;${name}&nbsp;&nbsp;&nbsp;</font></div>
+			<div><p " style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
+			${apparent}<br/><br/>Potential Effects<br>${effects}
+			<br><i>${influence}<i></br>
+			</div>
+			</div>
+			<div style="text-align: center; color: inherit; margin: 0 auto;">
+			<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${name}" min="0" max="100" value="0" 
+				oninput="rangeValue${name}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
+			</div>
+			<div>
+			<div style="text-align: center;" id="rangeValue${name}">
+			</div>
+			<div style="text-align: center;">
+				<button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
+				Influence</button>
+			</div>
+			<div style="text-align: center;">${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}</div>
+			<hr>
+			</div>` + html; // (Put new stuff at the top)
 	  }
 	  eventlistholder.innerHTML = html;
       }
@@ -322,6 +329,39 @@
 	  return effectStr;
       }
 
+      function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
+	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
+	  return `${units}% will cost ${Math.ceil(cost)} T44`;
+      }
+
+      async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
+	  const NFT = Planets[currentPlanetIndex];
+
+	  const userId = Moralis.User.current().id;
+	  const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
+
+	  const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
+	  console.log(`Move ${JSON.stringify(contents)}`);
+
+	  const query = new Moralis.Query("Move");
+	  query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
+	  var thing = await query.first();
+
+	  if (thing) {
+	      thing.set(contents);
+	      console.log(`Update ${JSON.stringify(thing)}`);
+	  } else {
+	      thing = new Moralis.Object("Move", contents);
+	      console.log(`Write New ${JSON.stringify(thing)}`);
+	  }
+
+	  result = await thing.save()
+	  console.log(`Wrote ${JSON.stringify(thing)}`);
+	  if (displayElement)
+	      displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
+	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
+      }
+
       /*
       function parseQuery(query, destination) {
 	  var rval = destination || {};
@@ -338,11 +378,6 @@
 	      transfer.innerText = "(invest T44 from Wallet)";
 	  else
 	      transfer.innerText = "                        ";
-      }
-
-      function dimReturn(units, perUnitCost) {  // diminishing returns, parabolic cost value ^ factor
-	  let cost = Math.pow(parseInt(units) * perUnitCost, 1.5);
-	  return `${units}% will cost ${Math.ceil(cost)} T44`;
       }
 
       async function eventAlert(message, sound) {

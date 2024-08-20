@@ -169,7 +169,7 @@ def process(command, params, selector_strings):
         eventObject = json.load(open(event, 'r'))
         selectors = merge_map_and_array(eventObject['limits'], selectors)
         message(4, f"Selectors: {selectors}")
-        result = collection.update_many({ '$and' : selectors }, {"$set": { "events": {event_name : eventObject} } } )
+        result = collection.update_many({ '$and' : selectors }, {"$set": { f"events.{event_name}": eventObject }})
         message(3, json.dumps(result.raw_result, indent=4))
 
     # remove outstanding events from previous cycle
