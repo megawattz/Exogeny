@@ -76,14 +76,15 @@
 
 	<br>
 
-	<div id="lowerTable" style="position: absolute; width: 94%; padding-left: 2vw; margin: 0 auto;">
-	  <div id="planetdata" class="row" >
+	<div id="lowerTable" style="position: absolute; width: 100%; margin: 0 auto;">
+	  
+	  <div id="planetdata" class="row planetdata">
 	    
-	    <div id="planetevents" class="row section">
+	    <div id="planetstats" class="row">
 	      <span class="statsheader">Latest Events</span>
+	      <hr>
 	      <div id="eventlist" class="eventlist">
 	      </div>
-	      <hr>
 	    </div>
 
 	    <div id="planetstats" class="statstable">
@@ -92,15 +93,10 @@
 	      </div>
 	    </div>
 
-	    <div id="civilization" class="statstable">
-	      <span class="statsheader">Civilization</span>
-	      <div id="civstatstable" class="statstable">
-	      </div>
-	    </div>
-
 	  </div>
 	</div>
       </div>
+      
     </div>
 
     <script type="module">
@@ -288,26 +284,27 @@
 	      const influence = event['influence'];
 	      const effects = effectsString(affected);
 	      
-	      html =   `<div name="planetevent" class="statstable" style="border-radius: 1vw; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
-			<div style="width: 100%; font-size: 5vh; text-align: center; margin: 0 auto;"><font style="padding: 1vw; margin: 1vw; background-color: #333; border-radius: 10vw;">&nbsp;&nbsp;&nbsp;${name}&nbsp;&nbsp;&nbsp;</font></div>
-			<div><p " style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-			${apparent}<br/><br/>Potential Effects<br>${effects}
-			<br><i>${influence}<i></br>
-			</div>
-			</div>
+	      html =   `<div name="planetevent" class="eventwindow" style="border-radius: 1vw; border: solid white; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
+				<div><p style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
+					${apparent}<br/><br/>Potential Effects<br>${effects}
+					<br><i>${influence}<i></br>
+				</div>
 			<div style="text-align: center; color: inherit; margin: 0 auto;">
-			<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${name}" min="0" max="100" value="0" 
+				<span style="width: 100%; margin: 0% auto;">0 <input style="width: 60%;" type="range" id="spend${name}" min="0" max="100" value="0" 
 				oninput="rangeValue${name}.innerText = dimReturn(this.value, ${cost})"> 100%</span>
 			</div>
 			<div>
-			<div style="text-align: center;" id="rangeValue${name}">
+				<div style="text-align: center;" id="rangeValue${name}">
+				</div>
 			</div>
-			<div style="text-align: center;">
+			<div style="padding: 1vw; text-align: center;">
 				<button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
 				Influence</button>
 			</div>
+			<br/>
 			<div style="text-align: center;">${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}</div>
 			<hr>
+			</div>
 			</div>` + html; // (Put new stuff at the top)
 	  }
 	  eventlistholder.innerHTML = html;

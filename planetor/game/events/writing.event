@@ -17,9 +17,9 @@
     "mitigators":{},
     "cost": 0.1,
     "influence":"Enable this technology to spread far and wide in your civilization",
-    "image_url":"https://www.wondriumdaily.com/wp-content/uploads/2020/05/Story-of-Human-Language_L8_QBS_Feature_A_1.jpg",
+    "image_url":"https://upload.wikimedia.org/wikipedia/commons/d/d0/Historical_Writing_Systems.jpg",
     "video_url":"",
-    "color":"green",
+    "color":"black",
     "apparent":"Your people have discovered writing, a way to record thoughts, speech and experience in permanent form.",
     "actual":""
 }

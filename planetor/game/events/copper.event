@@ -12,9 +12,9 @@
     "mitigators":{},
     "cost": 0.05,
     "influence":"do you want to help them develop this technology",
-    "image_url":"https://www.zmescience.com/mrf4u/statics/i/ps/cdn.zmescience.com/wp-content/uploads/2015/11/copper-2.jpg?width=1200&enable=upscale",
+    "image_url":"https://media.istockphoto.com/id/968416896/photo/steel-foundry.jpg?s=612x612&w=0&k=20&c=tF2HUyjShAGUOmKQQgsUSuKnzyMwLtvKeh5czJ6uNmM=",
     "video_url":"",
-    "color":"green",
+    "color":"black",
     "apparent":"Someone has discovered how to smelt copper from ore and form it into usable tools",
     "actual":""
 }
