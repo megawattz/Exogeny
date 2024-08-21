@@ -438,8 +438,6 @@ a:hover {
 }
 
 .statstable {
-    display: flex;
-    width: 100vw;
     margin-left: 0 auto;
     margin-right: 0 auto;
     font-size: 2vw;
