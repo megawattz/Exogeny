@@ -1,7 +1,6 @@
 {
     "limits": {
-	"level": {"$lt": 1},
-	"lifeform": { "$in": ["Biped","Tetrapod"] }
+	"bio": {"$gt": 0.1}
     },
     "affected": {
         "bio": 0.3,

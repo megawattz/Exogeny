@@ -39,8 +39,8 @@
     </div>
     
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-      <div style="width: 100%; padding: 0; margin: 0 auto; background-image: images/stars.jpg; background-size: cover; 
-		  background-repeat: repeat; overflow: hidden;">
+      <div style="width: 100%; padding: 0; margin: 0 auto; background-image: images/background_stars.jpg; background-size: cover; 
+		  background-repeat: repeat-y; overflow: hidden;">
 
 	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 30%; left: 4%;">
 	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
@@ -278,13 +278,15 @@
 	      const influence = event['influence'];
 	      const effects = effectsString(affected);
 	      
-	      html =   `<div name="planetevent" class="eventwindow" style="border-radius: 1vw; border: solid white; margin: 1vh;  background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
-				<br/>
-				<div style="width: 80%; margin: 0 auto; background-color: rgba(0, 0, 0, 0.5); padding: 2vw; border-radius: 2vh;">
-					<p style="color: white; text-align: center;">
-					<span style="font-color: ${color};">${utils.titleize(name)}</span>: ${apparent}</div>
+	      html =   `<div name="planetevent" style="background-image: url('${imageUrl}'); background-size: cover; border-radius: 1vw; border: solid white; margin-top: 2vh;" onmousedown="this.style.backgroundImage = ''">
+				<div style="width: 80%; margin: 0 auto; margin-top: 3vh; background-color: rgba(0, 0, 0, 0.5); border-radius: 2vh; text-align: center;">
+					<span style="text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
+					${utils.titleize(name)}: ${apparent}
+					</span>
+				</div>
+				<hr>
 				<div style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-					Potential Effects<br>${effects}
+					Effects<br>${effects}
 					<br><i>${influence}<i></br>
 				</div>
 			<div style="text-align: center; color: inherit; margin: 0 auto;">
@@ -296,7 +298,7 @@
 				</div>
 			</div>
 			<div style="padding: 1vw; text-align: center;">
-				<button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
+				<button style="color: ${color}" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
 				Influence</button>
 			</div>
 			</div>` + html; // (Put new stuff at the top)

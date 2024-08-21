@@ -11,9 +11,9 @@
     "mitigators":{},
     "cost": 0.01,
     "influence":"How much do you want to invest in this invention to increase its usefulness?",
-    "image_url":"https://i.stack.imgur.com/s1wcZ.jpg",
+    "image_url":"https://merriam-webster.com/assets/mw/static/art/dict/wheel.gif",
     "video_url":"",
-    "color":"green",
+    "color":"blue",
     "apparent":"Good news! An engineer has discovered the wheel",
     "actual":""
 }

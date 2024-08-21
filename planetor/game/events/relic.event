@@ -1,5 +1,5 @@
 {
-	"limits":{},
+    "limits":{},
     "affected": {	
 	"science":"2%"
     },
@@ -8,7 +8,7 @@
     "mitigators": {},
     "influence": "How much of this discovery do you wish to exploit?",
     "cost":0.2,
-    "image_url": "https://www.gizmodo.com.au/wp-content/uploads/sites/2/2015/12/25/v1czdxdgsnnu0njbz8vr.jpg",
+    "image_url": "https://static01.nyt.com/images/2024/07/09/science/04tb-antikythera/04tb-antikythera-jumbo.jpg?quality=75&auto=webp",
     "video_url": "",
     "color":"green",
     "apparent":"Most Fortunate. An ancient technical relic has been discovered that has allowed your scientists to advance your scientific tech.",
