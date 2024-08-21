@@ -39,7 +39,8 @@
     </div>
     
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-      <div style="width: 100%; padding: 0; margin: 0 auto; background-image: images/stars.jpg; background-size: cover; background-repeat: repeat; overflow: hidden;">
+      <div style="width: 100%; padding: 0; margin: 0 auto; background-image: images/stars.jpg; background-size: cover; 
+		  background-repeat: repeat; overflow: hidden;">
 
 	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 30%; left: 4%;">
 	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
@@ -70,7 +71,6 @@
 
 	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
 
-	    <!-- a href="mygallery.html"><img id="myplanets" src="images/planet_list.png" style="position: absolute; left: 35%; bottom: 2%; width: 30vw"></a-->
 	  </div>
 	</div>
 
@@ -137,7 +137,6 @@
 		  currentPlanetIndex = 0;
 
 	      planet = Planets[PlanetIds[currentPlanetIndex]];
-	      console.log(`CurrentPlanet: ${Object.keys(Planets).length} ${currentPlanetIndex}:${planet.identity}`);
 
 	      if (!planet) {
 		  // get the next NFT ahead of time
@@ -152,6 +151,7 @@
 	      }
 	  }
 
+	  console.log(`CurrentPlanet: ${Object.keys(Planets).length} ${currentPlanetIndex}:${planet.identity}`);
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
