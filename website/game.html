@@ -278,8 +278,13 @@
 	      const effects = effectsString(affected);
 	      
 	      html =   `<div name="planetevent" class="eventwindow" style="border-radius: 1vw; border: solid white; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
+				<br/>
+				<div style="width: 80%; margin: 0 auto; background-color: #333; padding: 2vw; border-radius: 4vh;">
+				<p style="color: white; text-align: center;">
+					<span style="font-color: ${color};">${utils.titleize(name)}</span>: ${apparent}
+				</div>
 				<div><p style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-					${apparent}<br/><br/>Potential Effects<br>${effects}
+					<br/><br/>Potential Effects<br>${effects}
 					<br><i>${influence}<i></br>
 				</div>
 			<div style="text-align: center; color: inherit; margin: 0 auto;">
