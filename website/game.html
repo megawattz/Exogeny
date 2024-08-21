@@ -75,15 +75,16 @@
 	</div>
 
 	<div id="lowerTable" style="width: 84%; margin: 0 auto;">
+	  <span id="planetname" class="statsheader"></span>
+	  <hr>
 	  <div id="planetstats" class="row">
 	    <span class="statsheader">Latest Events</span>
-	    <hr>
 	    <div id="eventlist" class="eventlist">
 	    </div>
 	  </div>
 
 	  <div id="planetstats" class="statstable">
-	    <span id="planetname" class="statsheader"></span>
+	    <span id="planetstatslabel" class="statsheader">Planet Stats</span>
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
@@ -277,14 +278,13 @@
 	      const influence = event['influence'];
 	      const effects = effectsString(affected);
 	      
-	      html =   `<div name="planetevent" class="eventwindow" style="border-radius: 1vw; border: solid white; background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
+	      html =   `<div name="planetevent" class="eventwindow" style="border-radius: 1vw; border: solid white; margin: 1vh;  background-image: url('${imageUrl}'); background-size: cover;" onmousedown="this.style.backgroundImage = ''">
 				<br/>
-				<div style="width: 80%; margin: 0 auto; background-color: #333; padding: 2vw; border-radius: 4vh;">
-				<p style="color: white; text-align: center;">
-					<span style="font-color: ${color};">${utils.titleize(name)}</span>: ${apparent}
-				</div>
-				<div><p style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
-					<br/><br/>Potential Effects<br>${effects}
+				<div style="width: 80%; margin: 0 auto; background-color: rgba(0, 0, 0, 0.5); padding: 2vw; border-radius: 2vh;">
+					<p style="color: white; text-align: center;">
+					<span style="font-color: ${color};">${utils.titleize(name)}</span>: ${apparent}</div>
+				<div style="color: white; text-align: center; text-shadow: 20px 0 20px ${color}, 0 20px 20px ${color}, -20px 0 20px ${color}, 0 -20px 20px ${color};">
+					Potential Effects<br>${effects}
 					<br><i>${influence}<i></br>
 				</div>
 			<div style="text-align: center; color: inherit; margin: 0 auto;">
@@ -298,10 +298,6 @@
 			<div style="padding: 1vw; text-align: center;">
 				<button name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
 				Influence</button>
-			</div>
-			<br/>
-			<div style="text-align: center;">${date.getYear() + 1900}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}</div>
-			<hr>
 			</div>
 			</div>` + html; // (Put new stuff at the top)
 	  }
