@@ -32,15 +32,14 @@
   </head>
 
   <body style="width: 100%; height: auto; margin: 0 auto; padding: 0;
-	       background-image: url(images/background_stars.jpg); background-repeat: repeat-y; background-width: 100%;">
+	       background-image: url(images/background_stars.jpg); background-repeat: repeat; background-width: 100%;">
 
     <div style="position: absolute; left: 35%; top: 2%; z-index: 10;" id="smallmenu">
       <a href="mygallery.html"><img id="myplanets" src="images/planet_list.png" style="width: 30vw"></a>
     </div>
     
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
-      <div style="width: 100%; padding: 0; margin: 0 auto; background-image: images/background_stars.jpg; background-size: cover; 
-		  background-repeat: repeat-y; overflow: hidden;">
+      <div style="width: 100%; padding: 0; margin: 0 auto; overflow: hidden;">
 
 	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 30%; left: 4%;">
 	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
@@ -74,7 +73,8 @@
 	  </div>
 	</div>
 
-	<div id="lowerTable" style="width:84%; margin: 0 auto;">
+	<div id="lowerTable" style="width:84%; margin: 0 auto; background-image: url(images/background_stars.jpg); background-repeat: repeat-y; background-width: 100%;">
+
 	  <span style="margin-top: 2vh;" id="planetname" class="statsheader"></span>
 	  
 	  <div id="planetessentials">
@@ -85,8 +85,6 @@
 	    <div id="eventlist" class="eventlist">
 	    </div>
 	  </div>
-	  
-	  <hr>
 	  
 	  <div id="planetstats" class="statstable">
 	    <span id="planetstatslabel" class="statsheader">Planet Stats</span>
@@ -226,11 +224,14 @@
 
 	  nonNFTdata(planet);
 	  
-	  // prefetch the next 5 planets while user looks at this one
-	  for (let i = 1; i < 5; ++i) {
-	      if (!Planets[PlanetIds[currentPlanetIndex + i]]) {
-		  web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex + i)
-		      .then((nft) => Planets[PlanetIds[currentPlanetIndex + i]] = nft)
+	  // prefetch the next 5 planets (in each direction) while user looks at this one
+	  for (let i = 0; i < 10; ++i) {
+	      let index = utils.modulo((currentPlanetIndex - 10 + i), PlanetIds.length);
+	      console.log(`Index: ${index}`);
+	      if (!Planets[PlanetIds[index]]) {
+		  console.log(`Fetching Index: ${index}`);
+		  web3utils.FetchNFT(wallet, contractAddress, index)
+		      .then((nft) => Planets[PlanetIds[index]] = nft)
 		      .then(console.log)
 		      .catch(console.error)
 	      }

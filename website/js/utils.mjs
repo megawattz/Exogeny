@@ -28,6 +28,10 @@ export function getCookie(name) {
     return hits[1];
 }
 
+export function modulo(dividend, divisor) {
+      return ((dividend % divisor) + divisor) % divisor;
+}
+
 var Config = {
     "zoom_factor": 1.5,
     "unfocus_system_label_opacity": 0.3,

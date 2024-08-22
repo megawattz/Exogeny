@@ -6,7 +6,8 @@ import * as utils from './utils.mjs';
 export const exogeny = {
     AttributesOfInterest: [
 	{ key: 'official_designation',	value: 'Official Name'},
-	{ key: 'indigenous_lifeform',	value: 'Dominant Indigenous Lifeform'},
+	{ key: 'parent_star',		value: 'Star'},
+	{ key: 'star_system',		value: 'Star System'},
 	{ key: 'atmosphere', 		value: 'Primary Atmosphere'},
 	{ key: 'planet_type',		value: 'Geology/Climate'},
 	{ key: 'industrial_minerals', 	value: 'Industrial Minerals'},
