@@ -75,17 +75,19 @@
 	</div>
 
 	<div id="lowerTable" style="width:84%; margin: 0 auto;">
-	  <span style="margin: 1vh;" id="planetname" class="statsheader"></span>
+	  <span style="margin-top: 2vh;" id="planetname" class="statsheader"></span>
 	  
 	  <div id="planetessentials">
 	  </div>
 	  
 	  <div id="planetstats" class="row">
-	    <span class="statsheader">Latest Events</span>
+	    <span style="margin-top: 2vh;" class="statsheader">Latest Events</span>
 	    <div id="eventlist" class="eventlist">
 	    </div>
 	  </div>
-
+	  
+	  <hr>
+	  
 	  <div id="planetstats" class="statstable">
 	    <span id="planetstatslabel" class="statsheader">Planet Stats</span>
 	    <div id="basestatstable" class="statstable">
@@ -213,8 +215,8 @@
 
 	  window.addEventListener('hashchange', handleFragmentChange);
 
-	  let data = exogeny.FormatPlanetData(planet, `<tr><td>{1}</td><td>{2}</td></tr>\n`);
-
+	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
+	  
       	  let html = '<table style="width: 94%;">\n';
 	  html += data;
 	  html += '</table>\n';
@@ -266,7 +268,7 @@
 
 	  planetname.innerHTML = `${planet.name}`;
 
-	  let essentials = exogeny.FormatObject(planetData, `<tr style="margin: 1vw auto; padding: 1vw; background-color: rgba(0, 0, 0, 0.5);"><td style="padding: 1vw; text-align: left;">{1}</td><td style="text-align: right;">{2}</td></tr>\n`,
+	  let essentials = exogeny.FormatObject(planetData, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`,
 					       [	
 						   { key: 'name', value: 'Common Name'},
 						   { key: 'population',	 value: 'Population'},
