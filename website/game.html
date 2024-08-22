@@ -52,7 +52,7 @@
 
 	<div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
 				       padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
-				       justify-content: center; overflow: hidden;">
+				       justify-content: center; overflow: hidden; border: solid white;">
 
 	  <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
 		 style="z-index: -10; width: 100%; margin: 0 auto; padding: 0;
@@ -71,12 +71,16 @@
 
 	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
 
+	    <div id="planetname" class="statsheader" style="font-size: 4vw; align-text: center; width: 100%; 
+							    position: absolute; left: 0; bottom: 1%;"></div>
 	  </div>
 	</div>
 
 	<div id="lowerTable" style="width: 84%; margin: 0 auto;">
+	  <!--
 	  <span id="planetname" class="statsheader"></span>
 	  <hr>
+	  -->
 	  <div id="planetstats" class="row">
 	    <span class="statsheader">Latest Events</span>
 	    <div id="eventlist" class="eventlist">
