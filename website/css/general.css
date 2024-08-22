@@ -437,18 +437,6 @@ a:hover {
     transform: translate(-50%, -50%);
 }
 
-.statstable {
-    margin-left: 0 auto;
-    margin-right: 0 auto;
-    font-size: 2vw;
-}
-
-.statsheader {
-    width: 100vw;
-    margin: 0 auto;
-    font-size: 2vw;
-}
-
 .planetdata {
     display: flex;
     align-items: center;

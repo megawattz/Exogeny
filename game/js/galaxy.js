@@ -33,9 +33,10 @@ Object.assign(labelRenderer.domElement.style, {position: 'absolute', zIndex: 1, 
 document.body.appendChild(labelRenderer.domElement);
 
 // Camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20);
 camera.position.set(0, 0, 1000);
 camera.lookAt(0, 0, 0);
+camera.updateProjectionMatrix();
 
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -50,6 +51,10 @@ var Keydown = {};
 
 function element(id) {
     return document.getElementById(id);
+}
+
+function kill(element) {
+    scene.remove(element);
 }
 
 // set up document wide event handlers
@@ -298,6 +303,7 @@ function loadPlanets(planets) {
     });
 };
 
+/*
 function animate() {
     requestAnimationFrame( animate );
     labelRenderer.render(scene, camera);
@@ -305,6 +311,16 @@ function animate() {
 }
 
 renderer.setAnimationLoop(animate);
+*/
+
+function render() {
+    labelRenderer.render(scene, camera);
+    renderer.render(scene.camera);
+}
+
+function.addEventListener('mousemove', function() {
+    render();
+});
 
 window.addEventListener('resize', function() {
     camera.aspect = window.innerWidth / window.innerHeight;

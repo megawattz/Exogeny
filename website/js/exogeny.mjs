@@ -26,6 +26,16 @@ export const exogeny = {
     GetConfig: function(key) {
 	return this.ConfigData[key];
     },
+    FormatObject: function(planet, format, map) {
+	map = map || exogeny.AttributesOfInterest;
+	var readout = '';
+	map.forEach(function(map) {
+	    const value = planet[map.key];
+	    if (map.key in planet)
+		readout += utils.sprintf(format, map.value, planet[map.key]);
+	});	
+	return readout;
+    },
     FormatPlanetData: function(planet, format, map) {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';

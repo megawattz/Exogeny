@@ -509,7 +509,7 @@ def make_query(selectables):
         query += '%s=%s&' % (name, value)
     return query
 
-Chemistry = ['carbon','ammonia','arsenic','borane','hydrogen_sulfide','methane','silicon','sulfur','retinal']
+Chemistry = ['borane','hydrogen_sulfide','retinal','arsenic','sulfur','methane','silicon','ammonia','carbon']
 LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Human','Aerial','Insectoid','Reptilian','Humanoid','Quadruped']
 
 # Database Operations (the file backing store will be replaced with Redis or Mongo)

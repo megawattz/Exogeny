@@ -32,7 +32,7 @@
   </head>
 
   <body style="width: 100%; height: auto; margin: 0 auto; padding: 0;
-	       background-image: url(images/background_stars.jpg); background-repeat: repeat-y; background-size: cover;">
+	       background-image: url(images/background_stars.jpg); background-repeat: repeat-y; background-width: 100%;">
 
     <div style="position: absolute; left: 35%; top: 2%; z-index: 10;" id="smallmenu">
       <a href="mygallery.html"><img id="myplanets" src="images/planet_list.png" style="width: 30vw"></a>
@@ -71,16 +71,15 @@
 
 	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
 
-	    <div id="planetname" class="statsheader" style="font-size: 4vw; align-text: center; width: 100%; 
-							    position: absolute; left: 0; bottom: 1%;"></div>
 	  </div>
 	</div>
 
-	<div id="lowerTable" style="width: 84%; margin: 0 auto;">
-	  <!--
-	  <span id="planetname" class="statsheader"></span>
-	  <hr>
-	  -->
+	<div id="lowerTable" style="width:84%; margin: 0 auto;">
+	  <span style="margin: 1vh;" id="planetname" class="statsheader"></span>
+	  
+	  <div id="planetessentials">
+	  </div>
+	  
 	  <div id="planetstats" class="row">
 	    <span class="statsheader">Latest Events</span>
 	    <div id="eventlist" class="eventlist">
@@ -214,10 +213,9 @@
 
 	  window.addEventListener('hashchange', handleFragmentChange);
 
-	  planetname.innerHTML = `Planet&nbsp;<i>${planet.name}</i>`;
+	  let data = exogeny.FormatPlanetData(planet, `<tr><td>{1}</td><td>{2}</td></tr>\n`);
 
-	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
-	  let html = '<table class="statstable">\n';
+      	  let html = '<table style="width: 94%;">\n';
 	  html += data;
 	  html += '</table>\n';
 	  basestatstable.innerHTML = html;
@@ -266,6 +264,22 @@
 	  eventlistholder.id = "eventlistholder";
 	  planetevents.appendChild(eventlistholder);
 
+	  planetname.innerHTML = `${planet.name}`;
+
+	  let essentials = exogeny.FormatObject(planetData, `<tr style="margin: 1vw auto; padding: 1vw; background-color: rgba(0, 0, 0, 0.5);"><td style="padding: 1vw; text-align: left;">{1}</td><td style="text-align: right;">{2}</td></tr>\n`,
+					       [	
+						   { key: 'name', value: 'Common Name'},
+						   { key: 'population',	 value: 'Population'},
+						   { key: 'tritanium44', value: 'Tritanium44 Treasury'},
+						   { key: 'population',	 value: 'Population'},
+						   { key: 'motto', 	value: 'Motto'},
+					       ]);
+      
+      	  let stats = '<table style="width: 98%;">\n';
+	  stats += essentials;
+	  stats += '</table>\n';
+      	  planetessentials.innerHTML = stats;
+      
 	  if (!planetData.events)
 	      return;
 
@@ -302,7 +316,7 @@
 				</div>
 			</div>
 			<div style="padding: 1vw; text-align: center;">
-				<button style="color: ${color}" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
+				<button style="border-radius: 1vw; background-color: ${color}; color: grey;" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
 				Influence</button>
 			</div>
 			</div>` + html; // (Put new stuff at the top)
