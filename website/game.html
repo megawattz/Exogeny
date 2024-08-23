@@ -186,16 +186,16 @@
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
 	      utils.show(lifeformImage);
-	  });
+	  }, {"passive", true});
 	  lifeformIcon.addEventListener('mouseup', function() {
 	      utils.hide(lifeformImage);
-	  });
+	  }, {"passive", true});
 	  lifeformIcon.addEventListener('touchstart', function() {
 	      utils.show(lifeformImage);
-	  });
+	  }, {"passive", true});
 	  lifeformIcon.addEventListener('touchend', function() {
 	      utils.hide(lifeformImage);
-	  });
+	  }, {"passive", true});
 
 	  document.addEventListener('keydown', function(event) {
 	      switch(event.key) {

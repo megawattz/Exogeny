@@ -41,7 +41,7 @@ Container.appendChild(renderer.domElement);
 
 // Scene
 const scene = new THREE.Scene();
-Object.assign(renderer.domElement.style, {backgroundImage: 'url(images/skybox2.jpg)', position: 'absolute', top: 0, left: 0});
+Object.assign(renderer.domElement.style, {backgroundImage: 'url(images/stars.jpg)', backgroundSize: "cover", position: 'absolute', top: 0, left: 0});
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 scene.add(ambientLight);
 
@@ -153,7 +153,7 @@ Container.appendChild(Popup);
 Object.assign(Popup.style, {left: 0, top: '10vh', width: '30vw', zIndex: 40, height: '100%', position: 'absolute', visibility: 'hidden', display: 'none', background: 'transparent'});
 
 window.popDown = function() {
-	    if (Popup.style.visibility == 'hidden')
+    if (Popup.style.visibility == 'hidden')
 	return false; // not showing already?
     Popup.style.visibility = 'hidden';
     Popup.style.display = 'none';
@@ -281,6 +281,7 @@ window.lifeformImage = function(planet) {
     planetDown();
     Lifeform.style.visibility = 'visible';
     Lifeform.style.display = 'block';
+    render();
 }
 
 window.lifeformDown = function() {
@@ -445,6 +446,7 @@ function loadPlanets(planets) {
     });
 };
 
+/*
 function animate() {
     requestAnimationFrame( animate );
     labelRenderer.render(scene, camera);
@@ -452,6 +454,12 @@ function animate() {
 }
 
 renderer.setAnimationLoop(animate);
+*/
+
+function render() {
+    labelRenderer.render(scene, camera);
+    renderer.render( scene, camera );
+}
 
 window.addEventListener('resize', function() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -472,7 +480,7 @@ function clearLine() {
     LineAnchor = wipe(LineAnchor);
     Ruler = wipe(Ruler);
     message("");
-    animate();
+    render();
 }
 
 function lineDraw(mesh) {
@@ -484,7 +492,7 @@ function lineDraw(mesh) {
     if (!LineAnchor) {
 	LineAnchor = new THREE.Vector3(mesh.position.x, mesh.position.y, mesh.position.z);
 	message(`anchor ${mesh.userData.game.official_designation}`);
-	animate();
+	render();
 	return;
     }
 
@@ -495,7 +503,7 @@ function lineDraw(mesh) {
     Ruler = new THREE.Line(LineGeometry, LineMaterial);
     scene.add(Ruler);
     message(`${Math.floor(LineAnchor.distanceTo(mesh.position)/Config.light_year_units)} light years`);
-    animate();
+    render();
 }
 
 function getIntersect(event) {
@@ -539,6 +547,7 @@ window.zoomout = function() {
 	camera.position.set(0, 0, Config.galaxy_diameter/2);
 	camera.lookAt(0, 0, 0);
     }
+    render();
     controls.update();
 }
 
@@ -561,12 +570,18 @@ function zoomin(target_object) {
 	popupSystem(target_object);
     }
     
+    render();
     //console.log("camera:", camera.position);
 }
+
+window.addEventListener('mousemove', function(event) {
+    render();
+});
 
 renderer.domElement.addEventListener('mousedown', function(event) {
     if (event.which != 1)
 	return;
+
     let target = getIntersect(event);
 
     if (Keydown[17]) {
@@ -575,6 +590,7 @@ renderer.domElement.addEventListener('mousedown', function(event) {
 	} else {
 	    lineDraw(target.object)
 	}
+	render();
 	return;
     }
 
@@ -583,6 +599,7 @@ renderer.domElement.addEventListener('mousedown', function(event) {
 	if (Keydown[16]) {
 	    window.zoomout();
 	}
+	render();
 	return
     }
 
@@ -594,6 +611,7 @@ renderer.domElement.addEventListener('mousedown', function(event) {
     if (distance < 40) {
 	focus(target.object);
     }
+    render();
 });
 
 renderer.domElement.addEventListener('contextmenu', function(event) {
@@ -630,5 +648,4 @@ fetch(`configs/${sector}/sector.json`)
     .then(fetch(`configs/${sector}/planets.json`)
 	  .then((response) => response.json())	
 	  .then((data) => loadPlanets(data)))
-    .then(() => animate())
 	  
