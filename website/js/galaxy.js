@@ -478,7 +478,9 @@ var LineAnchor = null;
 
 function clearLine() {
     LineAnchor = wipe(LineAnchor);
+    LineAnchor = null;
     Ruler = wipe(Ruler);
+    Ruler = null;
     message("");
     render();
 }
@@ -631,7 +633,11 @@ window.addEventListener('keydown', function(event) {
     Keydown[event.keyCode] = true;
 
     if (event.keyCode == 27) {
-	clearLine();
+	if (LineAnchor) {
+	    clearLine();
+	    LineAnchor = null;
+	    return;
+	}
 	window.zoomclose();
     }
 });
