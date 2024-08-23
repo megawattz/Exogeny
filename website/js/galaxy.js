@@ -41,7 +41,7 @@ Container.appendChild(renderer.domElement);
 
 // Scene
 const scene = new THREE.Scene();
-Object.assign(renderer.domElement.style, {backgroundImage: 'url(images/stars.jpg)', backgroundSize: "cover", position: 'absolute', top: 0, left: 0});
+Object.assign(renderer.domElement.style, {backgroundImage: 'url(images/high_density_stars.jpg)', backgroundSize: "cover", position: 'absolute', top: 0, left: 0});
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 scene.add(ambientLight);
 
