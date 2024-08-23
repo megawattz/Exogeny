@@ -343,19 +343,7 @@ function Run() {
 	}
 	else
 	{
-	   prompt = `
-three to five photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera))))
-${getAction()} 
-${getAtmosphere(params['atmosphere'])} sky, clouds
-dramatic background, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} 
-and ${getExtra()} and ${getExtra()}
-((skin color pastel variation of ${getAtmosphere(params['atmosphere'])} ))
-((Safe for Work)) entire body same skin type and color
-eye color complementary to skin
-perfectly round eye iris
-((each individual should be slightly unique from each other))
-as if photographed by nikon SLR camera f/8
-`;
+	    prompt = `three to five photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera)))) ${getAction()} ${getAtmosphere(params['atmosphere'])} sky, clouds dramatic background, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} and ${getExtra()} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(params['atmosphere'])} )) ((Safe for Work)) entire body same skin type and color eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) as if photographed by nikon SLR camera f/8`;
 
     	    negative = `${Negatives[LifeForm]},((high tech)),((plastic)),((glass)),((metal))`;
 	}
