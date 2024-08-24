@@ -92,6 +92,18 @@
 	    </div>
 	  </div>
 
+	  <div id="settings" class="settings">
+	    <form>
+	      <select id="items" name="items" title="Sound to play if your planet needs attention">
+		<option value="item1">Item 1</option>
+		<option value="item2">Item 2</option>
+		<option value="item3">Item 3</option>
+		<option value="item4">Item 4</option>
+	      </select>
+	      <input type="submit" value="Submit">
+	    </form>
+	  </div>
+	  
 	</div>
       </div>
     </div>
@@ -399,6 +411,24 @@
 	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
       }
 
+      async function eventAlert(message, sound) {
+	  if (!sound)
+	      sound = getCookie("notification");
+	  if (sound == "none")
+	      return;
+	  //if (!document.hidden) // don't alert if user is already looking
+	  //return;
+	  setTimeout(function() {
+	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
+	      if (!answer)
+		  setCookie("notification", "none");
+	  }, 2000);
+	  let soundFile = `sounds/${sound}.mp3`;
+	  new Audio(soundFile).play();
+      }
+
+      setInterval(eventAlert, Configs.event_cycle * 1000);
+      
       /*
       function parseQuery(query, destination) {
 	  var rval = destination || {};
@@ -417,21 +447,6 @@
 	      transfer.innerText = "                        ";
       }
 
-      async function eventAlert(message, sound) {
-	  if (!sound)
-	      sound = getCookie("notification");
-	  if (sound == "none")
-	      return;
-	  //if (!document.hidden) // don't alert if user is already looking
-	  //return;
-	  setTimeout(function() {
-	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
-	      if (!answer)
-		  setCookie("notification", "none");
-	  }, 2000);
-	  let soundFile = `sounds/${sound}.mp3`;
-	  new Audio(soundFile).play();
-      }
       */
     </script>
   </body>

@@ -9,6 +9,7 @@
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
     "ipfs_gateway": "https://ipfs.io/",
     "exogeny_server": "http://127.0.0.1:2080",
+    "event_cycle": 3600,
     "sectors" : {
 	"vesper":{
 	    "Description":"Planets of the Vesper Dominion",
