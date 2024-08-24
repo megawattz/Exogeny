@@ -153,10 +153,11 @@
 	  // get the next NFT ahead of time
 	  if (!Planets[PlanetIds[currentPlanetIndex]]) {
 	      console.log(`Fetch Planet Index: ${currentPlanetIndex}`);
-	      web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
+	      let index = currentPlanetIndex;
+	      web3utils.FetchNFT(wallet, contractAddress, index)
 		  .then((nft) => {
-		      console.log(`Fetched Planet: ${nft.identity}`);
-		      Planets[PlanetIds[currentPlanetIndex]] = nft;
+		      console.log(`Fetched Planet: ${index}:${nft.identity}`);
+		      Planets[PlanetIds[index]] = nft;
 		      return nft;
 		  })
 		  .then(DisplayPlanet)
@@ -165,7 +166,7 @@
       }
 
       function DisplayPlanet(planet) {
-	  console.log(`DisplayPlanet: ${currentPlanetIndex}:${planet.identity}`);
+	  console.log(`DisplayPlanet: ${planet.tokenid}:${planet.identity}`);
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
