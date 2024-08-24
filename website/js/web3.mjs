@@ -239,8 +239,7 @@ export const web3utils = {
 	let idstring = tokenid.toString(16);
 	let url = nftsURI.replace("{id}", idstring.padStart(64, '0'));
       	let nft = await fetch(url)
-	    .then(response => response.json())
-	    .catch(console.error); // NFTmetadata.push).catch(console.error);
+	    .then(response => response.json());
     	return nft;
     }
 }

@@ -133,28 +133,39 @@
       }
 
       async function Update(planet) {
-	  if (!planet) {
-	      if (currentPlanetIndex < 0)
-		  currentPlanetIndex = PlanetIds.length - 1;
-	      if (currentPlanetIndex > (PlanetIds.length - 1))
-		  currentPlanetIndex = 0;
-
-	      planet = Planets[PlanetIds[currentPlanetIndex]];
-
-	      if (!planet) {
-		  // get the next NFT ahead of time
-		  if (!Planets[PlanetIds[currentPlanetIndex]]) {
-		      planet = await web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
-			  .then((nft) => {
-			      console.log(`Fetched Planet: ${nft.identity}`);
-			      Planets[PlanetIds[currentPlanetIndex]] = nft
-			  })
-			  .catch(console.error);
-		  }
-	      }
+	  if (planet) {
+	      DisplayPlanet(planet);
+	      return
 	  }
+	  
+	  if (currentPlanetIndex < 0)
+	      currentPlanetIndex = PlanetIds.length - 1;
+	  if (currentPlanetIndex > (PlanetIds.length - 1))
+	      currentPlanetIndex = 0;
 
-	  console.log(`CurrentPlanet: ${Object.keys(Planets).length} ${currentPlanetIndex}:${planet.identity}`);
+	  planet = Planets[PlanetIds[currentPlanetIndex]];
+
+	  if (planet) {
+	      DisplayPlanet(planet);
+	      return
+	  }
+	  
+	  // get the next NFT ahead of time
+	  if (!Planets[PlanetIds[currentPlanetIndex]]) {
+	      console.log(`Fetch Planet Index: ${currentPlanetIndex}`);
+	      web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
+		  .then((nft) => {
+		      console.log(`Fetched Planet: ${nft.identity}`);
+		      Planets[PlanetIds[currentPlanetIndex]] = nft;
+		      return nft;
+		  })
+		  .then(DisplayPlanet)
+		  .catch(console.error);
+	  }
+      }
+
+      function DisplayPlanet(planet) {
+	  console.log(`DisplayPlanet: ${currentPlanetIndex}:${planet.identity}`);
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
@@ -186,16 +197,16 @@
 	  $('lifeformIcon').lifeformImage = lifeformImage;
 	  lifeformIcon.addEventListener('mousedown', function() {
 	      utils.show(lifeformImage);
-	  }, {"passive", true});
+	  });
 	  lifeformIcon.addEventListener('mouseup', function() {
 	      utils.hide(lifeformImage);
-	  }, {"passive", true});
+	  });
 	  lifeformIcon.addEventListener('touchstart', function() {
 	      utils.show(lifeformImage);
-	  }, {"passive", true});
+	  });
 	  lifeformIcon.addEventListener('touchend', function() {
 	      utils.hide(lifeformImage);
-	  }, {"passive", true});
+	  });
 
 	  document.addEventListener('keydown', function(event) {
 	      switch(event.key) {
@@ -225,17 +236,23 @@
 	  nonNFTdata(planet);
 	  
 	  // prefetch the next 5 planets (in each direction) while user looks at this one
-	  for (let i = 0; i < 10; ++i) {
-	      let index = utils.modulo((currentPlanetIndex - 10 + i), PlanetIds.length);
-	      console.log(`Index: ${index}`);
-	      if (!Planets[PlanetIds[index]]) {
-		  console.log(`Fetching Index: ${index}`);
-		  web3utils.FetchNFT(wallet, contractAddress, index)
-		      .then((nft) => Planets[PlanetIds[index]] = nft)
-		      .then(console.log)
-		      .catch(console.error)
-	      }
+	  async function prefetch() {
+	      for (let i = 0; i < 4; ++i) {
+		  let index = utils.modulo((currentPlanetIndex + i), PlanetIds.length);
+		  if (!Planets[PlanetIds[index]]) {
+		      //web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
+		      console.log(`Prefetch Index: ${index}`);
+		      web3utils.FetchNFT(wallet, contractAddress, index)
+			  .then((data) => {
+			      console.log(`Done Prefetch Index: ${index}:${data}`);
+		      	      return data;
+			  })	
+			  .then((nft) => Planets[PlanetIds[index]] = nft)
+			  .catch(console.error)
+		  }
+	      }	
 	  }
+	  //prefetch();
       }
 
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
