@@ -106,7 +106,8 @@
       var Civilizations = [];
       var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
-
+      var Prefetch = 4;
+      
       document.next = function() {
 	  ++currentPlanetIndex;
 	  Update();
@@ -238,22 +239,26 @@
 	  
 	  // prefetch the next 5 planets (in each direction) while user looks at this one
 	  async function prefetch() {
-	      for (let i = 0; i < 4; ++i) {
-		  let index = utils.modulo((currentPlanetIndex + i), PlanetIds.length);
+	      for (let i = 0; i < Prefetch; ++i) {
+		  let index = utils.modulo((currentPlanetIndex - (Prefetch/2) + i), PlanetIds.length);
 		  if (!Planets[PlanetIds[index]]) {
 		      //web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
-		      console.log(`Prefetch Index: ${index}`);
+		      console.log(`Prefetch Start Index: ${index}`);
 		      web3utils.FetchNFT(wallet, contractAddress, index)
 			  .then((data) => {
-			      console.log(`Done Prefetch Index: ${index}:${data}`);
+			      console.log(`Prefetch Finished Index: ${index}:${data}`);
 		      	      return data;
 			  })	
 			  .then((nft) => Planets[PlanetIds[index]] = nft)
 			  .catch(console.error)
 		  }
-	      }	
+	      }
 	  }
-	  //prefetch();
+	  
+	  let prefetchEvent = null;
+	  if (prefetchEvent)
+	      clearTimeout(prefetchEvent);
+	  prefetchEvent = setTimeout(4000, prefetch());
       }
 
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
