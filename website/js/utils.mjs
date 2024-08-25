@@ -11,18 +11,23 @@ export function ezhash(str) {
 export function extractDomain(hostname) {
     if (!hostname)
 	hostname = window.location.hostname;
+    if (hostname.match(/^\d+\.\d+\.\d+\.\d+/))
+	return null;
     const match = hostname.match(/(?:.*\.)?(\w+)(?:\.\w+)?$/);
     return match ? match[1] : null;
 }
 
-export function setCookie(name, value) {
-    document.cookie = `${name}=${value}; path=/; max-age=${365*86400}; domain=${extractDomain()};`;
+export function setCookie(name, value, options) {
+    let newcookie = `${name}=${value}; path=/; max-age=${365*86400}`;
+    const domain = extractDomain();
+    if (domain && domain != "localhost")
+	newcookie += `; domain=${domain}`
+    document.cookie = newcookie;
     return document.cookie;
 }
 
 export function getCookie(name) {
-    let finder = new RegExp(`${name}=([^;]*)`);
-    let hits = finder.exec(document.cookie)
+    let hits = document.cookie.match(`${name}=([^;]*)`);
     if (!hits)
 	return null;
     return hits[1];
