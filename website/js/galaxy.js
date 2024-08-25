@@ -8,16 +8,16 @@ import * as labels from './labels.mjs';
 
 var Config = {
     "zoom_factor": 1.5,
-    "unfocus_system_label_opacity": 0.3,
+    "unfocus_system_label_opacity": 0.8,
     "focus_system_label_opacity": 1,
     "system_sphere_radius": 12,
-    "system_sphere_opacity": 0.1,
+    "system_sphere_opacity": 0.5,
     "galaxy_diameter": 2000,
     "light_year_units": 5,
     "ipfs_gateway": "https://ipfs.io/",
 };
 
-var sector = utils.getCookie("sector") || "helatrobus";
+var sector = utils.getCookie("sector") || "vesper";
 
 //fetch('url-to-json-file.json').then(response => response.json()).then(data => console.log(data));
 
@@ -184,7 +184,7 @@ function popupSystem(star) {
 	return;
 
     let contents = `<p/><div style="width: 100%; text-align: left;">
-	<div class="tableName">Star: ${game.official_designation}</div>
+	<div class="tableName">${game.official_designation} Solar System</div>
 	<div class="close clickable" onclick='window.popDown()'>x</div>
 	<table class="solarSystem">
 	<tr>
@@ -297,7 +297,8 @@ var Planet = document.createElement("div");
 Planet.className = "planetPopup";
 Object.assign(Planet.style, {
     position: "absolute", top: 0, left: 0, zIndex: 30, visibility: 'hidden', display: 'none',
-    width: '100%', height: '100%', alignIitems: 'center', justifyContent: 'center', 'margin': 'none', 'padding': 'none'
+    width: '100%', height: '100%', alignIitems: 'center', justifyContent: 'center',
+    'margin': 'none', 'padding': 'none'
 });
 Container.appendChild(Planet);
 
@@ -401,7 +402,7 @@ function loadPlanets(planets) {
 		"name": planet.star_system,
 		"official_designation": `${planet.star_system}`,
 		"location": planet.location,
-		"label": addLabel(systemMesh, planet.location, `${planet.star_system}<br>System`, 0, `rgb(255,255,255,${Config.unfocus_system_label_opacity})`, '0.7vw', labels.getLabel("system")),
+		"label": addLabel(systemMesh, planet.location, `${planet.star_system}<br>Star Cluster`, 0, `rgb(255,255,255,${Config.unfocus_system_label_opacity})`, '0.7vw', labels.getLabel("system")),
 		"stars":  {}
 	    };
 
@@ -428,8 +429,7 @@ function loadPlanets(planets) {
 		"official_designation": official_designation,
 		"location": starLocation,
 		"label": addLabel(starSprite, starLocation,
-				  (planet.star_index == "Alpha") ? `${planet.star_index} ${planet.star_system}` : planet.star_index,
-				  0.4, color, null, labels.getLabel("star")),
+				  `${planet.star_index} ${planet.star_system}`, 0.4, color, null, labels.getLabel("star")),
 		"planets": {}
 	    };
 

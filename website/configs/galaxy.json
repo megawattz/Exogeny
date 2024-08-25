@@ -1,14 +1,14 @@
 {
     "zoom_factor": 1.5,
-    "unfocus_system_label_opacity": 0.3,
+    "unfocus_system_label_opacity": 0.8,
     "focus_system_label_opacity": 1,
-    "system_sphere_radius": 12,
-    "system_sphere_opacity": 0.1,
+    "system_sphere_radius": 20,
+    "system_sphere_opacity": 0.4,
     "galaxy_diameter": 2100,
     "light_year_units": 5,
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
     "ipfs_gateway": "https://ipfs.io/",
-    "exogeny_server": "http://127.0.0.1:2080",
+    "exogeny_server": "http://localhost:2080",
     "event_cycle": 3600,
     "sectors" : {
 	"vesper":{

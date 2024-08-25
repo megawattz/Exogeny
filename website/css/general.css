@@ -450,3 +450,10 @@ a:hover {
     margin: 0 auto;
     font-size: 4vw;
 }
+
+.zoomin {
+    width: 1px;
+    height: auto;
+    transition: transform 2s ease-in-out;
+    transform: scale(1);
+}
