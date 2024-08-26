@@ -1,7 +1,8 @@
 #!/usr/bin/node
 
+import * as fs from 'fs';
 import Replicate from "/usr/lib/node_modules/replicate/index.js";
-import { fetchArgs } from "/app/planetor/tools/utils.mjs"
+import { fetchArgs } from "/app/planetor/tools/utils.mjs";
 
 const Specials = [
     "cute critters, bear, a chickadee, a squirrel, a rabbit, a mouse, a deer, a racoon, a fox dancing around a christmas tree and an altar",
@@ -45,15 +46,10 @@ const Descriptions = {
 	"unusual, mobile fungus showing signs of higher intelligence",
     ],
     "Aquatic":[
-	"alien clams underwater using primitive tools",
-	"alien orcas underwater using primitive tools",
-	"alien otters underwater using primitive tools",
-	"alien fish underwater using primitive tools",
 	"alien floating eyeball dangling appendages underwater using primitive tools",
 	"alien mermaids and mermen underwater using primitive tools",
-	"alien Naga, male and female, underwater using primitive tools",
-	"alien crustaceans underwater using primitive tools",
-	"alien seals underwater using primitive tools"
+	"alien mermaids and mermen partially underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
+	"alien naga snakes, male and female, underwater using primitive tools",
     ],
     "Aerial":[
 	"alien flying small dragons",
@@ -96,11 +92,12 @@ const Descriptions = {
 	"alien, large cat-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"alien ungulates standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"alien mustelids standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
-	"alien mermaids and mermen partially underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"exotic adult male and female predator-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
 	"exotic adult male and female halo-alien like, in clothes, using primitive tools, in archaic clothing ((matching eyes))",
 	"alien, jumble of many different creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"alien, furry, large, felines standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
+	"alien, furry, large, raccoons standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
+	"alien, furry, large, weasels standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
 	"adult male and female Yautja-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
 	"alien, furry, canines, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
 	"alien, furry, rodent-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
@@ -108,18 +105,18 @@ const Descriptions = {
 	"four legged alien monstrosity standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading"
     ],
     "Humanoid": [
-	"exotic adult male and female yeti-aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female orc-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female cryptids aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female humanoid alien Djinn, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic stocky, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
+	"exotic adult male and female yeti-aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female orc-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female cryptids aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female humanoid alien Djinn, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic stocky, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
 	"exotic random selection from every two legged, upright standing, humanoid, mammal alien species in movies and television and media, multiple creatures, including both male and female or asexual members",
-	"exotic adult male and female halfling-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female elf-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female gnome-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female gizmo-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic hairy, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))"
+	"exotic adult male and female halfling-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female elf-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female gnome-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic adult male and female gizmo-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
+	"exotic hairy, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))"
     ],
     "Human":[
 	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient northern european nations anachronistic hairstyles  ((identical, well formed eyes))",
@@ -323,30 +320,36 @@ function Run() {
     });
 
     var [params, freeargs] = fetchArgs(process.argv.slice(2), {
-	"lifeform":"*form of life, shape (biped, blob, plant, etc.)",
-	"planet":"*type of planet (desert, aquatic, terrestrial, etc.)",
-	"atmosphere":"*primary gas in atmosphere",
+	"extras":"any extra elements you want to add",
+	"specsfile":"planet parameters file",
 	"mood":"cute, scary, playful, busy, friendly, etc.",
 	"model":"which stable duffusion model to use",
 	"identity":"not required. Used to label ps lines"
     });
 
+    let specs = JSON.parse(fs.readFileSync(params['specsfile']));
+    
     var prompt = freeargs[0];
     var negative = "";
-    var LifeForm = params['lifeform'];
+    var LifeForm = specs['lifeform'];
 
-    if (!prompt) {
+    if (!prompt)
+	prompt = `
+three to five photorealistic members of intelligent ${getDescription(LifeForm)}, closeup and ((((facing camera)))) ${getAction()},
+${specs['rings'] != "0" && "rings as viewed from saturn arcing from horizon across sky"} ${getAtmosphere(specs['atmosphere_composition'])} sky, 
+dramatic background, high resolution, photorealistic ${specs['planet_type']}, landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} 
+((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, 
+eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) 
+as if photographed by nikon SLR camera f/8
+`;
 
-	if (params["lifeform"] == "special" || params["lifeform"] == "Special")
-	{
-	    prompt = getSpecial();
-	}
-	else
-	{
-	    prompt = `three to five photorealistic members of intelligent ${getDescription(LifeForm)} closeup and ((((facing camera)))) ${getAction()} ${getAtmosphere(params['atmosphere'])} sky, clouds dramatic background, high resolution, photorealistic ${params['planet']} landscape ${getTerrain(params['planet'])} and ${getExtra()} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(params['atmosphere'])} )) ((Safe for Work)) entire body same skin type and color eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) as if photographed by nikon SLR camera f/8`;
-
-    	    negative = `${Negatives[LifeForm]},((high tech)),((plastic)),((glass)),((metal))`;
-	}
+    if (specs["lifeform"] == "special" || specs["lifeform"] == "Special")
+    {
+	prompt = getSpecial();
+    }
+    else
+    {
+    	negative = `${Negatives[LifeForm]},((high tech)),((plastic)),((glass)),((metal))`;
     }
 
     // do not send messages to standard out, only the final output goes to standard out

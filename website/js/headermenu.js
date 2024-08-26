@@ -9,9 +9,6 @@ function extractDomain(hostname) {
 
 function setCookie(name, value, options) {
     let newcookie = `${name}=${value}; path=/; max-age=${365*86400}`;
-    const domain = extractDomain();
-    if (domain && domain != "localhost")
-	newcookie += `; domain=${domain}`
     document.cookie = newcookie;
     return document.cookie;
 }
@@ -34,7 +31,7 @@ function titleize(sentence) {
 }
 
 document.getElementById("navheader").innerHTML = `
-      <div class="container-fluid">
+      <div class="container-fluid" style="z-index: 100";>
 	<a class="navbar-brand" href="home.html">
 	  <img style="width: 30vw; margin-right: 0; pad-right: 0;" src="images/ExoPlaneteer.png">
 	</a>
@@ -70,8 +67,8 @@ document.getElementById("navheader").innerHTML = `
 	      </a>
 	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item" href="gallery.html">Gallery - Planets in Sector</a></li>
-		<li><a class="dropdown-item" href="mygallery.html">Gallery - My Planets</a></li>	
 		<li><a class="dropdown-item" href="screensaver.html">Screensaver - Planets in Sector</a></li>
+		<li><a class="dropdown-item" href="mygallery.html">Gallery - My Planets</a></li>	
 		<li><a class="dropdown-item" href="myplanets.html">Screensaver - My Planets</a></li>
 		<li><a class="dropdown-item" href="galaxy.html">3D Map</a></li>
 	      </ul>

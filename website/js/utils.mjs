@@ -19,9 +19,6 @@ export function extractDomain(hostname) {
 
 export function setCookie(name, value, options) {
     let newcookie = `${name}=${value}; path=/; max-age=${365*86400}`;
-    const domain = extractDomain();
-    if (domain && domain != "localhost")
-	newcookie += `; domain=${domain}`
     document.cookie = newcookie;
     return document.cookie;
 }

@@ -53,9 +53,6 @@ echo $STARSYSTEM
 STARINDEX=$(cat $SPECSFILE | jq -r .star_index)
 PLANETINDEX=$(cat $SPECSFILE | jq -r .planet_index)
 BACKGROUND=$(cat $SPECSFILE | jq -r .background)
-LIFEFORM=$(cat $SPECSFILE | jq -r .lifeform)
-PLANETTYPE=$(cat $SPECSFILE | jq -r .planet_type)
-ATMOSPHERE=$(cat $SPECSFILE | jq -r .atmosphere_composition)
 RESOURCES=$(cat $SPECSFILE | jq -r .resources_value)
 UNEXPLORED=$(cat $SPECSFILE | jq -r .unexplored)
 ARTIST=$(cat $SPECSFILE | jq -r .artist)
@@ -96,7 +93,7 @@ function extras() {
 	return
     fi
 
-    LIFEFORM_URL=$(${APP}/AI/lifeforms.mjs lifeform=${LIFEFORM} planet=${PLANETTYPE} atmosphere=${ATMOSPHERE} identity=${IDENTITY}) 
+    LIFEFORM_URL=$(${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE}) 
     wget -O ${LIFEFORM_FILE} ${LIFEFORM_URL}
     #rm -f ${LIFEFORM_FILE}.work
     #convert -pointsize 20 -fill white -draw "text 0, 0 \" The Dominant Indigenous Species of ${STARINDEX} ${STARSYSTEM} ${PLANETINDEX}\"" -gravity southwest ${LIFEFORM_FILE} ${LIFEFORM_FILE}.work  # write the description text into the image in the lower left
