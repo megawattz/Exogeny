@@ -195,8 +195,9 @@
 	      planet.attribmap.name = utils.fromRoman(planet.name.replace('0', 'Rogue'));
 	  }
 
-	  const pvideo = planet.animation_url;
-	  const pimage = planet.image;
+	  const pvideo = exogeny.IPFSURL(planet.animation_url);
+	  const pimage = exogeny.IPFSURL(planet.image);
+	  
 	  //planetVideo.poster = pimage
 	  planetVideo.src = pvideo;
 	  planetVideo.currentTime = 10;
@@ -427,7 +428,7 @@
 	  new Audio(soundFile).play();
       }
 
-      setInterval(eventAlert, Configs.event_cycle * 1000);
+      //setInterval(eventAlert, Configs.event_cycle * 1000);
       
       /*
       function parseQuery(query, destination) {

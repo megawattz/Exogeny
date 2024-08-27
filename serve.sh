@@ -9,7 +9,7 @@ mkdir -p planetor/out
 )
 
 ( # subshell
-    cd contracts/NFT/.workspaces/PlaneteerNFT/contracts
+    cd /app/contracts/NFT/.workspaces/PlaneteerNFT/contracts
     remixd &
 )
 

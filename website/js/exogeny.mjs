@@ -29,6 +29,9 @@ export const exogeny = {
     GetConfig: function(key) {
 	return this.ConfigData[key];
     },
+    IPFSURL: function(url) {
+	return url.replace("https://ipfs.moralis.io:2053/", this.GetConfig('ipfs_gateway'));
+    },
     FormatObject: function(planet, format, map) {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
