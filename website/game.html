@@ -204,7 +204,7 @@
 
 	  document.getElementById("upperLeft").innerHTML = `<img style="width: 8vw;" src="images/resources.png"><br><span style="font-weight: bold;">${planet.attribmap.natural_resources_rating}</span>`;
 
-	  lifeformImage.src = planet.image;
+	  lifeformImage.src = pimage;
 
 	  lifeformIcon.src = `images/${planet.attribmap['indigenous_lifeform']}.png`;
 	  //lifeformIcon.title = `Lifeform: ${planet.attribmap['indigenous_lifeform']}`;
@@ -305,13 +305,26 @@
 
 	  planetname.innerHTML = `${planet.name}`;
 
-	  let essentials = exogeny.FormatObject(planetData, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`,
+	  let essentials = `
+		<tr title="Owner can edit this" class="statsrow"><td class="statlabel">Common Name</td><td class="statvalue">
+			<input id"planetName" style="border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['name']}">
+			<button onclick="dbsave(name, )">set</button>
+		</td></tr>
+		<tr title="Owner can edit this" class="statsrow">
+			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
+			<span>Motto</span>
+			<span>
+				<input id=:"planetMotto" style="width: 60vw; border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['motto']}">
+				<button>set</button>
+			</span>
+		</td></tr>
+		`;
+	  
+	  essentials += exogeny.FormatObject(planetData, `<tr class="statsrow"><td id="{1}_name" class="statlabel">{1}</td><td id="{1}_value" class="statvalue">{2}</td></tr>\n`,
 					       [	
-						   { key: 'name', value: 'Common Name'},
 						   { key: 'population',	 value: 'Population'},
 						   { key: 'tritanium44', value: 'Tritanium44 Treasury'},
 						   { key: 'population',	 value: 'Population'},
-						   { key: 'motto', 	value: 'Motto'},
 					       ]);
       
       	  let stats = '<table style="width: 98%;">\n';

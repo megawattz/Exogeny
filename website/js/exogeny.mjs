@@ -37,8 +37,15 @@ export const exogeny = {
 	var readout = '';
 	map.forEach(function(map) {
 	    const value = planet[map.key];
-	    if (map.key in planet)
-		readout += utils.sprintf(format, map.value, planet[map.key]);
+	    if (map.key in planet) {
+		if (map.editable) {
+		    readout += utils.sprintf(format, map.value, planet[map.key]);
+		}
+		else
+		{
+		    readout += utils.sprintf(format, map.value, planet[map.key]);
+		}
+	    }
 	});	
 	return readout;
     },

@@ -95,4 +95,12 @@ div {
 .statvalue {
     font-size: 3vw;
     text-align: right;
+    text-color: white;
+    text-background: transparent;
 }
+
+button:active {
+    //background-color: #2980b9;
+    transform: scale(0.95);
+}
+
