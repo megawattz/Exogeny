@@ -99,8 +99,38 @@ div {
     text-background: transparent;
 }
 
-button:active {
-    //background-color: #2980b9;
-    transform: scale(0.95);
+input {
+    background-color: transparent;
+    color: white;
 }
+
+button {
+    border-radius: 0.4vw;
+    border-width: 0.4vw;
+    border: shadow;
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #fff; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Focus effect for accessibility */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Active state */
+button:active {
+    background-color: #444; /* Even darker blue when clicked */
+    transform: translateY(0); /* Remove lift */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow */
+}
+
+//button:active {
+//    //background-color: #2980b9;
+//    transform: scale(0.95);
+//}
 

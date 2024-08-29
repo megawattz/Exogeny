@@ -313,8 +313,8 @@
 
 	  let essentials = `
 		<tr title="Owner can edit this" class="statsrow"><td class="statlabel">Common Name</td><td class="statvalue">
-			<input class="editable" name="common_name" style="border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['common_name'] || planetData['name']}">
-			<button onclick="DbSave()">set</button>
+			<input class="editable" name="common_name" style="border: 0; text-align: right; background-color: transparent; color: white;" type="text" value="${planetData['common_name'] || planetData['name']}">
+			<button onclick="DbSave()">&nbsp;set&nbsp;</button>
 		</td>
 		</tr>
 		<tr class="statsrow">
@@ -331,8 +331,8 @@
 			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
 			<span>Motto</span>
 			<span>
-				<input class="editable" name="motto" style="width: 60vw; border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['motto']}">
-				<button onclick="DbSave()">set</button>
+				<input class="editable" name="motto" style="width: 60vw; border: 0; text-align: right; background-color: transparent; color: white;" type="text" value="${planetData['motto']}">
+				<button onclick="DbSave()">&nbsp;set&nbsp;</button>
 			</span>
 		</td>
 		</tr>
@@ -481,5 +481,6 @@
 
       */
     </script>
+    Check
   </body>
 </html>
