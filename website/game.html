@@ -104,6 +104,9 @@
 		<input type="submit" value="Submit">
 	      </form>
 	    </div>
+
+
+
 	    
 	</div>
       </div>
@@ -166,11 +169,11 @@
 	  
 	  // get the next NFT ahead of time
 	  if (!Planets[PlanetIds[currentPlanetIndex]]) {
-	      console.log(`Fetch Planet Index: ${currentPlanetIndex}`);
+	      //console.log(`Fetch Planet Index: ${currentPlanetIndex}`);
 	      let index = currentPlanetIndex;
 	      web3utils.FetchNFT(wallet, contractAddress, index)
 		  .then((nft) => {
-		      console.log(`Fetched Planet: ${index}:${nft.identity}`);
+		      //console.log(`Fetched Planet: ${index}:${nft.identity}`);
 		      Planets[PlanetIds[index]] = nft;
 		      return nft;
 		  })
@@ -180,7 +183,7 @@
       }
 
       function DisplayPlanet(planet) {
-	  console.log(`DisplayPlanet: ${planet.tokenid}:${planet.identity}`);
+	  //console.log(`DisplayPlanet: ${planet.tokenid}:${planet.identity}`);
 	  const planetVideo = document.getElementById('planetVideo');
 	  planetVideo.currentTime = 10;
 
@@ -257,10 +260,10 @@
 		  let index = utils.modulo((currentPlanetIndex - (Prefetch/2) + i), PlanetIds.length);
 		  if (!Planets[PlanetIds[index]]) {
 		      //web3utils.FetchNFT(wallet, contractAddress, currentPlanetIndex)
-		      console.log(`Prefetch Start Index: ${index}`);
+		      //console.log(`Prefetch Start Index: ${index}`);
 		      web3utils.FetchNFT(wallet, contractAddress, index)
 			  .then((data) => {
-			      console.log(`Prefetch Finished Index: ${index}:${data}`);
+			      //console.log(`Prefetch Finished Index: ${index}:${data}`);
 		      	      return data;
 			  })	
 			  .then((nft) => Planets[PlanetIds[index]] = nft)
@@ -288,7 +291,7 @@
 
       var contractAddress = exogeny.SectorData(utils.getCookie("sector")).contract;
       PlanetIds = await web3utils.GetNFTids(wallet, contractAddress);
-      console.log(PlanetIds)
+      //console.log(PlanetIds)
       handleFragmentChange();
 
       function DbSave() {
@@ -443,7 +446,7 @@
 	  const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
 
 	  const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
-	  console.log(`Move ${JSON.stringify(contents)}`);
+	  //console.log(`Move ${JSON.stringify(contents)}`);
 
 	  const query = new Moralis.Query("Move");
 	  query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
@@ -451,7 +454,7 @@
 
 	  if (thing) {
 	      thing.set(contents);
-	      console.log(`Update ${JSON.stringify(thing)}`);
+	      //console.log(`Update ${JSON.stringify(thing)}`);
 	  } else {
 	      thing = new Moralis.Object("Move", contents);
 	      console.log(`Write New ${JSON.stringify(thing)}`);
@@ -490,14 +493,19 @@
 	  // update tritanium treasury
 	  if (!currentPlanet.last_withdraw) 
 	      return;
-	  let seconds = Math.floor(Date.now()/1000);
+	  let now = Math.floor(Date.now()/1000)
       	  let last_withdraw = currentPlanet.last_withdraw || seconds;
 	  let perday = utils.truncate_to_decimals(currentPlanet.engineering * exogeny.GetConfig("tritanium44_perday"), 2);
-	  let tritanium = utils.truncate_to_decimals(currentPlanet.engineering * (seconds - last_withdraw) / 86400, 5);
-	  console.log("tritanium:"+tritanium);
+	  let tritanium = utils.truncate_to_decimals(currentPlanet.engineering * (now - last_withdraw) / 86400, 5);
+	  //console.log("tritanium:"+tritanium);
       	  document.getElementById("value_tritanium44").textContent = tritanium;
       	  document.getElementById("value_perday").textContent = perday;
-	  // next update
+
+	  if (now % 3600 < 2) {
+	      if (now - lastAlert > 55) {
+		  eventAlert()
+	      }	
+	  }	
       }
       /*
 	function parseQuery(query, destination) {
