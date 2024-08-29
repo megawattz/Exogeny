@@ -77,34 +77,34 @@
 
 	  <span style="margin-top: 2vh; font-size: 4vw;" id="planetname" class="statsheader"></span>
 	  <p>
-	  <div id="planetessentials">
-	  </div>
-	  
-	  <div id="planetstats" class="row">
-	    <span style="margin-top: 2vh;" class="statsheader">Latest Events</span>
-	    <div id="eventlist" class="eventlist">
+	    <div id="planetessentials">
 	    </div>
-	  </div>
-	  
-	  <div id="planetstats" class="statstable">
-	    <br>
-	    <span id="planetstatslabel" class="statsheader">Planet Stats</span>
-	    <div id="basestatstable" class="statstable">
+	    
+	    <div id="planetstats" class="row">
+	      <span style="margin-top: 2vh;" class="statsheader">Latest Events</span>
+	      <div id="eventlist" class="eventlist">
+	      </div>
 	    </div>
-	  </div>
+	    
+	    <div id="planetstats" class="statstable">
+	      <br>
+	      <span id="planetstatslabel" class="statsheader">Planet Stats</span>
+	      <div id="basestatstable" class="statstable">
+	      </div>
+	    </div>
 
-	  <div id="settings" class="settings">
-	    <form>
-	      <select id="items" name="items" title="Sound to play if your planet needs attention">
-		<option value="item1">Item 1</option>
-		<option value="item2">Item 2</option>
-		<option value="item3">Item 3</option>
-		<option value="item4">Item 4</option>
-	      </select>
-	      <input type="submit" value="Submit">
-	    </form>
-	  </div>
-	  
+	    <div id="settings" class="settings">
+	      <form>
+		<select id="items" name="items" title="Sound to play if your planet needs attention">
+		  <option value="item1">Item 1</option>
+		  <option value="item2">Item 2</option>
+		  <option value="item3">Item 3</option>
+		  <option value="item4">Item 4</option>
+		</select>
+		<input type="submit" value="Submit">
+	      </form>
+	    </div>
+	    
 	</div>
       </div>
     </div>
@@ -358,10 +358,10 @@
 		`;
 
 	  essentials += exogeny.FormatObject(planetData, `<tr class="statsrow"><td id="name_{1}" class="statlabel">{1}</td><td id="value_{3}" class="statvalue">{2}</td></tr>\n`,
-					       [	
-						   { key: 'population',	 title: 'Population (millions)'}
-					       ]);
-      
+					     [	
+						 { key: 'population',	 title: 'Population (millions)'}
+					     ]);
+	  
       	  let stats = '<table style="width: 98%;">\n';
 	  stats += essentials;
 	  stats += '</table>\n';
@@ -406,7 +406,7 @@
 				</div>
 			</div>
 			<div style="padding: 1vw; text-align: center;">
-				<button style="border-radius: 1vw; background-color: ${color}; color: grey;" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
+				<button style="border-radius: 1vw; background-color: ${color}; color: #ccc;" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
 				Influence</button>
 			</div>
 			</div>` + html; // (Put new stuff at the top)
@@ -492,7 +492,7 @@
 	      return;
 	  let seconds = Math.floor(Date.now()/1000);
       	  let last_withdraw = currentPlanet.last_withdraw || seconds;
-	  let perday = currentPlanet.engineering * exogeny.GetConfig("tritanium44_perday");
+	  let perday = utils.truncate_to_decimals(currentPlanet.engineering * exogeny.GetConfig("tritanium44_perday"), 2);
 	  let tritanium = utils.truncate_to_decimals(currentPlanet.engineering * (seconds - last_withdraw) / 86400, 5);
 	  console.log("tritanium:"+tritanium);
       	  document.getElementById("value_tritanium44").textContent = tritanium;
@@ -500,22 +500,22 @@
 	  // next update
       }
       /*
-      function parseQuery(query, destination) {
-	  var rval = destination || {};
-	  query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
-	      rval[key] = value;
-	  });
-	  return rval;
-      }
+	function parseQuery(query, destination) {
+	var rval = destination || {};
+	query.replace(/[?&]([^=]+)=([^&]*)/g, function (all, key, value) {
+	rval[key] = value;
+	});
+	return rval;
+	}
 
-      function showtransfer(element) {
-	  if (element.value < 0)
-	      transfer.innerText = "(collect T44 to Wallet)";
-	  else if (element.value > 0)
-	      transfer.innerText = "(invest T44 from Wallet)";
-	  else
-	      transfer.innerText = "                        ";
-      }
+	function showtransfer(element) {
+	if (element.value < 0)
+	transfer.innerText = "(collect T44 to Wallet)";
+	else if (element.value > 0)
+	transfer.innerText = "(invest T44 from Wallet)";
+	else
+	transfer.innerText = "                        ";
+	}
 
       */
     </script>

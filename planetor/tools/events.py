@@ -9,6 +9,7 @@ import utils
 import pymongo
 import pprint
 import pdb
+import time
 
 def help():
     with open(os.path.join(os.path.dirname(__file__), 'event_template.json')) as f:
@@ -166,7 +167,9 @@ def process(command, params, selector_strings):
     elif command == "engage":
         event = params['event']
         event_name = re.findall(r'[a-zA-Z0-9_]+', os.path.basename(event))[0]
+        when = int(time.time());
         eventObject = json.load(open(event, 'r'))
+        eventObject.update({"timestamp": when})
         selectors = merge_map_and_array(eventObject['limits'], selectors)
         message(4, f"Selectors: {selectors}")
         result = collection.update_many({ '$and' : selectors }, {"$set": { f"events.{event_name}": eventObject }})
