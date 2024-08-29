@@ -6,7 +6,4 @@ import { ethers } from "./ethers.mjs"
 var Server = "https://server.exoplaneteer.com:20080";
 
 export const game = {
-    FetchEvents: async function() {
-	
-    }
 }

@@ -339,3 +339,23 @@ export function modalAlert (divhtml) {
 	modal.style.display = "none";
     }
 }
+
+export function truncate_to_decimals(num, decimals) {
+    const factor = Math.pow(10, decimals);
+    return Math.trunc(num * factor) / factor;
+}
+
+export function trapkeys(element) {
+    // Add event listeners to keep the events within the input field
+    element.addEventListener('keydown', function(event) {
+        event.stopPropagation(); // Stops the event from propagating
+    });
+
+    element.addEventListener('keyup', function(event) {
+        event.stopPropagation(); // Stops the event from propagating
+    });
+
+    element.addEventListener('keypress', function(event) {
+        event.stopPropagation(); // Stops the event from propagating
+    });
+}

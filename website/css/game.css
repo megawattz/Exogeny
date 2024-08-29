@@ -110,6 +110,10 @@ button {
     border: shadow;
 }
 
+.editable {
+    pointer-events: auto;
+}
+
 /* Hover effect */
 button:hover {
     background-color: #fff; /* Darker blue on hover */

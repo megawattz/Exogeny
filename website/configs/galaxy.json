@@ -10,6 +10,7 @@
     "ipfs_gateway": "https://ipfs.io/",
     "exogeny_server": "http://localhost:2080",
     "event_cycle": 3600,
+    "tritanium44_perday": 1,
     "sectors" : {
 	"vesper":{
 	    "Description":"Planets of the Vesper Dominion",

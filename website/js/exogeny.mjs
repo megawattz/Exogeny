@@ -23,7 +23,20 @@ export const exogeny = {
 	{ key: 'tokenid',		value: 'NFT Token Index in Collection'},
 	{ key: 'artist', 		value: 'Artist'}
     ],
-    ConfigData: {},
+    ConfigData: { // defaults
+	"zoom_factor": 1.5,
+	"unfocus_system_label_opacity": 0.8,
+	"focus_system_label_opacity": 1,
+	"system_sphere_radius": 20,
+	"system_sphere_opacity": 0.4,
+	"galaxy_diameter": 2100,
+	"light_year_units": 5,
+	"opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",
+	"ipfs_gateway": "https://ipfs.io/",
+	"exogeny_server": "http://localhost:2080",
+	"event_cycle": 3600,
+	"tritanium44_perday": 1,
+    },
     ContractToSector : {},
     SectorToContract: {},
     GetConfig: function(key) {
@@ -36,15 +49,8 @@ export const exogeny = {
 	map = map || exogeny.AttributesOfInterest;
 	var readout = '';
 	map.forEach(function(map) {
-	    const value = planet[map.key];
 	    if (map.key in planet) {
-		if (map.editable) {
-		    readout += utils.sprintf(format, map.value, planet[map.key]);
-		}
-		else
-		{
-		    readout += utils.sprintf(format, map.value, planet[map.key]);
-		}
+		readout += utils.sprintf(format, map.title, planet[map.key], map.key);
 	    }
 	});	
 	return readout;
@@ -68,7 +74,7 @@ export const exogeny = {
 	return readout;
     },
     LoadConfig: function(config) {
-	exogeny.ConfigData = config;
+	Object.assign(exogeny.ConfigData, config); // merge external config data which takes precendence if there's a matching key
 	Object.entries(config.sectors).forEach(([sector, info]) => {
 	    exogeny.ContractToSector[info.contractid] = info;
 	    exogeny.SectorToContract[sector] = info;
@@ -120,6 +126,5 @@ export const exogeny = {
             alert('You need to install a crypto wallet like MetaMask');
         }
 	return null
-    },
-    
+    }
 }
