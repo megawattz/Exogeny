@@ -75,8 +75,8 @@
 
 	<div id="lowerTable" style="width:84%; margin: 0 auto; background-image: url(images/high_density_stars.jpg); background-repeat: repeat-y; background-width: 100%;">
 
-	  <span style="margin-top: 2vh;" id="planetname" class="statsheader"></span>
-	  
+	  <span style="margin-top: 2vh; font-size: 4vw;" id="planetname" class="statsheader"></span>
+	  <p>
 	  <div id="planetessentials">
 	  </div>
 	  
@@ -290,6 +290,12 @@
       console.log(PlanetIds)
       handleFragmentChange();
 
+      function DbSave() {
+	  const edits = document.querySelectorAll('.editable');
+	  var editArray = Array.from(edit);
+	  exogeny.ServerRequest("editplanet", ...editArray)
+      }
+
       async function nonNFTdata(planet) {
 	  let response = await exogeny.ServerRequest("/planets", `identities=${planet.identity}`);
 	  let identity = planet.identity;
@@ -307,31 +313,43 @@
 
 	  let essentials = `
 		<tr title="Owner can edit this" class="statsrow"><td class="statlabel">Common Name</td><td class="statvalue">
-			<input id"planetName" style="border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['name']}">
-			<button onclick="dbsave(name, )">set</button>
-		</td></tr>
+			<input class="editable" name="common_name" style="border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['common_name'] || planetData['name']}">
+			<button onclick="DbSave()">set</button>
+		</td>
+		</tr>
+		<tr class="statsrow">
+			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%;">
+			<span>
+				Galactic ID
+			</span>
+			<span>
+				<input style="width: 58vw;" class="editable" readonly value="${planetData['identity']}">
+			</span>
+		</td>
+		</tr>
 		<tr title="Owner can edit this" class="statsrow">
 			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
 			<span>Motto</span>
 			<span>
-				<input id=:"planetMotto" style="width: 60vw; border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['motto']}">
-				<button>set</button>
+				<input class="editable" name="motto" style="width: 60vw; border: 0; text-align: right; background: transparent; color: white;" type="text" value="${planetData['motto']}">
+				<button onclick="DbSave()">set</button>
 			</span>
-		</td></tr>
+		</td>
+		</tr>
 		`;
-	  
+
 	  essentials += exogeny.FormatObject(planetData, `<tr class="statsrow"><td id="{1}_name" class="statlabel">{1}</td><td id="{1}_value" class="statvalue">{2}</td></tr>\n`,
 					       [	
 						   { key: 'population',	 value: 'Population'},
 						   { key: 'tritanium44', value: 'Tritanium44 Treasury'},
-						   { key: 'population',	 value: 'Population'},
+						   { key: 'population',	 value: 'Population'}
 					       ]);
       
       	  let stats = '<table style="width: 98%;">\n';
 	  stats += essentials;
 	  stats += '</table>\n';
       	  planetessentials.innerHTML = stats;
-      
+	  
 	  if (!planetData.events)
 	      return;
 
