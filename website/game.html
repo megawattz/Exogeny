@@ -85,6 +85,13 @@
 	      <div id="eventlist" class="eventlist">
 	      </div>
 	    </div>
+
+	    <br>
+            <div id="settings" class="row section">
+	      <div class="statsheader">Event Alert Sound</div>
+              <div style="width: 30vw; margin: 0 auto;" id="soundsDiv">
+              </div>
+            </div>
 	    
 	    <div id="planetstats" class="statstable">
 	      <br>
@@ -93,20 +100,7 @@
 	      </div>
 	    </div>
 
-	    <div id="settings" class="settings">
-	      <form>
-		<select id="items" name="items" title="Sound to play if your planet needs attention">
-		  <option value="item1">Item 1</option>
-		  <option value="item2">Item 2</option>
-		  <option value="item3">Item 3</option>
-		  <option value="item4">Item 4</option>
-		</select>
-		<input type="submit" value="Submit">
-	      </form>
-	    </div>
-
-
-
+	    <span style="margin-top: 2vh;" class="statsheader">Settings</span>
 	    
 	</div>
       </div>
@@ -123,6 +117,7 @@
       var currentPlanetIndex = 0;
       var sector = utils.getCookie("sector") || "vortexis";
       var Prefetch = 4;
+      var lastAlert = 0;
       
       document.next = function() {
 	  ++currentPlanetIndex;
@@ -467,9 +462,13 @@
 	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
       }
 
-      async function eventAlert(message, sound) {
+      async function eventAlert(sound) {
+	  let now = Math.floor(Date.now()/1000);
+	  if ( (now - lastAlert) < exogeny.GetConfig("event_cycle"))
+	      return; // don't send too many alerts.
+	       
 	  if (!sound)
-	      sound = getCookie("notification");
+	      sound = utils.getCookie("notification");
 	  if (sound == "none")
 	      return;
 	  //if (!document.hidden) // don't alert if user is already looking
@@ -477,10 +476,12 @@
 	  setTimeout(function() {
 	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
 	      if (!answer)
-		  setCookie("notification", "none");
+		  utils.setCookie("notification", "none");
 	  }, 2000);
 	  let soundFile = `sounds/${sound}.mp3`;
-	  new Audio(soundFile).play();
+ 	  let audio = new Audio(soundFile);
+	  audio.volume = exogeny.GetConfig("alert_volume");
+	  audio.play().then(() => lastAlert = Math.floor(Date.now()/1000));
       }
 
       async function UpdatePage(planet) {
@@ -501,12 +502,38 @@
       	  document.getElementById("value_tritanium44").textContent = tritanium;
       	  document.getElementById("value_perday").textContent = perday;
 
-	  if (now % 3600 < 2) {
-	      if (now - lastAlert > 55) {
-		  eventAlert()
-	      }	
-	  }	
+	  if (Object.keys(currentPlanet.events).length > 0)
+	      eventAlert();
       }
+
+      window.setAlert = async function(item) {
+          utils.setCookie('notification', item.value);
+          let audio = new Audio(`sounds/${item.value}.mp3`)
+	  audio.volume = exogeny.GetConfig("alert_volume");
+	  audio.play();
+      }
+      
+      async function sounds() {
+	  let sounds = ["none", "ping", "8bit", "alien", "aooga", "boing", "cash", "cheer", "dingding", "dingdong",
+			"happy", "harp", "lazer", "orchestra", "robot", "squeaky", "steps", "tap", "win", "xyl"];
+	  
+          let html = `<select style="width: 100%;" onchange="setAlert(this);">\n`;
+	  
+          let current_sound = utils.getCookie("notification") || "none";
+          for (var idx in sounds) {
+              let sound = sounds[idx];
+              if (sound == current_sound)
+                  html += `<option selected="select" value="${sound}">${sound}</option>\n`;
+              else
+                  html += `<option value="${sound}">${sound}</option>\n`;
+          }
+          html += "</select>";
+	  let soundsDiv = document.getElementById("soundsDiv");
+          soundsDiv.innerHTML = html;
+      }
+
+      sounds();
+      
       /*
 	function parseQuery(query, destination) {
 	var rval = destination || {};

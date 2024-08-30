@@ -11,6 +11,7 @@
     "exogeny_server": "http://localhost:2080",
     "event_cycle": 3600,
     "tritanium44_perday": 1,
+    "alert_volume": 0.2,
     "sectors" : {
 	"vesper":{
 	    "Description":"Planets of the Vesper Dominion",
