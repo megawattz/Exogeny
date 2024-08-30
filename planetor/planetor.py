@@ -510,7 +510,7 @@ def make_query(selectables):
     return query
 
 Chemistry = ['borane','hydrogen_sulfide','retinal','arsenic','sulfur','methane','silicon','ammonia','carbon']
-LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Human','Aerial','Insectoid','Reptilian','Humanoid','Quadruped']
+LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Aerial','Insectoid','Reptilian','Human','Humanoid','Quadruped']
 
 # Database Operations (the file backing store will be replaced with Redis or Mongo)
 DatabaseDirectory = "/app/planetor/out"

@@ -48,7 +48,7 @@ scene.add(ambientLight);
 // Textures
 var coloredStars = {};
 let textureLoader = new THREE.TextureLoader();
-let starImage = textureLoader.load('images/star_small_trans.png');
+let starImage = textureLoader.load('images/star_large.png');
 let spriteMaterial = new THREE.SpriteMaterial({"map": starImage});
 
 // labels
