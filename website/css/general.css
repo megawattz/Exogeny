@@ -96,6 +96,10 @@ a:link {
     color: white;
 }
 
+.planetLink {
+    font-size: clamp(10pt, 1vw, 1vw);
+}
+
 .nav-link {
     background: transparent;
     color: white;
@@ -159,7 +163,7 @@ input {
     background-color: rgba(255,255,255,0.5);
     color: black;
     border-radius: 0.5vw;
-    font-size: clamp(8pt, 1.4vw, 1.4vw);
+    font-size: clamp(14pt, 1.4vw, 1.4vw);
 }
 
 .itemlist {
@@ -373,7 +377,7 @@ a:hover {
 
 .label {
     z-index: -1;
-    font-size: clamp(14pt, 2vw, 2vw);
+    font-size: clamp(12pt, 0.8vw, 0.8vw);
 }
 
 .wheelzoom {

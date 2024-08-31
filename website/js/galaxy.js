@@ -107,7 +107,7 @@ function addLabel(labelee, location, content, offset, color, font_size, title) {
     offset = offset || 0;
     const label = document.createElement("p");
     label.className = "label";
-    Object.assign( label.style, { color: color || `rgb(255,255,255,1}`, fontSize: font_size || '0.8vw', pointerEvents: 'auto'});
+    Object.assign( label.style, { color: color || `rgb(255,255,255,1}`, pointerEvents: 'auto'});
     label.innerHTML = content;
     label.title = labels.getLabel(title);
     const cPointLabel = new CSS2DObject(label);

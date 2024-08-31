@@ -105,7 +105,7 @@
 	      upperRight.appendChild(lifeformIcon);
 
 	      let lowerLeft = document.createElement("div");
-	      lowerLeft.innerHTML = `<a title="Play" href="game.html#${planet.tokenid}">
+	      lowerLeft.innerHTML = `<a class="planetLink" title="Play" href="game.html#${planet.tokenid}">
 			${planet.name}
 			</a>`;
 	      Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
