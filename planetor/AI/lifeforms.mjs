@@ -92,13 +92,10 @@ const Descriptions = {
 	"alien, large cat-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"alien ungulates standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"alien mustelids standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
-	"exotic adult male and female predator-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes))",
-	"exotic adult male and female halo-alien like, in clothes, using primitive tools, in archaic clothing ((matching eyes))",
 	"alien, jumble of many different creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"alien, furry, large, felines standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
 	"alien, furry, large, raccoons standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
 	"alien, furry, large, weasels standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
-	"adult male and female Yautja-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
 	"alien, furry, canines, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
 	"alien, furry, rodent-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
 	"furry, alien mammals standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
@@ -119,15 +116,15 @@ const Descriptions = {
 	"exotic hairy, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))"
     ],
     "Human":[
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient northern european nations anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient asian nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient african nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, from ancient latin nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, with unique characteristics, clothed in incongruent clothing, from ancient northern european nations anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, from ancient asian nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, from ancient african nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, from ancient latin nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
 	"human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful female and male, clothed in incongruent clothing, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, anachronistic hairstyles, in wild clothes with ancient, alien design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
-	"((closeup)) of human-like exotically beautiful females and males, clothed in incongruent clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incongruent, traditional clothes,  ((identical, well formed eyes))"
+	"((closeup)) of human-like exotically beautiful female and male, each with unique characteristics, clothed in incongruent clothing, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, anachronistic hairstyles, in wild clothes each with ancient, alien design,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incongruent, traditional clothes,  ((identical, well formed eyes))"
     ]
 }
 
@@ -232,6 +229,7 @@ const Actions = [
     "using primitive tools",
     "playing primitive, alien musical instruments",
     "writing something",
+    "brandishing primitive weapons",
     "doing chores",
     "doing field work",
     "tending a fire",
