@@ -8,7 +8,7 @@
     color: bright white;
     width: 2vw;
     opacity: 100%;
-    font-size: 5vw;
+    font-size: clamp(20pt, 5vw, 5vw);
 }
 
 .hover-area {
@@ -40,7 +40,7 @@
 
 div {
     color: white;
-    font-size: 3vw;
+    font-size: clamp(14pt, 3vw, 3vw);
 }
 
 .planetdata {
@@ -52,7 +52,7 @@ div {
 
 .planetlist {
     padding: 2px;
-    font-size: 4vw;
+    font-size: clamp(16pt, 4vw, 4vw);
 }
 
 .center {
@@ -69,7 +69,7 @@ div {
 .statsheader {
     display: flex;
     width: 100%;
-    font-size: 3vw;
+    font-size: clamp(16pt, 3vw, 3vw);
     font-weight: bold;
     align-items: center;
     justify-content: center;
@@ -78,7 +78,7 @@ div {
 .statstable {
     margin-left: auto;
     margin-right: auto;
-    font-size: 3vw;
+    font-size: clamp(16pt, 3vw, 3vw);
     color: white;
     align-items: center;
     justify-content: center;
@@ -89,11 +89,11 @@ div {
 }
 
 .statlabel {
-    font-size: 3vw;
+    font-size: clamp(16pt, 3vw, 3vw);
 }
 
 .statvalue {
-    font-size: 3vw;
+    font-size: clamp(16pt, 3vw, 3vw);
     text-align: right;
     text-color: white;
     text-background: transparent;

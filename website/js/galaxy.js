@@ -185,13 +185,15 @@ function popupSystem(star) {
 
     let contents = `<p/><div style="width: 100%; text-align: left;">
 	<div class="tableName">${game.official_designation} Solar System</div>
-	<div class="close clickable" onclick='window.popDown()'>x</div>
 	<table class="solarSystem">
 	<tr>
 	<th title="${labels.getLabel('official')}">Planets</th>
 	<th title="${labels.getLabel('lifeform')}">Life<br>Form</th>
 	<th title="${labels.getLabel('planet_type')}">Type</th>
-	<th title="${labels.getLabel('atmosphere')}">Atmosphere</th>
+	<th title="${labels.getLabel('atmosphere')}">
+ 	<div class="clickable" style="text-align: right;" onclick='window.popDown()'>X</div>
+	Atmosphere
+	</th>
 	</tr>\n`;
     let planet;
     for (let index in game.planets) {
@@ -199,7 +201,7 @@ function popupSystem(star) {
 	contents += `
 		<tr>
 		<td><a href='javascript:window.planetVideo(${JSON.stringify(planet)});window.setPlanetDetail(${JSON.stringify(planet)})'>${planet.star_index} ${planet.star_system} ${index}</a></td>
-		<td><a href='javascript:window.lifeformImage(${JSON.stringify(planet)})'><img style="height: 1.5vw; border-radius: 1vw; border: 1px solid rgb(247,136,79);" src="images/${planet.lifeform}.png"></td-->
+		<td><a href='javascript:window.lifeformImage(${JSON.stringify(planet)})'><img class="planetDetailLifeformIcon" src="images/${planet.lifeform}.png"></td-->
 		<td>${planet.planet_type}</td>
 		<td style="color: ${atmoscolor(planet.atmosphere)};">${planet.atmosphere_composition}</td>
 		</tr>\n`;
@@ -209,7 +211,7 @@ function popupSystem(star) {
     contents += '<div id="planetDetail"></div>';
 
     window.setPlanetDetail = function(planet) {
-	 let detail = `<p><div>Planet ${planet.star_index} ${planet.star_system} ${planet.planet_index} Resources</dev>
+	 let detail = `<p><div border=0 class="tableName">Planet ${planet.star_index} ${planet.star_system} ${planet.planet_index} Resources</dev>
     <table class="planetDetail">
     <tr><td title="${labels.getLabel('industrials')}" id="industrials">Industrial Minerals</td><td class="number">${planet.industrials}</td></tr>
     <tr><td title="${labels.getLabel('refractories')}" id="refractories">Refractory Materials</td><td class="number">${planet.refractories}</td></tr>
