@@ -86,15 +86,19 @@ export const exogeny = {
     Contract: function(contractId) {
 	return exogeny.ContractToSector[contractId] || "unknown_contract " + contractId;
     },
-    ServerRequest: async function(command, ...params) {  //params are "key=value","key=value","key=value"
+    ServerRequest: async function(command, params) {  //params are "key=value","key=value","key=value"
 	let server = this.GetConfig('exogeny_server');
 	let exogenyauth = localStorage.getItem("exogenyauth");
-	let request = `${server}/${command}?exogenyauth=${exogenyauth}&${params.join('&')}`;
+	let queries = []
+	Object.entries(params).forEach(([key, value]) => {
+	    queries.push(`${key}=${encodeURIComponent(value)}`);
+	});
+	let request = `${server}/${command}?exogenyauth=${exogenyauth}&${queries.join('&')}`;
 	let response = await fetch(request);
 	return response;
     },
     Authenticate: async function(exogeny_server) {
-	let response= await this.ServerRequest(`authenticate`);
+	let response= await this.ServerRequest(`authenticate`, {});
 	if (response.status == 401) {
 	    localStorage.removeItem("exogenyauth")
 	    return null;

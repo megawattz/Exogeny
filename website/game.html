@@ -289,14 +289,17 @@
       //console.log(PlanetIds)
       handleFragmentChange();
 
-      function DbSave() {
+      window.DbSave = function() {
 	  const edits = document.querySelectorAll('.editable');
-	  var editArray = Array.from(edit);
-	  exogeny.ServerRequest("editplanet", ...editArray)
+	  let queries = {};
+	  Array.from(edits).forEach((item) => {
+	      queries[item.name] = item.value;
+	  });
+	  exogeny.ServerRequest("owneredit", queries);
       }
 
       async function nonNFTdata(planet) {
-	  let response = await exogeny.ServerRequest("/planets", `identities=${planet.identity}`);
+	  let response = await exogeny.ServerRequest("/planets", {'identities': planet.identity});
 	  let identity = planet.identity;
 	  let temp = await response.json();
 	  var planetData = temp[0]
@@ -313,11 +316,12 @@
 	  planetname.innerHTML = `${planet.name}`;
 
 	  let essentials = `
-		<tr title="Owner can edit this" class="statsrow"><td class="statlabel">Common Name</td><td class="statvalue">
-			<input pattern="[A-Za-z '_]+" class="editable" id="common_name" style="border: 0; text-align: right; 
+		<tr title="Owner can edit this, only 'A-Za-z0-9 _- and must be between 3 and 30 characters long" class="statsrow">
+			<td class="statlabel">Common Name</td><td class="statvalue">
+			<input pattern="[A-Za-z _-]{3,30}" class="editable" id="common_name" name="common_name" style="border: 0; text-align: right; 
 				background-color: transparent; color: white;" type="text" value="${planetData['common_name'] || planetData['name']}">
 			<button onclick="DbSave()">&nbsp;set&nbsp;</button>
-		</td>
+			</td>
 		</tr>
 		<tr class="statsrow">
 			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%;">
@@ -325,7 +329,7 @@
 				Galactic ID
 			</span>
 			<span>
-				<input style="width: 58vw;" class="editable" readonly value="${planetData['identity']}">
+				<input style="width: 58vw;" class="editable" readonly name="identity" value="${planetData['identity']}">
 			</span>
 		</td>
 		</tr>
@@ -333,7 +337,9 @@
 			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
 			<span>Motto</span>
 			<span>
-				<input class="editable" id="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: right; background-color: transparent; color: white;" type="text" value="${planetData['motto']}">
+				<input title=", only 'A-Za-z0-9 _- and must be between 3 and 60 characters long" pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
+						name="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: right; background-color: transparent; 
+						color: white;" type="text" value="${planetData['motto']}">
 				<button onclick="DbSave()">&nbsp;set&nbsp;</button>
 			</span>
 		</td>
@@ -462,7 +468,7 @@
 	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
       }
 
-      async function eventAlert(sound) {
+      async function eventAlert(message, sound) {
 	  let now = Math.floor(Date.now()/1000);
 	  if ( (now - lastAlert) < exogeny.GetConfig("event_cycle"))
 	      return; // don't send too many alerts.
@@ -474,7 +480,7 @@
 	  //if (!document.hidden) // don't alert if user is already looking
 	  //return;
 	  setTimeout(function() {
-	      let answer = window.confirm(message+"\nPress cancel to turn off these messages.");
+	      let answer = window.confirm((message || "Planets have Events!")+"\nPress cancel to turn off these messages.");
 	      if (!answer)
 		  utils.setCookie("notification", "none");
 	  }, 2000);
