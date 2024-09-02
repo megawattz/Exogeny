@@ -19,6 +19,7 @@ sphere {
                 v_moon_spec
                 map_type 1 interpolate 4 // Esfera
             }
+	    scale 0.1
       }
       normal {
           bumps v_random_float*bump_factor/moon_size
