@@ -47,9 +47,9 @@ const Descriptions = {
     ],
     "Aquatic":[
 	"alien floating eyeball dangling appendages underwater using primitive tools",
-	"alien mermaids and mermen underwater using primitive tools",
-	"alien mermaids and mermen partially underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
-	"alien naga snakes, male and female, underwater using primitive tools",
+	"alien mermaids and mermen wearing fish skin suits underwater using primitive tools",
+	"alien mermaids and mermen wearing fish skin suits underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
+	"alien, sea serpents, male and female, underwater using primitive tools"
     ],
     "Aerial":[
 	"alien flying small dragons",
@@ -197,6 +197,7 @@ const Extras = [
     "spooky alien landscape",
     "meteors",
     "bubbles of colored gas",
+    "with slimy skin",
     "stormy",
     "raining",
     "snowing",
@@ -373,3 +374,5 @@ try {
 catch(ex) {
     console.error(ex);
 }
+
+

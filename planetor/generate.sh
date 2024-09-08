@@ -68,7 +68,7 @@ DESCRIPTION="${STARINDEX} ${STARSYSTEM} ${PLANETINDEX}"
 POVDIR="${APP}/out/povs"
 POVPATH=${POVDIR}/${IDENTITY}.pov
 
-cp -vfl ${POVPATH} planet.pov
+#cp -vfl ${POVPATH} planet.pov
 
 RENDIR=${APP}/out/rendir/${IDENTITY}
 RENPATH=${RENDIR}/image.png
@@ -154,7 +154,7 @@ fi
 	#${NICE} convert -pointsize 15 -fill white -draw "text 0, 0 \"${GIT_INFO} \"" -gravity south ${BACKGROUND} work.${BACKGROUND}  # write the description text into the image in the lower left
 	#cp work.${BACKGROUND} ${BACKGROUND}
 
-	cp -lf ./${BACKGROUND} ${APP}/background.jpg # only for debugging
+	#cp -lf ./${BACKGROUND} ${APP}/background.jpg # only for debugging
     fi 
     
     chmod a+rw ${APP}/*

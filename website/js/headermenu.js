@@ -85,6 +85,12 @@ document.getElementById("navheader").innerHTML = `
 	      </ul>
 	    </li>
 
+	    <li class="nav-item">
+	      <a class="nav-link" href="login.html" role="button" aria-expanded="false">
+		Login
+		</a>
+	    </li>
+
 	  </ul>
 	</div>
       </div>`;

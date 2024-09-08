@@ -37,8 +37,9 @@
       <div>
 	<script type="module">
 	  import * as utils from './js/utils.mjs';
-	  import {web3utils} from './js/web3.mjs'
-
+	  import {web3utils} from './js/web3.mjs';
+	  import {exogeny} from './js/exogeny.mjs';
+	  
 	  var Planets = {};
 	  
 	  var Config = {
@@ -128,7 +129,26 @@
     		.then(() => console.log(Config))
     		.catch((error) => console.error(error))
 
-	  const account = await web3utils.WalletAddress();
+	  var account = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"))
+	  let tries = 0;
+	  while (!account && tries++ < 3) {
+	      await exogeny.Login(exogeny.GetConfig("exogeny_server"));
+	      account = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"));
+	      if (!account) {
+		  let email = prompt("Email");
+		  if (!email) {
+		      alert("No planets for you");
+		  }
+		  else {
+		      exogeny.EmailPre(exogeny.GetConfig("exogeny_server"), email);
+		      let verify = prompt(`Enter the code that was mailed to: ${email}`);
+		      exogeny.EmailLogin(exogeny.GetConfig("exogeny_server"), email, verify);
+		  }
+	      }
+	  }
+	  if (!account) {
+	      alert("This page requires an account or cryptocurrency wallet");
+	  }
 
 	  web3utils.FetchNFTs(account, Config.sectors[sector].contract, displayPlanet)
 

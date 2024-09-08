@@ -94,6 +94,7 @@ export const exogeny = {
 	    queries.push(`${key}=${encodeURIComponent(value)}`);
 	});
 	let request = `${server}/${command}?exogenyauth=${exogenyauth}&${queries.join('&')}`;
+	console.log(`Server Request: ${request}`);
 	let response = await fetch(request);
 	return response;
     },
@@ -104,6 +105,14 @@ export const exogeny = {
 	    return null;
 	}
 	return response.headers.get('wallet')
+    },
+    EmailPre: async function(exogeny_server, emailaddress) {
+	let result = await this.ServerRequest('emailpre', {email: emailaddress});
+	return result;
+    },
+    EmailLogin: async function(exogeny_server, emailaddress, verification) {
+	let result = await this.ServerRequest('emaillogin', {email: emailaddress, verification: verification});
+	return result;
     },
     Login: async function(exogeny_server) {
         if (typeof window.ethereum !== 'undefined') {
@@ -127,7 +136,7 @@ export const exogeny = {
 	    });	
 	    return response.status;
         } else {
-            alert('You need to install a crypto wallet like MetaMask');
+            console.error("Authenticate failed");
         }
 	return null
     }
