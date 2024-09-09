@@ -6,7 +6,7 @@
 #declare ring_index = %s;
 #declare planet_size = %s;
 
-  sphere {
+sphere {
       <0, 0, 0>, ring_radius * 2
       no_shadow
       no_reflection
@@ -26,4 +26,26 @@
          ambient ring_color
       }
       Orbit(ring_index * 20)
+}
+
+sphere {
+      <0, 0, 0>, ring_radius * 2.001
+      no_shadow
+      no_reflection
+      texture {
+         pigment {
+            image_map {
+               png "ringshell.png"
+               map_type 1 interpolate 4 // Esfera
+               transmit all ring_brightness
+               once
+            }
+            scale <1, 0.5, 1>
+         }
+      }
+      finish {
+         diffuse albedo ring_brightness
+         ambient ring_color
+      }
+      Orbit(ring_index * 22)
 }
