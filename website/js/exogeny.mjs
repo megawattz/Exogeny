@@ -115,6 +115,8 @@ export const exogeny = {
 	return result;
     },
     Login: async function(exogeny_server) {
+	let response = null;
+        const message = 'ExogenyLogin';
         if (typeof window.ethereum !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const accounts = await provider.send('eth_requestAccounts', []); // Request account access if needed
@@ -122,22 +124,19 @@ export const exogeny = {
             const address = await signer.getAddress();
 	    
             // Message to sign
-            const message = 'ExogenyLogin';
             const signature = await signer.signMessage(message);
-	    
             // Send the address and signature to the server for verification
-            const response = await fetch(`${exogeny_server}/login?address=${address}&message=${message}&signature=${signature}&exogenyauth=${utils.getCookie("exogenyauth")}`);
-	    const headers = response.headers;
-	    headers.forEach((value, key) => {
-		if (key == 'exogenyauth') {
-		    //utils.setCookie("exogenyauth", value);
-		    localStorage.setItem("exogenyauth", value);
-		}
-	    });	
-	    return response.status;
-        } else {
-            console.error("Authenticate failed");
-        }
-	return null
+            response = await this.ServerRequest('login', {address: address, message: message, signature: signature});
+	} else {
+	    let email = prompt("No cryptocurrency wallet, enter email:")
+            response = await this.ServerRequest('login', {email: email, message: message});
+	}
+	const headers = response.headers;
+	for (let [key, value] of response.headers.entries()) {
+	    if (key == 'exogenyauth') {
+		localStorage.setItem("exogenyauth", value);
+	    }
+	}	
+	return response.status;
     }
 }
