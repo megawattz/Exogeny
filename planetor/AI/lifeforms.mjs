@@ -47,7 +47,7 @@ const Descriptions = {
     ],
     "Aquatic":[
 	"alien floating eyeball dangling appendages underwater using primitive tools",
-	"alien mermaids and mermen wearing fish skin suits underwater using primitive tools",
+	"alien ocean life of all kinds",
 	"alien mermaids and mermen wearing fish skin suits underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"alien, sea serpents, male and female, underwater using primitive tools"
     ],
