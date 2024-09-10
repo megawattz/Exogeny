@@ -28,7 +28,7 @@ difference {
             }
          }
       }
-      Orbit(ring_index * 20) 
+      Orbit((ring_index) * 20) 
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, hole_radius
