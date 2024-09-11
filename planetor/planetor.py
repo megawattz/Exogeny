@@ -510,7 +510,7 @@ def make_query(selectables):
     return query
 
 Chemistry = ['borane','hydrogen_sulfide','retinal','arsenic','sulfur','methane','silicon','ammonia','carbon']
-LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Cephalopoid','Aerial','Human','Insectoid','Reptilian','Humanoid','Quadruped']
+LifeForms = ['Gaseous','Plant','Blob','Fungoid','Aquatic','Aerial','Humanoid','Human','Cephalopoid','Insectoid','Reptilian','Quadruped']
 
 # Database Operations (the file backing store will be replaced with Redis or Mongo)
 DatabaseDirectory = "/app/planetor/out"
@@ -536,7 +536,7 @@ DbDefaults = {
         "camera_location": "%d,%d,%d" % (randomint(-100, -30), randomint(-100, -30), randomint(-100, -30)),
         "camera_angle": randomlist(["45","-45"]),
         "camera_look_at": "0, 0, 0",
-        "sun_brightness": "6,6,6",
+        "sun_brightness": "5,5,5",
         "planet_size": None,
         "background": "background_9.jpg",
         "planet": "planet_3.jpg",
@@ -640,7 +640,7 @@ def DefaultOptions():
         "scene": None,
         "camera_angle": randomlist(["45","-45"]),
         "camera_look_at": '0,0,0',
-        "sun_brightness": '6,6,6',
+        "sun_brightness": '5,5,5',
         "camera_location":  "-40,-40,-80",
         "planet_size": 20,
         "background": None,

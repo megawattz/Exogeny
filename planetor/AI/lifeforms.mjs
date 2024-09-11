@@ -78,15 +78,15 @@ const Descriptions = {
     ],
     "Reptilian":[
 	"alien halo sangheili like wearing clothing, jewelry and carrying primitive weapons",
-	"alien herbivore dinosaurs, standing erect, with opposable thumbs, scaly skin, wearing ancient garments, holding primitive tools",
-	"ancient roman reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
-	"ancient roman alligators with opposable thumbs, standing erect, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
-	"ancient babylonian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
-	"exotic random selection from every reptilian alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
-	"exotic random selection from every small dragon alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
-	"alien frogs with opposable thumbs, standing erect, adorned in ancient, primitive gear, reading scrolls",
+	//"alien herbivore dinosaurs, standing erect, with opposable thumbs, scaly skin, wearing ancient garments, holding primitive tools",
+	"alien roman reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"alien roman alligators with opposable thumbs, standing erect, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"alien babylonian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
+	"alien exotic random selection from every reptilian alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
+	"alien exotic random selection from every small dragon alien in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
+	"alien exotic frogs with opposable thumbs, standing erect, adorned in ancient, primitive gear, reading scrolls",
 	"alien dragons wearing jewelry and carrying primitive weapons",
-	"ancient eqyptian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools"
+	"alien eqyptian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools"
     ],
     "Quadruped":[
 	"alien, large cat-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
@@ -118,14 +118,14 @@ const Descriptions = {
     ],
     "Human":[
 	"((closeup)) of human-like exotically beautiful females and males, with unique characteristics, clothed in incongruent clothing, from ancient northern european nations anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, from ancient asian nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, from ancient african nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, from ancient latin nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient asian nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient african nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient latin nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
 	"human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful female and male, each with unique characteristics, clothed in incongruent clothing, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, anachronistic hairstyles, in wild clothes each with ancient, alien design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incongruent clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incongruent, traditional clothes,  ((identical, well formed eyes))"
+	"((closeup)) of human-like exotically beautiful female and male, each with unique characteristics, clothed in incorrect clothing, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, anachronistic hairstyles, in wild clothes each with ancient, alien design,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
     ]
 }
 
