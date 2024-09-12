@@ -20,7 +20,10 @@ for SYSTEM in $(cat systems.txt); do
 	    roman=$(( ${INDEX}+offset ));
 	    PLANET=${ROMANS[$roman]};
 	    #echo $STAR $SYSTEM $roman=${ROMANS[$roman]};
-	    setmeta.py ${FILE} star_system=${SYSTEM} star_index=${STAR} planet_index=${PLANET}
+	    jq --arg system ${SYSTEM} --arg star ${STAR} --arg planet ${PLANET} \
+	       '.star_system = $system | .star_index = $star | .planet_index = $planet' ${FILE} > tmp.json
+	    cp -v tmp.json ${FILE}
+	    #setmeta.py ${FILE} star_system=${SYSTEM} star_index=${STAR} planet_index=${PLANET}
 	done;
     done;
 done;

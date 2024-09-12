@@ -194,7 +194,7 @@ fi
 
 cp -vlf ${RENDIR}/planet.mp4 ${GALLERY}/planet_${IDENTITY}.mp4
 
-rm -rf ${RENDIR}/
+#rm -rf ${RENDIR}/
 
 extras;
 

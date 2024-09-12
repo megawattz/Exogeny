@@ -12,7 +12,9 @@ contract address, which is dynamically assigned, before you deploy the NFTs
     	*** In the current directory create a list of star systems you want this particular deployment to be. Choose
             about 30 Star Systems and create a text file called systems.txt in the current (deploy) directory
 
-	*** Run "nameloop.sh ../gallery/*.mp4" program which loops through the systems, stars and planet numbers and
+	*** run the clean.py application from the out/ directory to remove excess junk or incomplete file sets
+
+	*** Run "nameloop.sh ../specs/*.json" program which loops through the systems, stars and planet numbers and
             alters the internal metadata of the mp4 planet files to used names from system.txt.  Like this. nameloop.sh
             ../gallery/*.mp4 (or whatever directory your mp4 files are. The altered files will be automatically put into
             a subdirectory name "out"
