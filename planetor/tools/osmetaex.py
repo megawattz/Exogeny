@@ -2,7 +2,6 @@
 
 import os.path
 import sys
-import ffmpeg
 import json
 import re
 import utils
@@ -66,12 +65,13 @@ if __name__ == "__main__":
 
     ipfsplanets = "ipfsplanets.json"
     image_type = "png"
-    params, extra = utils.fetchArgs(sys.argv[1:], docs={
-        "ipfsplanets":"file with quoted, comma delimited IPFS urls",
-        "video_dir":"*directory where video files are stored (only directory)",
+    params, extra = utils.fetchArgs(sys.argv[1:], docs = {
+        "ipfsplanets":"file with quoted, comma delimited IPFS urls, default: ipfsplanets.json",
+        "specsdir":"*directory where the specs files are stored (only directory)",
         "contractid":"*contract id of the ERC1155 contract that will manage these tokens",
         "chain":"*which blockchain is that contract on (number id of blockchain)",
-        "image":r"image file name ONLY format NOT THE ENTIRE PATH, use %s where planet id would go: example: lifeform_%s.png"})
+        "image":r"image file name ONLY format NOT THE ENTIRE PATH, use %s where planet id would go: default: lifeform_%s.png"
+    })
 
     image = params.get("image") or r'lifeform_%s.png'
     ipfsplanets = params.get("ipfsplanets") or ipfsplanets
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             if not elements:
                 continue
             
-            url,hash,filename = elements[0]
+            url, hash, filename = elements[0]
             identity = re.findall(r'([a-fA-F0-9-]{36})', filename)[0]
             
             #print("url:%s hash:%s filename:%s" % (url, hash, filename))
@@ -101,11 +101,14 @@ if __name__ == "__main__":
             attributes = []
             
             # extract metadata stored right in the mp4 file under "comment"
-            videofile = "%s/%s.mp4" % (params["video_dir"], filename)
-            print(videofile)
-            info = ffmpeg.probe(videofile).get("format").get("tags")
+            specsfile = "%s/specs_%s.json" % (params["specsdir"], identity)
+
+            print(specsfile)
+
+            meta = {}
+            with open(specsfile, 'r') as file:
+                meta = json.load(file)
             
-            meta = json.loads(info.get("comment"))
             relative_planet_index = RtoA(meta.get('planet_index'))
             
             for key in ["planet_type","star_system"]:
@@ -135,9 +138,9 @@ if __name__ == "__main__":
             attributes.append(osattrib("moons", int(meta.get("moons")), "number"))
             
             attributes.append(osattrib("created", int(time.time()), "date"))
-            attributes.append(osattrib("artist", info.get("artist") or "anonoymous"))
+            attributes.append(osattrib("artist", meta.get("artist") or "anonoymous"))
 
-            print(info.get("history"))
+            print(meta.get("history"))
             
             #designation = urllib.parse.quote("%s %s %s" % (meta["star_index"], meta["star_system"], meta["planet_index"]))
             designation = "%s %s %s" % (meta["star_index"], meta["star_system"], meta["planet_index"])

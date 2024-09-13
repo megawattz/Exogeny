@@ -2,7 +2,6 @@
 
 import os.path
 import sys
-import ffmpeg
 import json
 import requests
 import base64
@@ -17,7 +16,6 @@ must match, this must be done in the same push to IPFS to guarantee the still im
 '''
 
 # howto extract image from mp4
-# ffmpeg -i ../gallery/planet_111308.mp4  -r 1 image.jpg
 
 '''
 procedure
@@ -97,7 +95,6 @@ if __name__ == "__main__":
             if (count < skip):
                 continue
             vdir, vfile = re.findall('(.*?)([^/]+$)', video)[0]
-            #print("video dir:%s base:%s" % (vdir, vfile))
             planetid = re.findall(r'([a-fA-F0-9-]{36})', video)[0]
             print("planetid: %s" % planetid)
             image = lifeform % planetid
