@@ -13,6 +13,14 @@
     "tritanium44_perday": 1,
     "alert_volume": 0.2,
     "sectors" : {
+	"origin":{
+	    "Description":"Planets of the Origin Convenant",
+	    "contract":"0xa1e2A54B14cDaA21c46E458324c8E90cE78039bC",
+	    "opensea_collection":"https://testnets.opensea.io/collection/exoplaneteer",
+	    "chain":"sepolia",
+	    "chainid":"0xaa36a7",
+	    "name":"Planets of the Origin Covenant"
+	},
 	"vesper":{
 	    "Description":"Planets of the Vesper Dominion",
 	    "contract":"0xEB4c0DbC813757b108fb19D2A72f9834d9Dd6BF4",

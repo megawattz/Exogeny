@@ -3,7 +3,6 @@
 import os.path
 import sys
 import json
-import ffmpeg
 import utils
 from pprint import pprint
 from operator import itemgetter
@@ -54,8 +53,9 @@ def flat(files, selected, civfile_template, ipfsdata):
         civ = {};
 
         try:
-            print("Working mp4 file %s" % file, file=sys.stderr)
-            meta = json.loads(ffmpeg.probe(file).get("format").get("tags").get("comment"))
+            print("Working spec JSON file %s" % file, file=sys.stderr)
+            with open(file, 'r') as file:
+                meta = json.load(file)
         except Exception as e:
             print("%s has error %s." % (file, e), file=sys.stderr)
             continue
