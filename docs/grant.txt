@@ -1,67 +1,221 @@
-### ExoPlaneteer: A Grant Proposal for the Development of a Casual, Blockchain-Integrated Gaming Experience
+Project Overview
 
-**Project Overview**
+Crypto projects are starving for applications. DEFI is a superb application but without external links into the real world, crypto people are just shuffling tokens around, and eventually that "game" will get boring. Cross border payments have a limited audience. Supply chain management is a walled garden, internal to each corporation. On chain identity is facing resistance from populations. The ideal use for crypto to gain acceptance is gaming. This is a huge industry and crypto can offer the capability to convert in-game assets into real-world $$$. Gamers resist this only because of the reverse, converting $$$$ into in-game assets, i.e. Pay-To-Win. Real gamers hate that but it's an inevitable part of that evolving world because this is already happening irrespective of cryptocurrency.
 
-ExoPlaneteer is a groundbreaking casual game designed for busy adults who seek a light yet engaging gaming experience. Unlike traditional games that demand continuous attention, ExoPlaneteer enables players to immerse themselves in the management of exoplanets without being glued to their screens. Accessible via desktop, tablet, or mobile, the game utilizes Non-Fungible Tokens (NFTs) and blockchain technology to offer a unique blend of strategic decision-making and cryptocurrency rewards.
+https://www.playerauctions.com/about/sell-game-items/
+https://www.playerauctions.com/market-price-tracker/
+https://playswap.gg/game/dragon-raja/accounts
+https://traderie.com/
+etc etc.
 
-**Gameplay Summary**
+The current in-game monetization industry is a hodge podge of hacks, and exclusively forbidden practices by the game publishers, that players engaging in, risk losing their accounts. Cryptocurrency will eventually bring a standardization to this world and will be able to please both gamers and in-game "capitalists". For example, cryptocurrency may be set up to allow only the conversion of in-game assets into realworld $$$ and NOT the reverse, which is what gamers and game companies oppose.
 
-ExoPlaneteer offers players the opportunity to purchase and develop virtual exoplanets, represented by NFTs. Each planet evolves based on hourly in-game events, and players must make decisions that influence the planet’s civilization, technological progress, and overall success. These decisions range from managing totalitarian regimes to encouraging the spread of revolutionary inventions, providing continuous opportunities for engagement.
+Quote from: https://www.theverge.com/22917126/nfts-crypto-gamers-music-fans-fandoms
+"Why are these projects so unpopular? - Reading through angry social media posts, a few key themes emerge. One, gamers and developers are engaged in a perennial battle over how games are monetized. Gamers generally want to pay one low price to play a game forever; developers are forever experimenting with exotic new financing schemes to grow their profits. Gamers have already been subjected to premium downloadable content; subscriptions, micro-transactions, and randomized loot boxes, each of which has been more poorly received than the last."
 
-The game rewards players with **Tritanium-44 (T44)**, a cryptocurrency that players can accumulate and later convert into real-world blockchain assets. The key differentiator is that ExoPlaneteer is not just about collecting assets—players actively influence their planets' fate and earn rewards based on their management strategies.
+We will present a game which is from the ground up, cryptocurrency related with the primary flow being from-game assets, out to realworld-$$$, and not the reverse. This is a non-competitive game (option to play competitively at some point in the future should it become popular) where there is no requirement to buy anything in-game. There is no huge company or infrastructure to support to have to soak players for $$$. It's simple: The game supports converting its in game points, Tritanium-44 into onchain Tritanium-44 cryptocurrency, but not the reverse. Problem solved.
 
-**Unique Selling Propositions**
+ExoPlaneteer: A Grant Proposal for the Development of a Casual, Blockchain-Integrated Gaming Experience
 
-1. **Casual-Friendly**: Unlike complex, time-intensive games, ExoPlaneteer is tailored for casual gamers who can make significant in-game progress without long play sessions. It fits into a busy lifestyle, with players interacting with their planets through simple, periodic decisions. There is almost nothing to learn to play, simply respond to events occurring on the planet(s) you own and how you make those decisions determines how productive the planet becomes.
+ExoPlaneteer is a groundbreaking, already partially built, casual game proposal, designed for busy adults who seek a light yet engaging gaming experience. Unlike traditional games that demand continuous attention, ExoPlaneteer enables players to immerse themelves in the management of exoplanets, nurturing the civilization like a SimPlanet, without being glued to their screens. Accessible via desktop, tablet, or mobile, the game utilizes Non-Fungible Tokens (NFTs) and blockchain technology to offer a unique blend of strategic decision-making and cryptocurrency rewards.
+
+Gameplay Summary
+
+ExoPlaneteer offers players the opportunity to purchase on OpenSea and other NFT plateforms, virtual exoplanets, represented by NFTs. The goal is to develop the technology level and population of each planet which increases its production of the token Tritanium-44, a real, on-chain crypto token. Each planet evolves based on hourly, somewhat random, in-game events, and players must make decisions that influence the planet’s civilization, technological progress, and overall success. These decisions range from managing totalitarian regimes to encouraging the spread of revolutionary inventions, providing continuous opportunities for engagement.
+
+The game rewards players with Tritanium-44 (T44), a cryptocurrency that players can accumulate and later convert into real-world blockchain assets. The key differentiator is that ExoPlaneteer is not just about collecting assets—players actively influence their planets' fate and earn rewards based on their management strategies.
+
+Unique Selling Propositions
+
+1. Casual-Friendly: Unlike complex, time-intensive games, ExoPlaneteer is tailored for casual gamers who can make significant in-game progress without long play sessions. It fits into a busy lifestyle, with players interacting with their planets through simple, periodic decisions. There is almost nothing to learn to play, simply respond to events occurring on the planet(s) you own and how you make those decisions determines how productive the planet becomes.
   
-2. **Blockchain-Integrated Economy**: Each planet is an NFT that generates Tritanium-44 based on its population, technological development, and infrastructure. Players can trade these planets or use T44 to enhance planetary assets, opening up opportunities for ongoing rewards beyond the initial investment.
+2. Blockchain-Integrated Economy: Each planet is an NFT that generates Tritanium-44 based on its population, technological development, and infrastructure. Players can trade these planets or use T44 to enhance planetary assets, opening up opportunities for ongoing rewards beyond the initial investment.
 
-3. **Innovative Use of NFTs**: ExoPlaneteer planets are not just static images—they are dynamic, animated NFTs with unique characteristics, including varying resources and civilizations. This level of immersion elevates the NFT gaming space by allowing for real interaction and asset customization.
+3. Innovative Use of NFTs: ExoPlaneteer planets are not just static images—they are dynamic, animated NFTs with unique characteristics, including varying resources and civilizations. This level of immersion elevates the NFT gaming space by allowing for real interaction and asset customization.
 
-4. **Whale-Proof System**: The game limits excessive hoarding by requiring active management of planets to maintain their value. Neglecting a planet results in reduced technology levels, population decline, and decreased morale, which ensures a fairer playing field for all participants. It takes real human interaction. It's not possible to automate this so no way to mine using bots. Tritanium-44 is also a fair launched currency like Bitcoin with no corporate treasury, no periodic token unlocks for investors, no massive holdings to dump on other holders. 
+4. Whale-Proof System: The game limits excessive hoarding by requiring active management of planets to maintain their value. Neglecting a planet results in reduced technology levels, population decline, and decreased morale, which ensures a fairer playing field for all participants. It takes real human interaction. It's not possible to automate this so no way to mine using bots. Tritanium-44 is also a fair launched currency like Bitcoin with no corporate treasury, no periodic token unlocks for investors, no massive holdings to dump on other holders. 
 
-5. **Underserved Market**: ExoPlaneteer taps into a niche audience of players with disposable income who do not have the time to commit to full-scale gaming. It caters to casual players who are interested in crypto, NFTs, and space-themed games, offering them an easy-to-learn experience with significant rewards.
+5. Underserved Market: ExoPlaneteer taps into a niche audience of players with disposable income who do not have the time to commit to full-scale gaming. It caters to casual players who are interested in crypto, NFTs, and space-themed games, offering them an easy-to-learn experience with significant rewards. If a true exoplanet is discovered by the real-world space telescopes NASA has deployed, this may cause an avalanche of interest in games like this.
 
-**Technology and Blockchain Integration**
+6. Caters to arising trends.
 
-- **NFTs**: Each exoplanet is an ERC-1155 NFT, with unique traits including resources, civilizations, and environmental challenges.
-- **Tritanium-44 (T44)**: This cryptocurrency functions as the in-game economy, allowing players to trade resources, upgrade planets, and engage in interplanetary commerce. T44 can be swapped for real-world cryptocurrency.
-- **Multi-Chain Support**: ExoPlaneteer is relatively simple to blockchain. It's an ERC-1155 contract (which could be adapted for Solana) and and a ERC-720 token. Any EVM/Solidity chain could run it. Adapting to Solana would be almost trivial.
+1. Rising unemployment - this game offers someone a way to earn, assuming of course the planets and Tritanium-44 gain value. There are many people worldwide to earn their living with gaming and crypto gaming.
 
-**Expansion and Future Roadmap**
+2. Space and Space Travel - Elon Musk, SpaceX, James Webb Telescope, all these things are priming the population for a huge explosion of interest in a game like this.
+
+3. Crypto Currency - As the Bitcoin price goes higher and higher, interest in cryptocurrency increases and
+
+4. Alt-Coins starved for applications - 
+
+Technology and Blockchain Integration
+
+- NFTs: Each exoplanet is an ERC-1155 NFT, with unique traits including resources, civilizations, and environmental challenges.
+
+- Tritanium-44 (T44): This cryptocurrency functions as the in-game economy, allowing players to trade resources, upgrade planets, and engage in interplanetary commerce. T44 can be swapped for real-world cryptocurrency.
+
+- Multi-Chain Support: ExoPlaneteer is relatively simple to blockchain. It's an ERC-1155 contract (which could be adapted for Solana) and and a ERC-720 token. Any EVM/Solidity chain could run it. Adapting to Solana would be almost trivial.
+
+Expansion and Future Roadmap
 
 ExoPlaneteer’s future development will include:
-- **Upgradable Planets**: Players will be able to customize planets with additional features such as rings (similar to Saturn) and dark-side city lights as technological levels improve.
-- **Space Infrastructure**: Players can develop orbital stations, Dyson swarms, space elevators, and more, expanding gameplay options.
-- **Interplanetary Trade**: Planets will be arranged in solar systems, with resources taking time to travel between distant stars. Players will be encouraged to develop multiple planets within the same system for instant trade.
-- **Real Star Map**: The game will incorporate real galactic coordinates, affecting interstellar trade routes and the likelihood of natural disasters. Preliminary work here: https://exoplaneteer.com/galaxy.html
+- Upgradable Planets: Players will be able to customize planets with additional features such as rings (similar to Saturn) and dark-side city lights as technological levels improve.
 
-**Market Opportunity**
+- Space Infrastructure: Players can develop orbital stations, Dyson swarms, space elevators, and more, expanding gameplay options.
+
+- Interplanetary Trade: Planets will be arranged in solar systems, with resources taking time to travel between distant stars. Players will be encouraged to develop multiple planets within the same system for instant trade.
+
+- Real Star Map: The game will incorporate real galactic coordinates, affecting interstellar trade routes and the likelihood of natural disasters. Preliminary work here: https://exoplaneteer.com/galaxy.html
+
+Market Opportunity
 
 The video game industry, NFT market, and cryptocurrency space are thriving, each worth billions of dollars. ExoPlaneteer sits at the intersection of these lucrative markets. By combining casual gaming with blockchain technology and NFT collectibles, it taps into multiple trends:
-1. **Video Games**: A massive and growing industry with diverse sub-markets, from casual gamers to crypto enthusiasts.
-2. **NFTs**: A rapidly expanding market where unique digital assets hold significant value.
-3. **Sci-Fi and Space Exploration**: Recent discoveries of exoplanets through missions such as the James Webb Space Telescope have reignited public interest in space, providing a strong thematic foundation for the game.
-4. **Crypto Integration**: Players can earn cryptocurrency through in-game actions, a model that aligns with the popular play-to-earn trend.
 
-**Funding Request**
+1. Video Games: A massive and growing industry with diverse sub-markets, from casual gamers to crypto enthusiasts.
 
-We seek funding to support the following key areas:
-1. **Development**: Finalizing the core game mechanics, developing planetary NFTs, and integrating blockchain features such as the Tritanium-44 economy.
-2. **Marketing**: Promoting the game through targeted campaigns, particularly within cryptocurrency and sci-fi communities.
-3. **Expansion**: Adding features like space infrastructure, planetary upgrades, and the real star map, ensuring long-term player engagement and growth.
+2. NFTs: A rapidly expanding market where unique digital assets hold significant value.
 
-**Conclusion**
+3. Sci-Fi and Space Exploration: Recent discoveries of exoplanets through missions such as the James Webb Space Telescope have reignited public interest in space, providing a strong thematic foundation for the game.
+
+4. Crypto Integration: Players can earn cryptocurrency through in-game actions, a model that aligns with the popular play-to-earn trend.
+
+Funding Request
+
+We seek funding to support the following key areas
+
+0. Advisory assets - We need some experienced advice.
+
+1. Development: Finalizing the core game mechanics, developing planetary NFTs, and integrating blockchain features such as the Tritanium-44 economy.
+
+2. Marketing: Promoting the game through targeted campaigns, particularly within cryptocurrency and sci-fi communities.
+
+3. Expansion: Adding features like space infrastructure, planetary upgrades, and the real star map, ensuring long-term player engagement and growth.
 
 ExoPlaneteer represents a unique convergence of casual gaming, blockchain, and NFTs, with an emphasis on accessibility, engagement, and long-term value. By supporting this project, you are investing in a scalable and innovative approach to gaming, one that appeals to an underserved market of players looking for entertainment that fits into their busy lives. The combination of strategic management, NFT ownership, and cryptocurrency rewards positions ExoPlaneteer as a pioneering entry into the casual play-to-earn gaming space.
 
 We look forward to your support in bringing ExoPlaneteer to life and establishing it as a flagship project in the emerging world of blockchain-based games.
 
----
+1. Core Team and Personnel
+Founders/Leadership Team: Visionaries with a strong understanding of blockchain, crypto economics, and the industry’s needs.
 
-**Contact Information:**
-[Your Name]  
-[Email Address]  
-[Phone Number]  
-ExoPlaneteer Team
+The founder has been trading crytocurrencies, used Centralized Exchanges, DEXes and DEFI extensively for the past 6 years. Has written multiple EVM/Solidity smart contracts and an expert C++, Python, JavaScript, CSS, HTML software engineer.
+
+** Blockchain Developers: Specialists in smart contracts, consensus mechanisms, cryptography, and decentralized applications (dApps). Familiarity with relevant programming languages (e.g., Solidity, Rust, C++) is essential.
+
+See above
+
+Back-End Developers: To build the infrastructure behind the blockchain, such as nodes, APIs, and data layers.
+
+See above
+
+Front-End Developers: For the user-facing part of the project, including wallets, dApps, and websites.
+
+See above and website https://exoplaneteer.com
+
+Security Experts: Critical for safeguarding assets, protecting against hacks, and conducting regular security audits.
+
+See above
+
+Cryptographers: For designing and implementing the cryptographic elements (encryption, signatures) of the platform.
+
+We won't be designing a layer 1 or 2, just a smart contract to support the game.
+
+Legal and Compliance: Lawyers knowledgeable in crypto regulations (e.g., KYC/AML) and jurisdictional requirements.
+
+This is something we would need to rely on the granting agency to help with.
+
+Community Managers: Essential for engaging and growing the user base through social media, forums (e.g., Discord, Reddit), and handling queries.
+Finance and Accounting: Experts in handling token economics, financial planning, tax compliance, and treasury management.
+
+Founder has connections to social media managers and has extensive background in Internet advertising.
+
+2. Technology and Infrastructure
+
+## Blockchain Platform: A robust, scalable, and secure blockchain (either a custom one or built on top of an existing chain like Ethereum, Solana, etc.). This includes choosing the right consensus mechanism (e.g., Proof of Work, Proof of Stake).
+
+Not necessary
+
+## Smart Contracts: Development and testing of secure and efficient smart contracts that underpin token issuance, staking, decentralized finance (DeFi) features, etc.
+Node Infrastructure: Distributed and decentralized network of nodes to maintain the blockchain's integrity and security.
+Wallet Integration: Secure and user-friendly wallets to store and transfer the native cryptocurrency/token.
+Oracles: For interacting with off-chain data, essential in many DeFi, NFT, and supply chain projects.
+APIs: Building out API integrations for exchanges, dApps, wallets, and external service providers.
+
+3. Token Economics
+## Tokenomics Design: Developing the economic model for the cryptocurrency (supply, demand, inflation/deflation mechanisms). This includes utility for the token (governance, staking, payments, etc.) and incentives for network participants.
+
+This needs to be worked out and tested but the main idea is to use a logarithmic growth model: The larger to population of players, the harder it becomes to earn. This ensures a self limiting ecosystem, avoiding overinflation. However, we want to avoid early participants from hoarding the proceeds.
+
+The income for the project will come from selling the planet NFTs, not the cryptocurrency. This makes the cryptocurrency a fair launch, free from any stigma of being a security
+
+## Initial Token Distribution: Planning the token generation event (TGE) and how tokens will be distributed to early investors, developers, the community, etc.
+Liquidity: Ensuring liquidity on decentralized exchanges (DEXs) and centralized exchanges (CEXs) for token trading, potentially through liquidity pools or partnerships with market makers.
+
+See above.
+
+4. Financing and Fundraising
+Seed Capital: Initial funding to cover the costs of development, team salaries, and marketing.
+
+Venture Capital (VC): Involving crypto-native VCs or traditional VCs that have entered the blockchain space.
+Token Sales/ICOs/IDOs: Conducting an Initial Coin Offering (ICO), Initial DEX Offering (IDO), or similar fundraising methods to raise capital from the community.
+Grants and Partnerships: Seeking grants from blockchain foundations (e.g., Ethereum Foundation) or entering into strategic partnerships with other blockchain projects or companies.
+
+Treasury Management: Maintaining control of raised funds and ensuring liquidity and stability over time, often using stablecoins or similar mechanisms to hedge against volatility.
+
+Proceeds from NFT sales will be kept in serveral multisig wallets, owned by the original members of the team, a new wallet each month.
+
+5. Legal and Regulatory Compliance
+Jurisdictional Strategy: Navigating different regulations and laws depending on the project’s location and the markets it intends to serve (especially regarding securities laws, KYC/AML compliance).
+
+We want this to be considered art to fall under the category of free speech. The gaming aspect will need legal clarity and the crypto aspect will need legal clarity though having the token be a fair launch is about the best posture one can take to be free of regulatory requirements.
+
+Smart Contract Audits: Regular audits by third-party firms to ensure contract security and compliance with industry standards.
+Licensing: Obtaining necessary licenses (if applicable) for providing services like exchanges, wallet custody, etc.
+
+The smart contracts are trivial and 95% pre-audited, OpenZeppelin library code.
+
+6. Marketing and Community Engagement
+Content Creation: Regular blog posts, whitepapers, case studies, and technical documentation to inform potential users and investors.
+
+We would a team for this and would like to know what sort of assistance the granting agency can provide.
+
+Social Media Marketing: Building a strong presence on Twitter, Reddit, Telegram, Discord, and other crypto-related forums.
+
+See above
+
+Community Engagement: Actively engaging with the community, incentivizing early adopters, and creating programs like airdrops, staking rewards, or ambassador programs.
+
+See above
+
+Public Relations (PR): Leveraging partnerships with influencers, crypto news outlets, and thought leaders to gain visibility.
+
+See above
+
+Events and Conferences: Attending or hosting crypto events and hackathons to showcase the project.
+
+See above
+
+Bounty Programs: Encouraging developers and the broader community to contribute to the project through bounties for bug reporting, code contributions, or marketing efforts.
+
+Potential players would be given an instant "starter planet" that accumulates Tritanium-44 in the planetery treasury but to convert that to actual on-chain crypto, a real planet would have to be purchased. Any start planet funds are not convertible to on-chain crypto. Only a player who buys a real planet will have that luxury.
+
+
+7. Partnerships and Ecosystem Integration
+Exchange Listings: Ensuring the cryptocurrency is listed on both decentralized and centralized exchanges to facilitate trading and liquidity.
+Integration with DeFi Protocols: Collaborating with other DeFi projects to offer staking, lending, and borrowing services.
+Cross-Chain Compatibility: Working towards compatibility with multiple blockchains to expand the project's user base and functionality.
+Partnerships with Wallets and dApps: Ensuring seamless integration with widely used wallets and decentralized applications to boost usability.
+
+8. Product and User Experience
+User Interface (UI) and User Experience (UX): Ensuring that all aspects of the platform (wallets, exchanges, dApps) are easy to use for both crypto natives and newcomers.
+Security and Privacy: Prioritizing user privacy and security through features like multi-signature wallets, hardware wallet integration, and privacy-preserving technologies (e.g., zk-SNARKs).
+
+Testing will be done by offering free planets to test participants in return for the engagement, suggestions, complaints and bug finding.
+
+9. Governance
+On-Chain Governance: Implementing decentralized governance mechanisms, allowing token holders to vote on protocol changes or upgrades.
+DAO (Decentralized Autonomous Organization): Setting up a DAO for community-led decision-making, often a popular structure for decentralized projects.
+10. Business Development
+Partnership Development: Building relationships with other projects, service providers (wallets, exchanges), and enterprises for integrations or co-development.
+Enterprise Solutions: For B2B-oriented projects, working on enterprise blockchain use cases, such as supply chain management, finance, or digital identity.
+
 

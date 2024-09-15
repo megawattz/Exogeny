@@ -1,9 +1,11 @@
 {
     "zoom_factor": 1.5,
-    "unfocus_system_label_opacity": 0.8,
+    "unfocus_system_label_opacity": 1,
     "focus_system_label_opacity": 1,
     "system_sphere_radius": 20,
-    "system_sphere_opacity": 0.4,
+    "system_sphere_opacity": 0.2,
+    "focus_system_sphere_opacity": 0.1,
+    "unfocus_system_sphere_opacity": 0.1,
     "galaxy_diameter": 2100,
     "light_year_units": 5,
     "opensea_template":"https://testnets.opensea.io/assets/chain/contract/tokenid",

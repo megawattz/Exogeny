@@ -8,13 +8,15 @@ import * as labels from './labels.mjs';
 
 var Config = {
     "zoom_factor": 1.5,
-    "unfocus_system_label_opacity": 0.8,
+    "unfocus_system_label_opacity": 1,
     "focus_system_label_opacity": 1,
-    "system_sphere_radius": 12,
-    "system_sphere_opacity": 0.5,
-    "galaxy_diameter": 2000,
+    "system_sphere_radius": 20,
+    "system_sphere_opacity": 0.1,
+    "focus_system_sphere_opacity": 0.1,
+    "unfocus_system_sphere_opacity": 0.1,
+    "galaxy_diameter": 2100,
+    "render_depth": 400,
     "light_year_units": 5,
-    "ipfs_gateway": "https://ipfs.io/",
 };
 
 var sector = utils.getCookie("sector") || "vesper";
@@ -58,8 +60,8 @@ Object.assign(labelRenderer.domElement.style, {position: 'absolute', zIndex: 1, 
 Container.appendChild(labelRenderer.domElement);
 
 // Camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, Config.galaxy_diameter);
-camera.position.set(0, 0, Config.galaxy_diameter/2);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, Config.galaxy_diamater);
+camera.position.set(0, 0, Config.galaxy_diameter);
 camera.lookAt(0, 0, 0);
 
 // Controls
@@ -245,7 +247,7 @@ Legend.innerHTML = `
 <table class="legend">
 <tr><th>Command</th><th>Action</th></tr>
 <tr><td>Click Drag</td><td>rotate galaxy</td></tr>
-<tr><td>Click</td><td>zoom in</td></tr>
+<tr><td>Double Click</td><td>zoom in</td></tr>
 <tr><td class="clickable" onclick='javascript:window.zoomclose()'>Shift Click</td><td>zoom out</td></tr>
 <tr><td class="clickable" onclick='javascript:window.zoomclose()'>ESC key</td><td>zoom out</td></tr>
 <tr><td>Right Click</td><td>information</td></tr>
@@ -431,7 +433,7 @@ function loadPlanets(planets) {
 		"official_designation": official_designation,
 		"location": starLocation,
 		"label": addLabel(starSprite, starLocation,
-				  `${planet.star_index} ${planet.star_system}`, 0.4, color, null, labels.getLabel("star")),
+				  `Star ${planet.star_index} ${planet.star_system}`, 0.4, color, null, labels.getLabel("star")),
 		"planets": {}
 	    };
 
@@ -546,9 +548,9 @@ window.zoomout = function() {
 	camera.position.y - (target.y - camera.position.y) * 12,
 	camera.position.z - (target.z - camera.position.z) * 12
     );
-    var limit = Config.galaxy_diameter;
+    var limit = Config.galaxy_diameter/2;
     if (camera.position.x > limit || camera.position.y > limit || camera.position.z > limit) {
-	camera.position.set(0, 0, Config.galaxy_diameter/2);
+	camera.position.set(0, Config.galaxy_diameter/2, 0);
 	camera.lookAt(0, 0, 0);
     }
     render();
@@ -570,7 +572,7 @@ function zoomin(target_object) {
     );
 
     let distance = camera.position.distanceTo(target_object.position);
-    if (distance < 2) {
+    if (distance < 10) {
 	popupSystem(target_object);
     }
     
@@ -582,7 +584,7 @@ window.addEventListener('mousemove', function(event) {
     render();
 });
 
-renderer.domElement.addEventListener('mousedown', function(event) {
+renderer.domElement.addEventListener('dblclick', function(event) {
     if (event.which != 1)
 	return;
 
@@ -615,6 +617,27 @@ renderer.domElement.addEventListener('mousedown', function(event) {
     if (distance < 40) {
 	focus(target.object);
     }
+    render();
+});
+
+renderer.domElement.addEventListener('click', function(event) {
+    if (event.which != 1)
+	return;
+
+    let target = getIntersect(event);
+
+    if (Keydown[17]) {
+	if (!target) {
+	    lineDraw(null)
+	} else {
+	    lineDraw(target.object)
+	}
+	render();
+	return;
+    }
+
+    clearline();
+    
     render();
 });
 
