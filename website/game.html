@@ -313,14 +313,16 @@
 	  eventlistholder.id = "eventlistholder";
 	  planetevents.appendChild(eventlistholder);
 
-	  planetname.innerHTML = `${planet.name}`;
+	  planetname.innerHTML = `<span title="Owner can edit this" style="width: 100%; justify-content: center;">
+					<input pattern="[A-Za-z _-]{3,30}" 
+					class="editable" id="common_name" name="common_name" style="border: 0; text-align: right; 
+					background-color: transparent; color: white;" type="text" value="${planet.name}">
+					<button onclick="DbSave()">&nbsp;set&nbsp;</button>
+				</span>`;
 
 	  let essentials = `
 		<tr title="Owner can edit this, only 'A-Za-z0-9 _- and must be between 3 and 30 characters long" class="statsrow">
 			<td class="statlabel">Common Name</td><td class="statvalue">
-			<input pattern="[A-Za-z _-]{3,30}" class="editable" id="common_name" name="common_name" style="border: 0; text-align: right; 
-				background-color: transparent; color: white;" type="text" value="${planetData['common_name'] || planetData['name']}">
-			<button onclick="DbSave()">&nbsp;set&nbsp;</button>
 			</td>
 		</tr>
 		<tr title="Owner can edit this" class="statsrow">

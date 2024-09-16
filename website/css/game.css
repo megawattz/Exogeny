@@ -104,19 +104,28 @@ input {
     color: white;
 }
 
-button {
-    border-radius: 0.4vw;
-    border-width: 0.4vw;
-    border: shadow;
-}
-
 .editable {
     pointer-events: auto;
 }
 
+button {
+    border-radius: 50%;
+    width: 8vw;
+    height: 8vw;
+    border-width: 0.1vw;
+    font-color: white;
+    font-size: 2vw;
+    background-color: transparent;
+    background-image: url('../images/blue_button_planet.png');
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: shadow;
+}
+
 /* Hover effect */
 button:hover {
-    background-color: #fff; /* Darker blue on hover */
+    //background-color: #000; /* Darker blue on hover */
     transform: translateY(-2px); /* Slight lift on hover */
 }
 
@@ -128,7 +137,7 @@ button:focus {
 
 /* Active state */
 button:active {
-    background-color: #444; /* Even darker blue when clicked */
+    //background-color: #444; /* Even darker blue when clicked */
     transform: translateY(0); /* Remove lift */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow */
 }
