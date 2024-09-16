@@ -47,13 +47,17 @@ body {
 }
 
 .galleryWindow {
-    width: clamp(400px, 20%, 20%);
+    width: clamp(412px, 20%, 20%);
     position: relative;
     float: left;
     margin: 0;
     padding: 0;
     border: 1px grey solid;
-    font-size: clamp(5pt, 0.8vw, 0.8vw);
+    font-size: clamp(16pt, 0.8vw, 0.8vw);
+}
+
+.planetLink {
+    font-size: clamp(16pt, 0.8vw, 0.8vw);
 }
 
 .galleryVideo {
@@ -94,10 +98,6 @@ body {
 
 a:link {
     color: white;
-}
-
-.planetLink {
-    font-size: clamp(8pt, 0.8vw, 0.8vw);
 }
 
 .nav-link {

@@ -8,6 +8,7 @@ import * as utils from './utils.mjs';
 export const exogeny = {
     AttributesOfInterest: [
 	{ key: 'official_designation',	value: 'Official Name'},
+	{ key: 'name',			value: 'Common Name'},
 	{ key: 'parent_star',		value: 'Star'},
 	{ key: 'star_system',		value: 'Star System'},
 	{ key: 'atmosphere', 		value: 'Primary Atmosphere'},
@@ -68,7 +69,7 @@ export const exogeny = {
 	    return planet.attribmap;
 	
 	map.forEach(function(map) {
-	    const value = planet.attribmap[map.key];
+	    const value = planet.attribmap[map.key] || planet[map.key];
 	    readout += utils.sprintf(format, map.value, utils.titleize(value));
 	});	
 	return readout;

@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-     <!-- Google font -->
+    <!-- Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Megrim&family=Orbitron&display=swap" rel="stylesheet">
@@ -21,138 +21,145 @@
     <div class="container-fluid bg-image" style="font-color: white; align: bottom;">
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
-	<script src="./js/headermenu.js" type="module">
-	</script>
-	<script>
-	  $(document).on('mousemove', function(event) {
-	      if (event.clientY <= 400) {
-		  $('.navbar').css('opacity', '1');
-	      } else {
-		  $('.navbar').css('opacity', '0');
-	      }	
-	  });
+	  <script src="./js/headermenu.js" type="module">
+	  </script>
+	  <script>
+	    $(document).on('mousemove', function(event) {
+		if (event.clientY <= 400) {
+		    $('.navbar').css('opacity', '1');
+		} else {
+		    $('.navbar').css('opacity', '0');
+		}	
+	    });
 	  </script>
 	</nav>
       </div>
-      <div>
-	<script type="module">
-	  import * as utils from './js/utils.mjs';
-	  import {web3utils} from './js/web3.mjs';
-	  import {exogeny} from './js/exogeny.mjs';
-	  
-	  var Planets = {};
-	  
-	  var Config = {
-	  };
+    </div>
+    <div id="gallery" style="margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap;">
+      <script type="module">
+	import * as utils from './js/utils.mjs';
+	import {web3utils} from './js/web3.mjs';
+	import {exogeny} from './js/exogeny.mjs';
+	
+	var Planets = {};
+	
+	var Config = {
+	};
 
-	  var sector = utils.getCookie("sector") || "vortexis";
-	  
-	  function show(item) {
-	      item.style.visibility = 'visible';
-	      item.style.display = 'block';
-	  }
-	  
-	  function hide(item) {
-	      item.style.visibility = 'hidden';
-	      item.style.display = 'none';
-	  }
-	  
-	  function displayPlanet(planet, index) {
-	      planet.attribmap = {};
-	      
-	      planet.attributes.forEach((attrib) => {
-		  planet.attribmap[attrib.trait_type] = attrib.value;
-	      });
-	      
-	      if (!index)
-		  index = planet.attribmap.tokenid;
-	      
-	      var planetDiv = document.createElement("div");
-	      planetDiv.className = "galleryWindow";
-	      let identity = planet.identity;
-		  
-	      planetDiv.addEventListener('dblclick', function(event) {
-		  window.location.href=`game.html#${planet.tokenid}`;
-	      });
+	var sector = utils.getCookie("sector") || "vortexis";
+	
+	function show(item) {
+	    item.style.visibility = 'visible';
+	    item.style.display = 'block';
+	}
+	
+	function hide(item) {
+	    item.style.visibility = 'hidden';
+	    item.style.display = 'none';
+	}
+	
+	function displayPlanet(planet, index) {
+	    planet.attribmap = {};
+	    
+	    planet.attributes.forEach((attrib) => {
+		planet.attribmap[attrib.trait_type] = attrib.value;
+	    });
+	    
+	    if (!index)
+		index = planet.attribmap.tokenid;
+	    
+	    var planetDiv = document.createElement("div");
+	    planetDiv.className = "galleryWindow";
+	    let identity = planet.identity;
+	    
+	    planetDiv.addEventListener('dblclick', function(event) {
+		window.location.href=`game.html#${planet.tokenid}`;
+	    });
 
-	      let ipfsURL = planet.animation_url;
-	      planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" poster="planets/planet_${identity}.gif"></video>`;
-	      Planets[identity] = planetDiv;
-		  
-	      let upperLeft = document.createElement("div");
-	      upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
-	      Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
-	      planetDiv.appendChild(upperLeft);
-    
-	      let upperRight = document.createElement("div");
-	      Object.assign(upperRight.style, {position: "absolute", height: "20%", top: "2%", right: "4%"});
-	      planetDiv.appendChild(upperRight);
-		  
-	      let lifeformImage = document.createElement("img");
-	      lifeformImage.src = planet.image;
-	      Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
-	      planetDiv.appendChild(lifeformImage);
-		  
-	      let lifeformIcon = document.createElement("img");
-	      lifeformIcon.src = `images/${planet.attribmap.indigenous_lifeform}.png`;
-	      Object.assign(lifeformIcon.style, {height: "100%"});
-	      lifeformIcon.lifeformImage = lifeformImage;
-	      lifeformIcon.addEventListener('mousedown', function() {
-		  show(this.lifeformImage);
-	      });
-	      lifeformImage.addEventListener('mouseup', function() {
-		  hide(this);
-	      });
-	      upperRight.appendChild(lifeformIcon);
+	    let ipfsURL = planet.animation_url;
+	    planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" poster="planets/planet_${identity}.gif"></video>`;
+	    Planets[identity] = planetDiv;
+	    
+	    let upperLeft = document.createElement("div");
+	    upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
+	    Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
+	    planetDiv.appendChild(upperLeft);
+	    
+	    let upperRight = document.createElement("div");
+	    Object.assign(upperRight.style, {position: "absolute", height: "20%", top: "2%", right: "4%"});
+	    planetDiv.appendChild(upperRight);
+	    
+	    let lifeformImage = document.createElement("img");
+	    lifeformImage.src = planet.image;
+	    Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
+	    planetDiv.appendChild(lifeformImage);
+	    
+	    let lifeformIcon = document.createElement("img");
+	    lifeformIcon.src = `images/${planet.attribmap.indigenous_lifeform}.png`;
+	    Object.assign(lifeformIcon.style, {height: "100%"});
+	    lifeformIcon.lifeformImage = lifeformImage;
+	    lifeformIcon.addEventListener('mousedown', function() {
+		show(this.lifeformImage);
+	    });
+	    lifeformImage.addEventListener('mouseup', function() {
+		hide(this);
+	    });
+	    upperRight.appendChild(lifeformIcon);
 
-	      let lowerLeft = document.createElement("div");
-	      lowerLeft.innerHTML = `<a class="planetLink" title="Play" href="game.html#${planet.tokenid}">
+	    let lowerLeft = document.createElement("div");
+	    lowerLeft.innerHTML = `<a class="planetLink" title="Play" href="game.html#${planet.tokenid}">
 			${planet.name}
 			</a>`;
-	      Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
-	      planetDiv.appendChild(lowerLeft);
-		      
-	      document.body.append(planetDiv);
-	  }
-	  
-	  function displayPlanets(planets) {
-	      let max = 30;
-	      Object.entries(planets).forEach(([index, planet]) => {
-		  displayPlanet(planet, index);
-	      });
-	  }
+	    Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
+	    planetDiv.appendChild(lowerLeft);
 
-	  // load config
-	  await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    		.then((response) => response.json())
-    		.then((data) => Object.assign(Config, data))
-    		.then(() => console.log(Config))
-    		.catch((error) => console.error(error))
+	    let lowerRight = document.createElement("div");
+	    lowerRight.innerHTML = `<span>$${utils.planetprice(planet)}<span>`;
+	    Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
+	    planetDiv.appendChild(lowerRight);
+	    
+	    let gallery = document.getElementById("gallery");
+	    gallery.appendChild(planetDiv);
+	}
+	
+	function displayPlanets(planets) {
+	    let max = 30;
+	    Object.entries(planets).forEach(([index, planet]) => {
+		displayPlanet(planet, index);
+	    });
+	}
 
-	  var account = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"))
-	  let tries = 0;
-	  while (!account && tries++ < 3) {
-	      await exogeny.Login(exogeny.GetConfig("exogeny_server"));
-	      account = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"));
-	      if (!account) {
-		  let email = prompt("Email");
-		  if (!email) {
-		      alert("No planets for you");
-		  }
-		  else {
-		      exogeny.EmailPre(exogeny.GetConfig("exogeny_server"), email);
-		      let verify = prompt(`Enter the code that was mailed to: ${email}`);
-		      exogeny.EmailLogin(exogeny.GetConfig("exogeny_server"), email, verify);
-		  }
-	      }
-	  }
-	  if (!account) {
-	      alert("This page requires an account or cryptocurrency wallet");
-	  }
+	// load config
+	await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+    .then((response) => response.json())
+    .then((data) => Object.assign(Config, data))
+    .then(() => console.log(Config))
+    .catch((error) => console.error(error))
 
-	  web3utils.FetchNFTs(account, Config.sectors[sector].contract, displayPlanet)
+	var account = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"))
+	let tries = 0;
+	while (!account && tries++ < 3) {
+	    await exogeny.Login(exogeny.GetConfig("exogeny_server"));
+	    account = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"));
+	    if (!account) {
+		let email = prompt("Email");
+		if (!email) {
+		    alert("No planets for you");
+		}
+		else {
+		    exogeny.EmailPre(exogeny.GetConfig("exogeny_server"), email);
+		    let verify = prompt(`Enter the code that was mailed to: ${email}`);
+		    exogeny.EmailLogin(exogeny.GetConfig("exogeny_server"), email, verify);
+		}
+	    }
+	}
+	if (!account) {
+	    alert("This page requires an account or cryptocurrency wallet");
+	}
 
-	</script>
-      </div>
-  </body>
+	web3utils.FetchNFTs(account, Config.sectors[sector].contract, displayPlanet)
+
+      </script>
+    </div>
+</body>
 </html>

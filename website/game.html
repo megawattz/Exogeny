@@ -321,10 +321,6 @@
 				</span>`;
 
 	  let essentials = `
-		<tr title="Owner can edit this, only 'A-Za-z0-9 _- and must be between 3 and 30 characters long" class="statsrow">
-			<td class="statlabel">Common Name</td><td class="statvalue">
-			</td>
-		</tr>
 		<tr title="Owner can edit this" class="statsrow">
 			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
 			<span>Motto</span>
@@ -418,8 +414,8 @@
 				</div>
 			</div>
 			<div style="padding: 1vw; text-align: center;">
-				<button style="border-radius: 1vw; background-color: ${color}; color: #ccc;" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
-				Influence</button>
+				<button style="width: 12vw; border-radius: 50%; background-color: #000; color: #fff;" name="influence" onclick="Move('Event', '${event.id}', '${identity}', 'influence', {'spend':spend${name}.value}, 'rangeValue${name}' )">
+				OK</button>
 			</div>
 			</div>` + html; // (Put new stuff at the top)
 	  }
@@ -501,7 +497,6 @@
       }
 
       async function UpdatePage(planet) {
-	  setTimeout(UpdatePage, 1000); // set up next update
 	  let currentPlanet = planet;
 	  if (!currentPlanet)
 	      currentPlanet = Planets[PlanetIds[currentPlanetIndex]];
@@ -518,7 +513,7 @@
       	  document.getElementById("value_tritanium44").textContent = tritanium;
       	  document.getElementById("value_perday").textContent = perday;
 	  document.getElementById("last_price").textContent = utils.planetprice(currentPlanet);
-	  document.getElementById("official_name").textContent = `${currentPlanet.star_index} ${currentPlanet.star_system} ${currentPlanet.planet_index}`;
+	  document.getElementById("official_name").textContent = planet.official_designation;
 
 	  if (Object.keys(currentPlanet.events).length > 0)
 	      eventAlert();

@@ -361,7 +361,7 @@ export function trapkeys(element) {
 }
 
 export function planetprice(planet) {
-    let base = planet.resources_value - 250;
+    let base = (planet.resources_value || planet.attribmap.natural_resources_rating) - 250;
     let amount = (base * base * base) / 1000.37;
     return amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }

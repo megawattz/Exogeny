@@ -26,122 +26,127 @@
 	<script src="./js/headermenu.js" type="module">
 	</script>
       </div>
-      <div style="margin: 0 auto;">
-	<script type="module">
-	  import * as utils from './js/utils.mjs';
-	  import {exogeny} from './js/exogeny.mjs';
-	  
-	  var Planets = {};
-	  
-	  var Config = {};
-
-	  var sector = utils.getCookie("sector") || "vortexis";
-	  
-	  async function LoadLocalPlanets() {
-	      // load config
-	      await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    		  .then((response) => response.json())
-    		  .then((data) => Object.assign(Config, data))
-    		  .then(() => console.log(Config))
-    		  .catch((error) => console.error(error))
-
-	      // load planets
-	      await fetch(`configs/${sector}/planets.json`)
-		  .then((response) => response.json())	
-		  .then((data) => displayPlanets(data))
-    		  .catch((error) => console.error(error))
-	  }
-
-	  function fixupIPFS(url) {
-	      let fixed = url.replace("https://ipfs.moralis.io:2053/", Config.ipfs_gateway);
-	      return fixed;
-	  }
-	  
-	  function show(item) {
-	      item.style.visibility = 'visible';
-	      item.style.display = 'block';
-	  }
-	  
-	  function hide(item) {
-	      item.style.visibility = 'hidden';
-	      item.style.display = 'none';
-	  }
-	  
-	  function displayPlanets(planets) {
-	      let max = 30;
-	      planets.forEach((planet) => {
-		  var planetDiv = document.createElement("div");
-		  planetDiv.className = "galleryWindow";
-		  let identity = planet.identity;
-		  
-		  planetDiv.addEventListener('DOMNodeInserted', function(event) {
-		      if (event.target.id == 'planetVideo') {
-			  event.target.addEventListener('dblclick', function() {
-			      let video = this;
-			      video.play();
-			      if (video.requestFullscreen) {
-				  video.requestFullscreen();
-			      } else if (video.mozRequestFullScreen) { /* Firefox */
-				  video.mozRequestFullScreen();
-			      } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-				  video.webkitRequestFullscreen();
-			      } else if (video.msRequestFullscreen) { /* IE/Edge */
-				  video.msRequestFullscreen();
-			      }
-			  });
-		      }
-		  });
-
-		  let ipfsURL = fixupIPFS(planet.planet_video);
-		  planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" 				poster="planets/planet_${identity}.gif"></video>`;
-		  Planets[identity] = planetDiv;
-		  
-		  let upperLeft = document.createElement("div");
-		  upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
-		  Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
-		  planetDiv.appendChild(upperLeft);
+    </div>
     
-		  let upperRight = document.createElement("div");
-		  Object.assign(upperRight.style, {position: "absolute", height: "12%", width: "12%", top: "2%", right: "4%"});
-		  planetDiv.appendChild(upperRight);
-		  
-		  let lifeformImage = document.createElement("img");
-		  lifeformImage.src = planet.lifeform_image;
-		  Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
-		  planetDiv.appendChild(lifeformImage);
-		  
-		  let lifeformIcon = document.createElement("img");
+    <div id="gallery" style="margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap;">
+      
+      <script type="module">
+	import * as utils from './js/utils.mjs';
+	import {exogeny} from './js/exogeny.mjs';
+	
+	var Planets = {};
+	
+	var Config = {};
 
-		  lifeformIcon.src = `images/${planet.lifeform}.png`;
-		  Object.assign(lifeformIcon.style, {height: "100%"});
-		  lifeformIcon.lifeformImage = lifeformImage;
-		  lifeformIcon.addEventListener('mousedown', function() {
-		      show(this.lifeformImage);
-		  });
-		  lifeformImage.addEventListener('mouseup', function() {
-		      hide(this);
-		  });
-		  upperRight.appendChild(lifeformIcon);
+	var sector = utils.getCookie("sector") || "vortexis";
+	
+	async function LoadLocalPlanets() {
+	    // load config
+	    await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
+    		.then((response) => response.json())
+    		.then((data) => Object.assign(Config, data))
+    		.then(() => console.log(Config))
+    		.catch((error) => console.error(error))
 
-		  let lowerLeft = document.createElement("div");
-		  lowerLeft.innerHTML = `<a class="planetLink" title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.sectors[sector].contract).replace('tokenid', planet.tokenid)}">
+	    // load planets
+	    await fetch(`configs/${sector}/planets.json`)
+		.then((response) => response.json())	
+		.then((data) => displayPlanets(data))
+    		.catch((error) => console.error(error))
+	}
+
+	function fixupIPFS(url) {
+	    let fixed = url.replace("https://ipfs.moralis.io:2053/", Config.ipfs_gateway);
+	    return fixed;
+	}
+	
+	function show(item) {
+	    item.style.visibility = 'visible';
+	    item.style.display = 'block';
+	}
+	
+	function hide(item) {
+	    item.style.visibility = 'hidden';
+	    item.style.display = 'none';
+	}
+	
+	function displayPlanets(planets) {
+	    let max = 30;
+	    let gallery = document.getElementById("gallery");
+	    planets.forEach((planet) => {
+		let planetDiv = document.createElement("div");
+		gallery.appendChild(planetDiv);
+		planetDiv.className = "galleryWindow";
+		let identity = planet.identity;
+		
+		planetDiv.addEventListener('DOMNodeInserted', function(event) {
+		    if (event.target.id == 'planetVideo') {
+			event.target.addEventListener('dblclick', function() {
+			    let video = this;
+			    video.play();
+			    if (video.requestFullscreen) {
+				video.requestFullscreen();
+			    } else if (video.mozRequestFullScreen) { /* Firefox */
+				video.mozRequestFullScreen();
+			    } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+				video.webkitRequestFullscreen();
+			    } else if (video.msRequestFullscreen) { /* IE/Edge */
+				video.msRequestFullscreen();
+			    }
+			});
+		    }
+		});
+
+		let ipfsURL = fixupIPFS(planet.planet_video);
+		planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" 				poster="planets/planet_${identity}.gif"></video>`;
+		Planets[identity] = planetDiv;
+		
+		let upperLeft = document.createElement("div");
+		upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
+		Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
+		planetDiv.appendChild(upperLeft);
+		
+		let upperRight = document.createElement("div");
+		Object.assign(upperRight.style, {position: "absolute", height: "12%", width: "12%", top: "2%", right: "4%"});
+		planetDiv.appendChild(upperRight);
+		
+		let lifeformImage = document.createElement("img");
+		lifeformImage.src = planet.lifeform_image;
+		Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
+		planetDiv.appendChild(lifeformImage);
+		
+		let lifeformIcon = document.createElement("img");
+
+		lifeformIcon.src = `images/${planet.lifeform}.png`;
+		Object.assign(lifeformIcon.style, {height: "100%"});
+		lifeformIcon.lifeformImage = lifeformImage;
+		lifeformIcon.addEventListener('mousedown', function() {
+		    show(this.lifeformImage);
+		});
+		lifeformImage.addEventListener('mouseup', function() {
+		    hide(this);
+		});
+		upperRight.appendChild(lifeformIcon);
+
+		let lowerLeft = document.createElement("div");
+		lowerLeft.innerHTML = `<a class="planetLink" title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.sectors[sector].contract).replace('tokenid', planet.tokenid)}">
 			${planet.star_index} ${planet.star_system} ${planet.planet_index}
 			</a>`;
-		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
-		  planetDiv.appendChild(lowerLeft);
-		      
-		  let lowerRight = document.createElement("div");
-		  lowerRight.innerHTML = `<span>$${utils.planetprice(planet)}<span>`;
-		  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
-		  planetDiv.appendChild(lowerRight);
+		Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
+		planetDiv.appendChild(lowerLeft);
+		
+		let lowerRight = document.createElement("div");
+		lowerRight.innerHTML = `<span>$${utils.planetprice(planet)}<span>`;
+		Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
+		planetDiv.appendChild(lowerRight);
 
-		  document.body.append(planetDiv);
-	      });
-	  }
-	  
-	  LoadLocalPlanets();
-	  
+		//document.body.append(planetDiv);
+	    });
+	}
+	
+	LoadLocalPlanets();
+	
 	</script>
-      </div>
+    </div>
   </body>
 </html>
