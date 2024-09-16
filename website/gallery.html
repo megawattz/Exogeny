@@ -17,8 +17,8 @@
 
     <!-- Bespoke Stuff -->
   </head>
-  <body>
-    <div class="container-fluid bg-image" style="font-color: white; align: bottom;">
+  <body style="margin: 0 auto;">
+    <div class="container-fluid bg-image" style="margin: 0 auto; font-color: white; align: bottom;">
       
       <div class="row">
 	<nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent" style="position: relative; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
@@ -26,15 +26,14 @@
 	<script src="./js/headermenu.js" type="module">
 	</script>
       </div>
-      <div>
+      <div style="margin: 0 auto;">
 	<script type="module">
 	  import * as utils from './js/utils.mjs';
 	  import {exogeny} from './js/exogeny.mjs';
 	  
 	  var Planets = {};
 	  
-	  var Config = {
-	  };
+	  var Config = {};
 
 	  var sector = utils.getCookie("sector") || "vortexis";
 	  
@@ -52,7 +51,7 @@
 		  .then((data) => displayPlanets(data))
     		  .catch((error) => console.error(error))
 	  }
-	  
+
 	  function fixupIPFS(url) {
 	      let fixed = url.replace("https://ipfs.moralis.io:2053/", Config.ipfs_gateway);
 	      return fixed;
@@ -94,7 +93,7 @@
 		  });
 
 		  let ipfsURL = fixupIPFS(planet.planet_video);
-		  planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" poster="planets/planet_${identity}.gif"></video>`;
+		  planetDiv.innerHTML = `<video id="planetVideo" class="galleryVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="${ipfsURL}" 				poster="planets/planet_${identity}.gif"></video>`;
 		  Planets[identity] = planetDiv;
 		  
 		  let upperLeft = document.createElement("div");
@@ -126,13 +125,13 @@
 
 		  let lowerLeft = document.createElement("div");
 		  lowerLeft.innerHTML = `<a class="planetLink" title="See planet on OpenSea NFT Marketplace" target="opensea" href="${Config.opensea_template.replace('chain', planet.chain).replace('contract', Config.sectors[sector].contract).replace('tokenid', planet.tokenid)}">
-			${planet.star_index} ${planet.star_system}
+			${planet.star_index} ${planet.star_system} ${planet.planet_index}
 			</a>`;
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
 		  planetDiv.appendChild(lowerLeft);
 		      
 		  let lowerRight = document.createElement("div");
-		  lowerRight.innerHTML = `<span>${planet.planet_index}<span>`;
+		  lowerRight.innerHTML = `<span>$${utils.planetprice(planet)}<span>`;
 		  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
 		  planetDiv.appendChild(lowerRight);
 

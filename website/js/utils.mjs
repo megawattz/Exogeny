@@ -359,3 +359,10 @@ export function trapkeys(element) {
         event.stopPropagation(); // Stops the event from propagating
     });
 }
+
+export function planetprice(planet) {
+    let base = planet.resources_value - 250;
+    let amount = (base * base * base) / 1000.37;
+    return amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+	  

@@ -47,13 +47,19 @@ body {
 }
 
 .galleryWindow {
-    width: 20%;
+    width: clamp(400px, 20%, 20%);
     position: relative;
     float: left;
     margin: 0;
     padding: 0;
     border: 1px grey solid;
     font-size: clamp(5pt, 0.8vw, 0.8vw);
+}
+
+.galleryVideo {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .item {
@@ -71,12 +77,6 @@ body {
     //justify-content: center;
     transition: opacity 4s ease-in ease-out;
     font-size: clamp(14pt, 2vw, 2vw);
-}
-
-.galleryVideo {
-    width: 20vw;
-    margin: 0;
-    padding: 0;
 }
 
 .close {
@@ -97,7 +97,7 @@ a:link {
 }
 
 .planetLink {
-    font-size: clamp(10pt, 1vw, 1vw);
+    font-size: clamp(8pt, 0.8vw, 0.8vw);
 }
 
 .nav-link {

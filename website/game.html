@@ -32,7 +32,7 @@
   </head>
 
   <body style="width: 100%; height: auto; margin: 0 auto; padding: 0;
-	       background-image: url(images/high_density_stars.png); background-repeat: repeat; background-width: 100%;"> 
+	       background-image: url(images/high_density_stars.jpg); background-repeat: repeat; background-width: 100%;"> 
 
     <div style="position: absolute; left: 35%; top: 2%; z-index: 10;" id="smallmenu">
       <a href="mygallery.html"><img id="myplanets" src="images/planet_list.png" style="width: 30vw"></a>
@@ -41,11 +41,11 @@
     <div class="container-fluid" style="margin: 0 auto; padding: 0; display: flex; align-items: center;">
       <div style="width: 100%; padding: 0; margin: 0 auto; overflow: hidden;">
 
-	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 30%; left: 4%;">
+	<span id="prev" title="Previous planet" onclick="document.prev()" class="arrowplanet" style="top: 40%; left: 4%;">
 	  &lt<img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon1.png">
 	</span>
 
-	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 30%; right: 4%;">
+	<span id="next" title="Next planet" onclick="document.next()" class="arrowplanet" style="top: 40%; right: 4%;">
 	  <img style="position: absolute; opacity: 70%; height: 5vw" src="images/planet_icon2.png">&gt
 	</span>
 
@@ -323,16 +323,6 @@
 			<button onclick="DbSave()">&nbsp;set&nbsp;</button>
 			</td>
 		</tr>
-		<tr class="statsrow">
-			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%;">
-			<span>
-				Galactic ID
-			</span>
-			<span>
-				<input style="width: 58vw;" class="editable" readonly name="identity" value="${planetData['identity']}">
-			</span>
-		</td>
-		</tr>
 		<tr title="Owner can edit this" class="statsrow">
 			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
 			<span>Motto</span>
@@ -343,6 +333,14 @@
 				<button onclick="DbSave()">&nbsp;set&nbsp;</button>
 			</span>
 		</td>
+		<tr class="statsrow">
+			<td colspan="2" class="statlabel">
+				<div style="display: flex; justify-content: space-between; width: 100%">
+					<span style="white-space: nowrap;">Official Name</span>
+					<span id="official_name"></span>
+				</div>	
+			</td>
+		</tr>
 		<tr class="statsrow">
 			<td colspan="2" class="statlabel">
 				<div style="display: flex; justify-content: space-between; width: 100%">
@@ -359,11 +357,19 @@
 				</div>	
 			</td>
 		</tr>
+		<tr class="statsrow">
+			<td colspan="2" class="statlabel">
+				<div style="display: flex; justify-content: space-between; width: 100%">
+					<span style="white-space: nowrap;">Last Price</span>
+					<span id="last_price"></span>
+				</div>	
+			</td>
+		</tr>
 		`;
 
 	  essentials += exogeny.FormatObject(planetData, `<tr class="statsrow"><td id="name_{1}" class="statlabel">{1}</td><td id="value_{3}" class="statvalue">{2}</td></tr>\n`,
 					     [	
-						 { key: 'population',	 title: 'Population (millions)'}
+						 { key: 'population',	 title: 'Population (millions)'},
 					     ]);
 	  
       	  let stats = '<table style="width: 98%;">\n';
@@ -440,6 +446,7 @@
 	  return `${units}% will cost ${Math.ceil(cost)} T44`;
       }
 
+      /*
       async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
 	  const NFT = Planets[currentPlanetIndex];
 
@@ -467,7 +474,8 @@
 	      displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
 	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
       }
-
+      */
+      
       async function eventAlert(message, sound) {
 	  let now = Math.floor(Date.now()/1000);
 	  if ( (now - lastAlert) < exogeny.GetConfig("event_cycle"))
@@ -507,6 +515,8 @@
 	  //console.log("tritanium:"+tritanium);
       	  document.getElementById("value_tritanium44").textContent = tritanium;
       	  document.getElementById("value_perday").textContent = perday;
+	  document.getElementById("last_price").textContent = utils.planetprice(currentPlanet);
+	  document.getElementById("official_name").textContent = `${currentPlanet.star_index} ${currentPlanet.star_system} ${currentPlanet.planet_index}`;
 
 	  if (Object.keys(currentPlanet.events).length > 0)
 	      eventAlert();

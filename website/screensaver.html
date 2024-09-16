@@ -147,7 +147,7 @@
 	      "Tech Level": `${RandomInt(0, 3)}`,
 	      "Population": `${RandomInt(1,90)} million`,
 	      "Tritanium-44 Production": `${RandomInt(0,100)}/day`,
-	      "Last Price": `${RandomInt(1, 10)/10} ETH`
+	      "Last Price": `$${utils.planetprice(planet)}`
 	  };
 	  
 	  var readout = '<p>\n';
