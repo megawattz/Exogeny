@@ -28,12 +28,12 @@ if [ $FRAMES -lt 10 ]; then
     GALLERY=${DRAFTS}
 fi
 
-NICE=nice
+NICE="nice -n 10 "
 
 if [ $FRAMES -lt 2 ]; then
     GALLERY=${STILLS}
     # make single frame previews fast, don't nice them down
-    NICE= 
+    NICE=
 fi
 
 if [ $FRAMES -lt 1 ]; then

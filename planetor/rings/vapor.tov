@@ -15,7 +15,7 @@ difference {
             image_map {
                v_clouds_spec
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness - 0.2
+	       transmit all ring_brightness - 0.4
             }
          }
       }

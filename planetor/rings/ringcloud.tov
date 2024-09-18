@@ -25,7 +25,7 @@
          diffuse albedo ring_brightness
          ambient ring_color
       }
-      Orbit(ring_index * 30)
+      OrbitTilt(ring_index * 30, 45)
 }
 
   sphere {
@@ -47,5 +47,5 @@
          diffuse albedo ring_brightness
          ambient ring_color
       }
-      Orbit(ring_index * 22)
+      OrbitTilt(ring_index * 22, 45)
 }

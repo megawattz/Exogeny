@@ -15,13 +15,13 @@ difference {
             image_map {
 	       v_clouds_spec
                map_type 2 interpolate 4 // Esfera
-       	       transmit all ring_brightness - 0.2
+       	       transmit all ring_brightness - 0.4
             }
 	    scale <1, 0.5, 1>
          }
       }
       finish {
-         diffuse albedo -ring_brightness
+         diffuse albedo ring_brightness
          ambient rgb ring_color transmit 0.5
       }
       Orbit(ring_index * 20) 

@@ -15,7 +15,7 @@ difference {
             image_map {
 	       png "trans_23_clouds.png"
                map_type 2 interpolate 4 // Esfera
-	       transmit all ring_brightness - 0.2
+	       transmit all ring_brightness - 0.4
 	       once
             }
          }
