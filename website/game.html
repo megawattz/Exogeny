@@ -72,12 +72,63 @@
 
 	  </div>
 	</div>
-
+	
 	<div id="lowerTable" style="width:84%; margin: 0 auto; background-image: url(images/high_density_stars.jpg); background-repeat: repeat; background-width: 100%;">
 
-	  <span style="margin-top: 2vh; font-size: 4vw;" id="planetname" class="statsheader"></span>
-	  <p>
-	    <div id="planetessentials">
+	  <span title="Owner can edit this" style="width: 100%; justify-content: center;">
+	    <input pattern="[A-Za-z _-]{3,30}" 
+		   class="editable" id="common_name_edit" name="common_name"
+		   style="border: 0; text-align: right; 
+			      background-color: transparent; color: white;" type="text" value="...pending" />
+	    <button onclick="DbSave()">&nbsp;set&nbsp;</button>
+	  </span>
+	      
+	  <div id="planetessentials">
+	    <table class="statstable">
+	      <tr title="Owner can edit this" class="statsrow">
+		<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
+		    <span>Motto</span>
+		    <span>
+		      <input title=", only 'A-Za-z0-9 _- and must be between 3 and 60 characters long" pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
+			     name="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: right; background-color: transparent; 
+						 color: white;" type="text" value="${planetData['motto']}" />
+		      <button onclick="DbSave()">&nbsp;set&nbsp;</button>
+		    </span>
+		</td>
+	      </tr>
+	      <tr class="statsrow">
+		<td colspan="2" class="statlabel">
+		  <div style="display: flex; justify-content: space-between; width: 100%">
+		    <span style="white-space: nowrap;">Official Name</span>
+		    <span id="official_name"></span>
+		  </div>	
+		</td>
+	      </tr>
+	      <tr class="statsrow">
+		<td colspan="2" class="statlabel">
+		  <div style="display: flex; justify-content: space-between; width: 100%">
+		    <span style="white-space: nowrap;">Tritanium44 Production per day</span>
+		    <span id="value_perday"></span>
+		  </div>	
+		</td>
+	      </tr>
+	      <tr class="statsrow">
+		<td colspan="2" class="statlabel">
+		  <div style="display: flex; justify-content: space-between; width: 100%">
+		    <span style="white-space: nowrap;">Tritanium44 Treasury</span>
+		    <span id="value_tritanium44"></span>
+		  </div>	
+		</td>
+	      </tr>
+	      <tr class="statsrow">
+		<td colspan="2" class="statlabel">
+		  <div style="display: flex; justify-content: space-between; width: 100%">
+		    <span style="white-space: nowrap;">Last Price</span>
+		    <span id="last_price"></span>
+		  </div>	
+		</td>
+	      </tr>
+	    </table>
 	    </div>
 	    
 	    <div id="planetstats" class="row">
@@ -102,9 +153,9 @@
 
 	    <span style="margin-top: 2vh;" class="statsheader">Settings</span>
 	    
+	  </div>
 	</div>
       </div>
-    </div>
 
     <script type="module">
       import * as utils from './js/utils.mjs';
@@ -118,6 +169,8 @@
       var sector = utils.getCookie("sector") || "vortexis";
       var Prefetch = 4;
       var lastAlert = 0;
+      
+      window.addEventListener('hashchange', handleFragmentChange);
       
       document.next = function() {
 	  ++currentPlanetIndex;
@@ -196,6 +249,8 @@
 
 	  const pvideo = exogeny.IPFSURL(planet.animation_url);
 	  const pimage = exogeny.IPFSURL(planet.image);
+
+	  document.getElementById("common_name_edit").value = planet.common_name;
 	  
 	  //planetVideo.poster = pimage
 	  planetVideo.src = pvideo;
@@ -236,8 +291,7 @@
 	      }
 	  });
 
-	  window.addEventListener('hashchange', handleFragmentChange);
-
+	  
 	  let data = exogeny.FormatPlanetData(planet, `<tr class="statsrow"><td class="statlabel">{1}</td><td class="statvalue">{2}</td></tr>\n`);
 	  
       	  let html = '<table style="width: 94%;">\n';
@@ -313,74 +367,12 @@
 	  eventlistholder.id = "eventlistholder";
 	  planetevents.appendChild(eventlistholder);
 
-	  planetname.innerHTML = `<span title="Owner can edit this" style="width: 100%; justify-content: center;">
-					<input pattern="[A-Za-z _-]{3,30}" 
-					class="editable" id="common_name" name="common_name" style="border: 0; text-align: right; 
-					background-color: transparent; color: white;" type="text" value="${planet.name}">
-					<button onclick="DbSave()">&nbsp;set&nbsp;</button>
-				</span>`;
-
-	  let essentials = `
-		<tr title="Owner can edit this" class="statsrow">
-			<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
-			<span>Motto</span>
-			<span>
-				<input title=", only 'A-Za-z0-9 _- and must be between 3 and 60 characters long" pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
-						name="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: right; background-color: transparent; 
-						color: white;" type="text" value="${planetData['motto']}">
-				<button onclick="DbSave()">&nbsp;set&nbsp;</button>
-			</span>
-		</td>
-		<tr class="statsrow">
-			<td colspan="2" class="statlabel">
-				<div style="display: flex; justify-content: space-between; width: 100%">
-					<span style="white-space: nowrap;">Official Name</span>
-					<span id="official_name"></span>
-				</div>	
-			</td>
-		</tr>
-		<tr class="statsrow">
-			<td colspan="2" class="statlabel">
-				<div style="display: flex; justify-content: space-between; width: 100%">
-					<span style="white-space: nowrap;">Tritanium44 Production per day</span>
-					<span id="value_perday"></span>
-				</div>	
-			</td>
-		</tr>
-		<tr class="statsrow">
-			<td colspan="2" class="statlabel">
-				<div style="display: flex; justify-content: space-between; width: 100%">
-					<span style="white-space: nowrap;">Tritanium44 Treasury</span>
-					<span id="value_tritanium44"></span>
-				</div>	
-			</td>
-		</tr>
-		<tr class="statsrow">
-			<td colspan="2" class="statlabel">
-				<div style="display: flex; justify-content: space-between; width: 100%">
-					<span style="white-space: nowrap;">Last Price</span>
-					<span id="last_price"></span>
-				</div>	
-			</td>
-		</tr>
-		`;
-
-	  essentials += exogeny.FormatObject(planetData, `<tr class="statsrow"><td id="name_{1}" class="statlabel">{1}</td><td id="value_{3}" class="statvalue">{2}</td></tr>\n`,
-					     [	
-						 { key: 'population',	 title: 'Population (millions)'},
-					     ]);
+	  document.getElementById("common_name_edit").value = planet.name;
+	  document.getElementById("motto").value = planet.motto;
 	  
-      	  let stats = '<table style="width: 98%;">\n';
-	  stats += essentials;
-	  stats += '</table>\n';
-      	  planetessentials.innerHTML = stats;
-
-	  utils.trapkeys(common_name);
-	  utils.trapkeys(motto);
+	  //utils.trapkeys(common_name_edit);
+	  ///utils.trapkeys(motto);
 	  
-	  if (!planetData.events)
-	      return;
-
 	  let html = "";
 	  for (let name in planetData.events) {
 	      let event = planetData.events[name];

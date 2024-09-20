@@ -89,6 +89,7 @@ const Descriptions = {
 	"alien eqyptian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools"
     ],
     "Quadruped":[
+	"alien, large, 4 legged, standing erect, unlike any known Earth species, wearing strange clothes, holding primitive tools",
 	"alien, large cat-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"alien ungulates standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"alien mustelids standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
