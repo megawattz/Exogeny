@@ -74,61 +74,75 @@
 	</div>
 	
 	<div id="lowerTable" style="width:84%; margin: 0 auto; background-image: url(images/high_density_stars.jpg); background-repeat: repeat; background-width: 100%;">
-
-	  <span title="Owner can edit this" style="width: 100%; justify-content: center;">
-	    <input pattern="[A-Za-z _-]{3,30}" 
-		   class="editable" id="common_name_edit" name="common_name"
-		   style="border: 0; text-align: right; 
-			      background-color: transparent; color: white;" type="text" value="...pending" />
-	    <button onclick="DbSave()">&nbsp;set&nbsp;</button>
-	  </span>
-	      
 	  <div id="planetessentials">
-	    <table class="statstable">
-	      <tr title="Owner can edit this" class="statsrow">
-		<td colspan="2" class="statlabel"><div style="display: flex; justify-content: space-between; width: 100%">
-		    <span>Motto</span>
-		    <span>
-		      <input title=", only 'A-Za-z0-9 _- and must be between 3 and 60 characters long" pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
-			     name="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: right; background-color: transparent; 
-						 color: white;" type="text" value="${planetData['motto']}" />
-		      <button onclick="DbSave()">&nbsp;set&nbsp;</button>
-		    </span>
+	    
+	    <table class="statstable" style="width: 100%;">
+	      
+	      <tr class="statsrow">
+		<td class="statsrow">
+		  Common Name
+		</td>
+		<td class="statsrow" style="justify-content: right;">
+		  <input  title="Owner can edit this" pattern="[A-Za-z _-]{3,30}" 
+			 class="editable" id="common_name_edit" name="common_name"
+			 style="border: 0; text-align: left; 
+				background-color: transparent; color: white;" type="text" value="fetching ..." />
+		</td>
+		<td>
+		  <button onclick="DbSave()">&nbsp;set&nbsp;</button>
 		</td>
 	      </tr>
+	      
 	      <tr class="statsrow">
-		<td colspan="2" class="statlabel">
-		  <div style="display: flex; justify-content: space-between; width: 100%">
-		    <span style="white-space: nowrap;">Official Name</span>
-		    <span id="official_name"></span>
-		  </div>	
+		<td class="statsrow">
+		  Motto
+		</td>
+		<td class="statsrow" style="justify-content: right;">
+	      	  <input title="Owner can edit this, only 'A-Za-z0-9 _- and must be between 3 and 60 characters long"
+			 pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
+			 name="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: left; 
+					     background-color: transparent; color: white;" type="text" />
+		</td>
+		<td>
+		  <button onclick="DbSave()">&nbsp;set&nbsp;</button>
 		</td>
 	      </tr>
+	      
 	      <tr class="statsrow">
-		<td colspan="2" class="statlabel">
-		  <div style="display: flex; justify-content: space-between; width: 100%">
-		    <span style="white-space: nowrap;">Tritanium44 Production per day</span>
-		    <span id="value_perday"></span>
-		  </div>	
+		<td class="statsrow">
+		  Species Name
+		</td>
+		<td class="statsrow" style="justify-content: right;">
+	      	  <input title="Owner can edit this, only 'A-Za-z _- and must be between 3 and 30 characters long"
+			 pattern="[A-Za-z_-]{3,30}" class="editable" id="species" 
+			 name="species" style="width: 30vw; border: 0; text-align: left; 
+					     background-color: transparent; color: white;" type="text" />
+		</td>
+		<td>
+		  <button onclick="DbSave()">&nbsp;set&nbsp;</button>
 		</td>
 	      </tr>
+	      
 	      <tr class="statsrow">
-		<td colspan="2" class="statlabel">
-		  <div style="display: flex; justify-content: space-between; width: 100%">
-		    <span style="white-space: nowrap;">Tritanium44 Treasury</span>
-		    <span id="value_tritanium44"></span>
-		  </div>	
-		</td>
+		<td style="white-space: nowrap;">Official Name</td>
+		<td id="official_name"></td>
+	      </tr>
+	      
+	      <tr class="statsrow">
+		<td style="white-space: nowrap;">Tritanium-44 Production per day</td>
+		<td id="value_perday"></td>
+	      </tr>
+	      
+	      <tr class="statsrow">
+		<td style="white-space: nowrap;">Tritanium-44 Treasury</td>
+		<td id="value_tritanium44"></td>
 	      </tr>
 	      <tr class="statsrow">
-		<td colspan="2" class="statlabel">
-		  <div style="display: flex; justify-content: space-between; width: 100%">
-		    <span style="white-space: nowrap;">Last Price</span>
-		    <span id="last_price"></span>
-		  </div>	
-		</td>
+		<td style="white-space: nowrap;">Last Price</td>
+		<td id="last_price"></td>
 	      </tr>
 	    </table>
+	    
 	    </div>
 	    
 	    <div id="planetstats" class="row">
@@ -368,13 +382,14 @@
 	  planetevents.appendChild(eventlistholder);
 
 	  document.getElementById("common_name_edit").value = planet.name;
-	  document.getElementById("motto").value = planet.motto;
+	  document.getElementById("motto").value = planet.motto || "unknown";
+	  document.getElementById("species").value = planet.species || "unknown";
 	  
 	  //utils.trapkeys(common_name_edit);
 	  ///utils.trapkeys(motto);
 	  
 	  let html = "";
-	  for (let name in planetData.events) {
+	  for (let name in planetData.events || {}) {
 	      let event = planetData.events[name];
 	      const imageUrl = event['image_url'];
 	      const videoUrl = event['video_url'];
