@@ -143,6 +143,13 @@
 		<td style="white-space: nowrap;">Last Price</td>
 		<td class="statvalue" id="last_price"></td>
 	      </tr>
+
+	      <tr class="statsrow">
+		<td style="white-space: nowrap;">Galactic Catalog</td>
+		<td class="statvalue" style="font-size: 2.5vw;">
+		  <input type="text" readonly class="editable" size="40" maxlength="40" name="identity" id="identityfordbase"/></td>
+	      </tr>
+	      
 	    </table>
 	    
 	  </div>
@@ -166,7 +173,7 @@
 	    <div id="basestatstable" class="statstable">
 	    </div>
 	  </div>
-
+	  
 	  <span style="margin-top: 2vh;" class="statsheader">Settings</span>
 	  
 	</div>
@@ -386,6 +393,7 @@
 	  document.getElementById("common_name_edit").value = planet.name;
 	  document.getElementById("motto").value = planet.motto || "unknown";
 	  document.getElementById("species").value = planet.species || "unknown";
+	  document.getElementById("identityfordbase").value = planet.identity;
 	  
 	  //utils.trapkeys(common_name_edit);
 	  ///utils.trapkeys(motto);
