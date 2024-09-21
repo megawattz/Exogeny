@@ -103,6 +103,7 @@ div {
     text-color: white;
     text-background: transparent;
     vertical-align: bottom;
+    width: 100%;
 }
 
 input {

@@ -84,9 +84,9 @@
 		</td>
 		<td class="statsrow" style="justify-content: right;">
 		  <input  title="Owner can edit this" pattern="[A-Za-z _-]{3,30}" 
-			 class="editable" id="common_name_edit" name="common_name"
-			 style="border: 0; text-align: left; 
-				background-color: transparent; color: white;" type="text" value="fetching ..." />
+			  class="editable" id="common_name_edit" name="name"
+			  style="border: 0; text-align: left; 
+				 background-color: transparent; color: white;" type="text" value="fetching ..." />
 		</td>
 		<td>
 		  <button onclick="DbSave()">&nbsp;set&nbsp;</button>
@@ -95,6 +95,7 @@
 	      
 	      <tr class="statsrow">
 		<td class="statsrow">
+
 		  Motto
 		</td>
 		<td class="statsrow" style="justify-content: right;">
@@ -116,7 +117,7 @@
 	      	  <input title="Owner can edit this, only 'A-Za-z _- and must be between 3 and 30 characters long"
 			 pattern="[A-Za-z_-]{3,30}" class="editable" id="species" 
 			 name="species" style="width: 30vw; border: 0; text-align: left; 
-					     background-color: transparent; color: white;" type="text" />
+					       background-color: transparent; color: white;" type="text" />
 		</td>
 		<td>
 		  <button onclick="DbSave()">&nbsp;set&nbsp;</button>
@@ -125,51 +126,52 @@
 	      
 	      <tr class="statsrow">
 		<td style="white-space: nowrap;">Official Name</td>
-		<td id="official_name"></td>
+		<td class="statvalue" id="official_name"></td>
 	      </tr>
 	      
 	      <tr class="statsrow">
-		<td style="white-space: nowrap;">Tritanium-44 Production per day</td>
-		<td id="value_perday"></td>
+ 		<td style="white-space: nowrap;">Tritanium-44 Production per day</td>
+		<td class="statvalue" id="value_perday"></td>
 	      </tr>
 	      
 	      <tr class="statsrow">
 		<td style="white-space: nowrap;">Tritanium-44 Treasury</td>
-		<td id="value_tritanium44"></td>
+		<td class="statvalue" id="value_tritanium44"></td>
 	      </tr>
+	      
 	      <tr class="statsrow">
 		<td style="white-space: nowrap;">Last Price</td>
-		<td id="last_price"></td>
+		<td class="statvalue" id="last_price"></td>
 	      </tr>
 	    </table>
 	    
-	    </div>
-	    
-	    <div id="planetstats" class="row">
-	      <span style="margin-top: 2vh;" class="statsheader">Latest Events</span>
-	      <div id="eventlist" class="eventlist">
-	      </div>
-	    </div>
-
-	    <br>
-            <div id="settings" class="row section">
-	      <div class="statsheader">Event Alert Sound</div>
-              <div style="width: 30vw; margin: 0 auto;" id="soundsDiv">
-              </div>
-            </div>
-	    
-	    <div id="planetstats" class="statstable">
-	      <br>
-	      <span id="planetstatslabel" class="statsheader">Planet Stats</span>
-	      <div id="basestatstable" class="statstable">
-	      </div>
-	    </div>
-
-	    <span style="margin-top: 2vh;" class="statsheader">Settings</span>
-	    
 	  </div>
+	  
+	  <div id="planetstats" class="row">
+	    <span style="margin-top: 2vh;" class="statsheader">Latest Events</span>
+	    <div id="eventlist" class="eventlist">
+	    </div>
+	  </div>
+
+	  <br>
+          <div id="settings" class="row section">
+	    <div class="statsheader">Event Alert Sound</div>
+            <div style="width: 30vw; margin: 0 auto;" id="soundsDiv">
+            </div>
+          </div>
+	  
+	  <div id="planetstats" class="statstable">
+	    <br>
+	    <span id="planetstatslabel" class="statsheader">Planet Stats</span>
+	    <div id="basestatstable" class="statstable">
+	    </div>
+	  </div>
+
+	  <span style="margin-top: 2vh;" class="statsheader">Settings</span>
+	  
 	</div>
       </div>
+    </div>
 
     <script type="module">
       import * as utils from './js/utils.mjs';
@@ -342,9 +344,9 @@
       }
 
       await fetch('configs/galaxy.json', { headers: {'Cache-Control':'no-cache'} })
-    	.then((response) => response.json())
-    	.then((data) => exogeny.LoadConfig(data))
-    	.catch(console.error)
+    .then((response) => response.json())
+    .then((data) => exogeny.LoadConfig(data))
+    .catch(console.error)
 
       var wallet = await exogeny.Authenticate(exogeny.GetConfig("exogeny_server"))
       while (!wallet) {
@@ -452,40 +454,40 @@
       }
 
       /*
-      async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
-	  const NFT = Planets[currentPlanetIndex];
+	async function Move(targetCollection, targetId, targetElement, command, parameters, displayElement) {
+	const NFT = Planets[currentPlanetIndex];
 
-	  const userId = Moralis.User.current().id;
-	  const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
+	const userId = Moralis.User.current().id;
+	const identity = `${userId}_${NFT.traits.galactic_catalog}_${targetId}_${targetElement}`;
 
-	  const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
-	  //console.log(`Move ${JSON.stringify(contents)}`);
+	const contents = { "identity": identity, "sourceUserId": userId, "sourceUser": Moralis.User.current(), "sourceCivilization": NFT.traits.galactic_catalog, "targetCollection": targetCollection, "targetId": targetId, "targetElement": targetElement, "command": command, "parameters": parameters };
+	//console.log(`Move ${JSON.stringify(contents)}`);
 
-	  const query = new Moralis.Query("Move");
-	  query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
-	  var thing = await query.first();
+	const query = new Moralis.Query("Move");
+	query.equalTo("identity", identity) // did we already make this move for this period, overwrite it
+	var thing = await query.first();
 
-	  if (thing) {
-	      thing.set(contents);
-	      //console.log(`Update ${JSON.stringify(thing)}`);
-	  } else {
-	      thing = new Moralis.Object("Move", contents);
-	      console.log(`Write New ${JSON.stringify(thing)}`);
-	  }
+	if (thing) {
+	thing.set(contents);
+	//console.log(`Update ${JSON.stringify(thing)}`);
+	} else {
+	thing = new Moralis.Object("Move", contents);
+	console.log(`Write New ${JSON.stringify(thing)}`);
+	}
 
-	  result = await thing.save()
-	  console.log(`Wrote ${JSON.stringify(thing)}`);
-	  if (displayElement)
-	      displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
-	  alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
-      }
+	result = await thing.save()
+	console.log(`Wrote ${JSON.stringify(thing)}`);
+	if (displayElement)
+	displayElement.innerText = `${parameters.value}`; // show user that he registered an intervention
+	alert("Your move has been registered and will take effect at the top of the hour. You can change it at any time until then");
+	}
       */
       
       async function eventAlert(message, sound) {
 	  let now = Math.floor(Date.now()/1000);
 	  if ( (now - lastAlert) < exogeny.GetConfig("event_cycle"))
 	      return; // don't send too many alerts.
-	       
+	  
 	  if (!sound)
 	      sound = utils.getCookie("notification");
 	  if (sound == "none")
@@ -573,7 +575,6 @@
 	}
 
       */
-    </script>
-    Check
+      </script>
   </body>
 </html>
