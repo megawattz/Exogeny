@@ -16,7 +16,7 @@ function getSpecial(terrain) {
 
 // Things to block in images
 const Negatives = {
-    "Gaseous":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
+    "Gaseous":"((human)),child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Blob":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Plant":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Fungoid":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
@@ -32,8 +32,8 @@ const Negatives = {
 
 const Descriptions = {
     "Gaseous":[
-	"small clouds of colored smoke",
-	"smoke monsters in various colors"
+	"small clouds of colored smoke with distinct shape",
+	"smokey monsters in various colors with distinct shape billowing smoke"
     ],
     "Blob":[
 	"irregular shape blobs of jello"
