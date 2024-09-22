@@ -188,7 +188,7 @@ def process(command, params, selector_strings):
         process_events(selectors, files, engage)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 1:
         print(help())
         sys.exit(0)
         
@@ -202,6 +202,9 @@ if __name__ == "__main__":
         "verbosity":"how much data to display: default 3"
     });
 
+    if (len(queries) < 1):
+        queries = ["lifeform!=any"];
+    
     if len(queries) < 1:
         print(help())
         sys.exit(0)

@@ -48,8 +48,7 @@ def fetchArgs(args, docs={}):
             print("%s=<%s>" % (k, v))
         print("\n* indicates argument required")
         print("@filename means: read entire file 'filename' and use as value to argument, i.e. arg=@myfile")
-        print("At least one argument required\n")
-        sys.exit(-1) #raise Exception("Must supply at least one argument")
+        return params, args[count:]
     for arg in args:
         hit = re.findall("--([^=]*)=?(.*)", arg)
         if not hit: 
