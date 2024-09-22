@@ -73,6 +73,7 @@ div {
     font-weight: bold;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
 }
 
 .statstable {
@@ -90,11 +91,13 @@ div {
     display: flex;
     align-items: flex-end;  /* Align content to the bottom */
     width: 82vw;
+    white-space: nowrap;
 }
 
 .statlabel {
     font-size: clamp(16pt, 3vw, 3vw);
     vertical-align: bottom;
+    white-space: nowrap;
 }
 
 .statvalue {
@@ -104,6 +107,7 @@ div {
     text-background: transparent;
     vertical-align: bottom;
     width: 100%;
+    white-space: nowrap;
 }
 
 input {

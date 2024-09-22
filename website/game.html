@@ -399,8 +399,8 @@
 	  ///utils.trapkeys(motto);
 	  
 	  let html = "";
-	  for (let name in planetData.events || {}) {
-	      let event = planetData.events[name];
+	  for (let name in planet.events || {}) {
+	      let event = planet.events[name];
 	      const imageUrl = event['image_url'];
 	      const videoUrl = event['video_url'];
 	      const color = event['color'] || 'black';
