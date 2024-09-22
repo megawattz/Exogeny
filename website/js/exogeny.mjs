@@ -8,7 +8,6 @@ import * as utils from './utils.mjs';
 export const exogeny = {
     AttributesOfInterest: [
 	{ key: 'official_designation',	value: 'Official Name'},
-	{ key: 'name',			value: 'Common Name'},
 	{ key: 'parent_star',		value: 'Star'},
 	{ key: 'star_system',		value: 'Star System'},
 	{ key: 'atmosphere', 		value: 'Primary Atmosphere'},

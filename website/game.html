@@ -58,7 +58,7 @@
 			position: absolute; top: 0; left: 0;">
 	  </video>
 
-	  <div id="controldiv" style="postion: relative;">
+	  <div id="controldiv">
 
 	    <div id="upperLeft" title="Natural Resources, maximum possible 800" class="videolabel"
 		 style="align-items: center; position: absolute; top: 1%; left: 2%; height: 18vh;">
@@ -70,6 +70,9 @@
 
 	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
 
+	    <div id="lowerMiddle" style="display: flex; justify-content: center; font-size: 4vw; width: 100%; position: absolute; bottom: 2%; right: 2%;">
+	    </div>
+	    
 	  </div>
 	</div>
 	
@@ -101,7 +104,7 @@
 		<td class="statsrow" style="justify-content: right;">
 	      	  <input title="Owner can edit this, only 'A-Za-z0-9 _- and must be between 3 and 60 characters long"
 			 pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
-			 name="motto" style="font-size: 2vw; width: 60vw; border: 0; text-align: left; 
+			 name="motto" style="font-size: 3vw; width: 60vw; border: 0; text-align: left; 
 					     background-color: transparent; color: white;" type="text" />
 		</td>
 		<td>
@@ -394,6 +397,7 @@
 	  document.getElementById("motto").value = planet.motto || "unknown";
 	  document.getElementById("species").value = planet.species || "unknown";
 	  document.getElementById("identityfordbase").value = planet.identity;
+	  document.getElementById("lowerMiddle").textContent = `${planet.star_index} ${planet.star_system} ${planet.planet_index}`;
 	  
 	  //utils.trapkeys(common_name_edit);
 	  ///utils.trapkeys(motto);
@@ -530,7 +534,6 @@
       	  document.getElementById("value_tritanium44").textContent = tritanium;
       	  document.getElementById("value_perday").textContent = perday;
 	  document.getElementById("last_price").textContent = utils.planetprice(currentPlanet);
-	  document.getElementById("official_name").textContent = planet.official_designation;
 
 	  if (Object.keys(currentPlanet.events).length > 0)
 	      eventAlert();
