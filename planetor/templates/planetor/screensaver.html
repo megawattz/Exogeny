@@ -101,12 +101,12 @@
 	  video.src = videoURL(identity);
 	  video.style.opacity = 1;
 	  //video.poster = `planets/planet_${identity}.gif`;
-	  Object.assign( description.style, { top: `${RandomInt(40, 40)}vw`, left: `${RandomInt(5, 30)}vw`});
+	  Object.assign( description.style, { bottom: `${RandomInt(10, 40)}vh`, left: `${RandomInt(5, 30)}vw`});
 	  var sometimes = RandomInt(0, 10);
 	  
 	  if (sometimes < 2) {
 	      overlayTimer = overlayTeletype(document.body, "", 40);
-	      description.innerHTML = `<div class="floatingLabel">${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
+	      description.innerHTML = `<div style="color: white;">${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
 	  }
 	  else {
 	      description.innerHTML = "";
@@ -117,7 +117,8 @@
 	      video.style.opacity = 0;
 	      lifeform.src = lifeformURL(identity);
 	      lifeform.style.opacity = 1;
-	      description.innerHTML = `<div class="floatingLabel">Dominant Indigenous Lifeform of ${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
+	      overlayTimer = overlayTeletype(document.body, "", 40);
+	      description.innerHTML = `<div style="color: white;">Dominant Indigenous Lifeform of ${planet.star_index} ${planet.star_system} ${planet.planet_index}</div>`;
 	      Object.assign(description.style, { position: 'absolute', left:`${RandomInt(30, 50)}vw`, top: `${RandomInt(90, 95)}vh`, fontSize: '3vh'});
 	      return 0;
 	  }, 20000);

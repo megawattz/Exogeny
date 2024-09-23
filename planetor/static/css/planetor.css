@@ -1,3 +1,11 @@
 body {
     font-family: 'Audiowide', cursive;
 }
+
+.floatingLabel {
+    align-items: left;
+    align-text: left;
+    font-color: white;
+    transition: opacity 4s ease-in ease-out;
+    font-size: clamp(14pt, 2vw, 2vw);
+}
