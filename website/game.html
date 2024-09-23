@@ -50,7 +50,7 @@
 	</span>
 
 	<div id="planetDisplay" style="pointer-events: auto; position: relative; width: 100vw; aspect-ratio: 1024 / 768;
-				       padding: 0; margin: 0 auto; display: flex; color: white; font-size: 2vw;
+				       padding: 0; margin: 0 auto; display: flex; color: white;
 				       justify-content: center; overflow: hidden; border: solid white;">
 
 	  <video id="planetVideo" autoplay loop muted onclick="this.paused ? play() : pause();" preload="metadata"
@@ -70,7 +70,7 @@
 
 	    <img id="lifeformImage" style="visibility: hidden; display: none; position: absolute; left: 0; top: 0; width: 100%;">
 
-	    <div id="lowerMiddle" style="display: flex; justify-content: center; font-size: 4vw; width: 100%; position: absolute; bottom: 2%; right: 2%;">
+	    <div id="lowerMiddle" style="display: flex; justify-content: center; width: 100%; position: absolute; bottom: 2%; right: 2%;">
 	    </div>
 	    
 	  </div>
@@ -104,7 +104,7 @@
 		<td class="statsrow" style="justify-content: right;">
 	      	  <input title="Owner can edit this, only 'A-Za-z0-9 _- and must be between 3 and 60 characters long"
 			 pattern="[A-Za-z0-9.?_-]{3,60}" class="editable" id="motto" 
-			 name="motto" style="font-size: 3vw; width: 60vw; border: 0; text-align: left; 
+			 name="motto" style="width: 60vw; border: 0; text-align: left; 
 					     background-color: transparent; color: white;" type="text" />
 		</td>
 		<td>
@@ -149,7 +149,7 @@
 
 	      <tr class="statsrow">
 		<td style="white-space: nowrap;">Galactic Catalog</td>
-		<td class="statvalue" style="font-size: 2.5vw;">
+		<td class="statvalue">
 		  <input type="text" readonly class="editable" size="40" maxlength="40" name="identity" id="identityfordbase"/></td>
 	      </tr>
 	      
