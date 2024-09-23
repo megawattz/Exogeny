@@ -157,6 +157,9 @@ def screensaver(request):
 def exchange(request):
     return render(request, 'planetor/exchange.html')
 
+def images(request):
+    return render(request, 'planetor/images/')
+
 def about(request):
     return render(request, 'planetor/about.html')
 

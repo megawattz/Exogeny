@@ -45,6 +45,7 @@ urlpatterns = [
     path('dbupdate', planetor.views.dbupdate, name='dbupdate'),
     path('dbread', planetor.views.dbread, name='dbread'),
     path('editspecs', planetor.views.editspecs, name='editspecs'),
+    path('images', planetor.views.images, name='images'),
     path('generate/planetor', include('planetor.urls', namespace='planetor'))
 ]
 
