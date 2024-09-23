@@ -164,7 +164,7 @@ function getDescription(name) {
 }
 
 const Atmospheres = {
-    "sulfur_dioxide":"yellow",
+    "sulfur_dioxide":"light orange",
     "nitrous_oxide":"light green",
     "nitrogen_dioxide":"light orange",
     "krypton":"light magenta",
@@ -178,14 +178,14 @@ const Atmospheres = {
     "oxygen":"dark blue",
     "bromine":"red",
     "iodine":"purple",
-    "carbon_dioxide":"brown",
+    "carbon_dioxide":"yellow",
     "chlorine":"yellow green",
     "nitrogen":"lavender",
     "ozone": "cyan",
     "water_vapor":"baby blue",
-    "ammonia":"sky blue",
-    "nitrosyl_bromide":"orange red",
-    "TFNM":"blue green"
+    "ammonia":"light green",
+    "nitrosyl_bromide":"deep red",
+    "TFNM":"sky blue"
 }
 
 function getAtmosphere(name) {

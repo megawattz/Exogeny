@@ -78,27 +78,27 @@ def resolve_parameter(name, value, options):
     
     elif (name == "atmosphere_composition"):
         gases = [
-            "carbon_dioxide",
             "nitrous_oxide",
             "krypton",
             "hydrogen_iodide",
             "hydrogen_chloride",
-            "hydrogen_bromide",
             "acetylene",
+            "TFNM",
             "nitrosyl_bromide",
             "nitrogen_dioxide",
-            "ammonia",
-            "ozone",
-            "iodine",
-            "bromine",
-            "chlorine",
-            "argon",
-            "TFNM",
-            "water_vapor",
-            "neon",
-            "sulfur_dioxide",
-            "nitrogen",
-            "oxygen",
+            "ammonia", #light green
+            "ozone", #powder blue
+            "hydrogen_bromide", #pink
+            "argon", #light purple
+            "carbon_dioxide", #yellow
+            "bromine", #scarlet (red)
+            "iodine", #thistle (purple)
+            "neon", #orange
+            "chlorine", #blue green
+            "sulfur_dioxide", #light orange
+            "water_vapor", # baby blue
+            "nitrogen", #lavender
+            "oxygen",  #dark blue
         ]
         gas = value or exprandomline(gases, 1.2)
         color = atmoscolor(gas, 20)
@@ -302,12 +302,12 @@ Atmospheres = {
     "nitrogen_dioxide":"2.38, 1.73, 1.46", # peach
     "bromine":"2.37, 0.44, 0.26", # scarlet
     "iodine":"2.5, 1.5, 2.5",  # thistle
-    "carbon_dioxide":"1.40, 0.81, 0.36", # brown
-    "ammonia":"1.33, 1.70, 2.5",   # sky blue
+    "carbon_dioxide":"2.3, 2.3, 0", #yellow
+    "TFNM":"1.33, 1.70, 2.5",   # sky blue
     "ozone": "0.88, 2.24, 2.5", # powder blue
     "water_vapor":"0.9, 1.2, 1.7", # baby blue
     "oxygen":"0, 0.96, 1.88", # dark blue
-    "TFNM":"0.23, 0.49, 1.21", # dark blue
+    "ammonia":"1.80, 2.19, 1.40", # light green
     "nitrosyl_bromide":"1.74, 0.11, 0.01" # deep red
 }
 
