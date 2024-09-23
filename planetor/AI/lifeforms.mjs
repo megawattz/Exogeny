@@ -48,7 +48,7 @@ const Descriptions = {
     "Aquatic":[
 	"alien floating eyeball dangling appendages underwater using primitive tools",
 	"alien ocean life of all kinds",
-	"alien mermaids and mermen wearing fish skin suits underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading",
+	"alien mermaids and mermen wearing fish skin suits underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading, streamlined appearance for swimming in water.",
 	"alien, sea serpents, male and female, underwater using primitive tools"
     ],
     "Aerial":[
@@ -164,7 +164,7 @@ function getDescription(name) {
 }
 
 const Atmospheres = {
-    "sulfur_dioxide":"light orange",
+    "sulfur_dioxide":"yellow",
     "nitrous_oxide":"light green",
     "nitrogen_dioxide":"light orange",
     "krypton":"light magenta",
@@ -178,7 +178,7 @@ const Atmospheres = {
     "oxygen":"dark blue",
     "bromine":"red",
     "iodine":"purple",
-    "carbon_dioxide":"yellow",
+    "carbon_dioxide":"light orange",
     "chlorine":"yellow green",
     "nitrogen":"lavender",
     "ozone": "cyan",

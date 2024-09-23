@@ -36,6 +36,7 @@ urlpatterns = [
     path('generateplanet/', planetor.views.generateplanet, name='generateplanet'),
     path('mygallery', planetor.views.mygallery, name='mygallery'),
     path('allgallery', planetor.views.allgallery, name='allgallery'),
+    path('screensaver', planetor.views.screensaver, name='screensaver'),
     path('browseplanets', planetor.views.browseplanets, name='browseplanets'),
     path('myplanets/', planetor.views.myplanets, name='myplanets'),
     path('preview_planet', planetor.views.preview_planet, name='preview_planet'),

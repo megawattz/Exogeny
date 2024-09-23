@@ -90,12 +90,12 @@ def resolve_parameter(name, value, options):
             "ozone", #powder blue
             "hydrogen_bromide", #pink
             "argon", #light purple
-            "carbon_dioxide", #yellow
             "bromine", #scarlet (red)
             "iodine", #thistle (purple)
             "neon", #orange
+            "sulfur_dioxide", #yellow
             "chlorine", #blue green
-            "sulfur_dioxide", #light orange
+            "carbon_dioxide", #light orange
             "water_vapor", # baby blue
             "nitrogen", #lavender
             "oxygen",  #dark blue
@@ -288,7 +288,7 @@ def ttol(txt): # test to list = "1,2,3" = [1, 2, 3]
 
 Atmospheres = {
     "chlorine":"0.22, 1.71, 1.26", # blue green
-    "sulfur_dioxide":"1.25, 0.75, 0.5", # light orange
+    "carbon_dioxide":"2.30, 1.0, 0", # light orange
     "nitrous_oxide":"0.63, 1.85, 0.85", # light green
     "krypton":"1.56, 0.86, 1.19", # light magenta
     "hydrogen_iodide":"1.65, 0.62, 2.19", # purple
@@ -302,7 +302,7 @@ Atmospheres = {
     "nitrogen_dioxide":"2.38, 1.73, 1.46", # peach
     "bromine":"2.37, 0.44, 0.26", # scarlet
     "iodine":"2.5, 1.5, 2.5",  # thistle
-    "carbon_dioxide":"2.3, 2.3, 0", #yellow
+    "sulfur_dioxide":"2.3, 2.3, 0", #yellow
     "TFNM":"1.33, 1.70, 2.5",   # sky blue
     "ozone": "0.88, 2.24, 2.5", # powder blue
     "water_vapor":"0.9, 1.2, 1.7", # baby blue

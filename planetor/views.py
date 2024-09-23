@@ -151,6 +151,9 @@ def allgallery(request):
 def browseplanets(request):
     return render(request, 'planetor/browseplanets.html')
 
+def screensaver(request):
+    return render(request, 'planetor/screensaver.html')
+
 def exchange(request):
     return render(request, 'planetor/exchange.html')
 
@@ -255,7 +258,7 @@ def randomgallery(request):
         stuff = re.findall("[0-9a-f-]{36}", file)
         id = stuff[0]
         try:
-            editspec = json.dumps(planetor.product(json.loads(readfile_py("%s/specs_%s.json" % (SpecsDir, id)))))
+            editspec = json.loads(readfile_py("%s/specs_%s.json" % (SpecsDir, id)))
             still = "%s/planet_%s.gif" % (StillsDir, id)
         except Exception as e:
             print("Error %s with planet %s" % (e, file))
