@@ -226,9 +226,6 @@ def resolve_parameter(name, value, options):
     elif (name == "audio"):
         options['audio'] = value or randomfile("audio", ".*.mp3")
         return options['audio']
-    elif (name == "unexplored"):
-        options['unexplored'] = value or str(randomint(0, 1))
-        return options['unexplored']
     
     return str(value)
 
@@ -475,7 +472,6 @@ user_selectables = [
     "moons",
     "moon_template",
     "lifeform",
-    "unexplored",
     "artist",
     "audio"
 ]
@@ -565,7 +561,6 @@ DbDefaults = {
         "lifeform": None,
         "chemistry": None,
         "planet_type": "planet",
-        "unexplored": "1",
         "artist":"anonymous.png",
         "audio": "None.mp3"
     }
@@ -681,7 +676,6 @@ def DefaultOptions():
         "biologicals": 0,
         "exotics": 0,
         "relics": 0,
-        "unexplored": "1",
         "artist":"anonymous.png",
         "audio": "None.mp3"
     }
@@ -701,12 +695,6 @@ def appendToOptionValue(key, append, spacer=''):
     Options[key] = Options.get(key) or "" + spacer + append;
 
 def addEvaluation(options):
-    # if creator did not specify a evaluation, attempt to derive one
-    # if unexplored, that is it's only evaluation
-    if options.get("unexplored") != "0":
-        options['evaluation'] = 'Unexplored'
-        return options
-    
     options['evaluation'] = resolve_parameter("evaluation", options.get("evaluation"), options)
 
     options['evaluation2'] = resolve_parameter("evaluation2", options.get("evaluation2"), options)
