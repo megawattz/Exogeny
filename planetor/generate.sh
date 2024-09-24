@@ -54,7 +54,6 @@ STARINDEX=$(cat $SPECSFILE | jq -r .star_index)
 PLANETINDEX=$(cat $SPECSFILE | jq -r .planet_index)
 BACKGROUND=$(cat $SPECSFILE | jq -r .background)
 RESOURCES=$(cat $SPECSFILE | jq -r .resources_value)
-UNEXPLORED=$(cat $SPECSFILE | jq -r .unexplored)
 ARTIST=$(cat $SPECSFILE | jq -r .artist)
 AUDIO=$(cat $SPECSFILE | jq -r .audio)
 CULTURE=$(cat $CIVFILE | jq -r .culture)
@@ -126,37 +125,6 @@ fi
     ${NICE} composite \( ${APP}/artists/${ARTIST} -resize 20% -geometry +700+720 \) ./${BACKGROUND} ${BACKGROUND}.work
     cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	    
-    if [ "${UNEXPLORED}" != "0" ]; then
-	echo "No Labels in Rendering (plain image)"
-    else
-	# life form
-	${NICE} composite \( ${APP}/images/${LIFEFORM}.png -resize 20% -geometry +890+10 \) ./${BACKGROUND} ${BACKGROUND}.work
-	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
-
-	# music
-	if [[ !"$AUDIO" =~ "None" ]]; then	
-	    ${NICE} composite \( ${APP}/images/Music.png -resize 20% -geometry +10+120 \) ./${BACKGROUND} ${BACKGROUND}.work
-	    cp -vf ${BACKGROUND}.work ./${BACKGROUND}
-	fi
-
-	# natural resources
-	${NICE} composite \( ${APP}/images/resources.png -resize 20% -gravity northwest -geometry +10+0 \) ./${BACKGROUND} ${BACKGROUND}.work
-	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
-	${NICE} convert -pointsize 50 -fill white -draw "text 100, 22 \" ${RESOURCES}\"" -gravity northwest ./${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
-	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
-	# star
-	${NICE} convert -pointsize 40 -fill white -draw "text 0, 0 \" ${STARINDEX} ${STARSYSTEM}\"" -gravity southwest ./${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
-	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
-	# planet index
-	${NICE} convert -pointsize 50 -fill white -draw "text 0, 0 \"${PLANETINDEX}  \" " -gravity southeast ./${BACKGROUND} ${BACKGROUND}.work  # write the description text into the image in the lower left
-	cp -vf ${BACKGROUND}.work ./${BACKGROUND}
-	# code branch
-	#${NICE} convert -pointsize 15 -fill white -draw "text 0, 0 \"${GIT_INFO} \"" -gravity south ${BACKGROUND} work.${BACKGROUND}  # write the description text into the image in the lower left
-	#cp work.${BACKGROUND} ${BACKGROUND}
-
-	#cp -lf ./${BACKGROUND} ${APP}/background.jpg # only for debugging
-    fi 
-    
     chmod a+rw ${APP}/*
 
     rm -f planet.mp4 # delete possible sample rendering from before
