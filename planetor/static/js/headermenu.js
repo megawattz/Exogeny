@@ -48,8 +48,7 @@ document.getElementById("navheader").innerHTML = `
 	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item nav-link" href="/editplanet">Edit/Create Planets</a></li>
 		<li><a class="dropdown-item nav-link" href="/myplanets">Browse Planets</a></li>
-		<li><a class="dropdown-item nav-link" href="/allgallery">Screen Saver 1</a></li>
-		<li><a class="dropdown-item nav-link" href="/screensaver">Screen Saver 2</a></li>
+		<li><a class="dropdown-item nav-link" href="/screensaver">Screen Saver</a></li>
 	      </ul>
 	    </li>
 	  </ul>
