@@ -45,10 +45,11 @@ document.getElementById("navheader").innerHTML = `
 	      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                  Planet Maker
 	      </a>
-	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
+	      <ul class="dropdown-menu bg-black" style="aria-labelledby="navbarDropdownMenuLink">
 		<li><a class="dropdown-item nav-link" href="/editplanet">Edit/Create Planets</a></li>
 		<li><a class="dropdown-item nav-link" href="/myplanets">Browse Planets</a></li>
 		<li><a class="dropdown-item nav-link" href="/screensaver">Screen Saver</a></li>
+		<li><a class="dropdown-item nav-link" href="/website/gallery.html">Public Website</a></li>
 	      </ul>
 	    </li>
 	  </ul>
