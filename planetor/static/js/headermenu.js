@@ -33,7 +33,7 @@ function titleize(sentence) {
 document.getElementById("navheader").innerHTML = `
       <div class="container-fluid" style="margin: 0 auto; z-index: 100";>
 	<a class="navbar-brand" href="/screensaver">
-	  <img style="width: clamp(360px, 28vw, 28vw); margin-right: 0; pad-right: 0;" src="/media/images/ExoPlaneteer.png">
+	  <img style="width: clamp(360px, 20vw, 20vw); margin-right: 0; pad-right: 0;" src="/media/images/ExoPlaneteer.png">
 	</a>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	  <span class="navbar-toggler-icon"></span>
