@@ -9,3 +9,19 @@ body {
     transition: opacity 4s ease-in ease-out;
     font-size: clamp(14pt, 2vw, 2vw);
 }
+
+.nav-link {
+    background: transparent;
+    color: white;
+    margin-left: 1vw;
+    border-radius: 0.4 vw;
+}
+
+.nav-item, .nav-top {
+    color: white;
+}
+
+ul {
+    margin-left: 4vw;
+}
+
