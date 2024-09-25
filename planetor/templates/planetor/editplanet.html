@@ -431,7 +431,8 @@
 	      </form>
 	    </div>
 	</div>
-	<div class="col" id="planetList" style="height: 100%; height: 100%; overflow-y:auto; padding: none;">
+	
+	<div class="col" id="planetList" style="height: 100%; overflow-y:auto; padding: none;">
 	  <script>
 	    function refreshPlanets() {
 		$(document).ready(function() {
@@ -461,9 +462,9 @@
 		editplanet(window.location.hash.substring(1));
 	    </script>
 	</div>
-	      <div class="row">
-		<img id="lifeform_image" style="visibility: hidden;" title="" onload="this.style.visibility='visible'">
-	      </div>
+	<div class="row">
+	  <img id="lifeform_image" style="width: 100vw; visibility: hidden;" title="" onload="this.style.visibility='visible'">
+	</div>
       </div>
     </div>
   </body>
