@@ -42,6 +42,7 @@ document.getElementById("navheader").innerHTML = `
 	  <ul class="navbar-nav nav-top bg-transparent">
 		<a class="nav-link" href="/editplanet">Edit</a>
 		<a class="nav-link" href="/myplanets">Browse</a>
+		<a class="nav-link" href="/mygallery">Gallery</a>
 		<a class="nav-link" href="/screensaver">Screen Saver</a>
 		<a class="nav-link" href="/website/gallery.html">Website</a>
 	  </ul>

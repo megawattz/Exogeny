@@ -229,6 +229,7 @@ def randomline_py(filename):
 
 def gallery(request):
     selections = request.GET
+    print("SELECTIONS:"+selections['count']);
     count = int(selections['count'])
     files = dirscan_py(selections['directory'], selections['mask'], count)
     tags = []
@@ -239,7 +240,7 @@ def gallery(request):
         id = stuff[0]
         specsfile = "%s/specs_%s.json" % (SpecsDir, id)
         try:
-            editspec = json.dumps(planetor.product(json.loads(readfile_py(specsfile))))
+            editspec = json.loads(readfile_py(specsfile))
             still = "%s/planet_%s.gif" % (StillsDir, id)
         except Exception as e:
             print("JSON error %s with file %s" % (e, specsfile))
