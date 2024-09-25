@@ -28,8 +28,8 @@ ul {
 }
 
 .galleryWindow {
-    width: clamp(412px, 20%, 20%);
-    //position: relative;
+    width: clamp(260px, 20%, 20%);
+    position: relative;
     float: left;
     margin: 0;
     padding: 0;
