@@ -73,6 +73,19 @@
 	      item.style.display = 'none';
 	  }
 	  
+	  document.playvideo = async function(video) {
+	      video.play();
+	      if (video.requestFullscreen) {
+		  video.requestFullscreen();
+	      } else if (video.mozRequestFullScreen) { // Firefox
+		  video.mozRequestFullScreen();
+	      } else if (video.webkitRequestFullscreen) { // Chrome, Safari and Opera
+		  video.webkitRequestFullscreen();
+	      } else if (video.msRequestFullscreen) { // IE/Edge
+		  video.msRequestFullscreen();
+	      }
+	  }
+
 	  function displayPlanets(planets) {
 	      let max = 30;
 	      let gallery = document.getElementById("gallery");
@@ -83,29 +96,9 @@
 		  planetDiv.className = "galleryWindow";
 		  let identity = planet.identity;
 
-		  /*
-		    planetDiv.addEventListener('DOMNodeInserted', function(event) {
-		    if (event.target.id == 'planetVideo') {
-		    event.target.addEventListener('dblclick', function() {
-		    let video = this;
-		    video.play();
-		    if (video.requestFullscreen) {
-		    video.requestFullscreen();
-		    } else if (video.mozRequestFullScreen) { // Firefox
-		  video.mozRequestFullScreen();
-		  } else if (video.webkitRequestFullscreen) { // Chrome, Safari and Opera
-		  video.webkitRequestFullscreen();
-		  } else if (video.msRequestFullscreen) { // IE/Edge
-		  video.msRequestFullscreen();
-		  }
-		  });
-		  }	
-		  });	
-		  */	
-
 		  Planets[identity] = planetDiv;
 		  
-		  planetDiv.innerHTML = `<video style="width: 100%; id="planetVideo" onclick="this.paused ? play() : pause();" loop="loop" preload="none" src="/gallery/planet_${identity}.mp4" poster="/stills/planet_${identity}.gif"</video>`;
+		  planetDiv.innerHTML = `<video style="width: 100%; id="planetVideo" onclick="this.paused ? play() : pause();" ondblclick="document.playvideo(this)" loop="loop" preload="none" src="/gallery/planet_${identity}.mp4" poster="/stills/planet_${identity}.gif"</video>`;
 		  
 		  //let upperLeft = document.createElement("div");
 		  //upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
