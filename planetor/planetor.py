@@ -55,7 +55,7 @@ def resolve_parameter(name, value, options):
         return options['background']
     
     elif (name == "planet"):
-        rfile = value or randomfiletypeexp("surfaces", 1.5, ["ice","glaciated","aquatic","gas_giant","aquatic","rocky","volcanic","desert","oceanic","forest","terrestrial"])
+        rfile = value or randomfiletypeexp("surfaces", 1.5, ["glaciated","aquatic","rocky","volcanic","ice","gas_giant","desert","oceanic","savanna","forest","terrestrial"])
         #rfile = value or randomfile("surfaces")
         options['planet'] = rfile
         root = re.findall('[a-zA-Z_]+', rfile)
@@ -89,11 +89,11 @@ def resolve_parameter(name, value, options):
             "ammonia", #light green
             "ozone", #powder blue
             "hydrogen_bromide", #pink
+            "sulfur_dioxide", #yellow
             "argon", #light purple
             "bromine", #scarlet (red)
             "iodine", #thistle (purple)
             "neon", #orange
-            "sulfur_dioxide", #yellow
             "chlorine", #blue green
             "carbon_dioxide", #light orange
             "water_vapor", # baby blue

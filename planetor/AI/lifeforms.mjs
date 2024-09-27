@@ -46,9 +46,11 @@ const Descriptions = {
 	"unusual, mobile fungus showing signs of higher intelligence",
     ],
     "Aquatic":[
+	"humanoids adapted to living in water, with fins and gills, using primitive tools",
+	"reptiles adapted to living in water, with fins and gills, using primitive tools",
+	"insectoids adapted to living in water, with fins and gills, using primitive tools",
 	"alien floating eyeball dangling appendages underwater using primitive tools",
-	"alien ocean life of all kinds",
-	"alien mermaids and mermen wearing fish skin suits underwater with opposable thumbs, wearing ancient, primitive clothes, holding primitive tools or reading, streamlined appearance for swimming in water.",
+	"quadrupeds adapted to living in water, with fins and gills, and opposing thumbs, using primitive tools",
 	"alien, sea serpents, male and female, underwater using primitive tools"
     ],
     "Aerial":[
@@ -131,7 +133,7 @@ const Descriptions = {
 function randomInt(max, min) {
     if (!min)
 	min = 0;
-    let rando = Math.floor(Math.random() * (max - min));
+    let rando = Math.floor(Math.random() * (max - min) + min);
     return rando;
 }
 
