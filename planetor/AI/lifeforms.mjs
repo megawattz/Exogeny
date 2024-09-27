@@ -74,7 +74,7 @@ const Descriptions = {
 	"large, alien non-aquatic crustaceans wearing jewelry and carrying primitive weapons",
 	"large, alien halo flood infector like wearing jewelry and carrying primitive weapons",
 	"alien looking insects standing upright using primitive, artificial tools, wearing adornment",
-	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, consistent skin color between head and body ((matching eyes))",
+	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, ((homogenous skin color over entire body)) ((matching eyes))",
     ],
     "Reptilian":[
 	"alien halo sangheili like wearing clothing, jewelry and carrying primitive weapons",
@@ -339,6 +339,7 @@ ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high
 photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} 
 ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, 
 eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) 
+((homogenous skin color over entire body))
 as if photographed by nikon SLR camera f/8
 `;
 
