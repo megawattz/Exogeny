@@ -31,6 +31,15 @@
 	 style="position: absolute; left: 0, top: 0; background: transparent; border: 0; z-index: 100;">
     </nav>
     <script src="../../static/js/headermenu.js"></script>
+    <script>
+      $(document).on('mousemove', function(event) {
+	  if (event.clientY <= 400) {
+	      $('.navbar').css('opacity', '1');
+	    } else {
+		$('.navbar').css('opacity', '0');
+	    }	
+      });
+    </script>
     
     <div style="width: 100%; height: 100%; align-items: center; justify-content: center; margin: none; padding: none; border: 0;">
       <img style="position: absolute; top 0; left 0; width: 100%; height: 100%; margin: none; padding: none; transition: opacity 4s; z-index: 0; pointer-events: none;"id="image"></img>
