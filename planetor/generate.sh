@@ -122,7 +122,7 @@ fi
     convert -scale ${WIDTH}x${HEIGHT}+0+0 ${APP}/backgrounds/${BACKGROUND} ${BACKGROUND}.work  # we need to modify this so make our own copy
     cp -vf ${BACKGROUND}.work ./${BACKGROUND}
     
-    ${NICE} composite \( ${APP}/artists/${ARTIST} -resize 20% -geometry +700+720 \) ./${BACKGROUND} ${BACKGROUND}.work
+    ${NICE} composite \( ${APP}/artists/${ARTIST} -resize 20% -geometry +800+660 \) ./${BACKGROUND} ${BACKGROUND}.work
     cp -vf ${BACKGROUND}.work ./${BACKGROUND}
 	    
     chmod a+rw ${APP}/*
