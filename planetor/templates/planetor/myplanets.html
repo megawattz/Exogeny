@@ -32,6 +32,15 @@
 	   style="background: transparent; border: 0; z-index: 100; font-size: clamp(14pt, 1vw, 1vw)">
 	<script src="../../static/js/headermenu.js"></script>
       </nav>
+      <script>
+	$(document).on('mousemove', function(event) {
+	    if (event.clientY <= 400) {
+		$('.navbar').css('opacity', '1');
+	    } else {
+		$('.navbar').css('opacity', '0');
+	    }	
+	});
+      </script>
     </div>
     
     <div class="container-fluid">
