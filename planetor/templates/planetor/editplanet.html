@@ -445,9 +445,8 @@
 				url: `/randomgallery?directory=${GalleryDir}&mask=mp4$&count=100`,
 				success: function(rdata) {
 				    var alltags = [...tags, ...rdata.tags];
-				    for (var i in alltags) {
-					var tag = alltags[i];
-					html += `<video id="${tag.id}" style="width: 33%;" title="Catalog#:${tag.id}" onclick='called++; catchOptions(${tag.editspec})' onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" preload="none" poster="/stills/planet_${tag.id}.gif" onmouseout="pause()" onmouseover="play()"></video>`;
+				    for (const tag of alltags) {
+					html += `<video id="${tag.id}" style="width: 33%;" title="Catalog#:${tag.id}" onclick='called++; catchOptions(tag.editspec)' onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" preload="none" poster="/stills/planet_${tag.id}.gif" onmouseout="pause()" onmouseover="play()"></video>`;
 				    }
 				    var position = document.getElementById('planetList')
 				    position.innerHTML = html;
