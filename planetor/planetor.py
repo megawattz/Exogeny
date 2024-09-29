@@ -91,13 +91,13 @@ def resolve_parameter(name, value, options):
             "hydrogen_bromide", #pink
             "sulfur_dioxide", #yellow
             "argon", #light purple
-            "bromine", #scarlet (red)
             "iodine", #thistle (purple)
             "neon", #orange
+            "bromine", #scarlet (red)
             "chlorine", #blue green
+            "nitrogen", #lavender
             "carbon_dioxide", #light orange
             "water_vapor", # baby blue
-            "nitrogen", #lavender
             "oxygen",  #dark blue
         ]
         gas = value or exprandomline(gases, 1.2)
