@@ -118,14 +118,14 @@ const Descriptions = {
 	"exotic hairy, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))"
     ],
     "Human":[
-	"((closeup)) of human-like exotically beautiful females and males, with unique characteristics, clothed in incongruent clothing, from ancient northern european nations anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient asian nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient african nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient latin nations fully clothed anachronistic hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, with unique characteristics, clothed in incongruent clothing, from ancient northern european nations wild, creative hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient asian nations fully clothed wild, creative hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient african nations fully clothed wild, creative hairstyles  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient latin nations fully clothed wild, creative hairstyles  ((identical, well formed eyes))",
 	"human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful female and male, each with unique characteristics, clothed in incorrect clothing, anachronistic hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, anachronistic hairstyles, in wild clothes each with ancient, alien design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, anachronistic hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
+	"((closeup)) of human-like exotically beautiful female and male, each with unique characteristics, clothed in incorrect clothing, wild, creative hairstyles, fully clothed in ancient, alien designs,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, wild, creative hairstyles, in wild clothes each with ancient, alien design,  ((identical, well formed eyes))",
+	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, wild, creative hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
 	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
     ]
 }
