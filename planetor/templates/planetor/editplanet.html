@@ -371,25 +371,29 @@
 		      else
 			  countDown(0)
 		      
-		      //ShowPlanets.forEach(clearTimeout);
-		      //ShowPlanets = []
+		      ShowPlanets.forEach(clearTimeout);
+		      ShowPlanets = []
 		      
 		      var identity = incoming_options['identity']
 		      window.location.hash = identity;
-
-		      var preview_delay;
-		      if (preview_delay)
-			  clearTimeout(preview_delay);
-		      preview_delay = null;
 		      
 		      var planet = document.getElementById("planetDisplay");
 		      if (planet) {
 			  loadplanet = planet;
 			  planetimage = `/stills/planet_${identity}.gif?${Math.random()}`;
-			  preview_delay = setTimeout(function() {
+			  setbackground(loadplanet, planetimage);
+
+			  ShowPlanets.push(setTimeout(function() {
 			      setbackground(loadplanet, planetimage);
-			      preview(Options);
-			  }, 2000);
+			  }, 2000));
+
+			  ShowPlanets.push(setTimeout(function() {
+			      setbackground(loadplanet, planetimage);
+			  }, 10000));
+
+			  ShowPlanets.push(setTimeout(function() {
+			      setbackground(loadplanet, planetimage);
+			  }, 15000));
 		      }
 
 		      Options = incoming_options;
@@ -420,6 +424,15 @@
 		  // in case the user keeps swapping options, wait 2 seconds before firing off the preview
 		  // and if he changes options within 2 seconds, cancel to previous pending preview
 		  
+		  var preview_delay = null;
+		  
+		  if (preview_delay)
+		      clearTimeout(preview_delay);
+		  
+		  preview_delay = setTimeout(function() {
+		      preview(Options);
+		  }, 2000);
+
 		</script> <!-- if ?id=123443 was passed to script, it needs to call regenerate_planet(id) -->
 	      </form>
 	    </div>
