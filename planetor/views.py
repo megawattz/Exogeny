@@ -148,6 +148,9 @@ def mygallery(request):
 def allgallery(request):
     return render(request, 'planetor/allgallery.html')
 
+def lifeforms(request):
+    return render(request, 'planetor/lifeforms.html')
+
 def browseplanets(request):
     return render(request, 'planetor/browseplanets.html')
 

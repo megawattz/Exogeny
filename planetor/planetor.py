@@ -55,7 +55,7 @@ def resolve_parameter(name, value, options):
         return options['background']
     
     elif (name == "planet"):
-        rfile = value or randomfiletypeexp("surfaces", 1.5, ["glaciated","aquatic","rocky","volcanic","ice","gas_giant","desert","oceanic","savanna","forest","terrestrial"])
+        rfile = value or randomfiletypeexp("surfaces", 1.0, ["glaciated","aquatic","rocky","volcanic","ice","gas_giant","desert","savanna","oceanic","forest","terrestrial"])
         #rfile = value or randomfile("surfaces")
         options['planet'] = rfile
         root = re.findall('[a-zA-Z_]+', rfile)
@@ -91,13 +91,13 @@ def resolve_parameter(name, value, options):
             "hydrogen_bromide", #pink
             "sulfur_dioxide", #yellow
             "argon", #light purple
-            "bromine", #scarlet (red)
             "iodine", #thistle (purple)
             "neon", #orange
+            "bromine", #scarlet (red)
             "chlorine", #blue green
+            "nitrogen", #lavender
             "carbon_dioxide", #light orange
             "water_vapor", # baby blue
-            "nitrogen", #lavender
             "oxygen",  #dark blue
         ]
         gas = value or exprandomline(gases, 1.2)
@@ -532,7 +532,7 @@ DbDefaults = {
         "camera_location": "%d,%d,%d" % (randomint(-100, -30), randomint(-100, -30), randomint(-100, -30)),
         "camera_angle": randomlist(["45","-45"]),
         "camera_look_at": "0, 0, 0",
-        "sun_brightness": "5,5,5",
+        "sun_brightness": "6,6,6",
         "planet_size": None,
         "background": "background_9.jpg",
         "planet": "planet_3.jpg",
@@ -541,7 +541,7 @@ DbDefaults = {
         "clouds_density": "0.42",
         "atmosphere":None,
         "atmosphere_composition": None,
-        "atmosphere_density": "0.80",
+        "atmosphere_density": "0.90",
         "atmosphere_size": "1.02",
         "moons": randomint(0, 4),
         "moon_position": None,
@@ -635,7 +635,7 @@ def DefaultOptions():
         "scene": None,
         "camera_angle": randomlist(["45","-45"]),
         "camera_look_at": '0,0,0',
-        "sun_brightness": '5,5,5',
+        "sun_brightness": '6,6,6',
         "camera_location":  "-40,-40,-80",
         "planet_size": 20,
         "background": None,
@@ -646,7 +646,7 @@ def DefaultOptions():
         "clouds_density": None,
         "atmosphere":None,
         "atmosphere_composition":None,
-        "atmosphere_density": "0.80",
+        "atmosphere_density": "0.90",
         "atmosphere_size": "1.02",
         "rings": 0,
         "ring_brightness": None,

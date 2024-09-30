@@ -10,7 +10,7 @@ disc
 {
    <0, 0, 0>,
    <0, 90, 0>,
-   ring_radius * 1.5, hole_radius
+   ring_radius * 1.1, hole_radius * 1.1
    no_reflection
    texture {
       pigment {
