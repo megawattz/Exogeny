@@ -113,7 +113,6 @@ const Descriptions = {
 	"exotic random selection from every two legged, upright standing, humanoid, mammal alien species in movies and television and media, multiple creatures, including both male and female or asexual members",
 	"exotic adult male and female halfling-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
 	"exotic adult male and female elf-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
-	"exotic adult male and female gnome-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
 	"exotic adult male and female gizmo-like aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))",
 	"exotic hairy, adult male and female humanoid aliens, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))"
     ],
