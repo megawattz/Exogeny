@@ -67,6 +67,7 @@ const Descriptions = {
 	"large, alien multilegged hexapod wearing a promitive helmet and/or gloves"
     ],
     "Insectoid":[
+	"insectoids derived from terrifying, non-human, monsters that have appeared in movies",
 	"alien looking insects standing upright studying reading materials, wearing adornment",
 	"alien crusaceans like exotically formed crabs, lobsters and crawfish using primitive tools made from underwater materials, wearing adornment",
 	"alien spiders using tools, wearing adornment befitting spiders",
@@ -79,8 +80,9 @@ const Descriptions = {
 	"adult male and female xenomorph-like aliens, in clothes, using primitive tools, ((homogenous skin color over entire body)) ((matching eyes))",
     ],
     "Reptilian":[
+	"aliens derived from the movie Predator but different, standing erect, adorned in ancient, primitive gear, reading scrolls",
+	"aliens based on independence day movie, standing erect, adorned in ancient, primitive gear, reading scrolls",
 	"alien halo sangheili like wearing clothing, jewelry and carrying primitive weapons",
-	//"alien herbivore dinosaurs, standing erect, with opposable thumbs, scaly skin, wearing ancient garments, holding primitive tools",
 	"alien roman reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
 	"alien roman alligators with opposable thumbs, standing erect, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
 	"alien babylonian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
