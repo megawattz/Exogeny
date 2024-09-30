@@ -31,7 +31,7 @@ function titleize(sentence) {
 }
 
 document.getElementById("navheader").innerHTML = `
-      <div class="container-fluid" style="margin: 0 auto; z-index: 100";>
+      <div class="container-fluid" style="position: fixed; left: 1vh; top: 1vh; margin: 0 auto; z-index: 100";>
 	<a class="navbar-brand" href="/screensaver">
 	  <img style="width: clamp(360px, 20vw, 20vw); margin-right: 0; pad-right: 0;" src="/media/images/ExoPlaneteer.png">
 	</a>
@@ -43,6 +43,7 @@ document.getElementById("navheader").innerHTML = `
 		<a class="nav-link" href="/editplanet">Edit</a>
 		<a class="nav-link" href="/myplanets">Browse</a>
 		<a class="nav-link" href="/mygallery">Gallery</a>
+		<a class="nav-link" href="/lifeforms">Lifeforms</a>
 		<a class="nav-link" href="/screensaver">Screen Saver</a>
 		<a class="nav-link" href="/website/gallery.html">Website</a>
 	  </ul>
