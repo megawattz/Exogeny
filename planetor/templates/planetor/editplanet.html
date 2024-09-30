@@ -57,7 +57,12 @@
 	  <p><p>
 	    <div id="planetDisplayDiv"
 		 style="background-color: transparent; background-size: contain; background-repeat: no-repeat; width:100%; height: 100vh;">
-	      <img id="planetDisplay" style="width: 100%; height: 100%; z-index: 10;">
+		 <script>
+		   function iferror(img) {
+		       img.src = "/media/images/rendering.png";
+		   }
+		 </script>
+	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; height: 100%; z-index: 10;" onerror="iferror(this)" >
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		<script>
 		  var GalleryDir = "/app/planetor/out/gallery";
@@ -82,7 +87,7 @@
 		      "star_index":"Star constellations have multiple stars, labeled with greek letters to differentiate them.",
 		      "planet_index":"Which planet position from the star using Roman numerals, lowest numbers are closest, Prime is the closest.",
 		      "background":"The background image",
-		      "moons":"How many moons does this planet have? Regretably the appearance of the moons is random and can't be specified individually.",
+		      "moons":"How many moons does this planet have? Regretably the appearance of the moons is random and cannot be specified individually.",
 		      "artist":"This will embed the name you put here into the metadata of the planet animation file"
 		  }
 
@@ -94,9 +99,7 @@
 		      return new Promise(resolve => setTimeout(resolve, ms));
 		  }
 		  
-		  async function setbackground(element, imageurl, check) {
-		      if (check && element.complete)
-			  return;
+		  async function setbackground(element, imageurl, how) {  // how 1 = force, 2 = skip if complete
 		      element.src = `${imageurl}?${Math.random()}`;
 		  }
 
@@ -156,7 +159,7 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  setbackground(loadplanet, planetimage);
+				  setbackground(loadplanet, planetimage, 1);
 			      }
 			  });
 		      });
@@ -187,7 +190,7 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  setbackground(loadplanet, planetimage);
+				  setbackground(loadplanet, planetimage, 1);
 			      }
 			  });
 		      });
@@ -379,18 +382,22 @@
 		      if (planet) {
 			  loadplanet = planet;
 			  planetimage = `/stills/planet_${identity}.gif?${Math.random()}`;
-			  setbackground(loadplanet, planetimage);
+			  setbackground(loadplanet, planetimage, 1);
 
 			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage, true);
+			      setbackground(loadplanet, planetimage, 2);
 			  }, 2000));
 
 			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage, true);
+			      setbackground(loadplanet, planetimage, 2);
+			  }, 4000));
+			  
+			  ShowPlanets.push(setTimeout(function() {
+			      setbackground(loadplanet, planetimage, 2);
 			  }, 10000));
 
 			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage, true);
+			      setbackground(loadplanet, planetimage, 2);
 			  }, 15000));
 		      }
 
