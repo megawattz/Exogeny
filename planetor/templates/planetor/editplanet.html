@@ -94,12 +94,10 @@
 		      return new Promise(resolve => setTimeout(resolve, ms));
 		  }
 		  
-		  async function setbackground(element, imageurl) {
-		      // keep trying until image has been rendered and loaded
-		      //while (!element.complete) {
-			  element.src = `${imageurl}?${Math.random()}`;
-			  //sleep(1000)
-		      //}
+		  async function setbackground(element, imageurl, check) {
+		      if (check && element.complete)
+			  return;
+		      element.src = `${imageurl}?${Math.random()}`;
 		  }
 
 		  function s2b(str) { // if the string represents a bool, return a boolean type, otherwise just return the string
@@ -384,15 +382,15 @@
 			  setbackground(loadplanet, planetimage);
 
 			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage);
+			      setbackground(loadplanet, planetimage, true);
 			  }, 2000));
 
 			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage);
+			      setbackground(loadplanet, planetimage, true);
 			  }, 10000));
 
 			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage);
+			      setbackground(loadplanet, planetimage, true);
 			  }, 15000));
 		      }
 
