@@ -55,8 +55,9 @@
       <div class="row g-0" style="background-color: transparent; width: 106%; height: 100%;">
         <div class="col-8">
 	  <p><p>
-	    <div id="planetDisplay"
+	    <div id="planetDisplayDiv"
 		 style="background-color: transparent; background-size: contain; background-repeat: no-repeat; width:100%; height: 100vh;">
+	      <img id="planetDisplay" style="width: 100%; height: 100%; z-index: 10;">
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		<script>
 		  var GalleryDir = "/app/planetor/out/gallery";
@@ -89,11 +90,16 @@
 		  var ShowPlanets = [];
 		  var called = 0;
 
-		  function setbackground(element, imageurl) {
-		      // this is used to retry a failed background image load. JS caches the failure to fetch the file
-		      // so must add a cache buster random number to the image url
-		      element.style.backgroundImage = `url(${imageurl}?${Math.random()})`;
-		      element.style.backgroundSize = '100%';
+		  function sleep(ms) {
+		      return new Promise(resolve => setTimeout(resolve, ms));
+		  }
+		  
+		  async function setbackground(element, imageurl) {
+		      // keep trying until image has been rendered and loaded
+		      //while (!element.complete) {
+			  element.src = `${imageurl}?${Math.random()}`;
+			  //sleep(1000)
+		      //}
 		  }
 
 		  function s2b(str) { // if the string represents a bool, return a boolean type, otherwise just return the string
@@ -365,29 +371,25 @@
 		      else
 			  countDown(0)
 		      
-		      ShowPlanets.forEach(clearTimeout);
-		      ShowPlanets = []
+		      //ShowPlanets.forEach(clearTimeout);
+		      //ShowPlanets = []
 		      
 		      var identity = incoming_options['identity']
 		      window.location.hash = identity;
+
+		      var preview_delay;
+		      if (preview_delay)
+			  clearTimeout(preview_delay);
+		      preview_delay = null;
 		      
 		      var planet = document.getElementById("planetDisplay");
 		      if (planet) {
 			  loadplanet = planet;
 			  planetimage = `/stills/planet_${identity}.gif?${Math.random()}`;
-			  setbackground(loadplanet, planetimage);
-
-			  ShowPlanets.push(setTimeout(function() {
+			  preview_delay = setTimeout(function() {
 			      setbackground(loadplanet, planetimage);
-			  }, 2000));
-
-			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage);
-			  }, 10000));
-
-			  ShowPlanets.push(setTimeout(function() {
-			      setbackground(loadplanet, planetimage);
-			  }, 15000));
+			      preview(Options);
+			  }, 2000);
 		      }
 
 		      Options = incoming_options;
@@ -418,15 +420,6 @@
 		  // in case the user keeps swapping options, wait 2 seconds before firing off the preview
 		  // and if he changes options within 2 seconds, cancel to previous pending preview
 		  
-		  var preview_delay = null;
-		  
-		  if (preview_delay)
-		      clearTimeout(preview_delay);
-		  
-		  preview_delay = setTimeout(function() {
-		      preview(Options);
-		  }, 2000);
-
 		</script> <!-- if ?id=123443 was passed to script, it needs to call regenerate_planet(id) -->
 	      </form>
 	    </div>
