@@ -63,7 +63,7 @@
 		   }
 		 </script>
 		 
-	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; height: 100%; z-index: 10;" onerror="iferror(this)" >
+	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; height: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		
 		<script>
@@ -102,9 +102,8 @@
 		      return new Promise(resolve => setTimeout(resolve, ms));
 		  }
 		  
-		  async function setbackground(element, imageurl) {  // how 1 = force, 2 = skip if complete
-		      element.src = `${imageurl}` ///?${Math.random()}`;
-		      console.log(`element source: ${element.src}`)
+		  function setbackground(element, imageurl) {  // how 1 = force, 2 = skip if complete
+		      element.src = `${imageurl}?${Math.random()}`;
 		      return element.src.includes(imageurl);
 		  }
 
@@ -164,22 +163,36 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  checkload(1000)
+				  checkload(2000)
 			      }
 			  });
 		      });
 		  }
+
+		  var identity_string;
+		  var renderRetry = null;
 		  
-		  async function checkload(checktime, element, imagesource) {
+		  async function checkload(checktime, element, imagesource, attempt) {
+		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
-		      imagesource = imagesource || `/stills/planet_${identity}.gif`;
-		      setTimeout(function() {
-			  if (setbackground(element, imagesource)) {
-			      console.log(`Render shows complete ${imagesource} is in ${element.src}`);
-			      return;
-			  }
-			  console.log("Render shows not complete");
-			  checkload(checktime * 2, element, imagesource);
+     		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
+
+		      if (attempt == 0)
+			  setbackground(element, imagesource)
+		      console.log(`checkload ${imagesource} is in ${element.src} attempt:${attempt} complete:${element.complete}`);
+		      
+		      if (element.src.includes(imagesource) && element.complete) {
+			  clearTimeout(renderRetry)
+			  console.log(`render complete`);
+			  return;
+		      }
+		      
+		      clearTimeout(renderRetry)
+		      renderRetry = setTimeout(function() {
+			  if (attempt >= 6) 
+			      checkload(attempt * 2000, element, imagesource, 0);
+			  else    
+			      checkload(attempt * 2000, element, imagesource, attempt + 1);
 		      }, checktime);
 		  }
 			  
@@ -197,6 +210,7 @@
 
 			  query += `&${element.name}=${element.value}`;
 		      }
+		      
 		      console.log("attempting to execute preview_planet ")
 
 		      if (called++) // don't allow another request until previous one has finished
@@ -208,7 +222,7 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  checkload(1000)
+				  checkload(2000)
 			      }
 			  });
 		      });
@@ -393,10 +407,10 @@
 		      ShowPlanets.forEach(clearTimeout);
 		      ShowPlanets = []
 		      
-		      var identity = incoming_options['identity']
-		      window.location.hash = identity;
+		      identity_string = incoming_options['identity']
+		      window.location.hash = identity_string;
 		      
-		      checkload(1000, document.getElementById("planetDisplay"), `/stills/planet_${identity}.gif`);
+		      checkload(2000);
 
 		      Options = incoming_options;
 		      var waiting = 0
@@ -415,8 +429,8 @@
 		      }
 
 		      lifeform_image.style.visibility = 'hidden';
-		      lifeform_image.src = `/lifeforms/lifeform_${identity}.png?${Math.random()}`;
-		      lifeform_image.onerror = document.checkLifeFormImage(identity, false);
+		      lifeform_image.src = `/lifeforms/lifeform_${identity_string}.png?${Math.random()}`;
+		      lifeform_image.onerror = document.checkLifeFormImage(identity_string, false);
 
 		  }
 

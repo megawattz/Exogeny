@@ -196,6 +196,8 @@ function getAtmosphere(name) {
 }
 
 const Extras = [
+    "dancing",
+    "arguing",
     "spooky alien landscape",
     "meteors",
     "bubbles of colored gas",
@@ -206,8 +208,11 @@ const Extras = [
     "tornado",
     "foggy",
     "sandstorm",
+    "in school",
+    "eating dinner",
     "companion creatures",
     "windy",
+    "playing a sport",
     "multiple suns",
     "overcast",
     "storm clouds",
