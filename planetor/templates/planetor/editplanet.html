@@ -174,32 +174,34 @@
 		  var renderRetry = null;
 		  
 		  async function checkload(checktime, element, imagesource, attempt) {
+		      if (attempt > 10)
+			  return;
 		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
      		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
 		      
-		      if (attempt == 0)
-			  setbackground(element, `${imagesource}?cb=${Math.random()}` );
+		      setbackground(element, `${imagesource}?cb=${Math.random()}` );
 		      
 		      console.log(`checkload attempt: ${attempt}: is ${imagesource} in ${element.src}? complete:${element.complete}`);
 
-		      // apparently fully loaded?
 		      if (element.src.includes(imagesource) && element.complete) {
 			  clearTimeout(renderRetry);
 			  renderRetry = null;
 			  console.log(`render complete: ${element.src}`);
-			  //setbackground(element, `${element.src}?cb=${Math.random()}`);
 			  return;
 		      }
 		      
 		      clearTimeout(renderRetry)
 		      
 		      renderRetry = setTimeout(function() {
-			  if (attempt >= 4)
-			      preview();
-			      //checkload(attempt * 4000, element, imagesource, 0);
-			  else    
+			  if (attempt >= 6) {
+			      preview()
+			      attempt = 0;
 			      checkload(attempt * 4000, element, imagesource, attempt + 1);
+			  } else {
+			      checkload(attempt * 4000, element, imagesource, attempt + 1);
+			  }
+			      
 		      }, checktime);
 		  }
 			  
