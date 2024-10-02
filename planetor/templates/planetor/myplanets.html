@@ -330,12 +330,14 @@
 					    if (!tag)
 						return;
 					    var planetDiv = document.createElement("div");
-					    planetDiv.innerHTML = `\n<p style="margin-top: 2vh; font-size: 1vw; color: gray;">${count}) <a target="_blank" 
-							style="color: gray;" href="/editplanet/#${tag.id}">${tag.id}</a></p>\n<video id="${tag.id}" style="width: 40%;" 
+					    planetDiv.innerHTML = `<hr/><video id="${tag.id}" style="width: 40%;" 
 							title="Catalog#:${tag.id}" onplay="this.currentTime=10;" onclick='showPlanet(\"${tag.id}\")' 
 							onerror="this.style.display='none'" muted width="50%" src="/gallery/planet_${tag.id}.mp4" 
 							preload="none" poster="/stills/planet_${tag.id}.gif"></video><img style="vertical-align: top; 
-							width: 58%;" src="/lifeforms/lifeform_${tag.id}.png?${Math.random()}"><hr />`;
+							width: 58%;" src="/lifeforms/lifeform_${tag.id}.png?${Math.random()}">
+							<p style="margin-top: 2vh; font-size: 1vw; color: gray;">${count}) 
+								<a target="_blank" style="color: gray;" href="/editplanet/#${tag.id}">${tag.id}</a>
+							</p>`;
 					    position.appendChild(planetDiv);
 					    draw();
 					}, delay += 5);

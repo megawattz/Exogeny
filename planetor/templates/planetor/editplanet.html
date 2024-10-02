@@ -174,8 +174,11 @@
 		  var renderRetry = null;
 		  
 		  async function checkload(checktime, element, imagesource, attempt) {
-		      if (attempt > 10)
+		      if (attempt > 10) {
+			  if (confirm("Rendering taking too long. Check log and/or retry.)"))
+			      window.location.href=`/logs/generate_${identity_string}.log`;
 			  return;
+		      }
 		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
      		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
@@ -194,14 +197,7 @@
 		      clearTimeout(renderRetry)
 		      
 		      renderRetry = setTimeout(function() {
-			  if (attempt >= 6) {
-			      preview()
-			      attempt = 0;
-			      checkload(attempt * 4000, element, imagesource, attempt + 1);
-			  } else {
-			      checkload(attempt * 4000, element, imagesource, attempt + 1);
-			  }
-			      
+			  checkload(attempt * 1000, element, imagesource, attempt + 1);
 		      }, checktime);
 		  }
 			  

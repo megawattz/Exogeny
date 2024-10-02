@@ -166,6 +166,9 @@ def images(request):
 def about(request):
     return render(request, 'planetor/about.html')
 
+def logs(request):
+    return render(request, 'planetor/out/logs/')
+
 # directory sorted by date modified, newest first
 def dirscan_py(directory, mask, count):
     if not os.path.exists(directory):
