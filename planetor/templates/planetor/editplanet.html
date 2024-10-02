@@ -57,11 +57,11 @@
 	  <p><p>
 	    <div id="planetDisplayDiv"
 		 style="background-color: transparent; background-size: contain; background-repeat: no-repeat; width:100%; height: 100vh;">
-		 <script>
-		   function iferror(img) {
-		       img.src = "/media/images/rendering.png";
-		   }
-		 </script>
+	      <script>
+		function iferror(img) {
+		    img.src = `/media/images/rendering.png?cb=${Math.random()}`;
+		}	
+	      </script>
 		 
 	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; height: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
@@ -103,8 +103,8 @@
 		  }
 		  
 		  function setbackground(element, imageurl) {  // how 1 = force, 2 = skip if complete
-		      element.src = `${imageurl}?${Math.random()}`;
-		      return element.src.includes(imageurl);
+		      element.src = imageurl;
+		      return element.complete;
 		  }
 
 		  function s2b(str) { // if the string represents a bool, return a boolean type, otherwise just return the string
@@ -152,10 +152,11 @@
 
 			  query += `&${element.name}=${element.value}`;
 		      }
-		      console.log("attempting to execute preview_planet ")
-
+		      
 		      if (called++) // don't allow another request until previous one has finished
 			  return;
+		      
+		      console.log("attempting to execute preview_planet ")
 
 		      $(document).ready(function() {
 			  $.ajax({
@@ -163,7 +164,7 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  checkload(2000)
+				  //checkload(4000)
 			      }
 			  });
 		      });
@@ -176,23 +177,29 @@
 		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
      		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
-
-		      if (attempt == 0)
-			  setbackground(element, imagesource)
-		      console.log(`checkload ${imagesource} is in ${element.src} attempt:${attempt} complete:${element.complete}`);
 		      
+		      if (attempt == 0)
+			  setbackground(element, `${imagesource}?cb=${Math.random()}` );
+		      
+		      console.log(`checkload attempt: ${attempt}: is ${imagesource} in ${element.src}? complete:${element.complete}`);
+
+		      // apparently fully loaded?
 		      if (element.src.includes(imagesource) && element.complete) {
-			  clearTimeout(renderRetry)
-			  console.log(`render complete`);
+			  clearTimeout(renderRetry);
+			  renderRetry = null;
+			  console.log(`render complete: ${element.src}`);
+			  //setbackground(element, `${element.src}?cb=${Math.random()}`);
 			  return;
 		      }
 		      
 		      clearTimeout(renderRetry)
+		      
 		      renderRetry = setTimeout(function() {
-			  if (attempt >= 6) 
-			      checkload(attempt * 2000, element, imagesource, 0);
+			  if (attempt >= 4)
+			      preview();
+			      //checkload(attempt * 4000, element, imagesource, 0);
 			  else    
-			      checkload(attempt * 2000, element, imagesource, attempt + 1);
+			      checkload(attempt * 4000, element, imagesource, attempt + 1);
 		      }, checktime);
 		  }
 			  
@@ -222,7 +229,7 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  checkload(2000)
+				  checkload(4000)
 			      }
 			  });
 		      });
@@ -410,7 +417,7 @@
 		      identity_string = incoming_options['identity']
 		      window.location.hash = identity_string;
 		      
-		      checkload(2000);
+		      checkload(4000);
 
 		      Options = incoming_options;
 		      var waiting = 0

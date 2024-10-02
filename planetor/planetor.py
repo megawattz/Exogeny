@@ -55,7 +55,7 @@ def resolve_parameter(name, value, options):
         return options['background']
     
     elif (name == "planet"):
-        rfile = value or randomfiletypeexp("surfaces", 1.0, ["glaciated","aquatic","rocky","volcanic","ice","gas_giant","desert","savanna","oceanic","forest","terrestrial"])
+        rfile = value or randomfiletypeexp("surfaces", 1.1, ["glaciated","aquatic","rocky","volcanic","ice","gas_giant","desert","savanna","oceanic","forest","terrestrial"])
         #rfile = value or randomfile("surfaces")
         options['planet'] = rfile
         root = re.findall('[a-zA-Z_]+', rfile)
@@ -245,7 +245,7 @@ def randomfile(directory, mask='.*'):
     files = list(filter(lambda f: re.match(mask, f), os.listdir(directory)))
     return files[random.randint(0, len(files) - 1)]
 
-def randomfiletypeexp(directory, skew = 1.2, categories = ["ice","glaciated","aquatic","gas_giant","aquatic","rocky","volcanic","desert","oceanic","forest","terrestrial"]):
+def randomfiletypeexp(directory, skew = 1.1, categories = ["ice","glaciated","aquatic","gas_giant","aquatic","rocky","volcanic","desert","oceanic","forest","terrestrial"]):
     category = exprandomline(categories, skew)
     return randomfile(directory, ".*%s.*" % category)
 

@@ -100,7 +100,7 @@ function extras() {
 }
 
 # remove previous still, it causes confusion in the UI because the user cannot tell if a new planet has been rendered or not if the old one pops up still
-rm -f ${STILLS}/planet_${IDENTITY}.gif
+rm -f ${STILLS}/planet_${IDENTITY}.*
 
 # if genrating only one frame, create a single frame better than frame 0
 if [ $FRAMES -gt 1 ]; then
