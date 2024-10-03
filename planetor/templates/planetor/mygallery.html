@@ -105,29 +105,27 @@
 		  //Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
 		  //planetDiv.appendChild(upperLeft);
 		  
-		  //let upperRight = document.createElement("div");
-		  //Object.assign(upperRight.style, {position: "absolute", height: "12%", width: "12%", top: "2%", right: "4%"});
-		  //planetDiv.appendChild(upperRight);
+		  let upperRight = document.createElement("div");
+		  Object.assign(upperRight.style, {position: "absolute", height: "15%", width: "15%", top: "2%", right: "4%"});
+		  planetDiv.appendChild(upperRight);
 
-		  /*
-		    let lifeformImage = document.createElement("img");
-		    lifeformImage.src = "/app/planetor/out/lifeforms/"+planet.lifeform_image;
-		    Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
-		    planetDiv.appendChild(lifeformImage);
+		  let lifeformImage = document.createElement("img");
+		  lifeformImage.src = "/lifeforms/"+planet.lifeform_image;
+		  Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
+		  planetDiv.appendChild(lifeformImage);
 		    
-		    let lifeformIcon = document.createElement("img");
+		  let lifeformIcon = document.createElement("img");
 
-		    lifeformIcon.src = `images/${planet.lifeform}.png`;
-		    Object.assign(lifeformIcon.style, {height: "100%"});
-		    lifeformIcon.lifeformImage = lifeformImage;
-		    lifeformIcon.addEventListener('mousedown', function() {
-		    show(this.lifeformImage);
-		    });
-		    lifeformImage.addEventListener('mouseup', function() {
-		    hide(this);
-		    });
-		    upperRight.appendChild(lifeformIcon);
-		  */
+		  lifeformIcon.src = `/media/images/${planet.lifeform}.png`;
+		  Object.assign(lifeformIcon.style, {height: "100%"});
+		  lifeformIcon.lifeformImage = lifeformImage;
+		  lifeformIcon.addEventListener('mousedown', function() {
+		      show(this.lifeformImage);
+		  });
+		  lifeformImage.addEventListener('mouseup', function() {
+		      hide(this);
+		  });
+		  upperRight.appendChild(lifeformIcon);
 
 		  let lowerLeft = document.createElement("div");
 		  lowerLeft.innerHTML = `<a target="_blank" style="color: gray;" href="/editplanet/#${planet.identity}">${planet.star_index} ${planet.star_system} ${planet.planet_index}</a>`;
