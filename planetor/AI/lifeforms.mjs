@@ -341,7 +341,7 @@ function Run() {
     if (!prompt)
 	prompt = `
 three to five ((photorealistic)) members of intelligent ${getDescription(LifeForm)}, closeup and ((((facing camera)))) ${getAction()},
-${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, 
+${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris,
 photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} 
 ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, 
 eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) 
