@@ -56,14 +56,15 @@
         <div class="col-8">
 	  <p><p>
 	    <div id="planetDisplayDiv"
-		 style="background-color: transparent; background-size: contain; background-repeat: no-repeat; width:100%; height: 100vh;">
+		 style="background-color: transparent; background-size: contain; background-repeat: no-repeat; 
+			width: 100%; height: 100vh;">
 	      <script>
 		function iferror(img) {
 		    img.src = `/media/images/rendering.png?cb=${Math.random()}`;
 		}	
 	      </script>
 		 
-	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; height: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
+	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		
 		<script>
