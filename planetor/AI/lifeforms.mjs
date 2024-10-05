@@ -117,15 +117,17 @@ const Descriptions = {
 	"exotic hairy, adult male and female humanoid unearthlys, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))"
     ],
     "Human":[
-	"((closeup)) of human-like exotically beautiful females and males, with unique characteristics, clothed in incongruent clothing, from ancient northern european nations wild, creative hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient asian nations fully clothed wild, creative hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient african nations fully clothed wild, creative hairstyles  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, from ancient latin nations fully clothed wild, creative hairstyles  ((identical, well formed eyes))",
-	"human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful female and male, each with unique characteristics, clothed in incorrect clothing, wild, creative hairstyles, fully clothed in ancient, unearthly designs,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, wild, creative hairstyles, in wild clothes each with ancient, unearthly design,  ((identical, well formed eyes))",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, wild, creative hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
-	"((closeup)) of human-like exotically beautiful females and males, each with unique characteristics, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, purebred from all of earths regions, fully clothed, wild creative hairstyles  ((identical, well formed eyes))"
+	/*
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient african nations, creative hairstyles  ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient latin nations wild creative hairstyles  ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful female and male, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, fully clothed in ancient, unearthly designs,  ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in wild clothes each with ancient, unearthly design,  ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
+	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
+	*/
     ]
 }
 
@@ -196,12 +198,14 @@ function getAtmosphere(name) {
 const Extras = [
     "spooky unearthly landscape",
     "meteors",
+    "body art",
     "bubbles of colored gas",
     "with slimy skin",
     "stormy",
     "raining",
     "snowing",
     "tornado",
+    "jewelry",
     "foggy",
     "sandstorm",
     "companion creatures",
@@ -233,7 +237,7 @@ const Actions = [
     "playing a sport",
     "fighting a battle with primitive weapons",
     "using primitive tools",
-    "playing primitive, unearthly musical instruments",
+    "playing primitive, alien musical instruments",
     "writing something",
     "joking around",
     "brandishing primitive weapons",
@@ -340,7 +344,7 @@ function Run() {
 
     if (!prompt)
 	prompt = `
-three to five ((photorealistic)) members of intelligent ${getDescription(LifeForm)}, closeup and ((((facing camera)))) ${getAction()},
+three to five ((photorealistic, life-like)) members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()},
 ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris,
 photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} 
 ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, 
