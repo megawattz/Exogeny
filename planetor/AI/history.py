@@ -1,14 +1,12 @@
 #!/usr/bin/python3
 
 import openai
-openai.apt_key = process.env.OPENAI_API_TOKEN,
 
 import sys
 sys.path.insert(0, "/app/planetor/tools")
 import utils
 
 sys.path.insert(0, "/app/planetor/history")
-#import chatgpt_key
 
 import json
 import pprint

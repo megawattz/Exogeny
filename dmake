@@ -12,7 +12,7 @@ PORTS="-p80:80/tcp"
 NETWORK="--network exogeny ${PORTS}"
 ENVFILE="./env.txt"
 
-echo "TZ=$(date +%Z)" >> ${ENVFILE}
+#echo "TZ=$(date +%Z)" >> ${ENVFILE}
 ENV=--env-file=${ENVFILE}
 
 # This is like a makefile but make was designed in an era of conditions that no longer apply and offers nothing that
