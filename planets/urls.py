@@ -40,6 +40,7 @@ urlpatterns = [
     path('screensaver', planetor.views.screensaver, name='screensaver'),
     path('browseplanets', planetor.views.browseplanets, name='browseplanets'),
     path('myplanets/', planetor.views.myplanets, name='myplanets'),
+    path('shorts/', planetor.views.shorts, name='shorts'),
     path('preview_planet', planetor.views.preview_planet, name='preview_planet'),
     path('randomfile', planetor.views.randomfile, name='randomfile'),
     path('dbdelete', planetor.views.dbdelete, name='dbdelete'),

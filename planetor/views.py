@@ -145,6 +145,9 @@ def generateplanet(request):
 def mygallery(request):
     return render(request, 'planetor/mygallery.html')
 
+def shorts(request):
+    return render(request, 'planetor/shorts.html')
+
 def allgallery(request):
     return render(request, 'planetor/allgallery.html')
 
