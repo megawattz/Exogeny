@@ -37,6 +37,16 @@ ul {
     font-size: clamp(16pt, 0.8vw, 0.8vw);
 }
 
+.shortsWindow {
+    height: 50%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px grey solid;
+    font-size: clamp(16pt, 0.8vw, 0.8vw);
+}
+
 .fullscreen {
     position: fixed;
     top: 0;
