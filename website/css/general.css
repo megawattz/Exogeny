@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Alien';
+    src: url('../fonts/AlienSpace.ttf') format('ttf');
+}
+
 html {
     margin: 0 auto;
     //overflow: hidden;
@@ -13,6 +18,7 @@ body {
     margin-left: 0.5vw;
     font-size: font-size(14pt, 6vw, 6vw);
     font-family: 'Audiowide', cursive;
+    //font-family: 'Alien', cursive;
     letter-spacing: 0.1vw;
     color: white;
     background-image: url("../images/stars.jpg");

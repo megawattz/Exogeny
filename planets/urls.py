@@ -61,5 +61,5 @@ urlpatterns += static(settings.MOBILE_URL, document_root=settings.MOBILE_ROOT)
 urlpatterns += static(settings.WEBSITE_URL, document_root=settings.WEBSITE_ROOT)
 urlpatterns += static(settings.GAME_URL, document_root=settings.GAME_ROOT)
 urlpatterns += static(settings.DOCUMENTATION_URL, document_root=settings.DOCUMENTATION_ROOT)
-
+urlpatterns += static(settings.FONTS, document_root=settings.FONTS)
 # path('generate/build', planetor.views.build, name='build_planet' ),

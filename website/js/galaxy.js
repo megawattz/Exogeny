@@ -56,7 +56,7 @@ let spriteMaterial = new THREE.SpriteMaterial({"map": starImage});
 // labels
 const labelRenderer = new CSS2DRenderer();
 labelRenderer.setSize(window.innerWidth, window.innerHeight);
-Object.assign(labelRenderer.domElement.style, {position: 'absolute', zIndex: 1, top: '0px', pointerEvents: 'none', fontFamily: 'Arial, san-serif'});
+Object.assign(labelRenderer.domElement.style, {position: 'absolute', zIndex: 1, top: '0px', pointerEvents: 'none'});
 Container.appendChild(labelRenderer.domElement);
 
 // Camera

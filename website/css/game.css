@@ -1,6 +1,12 @@
+@font-face {
+    font-family: 'Alien';
+    src: url('../fonts/AlienSpace.ttf') format('ttf');
+}
+
 body {
     font-size: font-size clamp(12pt, 2vw, 2vw);
     font-family: 'Audiowide', cursive;
+    //font-family: 'Alien', cursive;
 }
 
 .arrowplanet {

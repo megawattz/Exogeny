@@ -1,0 +1,251 @@
+<html>
+  <head>
+    <title>Exogeny Planet Gallery</title>
+
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta charset="utf-8">
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    
+    <meta name="description" content="">
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Courier+Prime&family=Kode+Mono&family=Black+Ops+One&family=Orbitron&family=Atomic+Age&display=swap" rel="stylesheet"-->
+
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/planetor.css"/>
+  </head>
+  
+  <body style="background-image: url(/media/images/high_density_stars.jpg); background-size: cover; font: monaco; color: white; width:100%; height:100%;">
+    
+    <div style="height: 0vh; z-index: 100;">
+      <nav id="navheader" class="navbar navbar-expand-lg navbar-dark bg-transparent"
+	   style="background: transparent; border: 0; z-index: 100; font-size: clamp(14pt, 1vw, 1vw)">
+	<script src="../../static/js/headermenu.js"></script>
+      </nav>
+    </div>
+    <script>
+      $(document).on('mousemove', function(event) {
+	  if (event.clientY <= 400) {
+	      $('.navbar').css('opacity', '1');
+	    } else {
+		$('.navbar').css('opacity', '0');
+	    }	
+      });
+    </script>
+    
+    <div class="container-fluid bg-image" style="margin: 0 auto; font-color: white; align: bottom;">
+      
+      <div id="gallery" style="margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap;">
+	
+	<script type="module">
+	  var GalleryDir = "/app/planetor/out/gallery";
+	  var StillDir = "/app/planetor/out/stills";
+	  var LifeformDir = "/app/planetor/out/lifeforms";
+	  
+	  var Planets = [];
+
+	  async function LoadLocalPlanets() {
+	      await fetch(`/gallery?directory=${GalleryDir}&mask=mp4$&count=9999`)
+		  .then((response) => response.json())
+		  .then((json) => {
+		      for (let planet of json.tags) {
+			  Object.assign(planet, planet.editspec)
+			  Planets.push(planet);
+		      }
+		  })
+     		  .catch(console.error);
+	  }
+	  
+	  function show(item) {
+	      item.style.visibility = 'visible';
+	      item.style.display = 'block';
+	  }
+	  
+	  function hide(item) {
+	      item.style.visibility = 'hidden';
+	      item.style.display = 'none';
+	  }
+
+	  document.playvideo = async function(video) {
+	      video.play();
+	      if (video.requestFullscreen) {
+		  video.requestFullscreen();
+	      } else if (video.mozRequestFullScreen) { // Firefox
+		  video.mozRequestFullScreen();
+	      } else if (video.webkitRequestFullscreen) { // Chrome, Safari and Opera
+		  video.webkitRequestFullscreen();
+	      } else if (video.msRequestFullscreen) { // IE/Edge
+		  video.msRequestFullscreen();
+	      }
+	  }
+
+	  var Index = 0;
+	  var OverlayTimer;
+
+	  async function speak(text) {
+	      //responsiveVoice.speak(text);
+	  }
+	  
+	  async function displayPlanet() {
+	      let gallery = document.getElementById("gallery");
+	      let planetDiv = document.getElementById("planetDiv")
+	      if (!planetDiv) {
+		  planetDiv = document.createElement("div");
+		  planetDiv.className = "shortsWindow";
+		  planetDiv.id = "planetDiv";
+		  gallery.appendChild(planetDiv);
+
+	      }
+	      let planet = Planets[Index];
+	      
+	      let response = await fetch(`/dbread?table=civilization&row=${planet.identity}`);
+	      let data = await response.json();
+	      Object.assign(planet, data.read);
+	      
+	      planetDiv.innerHTML = `
+<video style="height: 50%; width: 100%;" id="planetVideo" autoplay loop="loop" preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/planet_${planet.identity}.gif"></video>
+<img id="lifeform" style="height: 50%; width: 100%;" src="/lifeforms/lifeform_${planet.identity}.png" />
+`;
+	      
+	      const planet_stats = planetStats(planet);
+	      
+	      //const describe = document.getElementById("describe")
+	      //describe.onclick=function(){speak(planet_stats)};
+
+	      if (OverlayTimer)
+		  clearTimeout(OverlayTimer)
+	      
+	      OverlayTimer = overlayTeletype(planetDiv, planet_stats, 40);
+	  }
+	  
+	  document.addEventListener('keydown', function(event) {
+	      switch(event.key) {
+              case 'ArrowUp':
+		  displayPlanet(Index -= 10);
+		  break;
+              case 'ArrowDown':
+		  displayPlanet(Index += 10);
+		  break;
+              case 'ArrowLeft':
+		  displayPlanet(--Index);
+		  break;
+              case 'ArrowRight':
+		  displayPlanet(++Index);
+		  break;
+              default:
+		  break;
+	      }
+	  });
+
+	  function planetStats(planet, keys) {
+	      keys = keys || [
+		  { key: 'official_designation', 	value: 'Official Planet Name'},
+		  { key: 'name', 			value: 'Common Name'},
+		  { key: 'lifeform', 		value: 'Dominant Indigenous Lifeform'},
+		  { key: 'species', 		value: 'Species Self Named'},
+		  { key: 'culture', 		value: 'Culture Type'},
+		  { key: 'atmosphere_composition', 	value: 'Primary Atmosphere'},
+		  { key: 'planet_type',		value: 'Geology/Climate'},
+		  { key: 'evaluation', 		value: 'Evaluation'}
+	      ];
+
+	      var fictions = {
+		  //"Tech Level": `${RandomInt(0, 3)}`,
+		  //"Population": `${RandomInt(1,90)} million`,
+		  //"Tritanium-44 Production": `${RandomInt(0,100)}/day`,
+		  //"Last Price": `$${utils.planetprice(planet)}`
+	      };
+	      
+	      planet["official_designation"] = `${planet.star_index} ${planet.star_system} ${planet.planet_index}`;
+	      
+	      var readout = '<p>\n';
+	      
+	      keys.forEach(function(e) {
+		  readout += `<br><span class="title">${e.value}:</span><span class="value"> ${planet[e.key]}</span>`;
+	      });
+	      
+	      Object.keys(fictions).forEach(function(e) {
+		  readout += `<br><span class="title">${e}:</span><span class="value"> ${fictions[e]}</span>`;
+	      });
+	      
+	      readout += `</p>\n`;
+
+	      return readout;
+	  }
+
+	  function randomColor(density) { //density = 0 - 15
+	      density = density || 4;
+	      var color = [0, 0, 0];
+	      for (let i = 0; i < 3; ++i) {
+		  if (Math.floor(Math.random()*3))
+		      color[i] = 16-Math.ceil(Math.random()*density);
+	      }
+	      const str = `#${color[0].toString(16)}${color[1].toString(16)}${color[2].toString(16)}`;
+	      console.log(str);
+	      return str;
+	  }
+	  
+	  function overlayTeletype(element, HTML, cps) {
+	      let overlayId = element.id + "_overlay";
+	      let overlay = document.getElementById(overlayId)
+	      if (!overlay) {
+		  let rect = element.getBoundingClientRect();
+		  overlay = document.createElement("div");
+		  element.appendChild(overlay);
+		  overlay.id = overlayId;
+		  Object.assign(overlay.style, {width: rect.width, height: rect.height, position: 'absolute',
+						top: '52%', left: '4vw', fontSize: '2.4vh', color: 'white', textShadow: `4pt 4pt 5px ${randomColor()}`,
+						background: 'transparent', border: 0, zIndex: element.style.zIndex + 10});
+		  overlay.className = "overlayPlanetDetail";
+	      }
+	      overlay.innerHTML = "";
+	      if (HTML == "")
+		  return;
+	      var index = 0;
+	      var tag = "";
+	      
+	      var teletype = function() {
+		  let ch = HTML.charAt(index);
+		  
+		  if (ch == '<') {
+		      tag = ch;
+		  }
+		  else if (ch == '>') {
+		      tag += ch;
+		      overlay.innerHTML += tag;
+		      tag = "";
+		  }
+		  else if (tag.length > 0) {
+		      tag += ch;
+		  } else {
+		      overlay.innerHTML += ch;
+		  }
+		  index++;
+		  return (HTML.length - index);
+	      }
+
+	      var timer = setInterval(function() {
+		  if (teletype() < 0) {
+		      clearInterval(timer)
+		      overlay.HTML = "";
+		  }
+	      }, 1000/cps);
+
+	      return timer;
+	  }
+	  
+	  await LoadLocalPlanets().then(displayPlanet);
+	  
+	  </script>
+      </div>
+  </body>
+</html>

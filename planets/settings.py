@@ -157,6 +157,7 @@ MOBILE_ROOT = os.path.join(BASE_DIR, 'mobile')
 WEBSITE_ROOT = os.path.join(BASE_DIR, 'website')
 GAME_ROOT = os.path.join(BASE_DIR, 'game')
 DOCUMENTATION_ROOT = os.path.join(BASE_DIR, 'documentation')
+FONTS = os.path.join(BASE_DIR, 'planetor/fonts/')
 
 MEDIA_URL = '/media/'
 MEDIA_URL_1 = '/gallery/'

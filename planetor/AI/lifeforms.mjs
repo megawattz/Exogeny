@@ -209,6 +209,7 @@ const Extras = [
     "foggy",
     "sandstorm",
     "companion creatures",
+    "symbiotic creatures",
     "windy",
     "multiple suns",
     "overcast",

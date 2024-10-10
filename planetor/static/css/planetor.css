@@ -1,5 +1,17 @@
+@font-face {
+    font-family: 'Alien';
+    src: url('/fonts/AlienSpace.ttf') format('ttf'),
+	 src: url('/fonts/AlienSpace.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: 'Audiowide', cursive;
+    //font-family: 'Audiowide', cursive;
+    //font-family: 'Kode Mono', cursive;
+    //font-family: 'Atomic Age', cursive;
+    //font-family: 'Orbitron', cursive;
+    font-family: 'Alien'
 }
 
 .floatingLabel {
