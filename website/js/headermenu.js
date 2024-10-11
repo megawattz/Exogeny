@@ -79,7 +79,7 @@ document.getElementById("navheader").innerHTML = `
 		About
 	      </a>
 	      <ul class="dropdown-menu bg-black" aria-labelledby="navbarDropdownMenuLink">
-		<li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+		<li><a class="dropdown-item" href="faq.html">Summary</a></li>
 		<li><a class="dropdown-item" href="info.html">Contact</a></li>
 		<li><a class="dropdown-item" href="roadmap.html">Roadmap</a></li>
 	      </ul>
