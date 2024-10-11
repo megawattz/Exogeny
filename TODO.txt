@@ -1,5 +1,8 @@
 In order of importance * ease of implemenation
 
+1. background of ephemeral god holding planet
+2. background of epehmeral god hand holding planet
+
 --------------------------------------------------
 Need these before demo (ideally)
 -------------------------------------------------
