@@ -37,14 +37,18 @@
     
     <div id="teletext" style="font-size: 2vw; position: absolute; top: 20%; display: flex; justify-content: center; margin: auto 0;">
     </div>
-    
-    <video style="height: 100%;" autoplay loop muted src="images/planetgod.mp4" />
+
+    <div id="videoDiv" style="width: 50%">
+      <video id="planetVideo" style="height: 100%;" autoplay loop muted src="images/planetgod.mp4" />
+    </div>
     
     <script>
-      function teletype(element, text, speed) {
+      function teletype(element, text, speed, position) {
 	  let i = 0;
 	  let tag = "";
-	  
+	  let textdiv = document.createElement("div");
+	  videoDiv.appendChild(textdiv);
+	  textdiv.style.cssText = `font-size: 2vw; position: absolute; top: ${position}; width: 50%; display: flex; justify-content: center; margin: auto 0;`
 	  function typeWriter() {
 	      if (i < text.length) {
 		  let ch = text.charAt(i++);
@@ -64,20 +68,21 @@
 	      }	
 	  }
 	  // Clear the element's content before starting the effect
-	  element.innerHTML = '';
+	  //element.innerHTML = '';
 	  typeWriter();
       }
 
       var texts = [
-	  "Why own a monkey picture when you could own a planet?",
-	  "You have been chosen to manage a planet with primitive but intelligent life forms.",
-	  "Nuture a planet and its civilization to produce Tritanium-44.",
-	  "Wipe away civilizations if they displease you."
+	  "The Galactic Federation has opened up primitve planets for assistance",
+	  "The job is to nurture a planet and its civilization to produce Tritanium-44.",
+	  `As the unseen overseer of the planet you will be the "god" of the planet`,
+	  "Wipe away civilizations if they displease you.",
+	  "Why own a monkey picture when you could own a planet?"
       ]
 
       var which = 0;
       function typeText() {
-	  teletype(document.getElementById("teletext"), texts[which], 20);
+	  teletype(document.getElementById("teletext"), texts[which], 20, "20vh");
 	  which = ++which % texts.length;
       }
       
