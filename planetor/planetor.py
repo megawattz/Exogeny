@@ -453,7 +453,6 @@ user_selectables = [
     "star_system",
     "planet_index",
     "evaluation",
-    "evaluation2",
     "scene",
     "sun_brightness",
     "camera_angle",
@@ -556,7 +555,6 @@ DbDefaults = {
         "star_index": "Alpha",
         "planet_index": "III",
         "evaluation": None,
-        "evaluation2": None,
         "identity": None,
         "lifeform": None,
         "chemistry": None,
@@ -663,7 +661,6 @@ def DefaultOptions():
         "star_index":None,
         "planet_index":None,
         "evaluation": None,
-        "evaluation2": None,
         "planet_type":None,
         "identity":None,
         "chemistry": None,
@@ -696,11 +693,6 @@ def appendToOptionValue(key, append, spacer=''):
 
 def addEvaluation(options):
     options['evaluation'] = resolve_parameter("evaluation", options.get("evaluation"), options)
-
-    options['evaluation2'] = resolve_parameter("evaluation2", options.get("evaluation2"), options)
-
-    #while options['evaluation2'] == options['evaluation']:  # avoid duplicates
-        #options['evaluation2'] = resolve_parameter("evaluation2", options.get("evaluation2"), options)
 
     return options
     

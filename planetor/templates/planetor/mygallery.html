@@ -133,8 +133,8 @@
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
 		  
 		  let lowerRight = document.createElement("div");
-		  lowerRight.innerHTML = `<span><span>`;
-		  //Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
+		  lowerRight.innerHTML = `<span id="classification">${planet.evaluation}<span>`;
+		  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
 		  planetDiv.appendChild(lowerRight);
 		  
 		  gallery.appendChild(planetDiv);

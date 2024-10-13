@@ -309,7 +309,14 @@
 		      overlay.innerHTML += ch;
 		  }
 		  index++;
-		  return (HTML.length - index);
+		  let count = HTML.length - index;
+		  if (count < 1) {
+		      setTimeout(function() {
+			  let localtext = overlay;
+			  localtext.innerHTML = "";
+		      }, 8000);
+		  }
+		  return count;
 	      }
 
 	      var timer = setInterval(function() {
