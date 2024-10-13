@@ -22,7 +22,7 @@ difference {
       }
       finish {
          diffuse albedo ring_brightness - 0.4
-	 ambient rgb ring_color transmit 0.1
+	 ambient ring_color
       }
       Orbit(ring_index * 20) 
    }
