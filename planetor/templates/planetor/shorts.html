@@ -65,6 +65,26 @@
      		  .catch(console.error);
 	  }
 	  
+	  async function LoadLocalPlanet(id) {
+	      await fetch(`/gallery?directory=${GalleryDir}&mask=planet_${id}.mp4$&count=1`)
+		  .then((response) => response.json())
+		  .then((json) => {
+		      for (let planet of json.tags) {
+			  Object.assign(planet, planet.editspec)
+			  displayPlanet(planet);
+		      }
+		  })
+     		  .catch(console.error);
+	  }
+	  
+	  if (window.location.hash)
+	      LoadLocalPlanet(window.location.hash.substring(1));
+
+	  window.addEventListener('hashchange', function() {
+	      LoadLocalPlanet(window.location.hash.substring(1));
+	  });
+
+	  
 	  function fromRoman(roman) {
 	      const map = {
 		  "0": "Rogue",
@@ -148,7 +168,7 @@
 	      //responsiveVoice.speak(text);
 	  }
 	  
-	  async function displayPlanet() {
+	  async function displayPlanet(planet) {
 	      let gallery = document.getElementById("gallery");
 	      let planetDiv = document.getElementById("planetDiv")
 	      if (!planetDiv) {
@@ -156,9 +176,10 @@
 		  planetDiv.className = "shortsWindow";
 		  planetDiv.id = "planetDiv";
 		  gallery.appendChild(planetDiv);
-
 	      }
-	      let planet = Planets[Index];
+	      
+	      if (!planet)
+		  planet = Planets[Index];
 	      
 	      let response = await fetch(`/dbread?table=civilization&row=${planet.identity}`);
 	      let data = await response.json();
