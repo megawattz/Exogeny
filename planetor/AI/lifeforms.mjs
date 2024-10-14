@@ -390,7 +390,12 @@ as if photographed by nikon SLR camera f/8
 
     console.error("sending request to stable diffusion\n", input);
 
-    var output = replicate.run(model, { input }).then((d) => console.log(d[0]));
+    (async () => {
+	const response = await replicate.run(model, { input });
+	const data = response.json();
+	const reader = response.getReader();
+    })();
+    
 }
 
 try {

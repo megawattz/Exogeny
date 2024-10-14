@@ -148,7 +148,7 @@ def resolve_parameter(name, value, options):
         options['atmosphere_density'] = str(value or randomfloat(0.70, 0.95))
         return options['atmosphere_density']
     elif (name == "evaluation"):
-        options['evaluation'] = value or randomline("names/evaluations.txt")
+        options['evaluation'] = value or (randomline('names/descriptions.txt') + " " + randomline('names/places.txt'))
         return options['evaluation']
     elif (name == "evaluation2"):
         options['evaluation2'] = value or randomline("names/evaluations.txt")
