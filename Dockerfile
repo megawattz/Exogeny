@@ -9,6 +9,7 @@ RUN apt update -y && apt install apt-utils
 RUN apt install -y \
     curl \
     wget \
+    git \
     python3 \
     xz-utils \
     less \
@@ -25,6 +26,8 @@ RUN apt install -y \
     fim \
     "inetutils-*" \
     net-tools
+
+RUN git config --global --add safe.directory /app
 
 ENV PATH="${PATH}:/app/planetor/tools"
 

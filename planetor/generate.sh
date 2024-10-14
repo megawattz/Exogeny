@@ -1,3 +1,4 @@
+exie
 #!/bin/bash -vx
 
 date
@@ -79,7 +80,7 @@ mkdir -p $RENDIR
 mkdir -p $LIFEFORMS
 mkdir -p $GALLERY  # where the animations are stored when done
 
-function extras() {
+extras() {
     # if already running lifeform.mjs for this planet, return
     if ps -axl | grep -v grep | grep identity=${IDENTITY}; then
 	return;
@@ -165,12 +166,6 @@ cp -vlf ${RENDIR}/planet.mp4 ${GALLERY}/planet_${IDENTITY}.mp4
 #rm -rf ${RENDIR}/
 
 extras;
-
-# make one set of links for the most recent planet rendered
-#cp -vlf ${GALLERY}/planet_${IDENTITY}.mp4 planet.mp4
-#cp -vlf ${STILLS}/planet_${IDENTITY}.gif planet.gif
-
-}
 
 time generate $@;
 

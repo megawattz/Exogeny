@@ -1,13 +1,12 @@
 Rogue
 Ancient
-Pirate
 Deathworld
-Legacy
 Frontier
 Unsullied
-Unstable
+Seismic
+Climerratic
 Fertile
 Desolate
-Scrap
-Vulnerable
+Primordial
+Impact-prone
 Plum
