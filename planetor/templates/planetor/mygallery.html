@@ -128,7 +128,11 @@
 		  upperRight.appendChild(lifeformIcon);
 
 		  let lowerLeft = document.createElement("div");
-		  lowerLeft.innerHTML = `<span onclick='window.open("/shorts/#${planet.identity}", "shorts")'>${planet.star_index} ${planet.star_system} ${planet.planet_index}</span>`;
+		  lowerLeft.innerHTML = `<span 
+			onclick='window.open(
+			"/shorts/#${planet.identity}", "shorts", "height=920,width=640")'>
+			 ${planet.star_index} ${planet.star_system} ${planet.planet_index} 
+			</span>`;
 		  planetDiv.appendChild(lowerLeft);
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
 		  
