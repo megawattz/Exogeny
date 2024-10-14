@@ -79,7 +79,7 @@ function generate {
     mkdir -p $LIFEFORMS
     mkdir -p $GALLERY  # where the animations are stored when done
 
-    extras() {
+    function extras {
 	# if already running lifeform.mjs for this planet, return
 	if ps -axl | grep -v grep | grep identity=${IDENTITY}; then
 	    return;
@@ -87,8 +87,7 @@ function generate {
 	
 	LIFEFORM_FILE="${APP}/out/lifeforms/lifeform_${IDENTITY}.png"
 	# we already have a file?
-	ls -l "${LIFEFORM_FILE}";
-	if [ -f "${LIFEFORM_FILE}" ]; then
+	if [ -s "${LIFEFORM_FILE}" ]; then
 	    return
 	fi
 

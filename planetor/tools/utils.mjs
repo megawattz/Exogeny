@@ -12,7 +12,7 @@ export function fetchArgs(args, docs = {}) {
     }
     if (args.length < mandatory) {
 	console.log(help);
-        throw new Error("Arguments annotated with * are required");
+        throw new Error(`Arguments annotated with * are required\n${help}`);
     }
     for (let i in args) {
         let arg = args[i];
@@ -22,7 +22,7 @@ export function fetchArgs(args, docs = {}) {
         let key = hits[1]
         let value = hits[2]
         if (!(key in docs))
-            throw new Error(`${key} not a recognized parameter, use: ${JSON.stringify(docs, null, 4)}`);
+            throw new Error(`${key} not a recognized parameter, use: ${help}`);
         params[key] = value
         count = count + 1
     }
