@@ -24,7 +24,7 @@ difference {
          diffuse albedo -ring_brightness
          ambient ring_color
       }
-      Orbit(ring_index * 20) 
+      Orbit((ring_index+1) * 20) 
    }
    cylinder {
       <0, -10, 0>, <0, 10, 0>, planet_size + 4 + (planet_size + v_random_float)

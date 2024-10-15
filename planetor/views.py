@@ -362,3 +362,15 @@ def dbdelete(request):
     params = request.GET
     data = planetor.DbDelete(params['table'], params['row'])
     return JsonResponse({"deleted":data})
+
+def filefetch(request):
+    params = request.GET
+    path = params.get("path")
+    mime = params.get("mime")
+    # Path to the image file on your server
+    
+    # Open the image in binary mode
+    image_file = open(path, 'rb')
+
+    # Return the image using FileResponse
+    return FileResponse(image_file, content_type=mime)

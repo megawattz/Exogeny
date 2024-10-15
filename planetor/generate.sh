@@ -111,8 +111,8 @@ function generate {
 	COMBINED=$(jq -s '.[0] * .[1]' ${SPECSFILE} ${CIVFILE} )
 	mongo "exogeny.planets.replace_one({'identity':\"${IDENTITY}\"};${COMBINED};True)"
     else
-	${NICE} povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Clock=0.6 Initial_Frame=120 Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
-	HISTORY=$(${APP}/AI/history.py --lifeform=${LIFEFORM} --planet=${PLANETTYPE} --culture=${CULTURE})
+	povray ${POVPATH} Output_File_Name=${RENPATH} Initial_Clock=0.6 Initial_Frame=120 Cyclic_Animation=on Width=${WIDTH} Height=${HEIGHT} Verbose=Off
+	ffmpeg -i planet.mp4 -vf "select=eq(n\,${HALF})" -vframes 1 ${STILLS}/planet_${IDENTITY}.gif
     fi
 
     ( # so that returning restores original directory

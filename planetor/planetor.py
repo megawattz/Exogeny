@@ -357,7 +357,6 @@ def randomline(filename):
     if (rval == "null"):
         rval = ""
     return rval;
-    
 
 def filelines(filename):
     try:

@@ -1,6 +1,5 @@
 Limitless
 Ancient
-Ruined
 Unsullied
 Seismically_Active
 Challenging
@@ -14,4 +13,3 @@ Lawless
 Harmonious
 Primordial
 Impact-prone
-Heavenly

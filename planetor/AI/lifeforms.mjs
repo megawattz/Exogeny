@@ -26,7 +26,7 @@ const Negatives = {
     "Insectoid":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit",
     "Reptilian":"child,children,humans,people,men,women,man,woman,person,gun,soldier,business suit,human",
     "Quadruped":"child,children,(((human body))),woman,people,men,women,man,person,gun,soldier,business suit,((nudity)),((naked)),((ugly)),((morbid)),((mutilated)),[out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck)))",
-    "Mammilian":"child,children,(((human body))),woman,people,men,women,man,person,gun,soldier,business suit,((nudity)),((naked)),((ugly)),((morbid)),((mutilated)),[out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck)))",
+    "Mammalian":"child,children,(((human body))),woman,people,men,women,man,person,gun,soldier,business suit,((nudity)),((naked)),((ugly)),((morbid)),((mutilated)),[out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck)))",
     "Humanoid":"((4 legs)) ((exactly human)),child,children,((human)),woman,people,person,gun,soldier,business suit,((nudity)),((naked)),((ugly)), ((morbid)), ((mutilated)), [out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck)))",
     "Human":"((nudity)),((naked)),((ugly)), ((morbid)), ((mutilated)), [out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, ((extra hands)), extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck)))"
 };
@@ -80,8 +80,9 @@ const Descriptions = {
 	"adult male and female xenomorph-like unearthlys, in clothes, using primitive tools, ((homogenous skin color over entire body)) ((matching eyes))",
     ],
     "Reptilian":[
-	"unearthlys derived from the movie Predator but different, standing erect, adorned in ancient, primitive gear, reading scrolls",
-	"unearthlys based on independence day movie, standing erect, adorned in ancient, primitive gear, reading scrolls",
+	"unearthly reptilian creatures that are cross genetics with plants, standing erect, adorned in ancient, primitive gear, reading scrolls",
+	"unearthly creatures derived from the movie Predator but different, standing erect, adorned in ancient, primitive gear, reading scrolls",
+	"unearthly creatures based on independence day movie, standing erect, adorned in ancient, primitive gear, reading scrolls",
 	"unearthly roman reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
 	"unearthly roman alligators with opposable thumbs, standing erect, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
 	"unearthly babylonian reptiles with opposable thumbs, with scaly skin in erect posture wearing ancient, garments from a variety of ancient cultures, holding primitive tools",
@@ -101,10 +102,11 @@ const Descriptions = {
 	"large, unearthly weasels standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive cat clothes, holding primitive tools",
 	"unearthly canines, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
 	"unearthly rodent-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive dog clothes, holding primitive tools",
-	"unearthly mammals standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
 	"four legged unearthly monstrosity standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading"
     ],
-    "Mammilian":[
+    "Mammalian":[
+	"unearthly, large, 4 legged, standing erect, creature that is a cross between felines and octopus holding primitive tools",
+	"unearthly, large, 4 legged, standing erect, creature that is a cross between felines and reptiles holding primitive tools",
 	"unearthly, large, 4 legged, standing erect, unlike any known Earth species, wearing strange clothes, holding primitive tools",
 	"unearthly, large cat-like creatures, standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools",
 	"unearthly ungulates standing erect, with opposable thumbs, mixed male and female, wearing ancient, primitive clothes, holding primitive tools or reading",
@@ -252,6 +254,7 @@ const Actions = [
     "playing a sport",
     "fighting a battle with primitive weapons",
     "using primitive tools",
+    "religious ceremony",
     "playing primitive, alien musical instruments",
     "writing something",
     "joking around",
@@ -259,6 +262,7 @@ const Actions = [
     "doing chores",
     "doing field work",
     "tending a fire",
+    "smoking",
     "hunting",
     "farming",
     "fishing",
@@ -359,13 +363,7 @@ function Run() {
 
     if (!prompt)
 	prompt = `
-three to five ((photorealistic, life-like)) members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()},
-${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris,
-photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} 
-((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, 
-eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) 
-((homogenous skin color over entire body))
-as if photographed by nikon SLR camera f/8
+three to five ((photorealistic, life-like)) members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()}, ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris, photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) ((homogenous skin color over entire body)) as if photographed by nikon SLR camera f/8
 `;
 
     if (specs["lifeform"] == "special" || specs["lifeform"] == "Special")

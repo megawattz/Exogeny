@@ -3,6 +3,7 @@
 import sys
 import re
 import json
+import random
 
 def writefile(path, data):
     f = open(path, "wb")
@@ -86,6 +87,40 @@ def numToStr(number, radix):
         #print(number, rem)
         result += digits[rem]
     return result
+
+def randomline(filename):
+    f = open(filename, "r")
+    data = f.read()
+    f.close()
+    list = re.split("[\r\n]+", data)
+    rval = list[random.randint(0, len(list) - 2)]
+    if (rval == "null"):
+        rval = ""
+    return rval;
+
+def randomlist(list):
+    index = random.randint(0, len(list) - 1)
+    return list[index]
+
+def filelines(filename):
+    try:
+        f = open(filename, "r")
+        data = f.read()
+        f.close()
+    except:
+        return []
+    return re.split("[\r\n]+", data)
+
+# reads a random element from a list, exponential distribution on base
+# each element in the list is base times more likely to get picked than the previous element
+def exprandomline(list, base = 2):
+    max = math.floor(pow(base, len(list)))
+    choice = random.randint(0, max)
+    try:
+        item = math.trunc(math.log(choice, base))
+    except Exception as e: # log of 0 not possible so just choose most common choice
+        item = len(list)-1
+    return list[item]
 
 if __name__ == "__main__":
     print(sys.argv)

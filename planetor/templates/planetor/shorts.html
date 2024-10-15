@@ -12,7 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=aWpAQImy"></script>    
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=aWpAQImy">
+      responsiveVoice.setDefaultVoice("UK English Female");
+    </script>    
     <meta name="description" content="">
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -165,10 +167,6 @@
 	  var Index = 0;
 	  var OverlayTimer;
 
-	  async function speak(text) {
-	      //responsiveVoice.speak(text);
-	  }
-	  
 	  async function displayPlanet(planet) {
 	      let gallery = document.getElementById("gallery");
 	      let planetDiv = document.getElementById("planetDiv")
@@ -245,7 +243,13 @@
 	      var readout = '<p>\n';
 	      
 	      keys.forEach(function(e) {
-		  readout += `<br><span class="title">${e.value}:</span><span class="value"> ${planet[e.key].replace('_', ' ')}.</span>`;
+		  let addition = `<br><span class="title">${e.value}: </span><span class="value"> ${planet[e.key].replace('_', ' ')}.</span>`;
+		  readout += addition;
+		  //let textOnly = addition.replace(/<\/?[^>]+(>|$)/g,"");
+		  //console.log(textOnly)
+		  //responsiveVoice.cancel();
+		  //responsiveVoice.speak(textOnly, "UK English Female");
+	      
 	      });
 	      
 	      Object.keys(fictions).forEach(function(e) {
@@ -288,10 +292,6 @@
 	      var index = 0;
 	      var tag = "";
 	      
-	      let textOnly = HTML.replace(/<\/?[^>]+(>|$)/g,"");
-	      console.log(textOnly)
-	      responsiveVoice.speak(textOnly, "UK English Female");
-	      
 	      var teletype = function() {
 		  let ch = HTML.charAt(index);
 		  
@@ -326,6 +326,12 @@
 		  }
 	      }, 1000/cps);
 
+	      //let textOnly = HTML.replace(/<\/?[^>]+(>|$)/g,"");
+	      let textOnly = HTML.replace(/<[^>]+>|:/g,"");
+	      console.log(textOnly)
+	      responsiveVoice.cancel();
+	      responsiveVoice.speak(textOnly, "UK English Female");
+	      
 	      return timer;
 	  }
 	  
