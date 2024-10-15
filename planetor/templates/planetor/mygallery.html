@@ -100,10 +100,11 @@
 		  
 		  planetDiv.innerHTML = `<video style="width: 100%; id="planetVideo" onclick="this.paused ? play() : pause();" ondblclick="document.playvideo(this)" loop="loop" preload="none" src="/gallery/planet_${identity}.mp4" poster="/stills/planet_${identity}.gif"</video>`;
 		  
-		  //let upperLeft = document.createElement("div");
-		  //upperLeft.innerHTML = `<span style="font-weight: bold;">${planet.tokenid}</span>`;
-		  //Object.assign(upperLeft.style, {position: "absolute", top: "1%", left: "2%"});
-		  //planetDiv.appendChild(upperLeft);
+		  let upperLeft = document.createElement("div");
+		  upperLeft.innerHTML =`<span onclick='window.open("/editplanet/#${planet.identity}", "editplanet")'>(Edit)</span>`;
+		  //`<span style="font-weight: bold;">${planet.tokenid}</span>`;
+		  Object.assign(upperLeft.style, {position: "absolute", top: "4%", left: "4%"});
+		  planetDiv.appendChild(upperLeft);
 		  
 		  let upperRight = document.createElement("div");
 		  Object.assign(upperRight.style, {position: "absolute", height: "15%", width: "15%", top: "6%", right: "4%"});
@@ -128,17 +129,17 @@
 		  upperRight.appendChild(lifeformIcon);
 
 		  let lowerLeft = document.createElement("div");
-		  lowerLeft.innerHTML = `<span 
-			onclick='window.open(
+		  lowerLeft.innerHTML = `<span onclick='window.open(
 			"/shorts/#${planet.identity}", "shorts", "width=700,height=1020")'>
 			 ${planet.star_index} ${planet.star_system} ${planet.planet_index} 
-			</span>`;
+			</span>
+			`;
 		  planetDiv.appendChild(lowerLeft);
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
 		  
 		  let lowerRight = document.createElement("div");
-		  lowerRight.innerHTML = `<span id="classification">${planet.evaluation}<span>`;
-		  Object.assign(lowerRight.style, {position: "absolute", bottom: "2%", right: "4%"});
+		  lowerRight.innerHTML = `<span style="display: flex; justify-content: right;" id="classification">${planet.evaluation}<span>`;
+		  Object.assign(lowerRight.style, {position: "absolute", width: "45%", bottom: "2%", left: "50%"});
 		  planetDiv.appendChild(lowerRight);
 		  
 		  gallery.appendChild(planetDiv);
