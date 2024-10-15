@@ -390,12 +390,23 @@ as if photographed by nikon SLR camera f/8
 
     console.error("sending request to stable diffusion\n", input);
 
+    const decoder = new TextDecoder("utf-8");
+
+    const outputFile = `/app/planetor/out/lifeforms/lifeform_${params['identity']}.png`;
+    
     (async () => {
 	const response = await replicate.run(model, { input });
-	const data = response.json();
-	const reader = response.getReader();
+	const reader = response[0].getReader();
+	let writeStream = fs.createWriteStream(outputFile);
+	while(true) {
+	    let content = await reader.read();
+	    if (content.done)
+		break;
+	    writeStream.write(content.value)
+	}
+	writeStream.end();
+	console.log(outputFile);
     })();
-    
 }
 
 try {

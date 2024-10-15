@@ -91,8 +91,9 @@ function generate {
 	    return
 	fi
 
-	LIFEFORM_URL=$(${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE}) 
-	wget -O ${LIFEFORM_FILE} ${LIFEFORM_URL}
+	${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE} 
+	#LIFEFORM_URL=$(${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE}) 
+	#wget -O ${LIFEFORM_FILE} ${LIFEFORM_URL}
 	#rm -f ${LIFEFORM_FILE}.work
 	#convert -pointsize 20 -fill white -draw "text 0, 0 \" The Dominant Indigenous Species of ${STARINDEX} ${STARSYSTEM} ${PLANETINDEX}\"" -gravity southwest ${LIFEFORM_FILE} ${LIFEFORM_FILE}.work  # write the description text into the image in the lower left
 	#cp -vf ${LIFEFORM_FILE}.work ${LIFEFORM_FILE}

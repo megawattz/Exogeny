@@ -353,7 +353,11 @@ def randomline(filename):
     data = f.read()
     f.close()
     list = re.split("[\r\n]+", data)
-    return list[random.randint(0, len(list) - 2)]
+    rval = list[random.randint(0, len(list) - 2)]
+    if (rval == "null"):
+        rval = ""
+    return rval;
+    
 
 def filelines(filename):
     try:
