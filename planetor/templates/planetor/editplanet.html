@@ -64,7 +64,7 @@
 		}	
 	      </script>
 		 
-	      <img id="planetDisplay" src="/media/images/rendering.png" style="width: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
+	      <img id="planetDisplay" style="width: 100%; z-index: 10;" data-counter="0">
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		
 		<script>
@@ -106,7 +106,6 @@
 		  
 		  function setbackground(element, imageurl) {  // how 1 = force, 2 = skip if complete
 		      element.src = imageurl;
-		      return element.complete;
 		  }
 
 		  function s2b(str) { // if the string represents a bool, return a boolean type, otherwise just return the string
@@ -120,6 +119,8 @@
       		      $.ajax({
 			  url: `/regenerate_planet?id=${Options['identity']}`,
 			  success: function(data) {
+			      lifeform_image = document.checkLifeFormImage = function(identity_string, loaded);
+			      lifeform_image.src = null;
 			      refreshPlanets();
 			      randomplanetfunc();
 			  }
@@ -183,14 +184,16 @@
 		      }
 		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
-     		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
+     		      imagesource = imagesource || `/filefetch?mime=image/gif&path=/app/planetor/out/stills/planet_${identity_string}.gif`;
+     		      //imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
 
 		      if (attempt % 8 == 0)
-			  setbackground(element, `${imagesource}?cb=${Math.random()}` );
+			  //setbackground(element, `${imagesource}&cb=${Math.random()}` );
+			  setbackground(element, `${imagesource}` );
 		      
 		      console.log(`checkload attempt: ${attempt}: is ${imagesource} in ${element.src}? complete:${element.complete}`);
 
-		      if (element.src.includes(imagesource) && element.complete) {
+		      if (element.complete) {
 			  clearTimeout(renderRetry);
 			  renderRetry = null;
 			  console.log(`render complete: ${element.src}`);

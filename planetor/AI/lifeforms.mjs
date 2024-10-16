@@ -68,14 +68,11 @@ const Descriptions = {
 	"large, unearthly multilegged hexapod wearing a promitive helmet and/or gloves"
     ],
     "Insectoid":[
-	"insectoids derived from terrifying, non-human, monsters that have appeared in movies",
-	"unearthly looking insects standing upright studying reading materials, wearing adornment",
+	"insectoids derived from terrifying, non-human, monsters that have appeared in movies, using primitive tools",
+	"unearthly looking insects standing upright studying reading materials, wearing adornment, using primitive tools",
 	"unearthly crusaceans like exotically formed crabs, lobsters and crawfish using primitive tools made from underwater materials, wearing adornment",
-	"unearthly spiders using tools, wearing adornment befitting spiders",
-	"unearthly creatures based on, but not exactly like, the attackers from a quite place",
-	"exotic random selection from every insect unearthly in movies and television, multiple creatures, including both male and female or asexual members, holding primitive tools, weapons or reading materials",
-	"large, unearthly halo pod infector like wearing jewelry and carrying primitive weapons",
-	"large, unearthly halo flood infector like wearing jewelry and carrying primitive weapons",
+	"unearthly spiders using tools, wearing adornment befitting spiders, using primitive tools",
+	"unearthly creatures based on, but not exactly like, the attackers from a quite place, using primitive tools",
 	"unearthly looking insects standing upright using primitive, artificial tools, wearing adornment",
 	"adult male and female xenomorph-like unearthlys, in clothes, using primitive tools, ((homogenous skin color over entire body)) ((matching eyes))",
     ],

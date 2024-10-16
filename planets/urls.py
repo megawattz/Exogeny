@@ -48,6 +48,7 @@ urlpatterns = [
     path('dbread', planetor.views.dbread, name='dbread'),
     path('editspecs', planetor.views.editspecs, name='editspecs'),
     path('images', planetor.views.images, name='images'),
+    path('filefetch', planetor.views.filefetch, name='filefetch'),
     path('generate/planetor', include('planetor.urls', namespace='planetor'))
 ]
 

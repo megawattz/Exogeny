@@ -14,8 +14,6 @@ Adigeon
 Adipose
 Advantage
 Agaron
-Ageless
-Agony
 Agora
 Agrippa
 Ajax
@@ -27,7 +25,6 @@ Alastria
 Aldea
 Aldebaran
 Alderaan
-Alfa
 Alfava
 Algeron
 Algol
@@ -58,7 +55,6 @@ Angosia
 Angst
 Angus
 Anima
-Another
 Antede
 Anteros
 Antica
@@ -117,7 +113,6 @@ Aurelia
 Auros
 Avalon
 Avenal
-Avenue
 Avery
 Axanar
 Axeir
@@ -126,7 +121,6 @@ Axista
 Axle
 Azioz
 Azure
-Babel
 Babel
 Bajor
 Baku
@@ -180,7 +174,6 @@ Bliss
 Blocks
 Blood
 Blue
-Blueprint
 Bodrarvis
 Bokara
 Bolarus
@@ -218,7 +211,6 @@ Buff
 Bug
 Bumfuzzle
 Bunduiclite
-Bunghole
 Bureau
 Buterin
 Butterball
@@ -319,8 +311,7 @@ Coltar
 Colunov
 Cor
 Coridan
-Corinth
-Corinth
+New_Corinth
 Cornerman
 Coruscant
 Corvan
@@ -331,7 +322,6 @@ Crafe
 Crash
 Cravic
 Create
-Creative
 Creriter
 Crexatania
 Crinoth
@@ -366,7 +356,6 @@ Dead-End
 Death
 Decos
 Dedestris
-Definite
 Deinonychus
 Dekendi
 Delb
@@ -380,7 +369,6 @@ Delta
 Delvos
 Demeterious
 Den
-Deneb
 Deneva
 Denius
 Denobula
@@ -440,14 +428,12 @@ Duniard
 Durenia
 Duronom
 Dust
-Dust
 Dustball
 Dynamo
 Dytallix
 Dæmos
 Eddore
-Eden
-Eden
+New_Eden
 Efros
 Egoham
 Eight
@@ -573,7 +559,7 @@ Grolon
 Grundle
 Gumball
 Habos
-Hades
+New_Hades
 Hakol
 Hala Hilrogantu
 Halcya
@@ -584,7 +570,7 @@ Haven
 Hazard
 Heart
 Heaven
-Hebron
+New_Hebron
 Hedron
 Heiradi
 Hell
@@ -673,19 +659,14 @@ Lachyria
 Lakertya
 Lapiths
 Lark
-Launch
 Laylora
 Lazarus
-Lebanon
-Lee
+New_Lebanon
 Leelas
 Lelex
 Leophantos
-Leverage
 Levithia
 Lickety-Split
-Life
-Light
 Limnos
 Line
 Livonia
@@ -745,7 +726,6 @@ Matter
 Mavala
 Maxia
 Mazar
-McAfee
 McCloud
 Meatball
 Mechanus
@@ -836,7 +816,7 @@ Navaros
 Nazareth
 Nechani
 Necron
-Necros[266]
+Necros
 Nefrin
 Nehru
 Nel
@@ -847,7 +827,6 @@ Nessik
 Neubilia
 Neural
 Nevia
-New
 Nexus
 Nibia
 Nibiru
@@ -911,8 +890,9 @@ Ouzuno
 Overdrive
 Overod
 Ozarth
-P
-PJem
+Planet-P
+Planet-Q
+Planet-X
 Paan
 Pacifica
 Padrivole
@@ -939,6 +919,7 @@ Peliar
 Pellius
 Pelmoter
 Pen
+Pentacle
 Pendari
 Pentarus
 Pentath
@@ -958,7 +939,8 @@ Pineapple
 Pithius
 Pizzino
 Placebo
-PlanB
+Plan-B
+Plan-C
 Platonius
 Plaza
 Plcog
@@ -1065,6 +1047,7 @@ Rognonides
 Romulus
 Ronara
 Rondac
+Rotor
 Rousseau
 Ruah
 Rubicun
@@ -1104,6 +1087,7 @@ Scalos
 Scalpor
 Schmutz
 Scooby
+Schooch
 Scope
 Scotia
 Scrantek
@@ -1156,17 +1140,16 @@ Skaar
 Skagaran
 Skaro
 Skeletron
+Skidmark
 Skonnos
 Skythros
 Slimeball
 Smack
 Snoft
 Snowball
-Snowball
 Snowden
 Sobras
 Soham
-Sol
 Solais
 Solarion
 Solaris
@@ -1184,8 +1167,6 @@ Spica
 Spiridon
 Splendurosa
 Stameris
-Star
-Starbase
 Starfall
 Starter
 Stella

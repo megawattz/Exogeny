@@ -1,4 +1,4 @@
-// Ring Swirlcolor
+//Ring Soft
 #declare ring_color = <%s>;
 #declare ring_radius = %s;
 #declare hole_radius = %s;

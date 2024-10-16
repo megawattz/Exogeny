@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from . import planetor
 from django.http import JsonResponse
+from django.http import FileResponse
 import mimetypes
 import os
 import re
@@ -368,7 +369,8 @@ def filefetch(request):
     path = params.get("path")
     mime = params.get("mime")
     # Path to the image file on your server
-    
+
+    print(path);
     # Open the image in binary mode
     image_file = open(path, 'rb')
 
