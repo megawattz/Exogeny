@@ -154,8 +154,9 @@
 	  }
 
 	  document.playvideo = async function(video) {
-	      if (video.paused)
+	      if (video.paused) {
 		  video.play();
+	      }
 	      else
 		  video.pause();
 	  }
@@ -186,7 +187,8 @@ preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/plan
 
 	      const planet_stats = planetStats(planet);
 
-	      let textOnly = planet_stats.replace(/<[^>]+>|:/g,"");
+	      let textOnly = planet_stats.replace(/<[^>]+>/g,"");
+
 	      console.log(textOnly);
 	      responsiveVoice.cancel();
 	      responsiveVoice.speak(textOnly, "UK English Female", {
@@ -196,6 +198,8 @@ preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/plan
 		      OverlayTimer = overlayTeletype(planetDiv, planet_stats, 40);
 		  }, onend: function() {}
 	      });
+
+	      return textOnly;
 	  }
 
 	  document.addEventListener('keydown', function(event) {
@@ -308,6 +312,7 @@ preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/plan
 			  let localtext = overlay;
 		      }, 8000);
 		  }
+
 		  return count;
 	      }
 
