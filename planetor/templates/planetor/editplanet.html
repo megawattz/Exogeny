@@ -119,7 +119,6 @@
       		      $.ajax({
 			  url: `/regenerate_planet?id=${Options['identity']}`,
 			  success: function(data) {
-			      lifeform_image = document.checkLifeFormImage = function(identity_string, loaded);
 			      lifeform_image.src = null;
 			      refreshPlanets();
 			      randomplanetfunc();
@@ -472,7 +471,7 @@
 	    function refreshPlanets() {
 		$(document).ready(function() {
 		    var html = '';
-      		    $.ajax({
+      		    $.ajax({	
 			url: `/gallery?directory=${GalleryDir}&mask=mp4$&count=20`,
 			success: function(data) {
 			    var tags = data.tags

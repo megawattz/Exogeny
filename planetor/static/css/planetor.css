@@ -55,7 +55,7 @@ ul {
     position: relative;
     margin: 0;
     padding: 0;
-    border: 1px grey solid;
+    //border: 1px grey solid;
     font-size: clamp(16pt, 0.8vw, 0.8vw);
 }
 
