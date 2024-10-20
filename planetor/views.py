@@ -372,7 +372,10 @@ def filefetch(request):
 
     print(path);
     # Open the image in binary mode
-    image_file = open(path, 'rb')
-
+    try:
+        image_file = open(path, 'rb')
+    except Exception as e:
+        return JsonResponse({"error":str(ex)})
+        
     # Return the image using FileResponse
     return FileResponse(image_file, content_type=mime)
