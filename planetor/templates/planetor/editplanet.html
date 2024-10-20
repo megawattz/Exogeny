@@ -66,7 +66,9 @@
 		}	
 	      </script>
 		 
-	      <img id="planetDisplay" style="width: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
+	      <img id="planetDisplay" src="/media/images/rendering.png"  style="width: 100%; z-index: 10;" 
+				   onerror="iferror(this)" data-counter="0" />
+
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		
 		<script>
@@ -178,7 +180,6 @@
 		  var renderRetry = null;
 		  
 		  async function checkload(checktime, element, imagesource, attempt) {
-		      
 		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
      		      //imagesource = imagesource || `/filefetch?mime=image/gif&path=/app/planetor/out/stills/planet_${identity_string}.gif`;
@@ -192,26 +193,17 @@
 			  return;
 		      }
 		      
-		      if (attempt % 8 == 0)
-			  setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
-			  //setbackground(element, `${imagesource}` );
-		      
+		      //if (attempt % 8 == 0)
+			  //setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
+		      setbackground(element, `${imagesource}` );
 
 		      if (element.complete && element.src.indexOf(Rendering) == -1)  {
+			  console.log(`checkload complete: ${attempt}: is ${imagesource} in ${element.src}`)
 			  clearTimeout(renderRetry);
 			  renderRetry = null;
-			  if (alert(`render complete: ${element.src}`))
+			  setTimeout(function() {
 			      setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
-			  let b = document.getElementById("planetDisplayDiv");
-			  b.style.cssText = `background-color: black;
-			      background-image: url(${imagesource}?cb=${attempt}${Math.random()});
-			      background-size: cover;
-			      background-position: center;
-			      display: flex;               /* Center the image inside */
-			      justify-content: center;
-			      align-items: center;
-			      padding: 10px;
-			      z-index: -1;`
+			  }, 1500);
 			  return;
 		      }	
 		      
