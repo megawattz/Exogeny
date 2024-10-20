@@ -109,7 +109,7 @@ def filelines(filename):
         f.close()
     except:
         return []
-    return re.split("[\r\n]+", data)
+    return re.split("[\r\n]", data)
 
 # reads a random element from a list, exponential distribution on base
 # each element in the list is base times more likely to get picked than the previous element

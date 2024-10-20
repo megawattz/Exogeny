@@ -59,12 +59,14 @@
 		 style="background-color: transparent; background-size: contain; background-repeat: no-repeat; 
 			width: 100%; height: 100vh;">
 	      <script>
+		var Rendering = "/media/images/rendering.png";
+
 		function iferror(img) {
-		    img.src = `/media/images/rendering.png?cb=${Math.random()}`;
+		    img.src = `${Rendering}?cb=${Math.random()}`;
 		}	
 	      </script>
 		 
-	      <img id="planetDisplay" style="width: 100%; z-index: 10;" data-counter="0">
+	      <img id="planetDisplay" style="width: 100%; z-index: 10;" onerror="iferror(this)" data-counter="0">
 	      <form id="edit" method="GET" style="position: absolute; left: 1vw; top: 10vh;">
 		
 		<script>
@@ -166,7 +168,7 @@
 			      success: function(data) {
 				  console.log(data)
 				  catchOptions(data);  // sendint this, returns javascript code that executes ...
-				  //checkload(loadWait)
+				  checkload(loadWait)
 			      }
 			  });
 		      });
@@ -176,26 +178,40 @@
 		  var renderRetry = null;
 		  
 		  async function checkload(checktime, element, imagesource, attempt) {
+		      
+		      attempt = attempt || 0;
+		      element = element || document.getElementById("planetDisplay");
+     		      //imagesource = imagesource || `/filefetch?mime=image/gif&path=/app/planetor/out/stills/planet_${identity_string}.gif`;
+     		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
+
+		      console.log(`checkload attempt: ${attempt}: is ${imagesource} in ${element.src}`)
+		      
 		      if (attempt > 40) {
 			  if (confirm("Rendering taking too long. Check log and/or retry.)"))
 			      window.location.href=`/logs/generate_${identity_string}.log`;
 			  return;
 		      }
-		      attempt = attempt || 0;
-		      element = element || document.getElementById("planetDisplay");
-     		      imagesource = imagesource || `/filefetch?mime=image/gif&path=/app/planetor/out/stills/planet_${identity_string}.gif`;
-     		      //imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
-
-		      if (attempt % 8 == 0)
-			  //setbackground(element, `${imagesource}&cb=${Math.random()}` );
-			  setbackground(element, `${imagesource}` );
 		      
-		      console.log(`checkload attempt: ${attempt}: is ${imagesource} in ${element.src}? complete:${element.complete}`);
+		      if (attempt % 8 == 0)
+			  setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
+			  //setbackground(element, `${imagesource}` );
+		      
 
-		      if (element.complete) {
+		      if (element.complete && element.src.indexOf(Rendering) == -1)  {
 			  clearTimeout(renderRetry);
 			  renderRetry = null;
-			  console.log(`render complete: ${element.src}`);
+			  if (alert(`render complete: ${element.src}`))
+			      setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
+			  let b = document.getElementById("planetDisplayDiv");
+			  b.style.cssText = `background-color: black;
+			      background-image: url(${imagesource}?cb=${attempt}${Math.random()});
+			      background-size: cover;
+			      background-position: center;
+			      display: flex;               /* Center the image inside */
+			      justify-content: center;
+			      align-items: center;
+			      padding: 10px;
+			      z-index: -1;`
 			  return;
 		      }	
 		      
@@ -222,7 +238,7 @@
 		      }
 		      
 		      console.log("attempting to execute preview_planet ")
-
+		      
 		      if (called++) // don't allow another request until previous one has finished
 			  return;
 
@@ -451,7 +467,7 @@
 
 		  // in case the user keeps swapping options, wait 2 seconds before firing off the preview
 		  // and if he changes options within 2 seconds, cancel to previous pending preview
-		  
+
 		  var preview_delay = null;
 		  
 		  if (preview_delay)

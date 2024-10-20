@@ -137,7 +137,8 @@
 		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
 		  
 		  let lowerRight = document.createElement("div");
-		  lowerRight.innerHTML = `<span style="display: flex; justify-content: right;" id="classification">${planet.evaluation}<span>`;
+		  lowerRight.style.cssText = "text-align: right;";
+		  lowerRight.innerHTML = `<span style="text-align: right;" id="classification">${planet.evaluation}<span>`;
 		  Object.assign(lowerRight.style, {position: "absolute", width: "45%", bottom: "2%", left: "50%"});
 		  planetDiv.appendChild(lowerRight);
 		  
