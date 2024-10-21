@@ -70,7 +70,7 @@ const Descriptions = {
     "Insectoid":[
 	"insectoids derived from terrifying, non-human, monsters that have appeared in movies, using primitive tools",
 	"unearthly looking insects standing upright studying reading materials, wearing adornment, using primitive tools",
-	"unearthly crusaceans like exotically formed crabs, lobsters and crawfish using primitive tools made from underwater materials, wearing adornment",
+	"unearthly crusaceans like exotically formed crabs, lobsters and crawfish holding primitive tools in their claws",
 	"unearthly spiders using tools, wearing adornment befitting spiders, using primitive tools",
 	"unearthly creatures based on, but not exactly like, the attackers from a quite place, using primitive tools",
 	"unearthly looking insects standing upright using primitive, artificial tools, wearing adornment",
