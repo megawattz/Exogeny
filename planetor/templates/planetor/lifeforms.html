@@ -64,7 +64,7 @@
 	  }
 
 	  window.blowup = function(item) {
-	      item.classList.add("fullscreen")
+	      Itemx.classList.add("fullscreen")
 	  }
 	  
 	  window.blowdown = function(item) {
@@ -122,13 +122,13 @@
 		    Object.assign(lifeformImage.style, {pointerEvents: 'auto', visibility: 'hidden', display: 'none', position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 20})
 		    planetDiv.appendChild(lifeformImage);
 		  */
-		  let lowerLeft = document.createElement("div");
-		  lowerLeft.innerHTML = `<span onclick='window.open("/shorts/#${planet.identity}", "shorts", "width=660,height=960,menubar=1")'>
-			 ${planet.star_index} ${planet.star_system} ${planet.planet_index} 
+		  let upperLeft = document.createElement("div");
+		  upperLeft.innerHTML = `<span onclick='window.open("/shorts/#${planet.identity}", "shorts", "width=660,height=960,menubar=1")'>
+			(short)
 			</span>
 			`;
-		  planetDiv.appendChild(lowerLeft);
-		  Object.assign(lowerLeft.style, {position: "absolute", bottom: "2%", left: "2%" });
+		  planetDiv.appendChild(upperLeft);
+		  Object.assign(upperLeft.style, {position: "absolute", top: "2%", left: "2%" });
 		    
 		  let upperRight = document.createElement("div");
 		  Object.assign(upperRight.style, {position: "absolute", height: "20%", width: "20%", top: "4%", right: "4%"});
