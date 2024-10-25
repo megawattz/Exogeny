@@ -181,7 +181,7 @@
 	      let data = await response.json();
 	      Object.assign(planet, data.read);
 
-	      planetDiv.innerHTML = `<video style="height: 50%; width: 95vw;" id="planetVideo" onclick="document.playvideo(this)" loop="loop"
+	      planetDiv.innerHTML = `<video style="height: 50%; width: 95vw;" autoplay id="planetVideo" onclick="document.playvideo(this)" loop="loop"
 preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/planet_${planet.identity}.gif"></video>
 <img id="lifeform" style="height: 50%; width: 95vw; padding: 0; border: 0;" src="/lifeforms/lifeform_${planet.identity}.png" />`;
 

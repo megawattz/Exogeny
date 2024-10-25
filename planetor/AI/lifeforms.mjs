@@ -57,7 +57,6 @@ const Descriptions = {
     "Aerial":[
 	"unearthly flying small dragons",
 	"unearthly birds reading scrolls",
-	"unearthly pufferfish as birds, floating in the air",
 	"unearthly pterodactyls reading books"
     ],
     "Cephalopoid":[
@@ -318,6 +317,9 @@ const Terrains = {
     ],
     "ice": [
 	"antarctic terrain"
+    ],
+    "glaciated": [
+	"ice capped montains, frozen rivers with a small amount of vegetation"
     ],
     "rocky":[
 	"boulders and fractured rock as well as a variety of other terrain",

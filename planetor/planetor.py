@@ -532,7 +532,7 @@ DbDefaults = {
         "id":"",
         "scene": None,
         "camera_location": "%d,%d,%d" % (randomint(-100, -30), randomint(-100, -30), randomint(-100, -30)),
-        "camera_angle": randomlist(["45","-45"]),
+        "camera_angle": randomlist(["45", "135", "225", "315"]),
         "camera_look_at": "0, 0, 0",
         "sun_brightness": "6,6,6",
         "planet_size": None,
@@ -634,7 +634,7 @@ def civilization(identity, options):
 def DefaultOptions():
     return {
         "scene": None,
-        "camera_angle": randomlist(["45","-45"]),
+        "camera_angle": randomlist(["45", "135", "225", "315"]),
         "camera_look_at": '0,0,0',
         "sun_brightness": '6,6,6',
         "camera_location":  "-40,-40,-80",
