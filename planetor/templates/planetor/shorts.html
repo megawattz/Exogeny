@@ -156,6 +156,7 @@
 	  document.playvideo = async function(video) {
 	      if (video.paused) {
 		  video.play();
+		  planetDescribe();
 	      }
 	      else
 		  video.pause();
@@ -181,9 +182,14 @@
 	      let data = await response.json();
 	      Object.assign(planet, data.read);
 
-	      planetDiv.innerHTML = `<video style="height: 50%; width: 95vw;" autoplay id="planetVideo" onclick="document.playvideo(this)" loop="loop"
+	      planetDiv.innerHTML = `<video style="height: 50%; width: 95vw;" id="planetVideo" onclick="document.playvideo(this)" loop="loop"
 preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/planet_${planet.identity}.gif"></video>
 <img id="lifeform" style="height: 50%; width: 95vw; padding: 0; border: 0;" src="/lifeforms/lifeform_${planet.identity}.png" />`;
+	  }
+
+	  function planetDescribe(planet) {
+	      if (!planet)
+		  planet = Planets[Index];
 
 	      const planet_stats = planetStats(planet);
 
@@ -198,10 +204,8 @@ preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/plan
 		      OverlayTimer = overlayTeletype(planetDiv, planet_stats, 40);
 		  }, onend: function() {}
 	      });
-
-	      return textOnly;
 	  }
-
+	  
 	  document.addEventListener('keydown', function(event) {
 	      switch(event.key) {
               case 'ArrowUp':
@@ -222,23 +226,27 @@ preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/plan
 	  });
 
 	  function planetStats(planet, keys) {
+	      var fictions = {
+		  //"Tech Level": `${RandomInt(0, 3)}`,
+		  //"Tritanium-44 Production": `${RandomInt(0,100)}/day`,
+		  //"Last Price": `$${utils.planetprice(planet)}`,
+		  "Population": `${Math.floor(Math.random()*100)/10} million`
+	      };
+
+	      Object.assign(planet, fictions);
+	      
 	      keys = keys || [
 		  { key: 'official_designation', 	value: 'Planet'},
 		  { key: 'name', 			value: 'Common Name'},
 		  { key: 'lifeform', 		value: 'Dominant Indigenous Lifeform'},
-		  { key: 'species', 		value: 'Species Self Named'},
+		  { key: 'species', 		value: 'Species Self Name'},
 		  { key: 'culture', 		value: 'Culture Type'},
+		  { key: 'Population', 		value: 'Population'},
 		  { key: 'atmosphere_composition', 	value: 'Primary Atmosphere'},
 		  { key: 'planet_type',		value: 'Geology and Climate'},
 		  { key: 'evaluation', 		value: 'Classification'}
 	      ];
 
-	      var fictions = {
-		  //"Tech Level": `${RandomInt(0, 3)}`,
-		  //"Population": `${RandomInt(1,90)} million`,
-		  //"Tritanium-44 Production": `${RandomInt(0,100)}/day`,
-		  //"Last Price": `$${utils.planetprice(planet)}`
-	      };
 
 	      planet["official_designation"] = `${fromRoman(planet.star_index)} ${planet.star_system} ${fromRoman(planet.planet_index)}`;
 
@@ -247,10 +255,6 @@ preload="none" src="/gallery/planet_${planet.identity}.mp4" poster="/stills/plan
 	      keys.forEach(function(e) {
 		  let addition = `<br><span class="title">${e.value}: </span><span class="value"> ${planet[e.key].replace('_', ' ')}.</span>`;
 		  readout += addition;
-	      });
-
-	      Object.keys(fictions).forEach(function(e) {
-		  readout += `<br><span class="title">${e}:</span><span class="value"> ${fictions[e]}</span>`;
 	      });
 
 	      readout += `</p>\n`;
