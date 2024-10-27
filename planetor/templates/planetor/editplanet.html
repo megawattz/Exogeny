@@ -185,7 +185,7 @@
      		      //imagesource = imagesource || `/filefetch?mime=image/gif&path=/app/planetor/out/stills/planet_${identity_string}.gif`;
      		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
 
-		      console.log(`checkload attempt: ${attempt}: is ${imagesource} in ${element.src}`)
+		      console.log(`checkload attempt: ${attempt}: complete: ${element.complete} ${element.src.includes(imagesource)}`)
 		      
 		      if (attempt > 40) {
 			  if (confirm("Rendering taking too long. Check log and/or retry.)"))
@@ -193,20 +193,20 @@
 			  return;
 		      }
 		      
-		      //if (attempt % 8 == 0)
-			  //setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
-		      setbackground(element, `${imagesource}` );
-
-		      if (element.complete && element.src.indexOf(Rendering) == -1)  {
-			  console.log(`checkload complete: ${attempt}: is ${imagesource} in ${element.src}`)
+		      if (element.complete && element.src.includes(imagesource) && attempt > 0)  {
+			  console.log(`checkload complete handler: ${attempt}: is ${imagesource} in ${element.src}`)
 			  clearTimeout(renderRetry);
 			  renderRetry = null;
 			  setTimeout(function() {
 			      setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
-			  }, 1500);
+			  }, 2000);
 			  return;
 		      }	
-		      
+
+		      //if (attempt % 8 == 0)
+			  //setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
+		      setbackground(element, `${imagesource}` );
+
 		      clearTimeout(renderRetry)
 		      
 		      renderRetry = setTimeout(function() {
