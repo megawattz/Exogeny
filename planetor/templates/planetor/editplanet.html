@@ -197,9 +197,13 @@
 			  console.log(`checkload complete handler: ${attempt}: is ${imagesource} in ${element.src}`)
 			  clearTimeout(renderRetry);
 			  renderRetry = null;
-			  setTimeout(function() {
+			  // tricky, make 2 delayed attempts to display the planet
+			  renderRetry = setTimeout(function() {
 			      setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
-			  }, 2000);
+			      renderRetry = setTimeout(function() {
+				  setbackground(element, `${imagesource}?cb=${attempt}${Math.random()}` );
+			      }, attempt * 2000);
+			  }, attempt * 2000);
 			  return;
 		      }	
 
