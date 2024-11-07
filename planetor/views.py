@@ -212,6 +212,7 @@ def dirscan(request):  #ajax: /dirlist?directory=stills&filemask=*.gif
     return JsonResponse({"files":rval})
 
 def randomfile_py(directory, mask, count = 100):
+    random.seed(time.time())
     lis = dirlist_py(directory, mask)
     if len(lis) < 3:
         return []
@@ -235,6 +236,7 @@ def randomline_py(filename):
     data = f.read()
     f.close()
     list = re.split("[\r\n]+", data)
+    random.seed(time.time())
     return list[random.randint(0, len(list) - 1)]
 
 def gallery(request):
