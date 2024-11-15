@@ -183,7 +183,7 @@
 		      attempt = attempt || 0;
 		      element = element || document.getElementById("planetDisplay");
      		      //imagesource = imagesource || `/filefetch?mime=image/gif&path=/app/planetor/out/stills/planet_${identity_string}.gif`;
-     		      imagesource = imagesource || `/stills/planet_${identity_string}.gif`;
+     		      imagesource = imagesource || `/stills/planet_${identity_string}.gif?cb=${Math.random()}`;
 
 		      console.log(`checkload attempt: ${attempt}: complete: ${element.complete} ${element.src.includes(imagesource)}`)
 		      
