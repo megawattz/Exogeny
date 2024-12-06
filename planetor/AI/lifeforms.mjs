@@ -67,13 +67,15 @@ const Descriptions = {
 	"large, unearthly multilegged hexapod wearing a promitive helmet and/or gloves"
     ],
     "Insectoid":[
-	"insectoids derived from terrifying, non-human, monsters that have appeared in movies, using primitive tools",
+	"non-earthly crustaceans, ((holding primitive tools)) in claws"
+	/*
 	"unearthly looking insects standing upright studying reading materials, wearing adornment, using primitive tools",
-	"unearthly crusaceans like exotically formed crabs, lobsters and crawfish holding primitive tools in their claws",
+	"insectoids derived from terrifying, non-human, monsters that have appeared in movies, using primitive tools",
 	"unearthly spiders using tools, wearing adornment befitting spiders, using primitive tools",
 	"unearthly creatures based on, but not exactly like, the attackers from a quite place, using primitive tools",
 	"unearthly looking insects standing upright using primitive, artificial tools, wearing adornment",
-	"adult male and female xenomorph-like unearthlys, in clothes, using primitive tools, ((homogenous skin color over entire body)) ((matching eyes))",
+	"adult male and female xenomorph-like unearthly, in clothes, using primitive tools, ((homogenous skin color over entire body)) 	((matching eyes))",
+	*/
     ],
     "Reptilian":[
 	"unearthly reptilian creatures that are cross genetics with plants, standing erect, adorned in ancient, primitive gear, reading scrolls",
@@ -130,8 +132,7 @@ const Descriptions = {
     ],
     "Human":[
 	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incorrect clothing, purebred from all of earths regions, fully clothed, wild creative hairstyles  ((identical, well formed eyes))"
-	/*
+	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incorrect clothing, purebred from all of earths regions, fully clothed, wild creative hairstyles  ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient african nations, creative hairstyles  ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient latin nations wild creative hairstyles  ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
@@ -139,7 +140,6 @@ const Descriptions = {
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in wild clothes each with ancient, unearthly design,  ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
-	*/
     ]
 }
 
@@ -362,7 +362,7 @@ function Run() {
 
     if (!prompt)
 	prompt = `
-three to five ((photorealistic, life-like)) members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()}, ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris, photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) ((homogenous skin color over entire body)) as if photographed by nikon SLR camera f/8
+((photorealistic)) live action picture of three to five members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()}, ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris, photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) ((homogenous skin color over entire body)) as if photographed by nikon SLR camera f/8
 `;
 
     if (specs["lifeform"] == "special" || specs["lifeform"] == "Special")

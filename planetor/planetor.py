@@ -157,7 +157,7 @@ def resolve_parameter(name, value, options):
         options['font'] = value or randomfile("fonts")
         return options['font']
     elif (name == "moons"):
-        options['moons'] = int(value or randomint(0, 4))
+        options['moons'] = int(value or randomint(0, 2))
         return options['moons']
     elif (name == "moon"):
         rfile = randomfile("surfaces")
@@ -545,7 +545,7 @@ DbDefaults = {
         "atmosphere_composition": None,
         "atmosphere_density": "0.90",
         "atmosphere_size": "1.02",
-        "moons": randomint(0, 4),
+        "moons": randomint(0, 2),
         "moon_position": None,
         "moon_size": None,
         "moon": None,
@@ -652,7 +652,7 @@ def DefaultOptions():
         "rings": 0,
         "ring_brightness": None,
         "ring_template": "firelights.tov",
-        "moons": randomint(0, 4),
+        "moons": randomint(0, 2),
         "moon_position": None,
         "moon_size": None,
         "moon": None,
@@ -805,7 +805,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     planet_size = int(resolve_parameter("planet_size", Options["planet_size"], Options))
     camdist = pythag(ttol(Options['camera_location'])) - int(Options["planet_size"]) 
     #print("Camera Distance: %s" % camdist)
-    Options["moons"] = Options["moons"] or min(4, randomint(0, int(camdist / 30))) # user specified, or based on distance from camera
+    Options["moons"] = Options["moons"] or min(2, randomint(0, int(camdist / 30))) # user specified, or based on distance from camera
     moon_template = resolve_parameter("moon_template", Options['moon_template'], Options)
     actual_moons = int(resolve_parameter("moons", Options["moons"], Options))
     max_moons = 4

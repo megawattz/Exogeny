@@ -65,7 +65,10 @@
 		  }
 		  element.innerHTML += ch
 		  setTimeout(typeWriter, 1000/speed);
-	      }	
+	      }
+	      else {
+		  element.innerHTML += "<br>";
+	      }
 	  }
 	  // Clear the element's content before starting the effect
 	  //element.innerHTML = '';
@@ -73,11 +76,11 @@
       }
 
       var texts = [
-	  "The Galactic Federation has opened up primitve planets for assistance",
-	  "The job is to nurture a planet and its civilization to produce Tritanium-44.",
-	  `As the unseen overseer of the planet you will be the "god" of the planet`,
-	  "Wipe away civilizations if they displease you.",
-	  "Why own a monkey picture when you could own a planet?"
+	  "The Galactic Federation has opened up primitive planets for assistance. ",
+	  "The job is to nurture a planet and its civilization to produce Tritanium-44. ",
+	  `As the unseen overseer of the planet you will be the "god" of the planet. `,
+	  "Wipe away civilizations if they displease you. ",
+	  "Why own a monkey picture when you could own a planet? "
       ]
 
       var which = 0;

@@ -4,7 +4,7 @@
 cd $(dirname $0)
 
 VERSION="-$(git describe --abbrev=0 --tags)"
-PROJECT=exogeny2
+PROJECT=exogeny
 IMAGE=${PROJECT}
 CONTAINER=${PROJECT}
 VOLUMES="-v$(pwd):/app -v/home/woody/Projects/ExogenySave:/archive"
