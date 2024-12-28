@@ -4,8 +4,7 @@
 #end
 
 #macro OrbitTilt(Radius, Angle)
-       rotate <Angle, 0, 0> 
-       rotate <0, (-clock*800000/pow(Radius, 2.2)) + Radius, 0>
+       rotate <Angle, (-clock*800000/pow(Radius, 2.2)) + Radius, 0>
 #end
 
 #macro OrbitOffset(Radius,Offset)
