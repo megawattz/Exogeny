@@ -132,7 +132,8 @@ const Descriptions = {
     ],
     "Human":[
 	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incorrect clothing, purebred from all of earths regions, fully clothed, wild creative hairstyles  ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful unique females and males, purebred from all of earths regions, barely clothed, wild creative hairstyles  ((identical, well formed eyes))",
+	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient african nations, creative hairstyles  ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient latin nations wild creative hairstyles  ((identical, well formed eyes))",
 	"photorealistic, life-like human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
