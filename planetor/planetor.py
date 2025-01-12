@@ -84,7 +84,7 @@ def resolve_parameter(name, value, options):
             "hydrogen_chloride",
             "acetylene",
             "TFNM",
-            "nitrosyl_bromide",
+            "methane",
             "nitrogen_dioxide",
             "ammonia", #light green
             "ozone", #powder blue
@@ -305,7 +305,7 @@ Atmospheres = {
     "water_vapor":"0.9, 1.2, 1.7", # baby blue
     "oxygen":"0, 0.96, 1.88", # dark blue
     "ammonia":"1.80, 2.19, 1.40", # light green
-    "nitrosyl_bromide":"1.74, 0.11, 0.01" # deep red
+    "methane":"1.74, 0.11, 0.01" # deep red
 }
 
 def atmoscolor(gas, fuzzfactor = 30):

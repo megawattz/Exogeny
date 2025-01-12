@@ -200,7 +200,7 @@ const Atmospheres = {
     "ozone": "cyan",
     "water_vapor":"baby blue",
     "ammonia":"light green",
-    "nitrosyl_bromide":"deep red",
+    "methane":"deep red",
     "TFNM":"sky blue"
 }
 
