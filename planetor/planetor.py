@@ -145,7 +145,7 @@ def resolve_parameter(name, value, options):
             options['clouds_density'] = str(value or randomfloat(0.5, 0.85))
         return options['clouds_density']
     elif (name == "atmosphere_density"):
-        options['atmosphere_density'] = str(value or randomfloat(0.70, 0.95))
+        options['atmosphere_density'] = str(value or randomfloat(0.50, 0.95))
         return options['atmosphere_density']
     elif (name == "evaluation"):
         options['evaluation'] = value or (randomline('names/descriptions.txt') + " " + randomline('names/places.txt'))
@@ -543,7 +543,7 @@ DbDefaults = {
         "clouds_density": "0.42",
         "atmosphere":None,
         "atmosphere_composition": None,
-        "atmosphere_density": "0.90",
+        "atmosphere_density": str(randomfloat(0.50, 0.95)),
         "atmosphere_size": "1.02",
         "moons": randomint(0, 2),
         "moon_position": None,
@@ -647,7 +647,7 @@ def DefaultOptions():
         "clouds_density": None,
         "atmosphere":None,
         "atmosphere_composition":None,
-        "atmosphere_density": "0.90",
+        "atmosphere_density":  str(randomfloat(0.50, 0.95)),
         "atmosphere_size": "1.02",
         "rings": 0,
         "ring_brightness": None,
