@@ -145,7 +145,7 @@ def resolve_parameter(name, value, options):
             options['clouds_density'] = str(value or randomfloat(0.5, 0.85))
         return options['clouds_density']
     elif (name == "atmosphere_density"):
-        options['atmosphere_density'] = str(value or randomfloat(0.50, 0.95))
+        options['atmosphere_density'] = str(value or randomfloat(0.60, 0.95))
         return options['atmosphere_density']
     elif (name == "evaluation"):
         options['evaluation'] = value or (randomline('names/descriptions.txt') + " " + randomline('names/places.txt'))
@@ -157,7 +157,7 @@ def resolve_parameter(name, value, options):
         options['font'] = value or randomfile("fonts")
         return options['font']
     elif (name == "moons"):
-        options['moons'] = int(value or randomint(0, 2))
+        options['moons'] = int(value or randomint(0, 3))
         return options['moons']
     elif (name == "moon"):
         rfile = randomfile("surfaces")
@@ -543,9 +543,9 @@ DbDefaults = {
         "clouds_density": "0.42",
         "atmosphere":None,
         "atmosphere_composition": None,
-        "atmosphere_density": str(randomfloat(0.50, 0.95)),
+        "atmosphere_density": str(randomfloat(0.60, 0.95)),
         "atmosphere_size": "1.02",
-        "moons": randomint(0, 2),
+        "moons": randomint(0, 3),
         "moon_position": None,
         "moon_size": None,
         "moon": None,
@@ -647,12 +647,12 @@ def DefaultOptions():
         "clouds_density": None,
         "atmosphere":None,
         "atmosphere_composition":None,
-        "atmosphere_density":  str(randomfloat(0.50, 0.95)),
+        "atmosphere_density":  str(randomfloat(0.60, 0.95)),
         "atmosphere_size": "1.02",
         "rings": 0,
         "ring_brightness": None,
         "ring_template": "firelights.tov",
-        "moons": randomint(0, 2),
+        "moons": randomint(0, 3),
         "moon_position": None,
         "moon_size": None,
         "moon": None,
@@ -805,7 +805,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
     planet_size = int(resolve_parameter("planet_size", Options["planet_size"], Options))
     camdist = pythag(ttol(Options['camera_location'])) - int(Options["planet_size"]) 
     #print("Camera Distance: %s" % camdist)
-    Options["moons"] = Options["moons"] or min(2, randomint(0, int(camdist / 30))) # user specified, or based on distance from camera
+    Options["moons"] = Options["moons"] or min(2, randomint(0, int(camdist / 20))) # user specified, or based on distance from camera
     moon_template = resolve_parameter("moon_template", Options['moon_template'], Options)
     actual_moons = int(resolve_parameter("moons", Options["moons"], Options))
     max_moons = 4
@@ -820,7 +820,7 @@ def generate(selections, directory = "./", env = "FRAMES=200", wait=False): # as
         moon_size = randomfloat(1, mass)
         mass = mass + moon_size
         color = blendcolors(color, randomcolor(1)) # remodify color so it can progressively drift from the planet color scheme
-        mdistance = planet_size + (pow(2.2, m))
+        mdistance = planet_size + (pow(randomfloat(3,4), m))
         scene, distance = moon(m, randomfloat(0,360), color, moon_template, factor, moon_size, planet_size, mdistance, 0)  # start_moon + 1 is because moons start at 1, but modulo causes moon 0
         moon_scene += scene
         orbit = pythag([distance,distance])
