@@ -15,7 +15,7 @@ difference {
             image_map {
 	       png "mottled_trans_two.png"
                map_type 2 interpolate 4 // Esfera
-       	       transmit all ring_brightness - 0.4
+       	       transmit all ring_brightness - 0.2
             }
 	    scale <1, 0.5, 1>
          }
