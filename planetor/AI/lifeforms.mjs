@@ -131,16 +131,16 @@ const Descriptions = {
 	"exotic hairy, adult male and female humanoid unearthlys, in clothes, using primitive tools, in archaic clothing, consistent skin color between head and body ((matching eyes, two arms))"
     ],
     "Human":[
-	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful unique females and males, purebred from all of earths regions, barely clothed, wild creative hairstyles  ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient african nations, creative hairstyles  ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient latin nations wild creative hairstyles  ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful female and male, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, fully clothed in ancient, unearthly designs,  ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in wild clothes each with ancient, unearthly design,  ((identical, well formed eyes))",
-	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
-	"photorealistic, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
+	"cinematic quality, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful unique females and males, purebred from all of earths regions, barely clothed, wild creative hairstyles  ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful unique females and males, clothed in incongruent clothing, of mixed race descent, wild creative hairstyles ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient african nations, creative hairstyles  ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, from ancient latin nations wild creative hairstyles  ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful female and male, fully clothed in primitive, animal skins, wild designs with no limits, mixed race in various percentages of any of the races on Earth ((well formed faces)) ((supermodel physique)) ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful female and male, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, fully clothed in ancient, unearthly designs,  ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in wild clothes each with ancient, unearthly design,  ((identical, well formed eyes))",
+	"cinematic quality, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, wild, creative hairstyles, in animal skin clothes from a variety of pre-historic cultures, ",
+	"cinematic quality, life-like human-like exotically beautiful females and males, each with unique individuality, clothed in incorrect clothing, of the same stock but mixed from various human races from every continent, fully clothed in ancient, incorrect, traditional clothes,  ((identical, well formed eyes))"
     ]
 }
 
@@ -363,7 +363,7 @@ function Run() {
 
     if (!prompt)
 	prompt = `
-((photorealistic)) live action picture of three to five members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()}, ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris, photorealistic ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) ((homogenous skin color over entire body)) as if photographed by nikon SLR camera f/8
+((cinematic quality)) live action picture of three to five members of intelligent ${getDescription(LifeForm)}, with very detailed faces,((facing camera)) ${getAction()}, ${getAtmosphere(specs['atmosphere_composition'])} sky, dramatic background, high resolution, realistic eyes with distinct iris, cinematic quality ${specs['planet_type']} landscape ${getTerrain(specs['planet_type'])} and ${getExtra()} ((skin color pastel variation of ${getAtmosphere(specs['atmosphere_composition'])} )) ((Safe for Work)) entire body same skin type and color, eye color complementary to skin perfectly round eye iris ((each individual should be slightly unique from each other)) ((homogenous skin color over entire body)) as if photographed by nikon SLR camera f/8
 `;
 
     if (specs["lifeform"] == "special" || specs["lifeform"] == "Special")
