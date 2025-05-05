@@ -320,7 +320,7 @@ const Terrains = {
 	"antarctic terrain"
     ],
     "glaciated": [
-	"ice capped montains, frozen rivers with a small amount of vegetation"
+	"ice capped mountains, frozen rivers with a small amount of vegetation"
     ],
     "rocky":[
 	"boulders and fractured rock as well as a variety of other terrain",
