@@ -379,7 +379,8 @@ function Run() {
     // do not send messages to standard out, only the final output goes to standard out
     //const model = params['model'] || "stability-ai/stable-diffusion:ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4"
     //const model = params['model'] || "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b"
-    const model = params['model'] || "bytedance/seedream-3"
+    //const model = params['model'] || "bytedance/seedream-3"
+    const model = params['model'] || "bria/image-3.2"
     const input = {
 	prompt: prompt,
 	seed: Math.floor(Date.now()/100000),
@@ -395,7 +396,11 @@ function Run() {
 
     const outputFile = `/app/planetor/out/lifeforms/lifeform_${params['identity']}.png`;
 
-    replicate.run(model, { input }).then((response) => writeFile(outputFile, response));
+    replicate.run(model, { input }).then((response) => {
+	for (const [index, item] of Object.entries(response)) {
+	    writeFile(outputFile, item);
+	}
+    });
 }
 
 try {
