@@ -382,6 +382,7 @@ function Run() {
     const model = params['model'] || "bytedance/seedream-3"
     const input = {
 	prompt: prompt,
+	seed: Math.floor(Date.now()/100000),
 	negative_prompt: negative,
 	width: 1024,
 	height: 768,
