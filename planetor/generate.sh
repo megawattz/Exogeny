@@ -91,7 +91,7 @@ function generate {
 	    return
 	fi
 
-	${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE} 
+	${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE}
 	#LIFEFORM_URL=$(${APP}/AI/lifeforms.mjs identity=${IDENTITY} specsfile=${SPECSFILE}) 
 	#wget -O ${LIFEFORM_FILE} ${LIFEFORM_URL}
 	#rm -f ${LIFEFORM_FILE}.work

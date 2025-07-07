@@ -3,6 +3,7 @@
 import * as fs from 'fs';
 import Replicate from "/usr/lib/node_modules/replicate/index.js";
 import { fetchArgs } from "/app/planetor/tools/utils.mjs";
+import { writeFile} from "fs/promises";
 
 const Specials = [
     "cute critters, bear, a chickadee, a squirrel, a rabbit, a mouse, a deer, a racoon, a fox dancing around a christmas tree and an altar",
@@ -377,9 +378,14 @@ function Run() {
 
     // do not send messages to standard out, only the final output goes to standard out
     //const model = params['model'] || "stability-ai/stable-diffusion:ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4"
-    const model = params['model'] || "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b"
+    //const model = params['model'] || "stability-ai/sdxl:39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b"
+    //const model = params['model'] || "bytedance/seedream-3"
+
+    const model = params['model'] || "lucataco/pixart-xl-2:816c99673841b9448bc2539834c16d40e0315bbf92fef0317b57a226727409bb"
+
     const input = {
 	prompt: prompt,
+	seed: Math.floor(Date.now()/100000),
 	negative_prompt: negative,
 	width: 1024,
 	height: 768,
@@ -391,20 +397,12 @@ function Run() {
     const decoder = new TextDecoder("utf-8");
 
     const outputFile = `/app/planetor/out/lifeforms/lifeform_${params['identity']}.png`;
-    
-    (async () => {
-	const response = await replicate.run(model, { input });
-	const reader = response[0].getReader();
-	let writeStream = fs.createWriteStream(outputFile);
-	while(true) {
-	    let content = await reader.read();
-	    if (content.done)
-		break;
-	    writeStream.write(content.value)
+
+    replicate.run(model, { input }).then((response) => {
+	for (const [index, item] of Object.entries(response)) {
+	    writeFile(outputFile, item);
 	}
-	writeStream.end();
-	console.log(outputFile);
-    })();
+    });
 }
 
 try {
